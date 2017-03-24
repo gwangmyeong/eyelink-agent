@@ -59,7 +59,7 @@ public class ComparableWriter {
 		ComparableWriter cwr = new ComparableWriter();
 		FileOutputStream stream = null;
 		try {
-			stream = new FileOutputStream("Comparable2.class");
+			stream = new FileOutputStream("./target/Comparable2.class");
 			stream.write(cwr.toByteArray());
 		} catch (Throwable t) {
 			t.printStackTrace();
