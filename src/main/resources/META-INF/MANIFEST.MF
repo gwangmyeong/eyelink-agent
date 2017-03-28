@@ -1,2 +1,3 @@
 Manifest-Version: 1.0
-Premain-Class: com.m2u.eyelink.agent.sample4.HelloWorldAgent
+Premain-Class: com.m2u.eyelink.agent.ELAgent
+Can-Redefine-Classes: true

@@ -49,13 +49,41 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
+				<version>3.0.2</version>
 				<configuration>
 					<archive>
-						<manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+						<!-- <manifestFile>./src/main/resources/META-INF/MANIFEST.MF</manifestFile> 
+							<manifest> <mainClass>com.example.hello.JavaHello</mainClass> </manifest> -->
 					</archive>
 				</configuration>
+			</plugin>
+			<plugin> 
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<jar file="${project.build.directory}/${project.build.finalName}.jar"
+									update="true" manifest="${project.build.directory}/classes/META-INF/MANIFEST.MF" />
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
