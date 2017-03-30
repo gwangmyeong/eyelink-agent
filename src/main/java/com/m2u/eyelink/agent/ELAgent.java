@@ -7,7 +7,7 @@ import java.security.ProtectionDomain;
 
 public class ELAgent {
 	public static void premain(String agentArgs, Instrumentation instrumentation) {
-		System.out.println("#### Hello EyeLink Java Agent!!!! ###");
+		System.out.println("#### Call EyeLink Java Agent!!!! ###");
 		instrumentation.addTransformer(new ClassFileTransformer() {
 			public byte[] transform(ClassLoader l, String name, Class c,
 					ProtectionDomain d, byte[] b)
