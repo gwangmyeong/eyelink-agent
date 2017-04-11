@@ -10,7 +10,8 @@ public class RemoveMethodAdapter extends ClassVisitor {
 	private String desc_;
 
 	/**
-	 * * Constructs a new {@link org.objectweb.asm.ClassVisitor}. * * @param api
+	 * * Constructs a new {@link org.objectweb.asm.ClassVisitor}. 
+	 * * * @param api 
 	 * the ASM API version implemented by this visitor. Must be one * of
 	 * {@link Opcodes#ASM4} or {@link Opcodes#ASM5}. * @param cv the class
 	 * visitor to which this visitor must delegate method

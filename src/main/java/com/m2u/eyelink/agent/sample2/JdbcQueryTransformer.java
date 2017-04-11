@@ -20,7 +20,7 @@ public class JdbcQueryTransformer implements ClassFileTransformer {
 		super();
 	}
 
-//	@Override
+	@Override
 	public byte[] transform(ClassLoader loader, String className,
 			Class classBeingRedefined, ProtectionDomain protectionDomain,
 			byte[] classfileBuffer) throws IllegalClassFormatException {
