@@ -43,6 +43,14 @@
 			<version>5.1.41</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.sun</groupId>
+			<artifactId>tools</artifactId>
+			<version>1.5.0</version>
+			<scope>system</scope>
+			<systemPath>${java.home}/../lib/tools.jar</systemPath>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -67,7 +75,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<plugin> 
+			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.8</version>
 				<executions>
@@ -76,7 +84,8 @@
 						<configuration>
 							<target>
 								<jar file="${project.build.directory}/${project.build.finalName}.jar"
-									update="true" manifest="${project.build.directory}/classes/META-INF/MANIFEST.MF" />
+									update="true"
+									manifest="${project.build.directory}/classes/META-INF/MANIFEST.MF" />
 							</target>
 						</configuration>
 						<goals>
