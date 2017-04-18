@@ -16,18 +16,18 @@ public class ChangeVersionAdapter extends ClassVisitor {
 		System.out.println("api : " + api);
 	}
 
-//	@Override
-//	public void visit(int version, int access, String name, String signature,
-//			String superName, String[] interfaces) {
-//		System.out.println("version : " + version);
-//		System.out.println("access : " + access);
-//		System.out.println("name : " + name);
-//		System.out.println("signature : " + signature);
-//		System.out.println("superName : " + superName);
-//		System.out.println("interfaces : " + interfaces);
-////		if (cv != null) {
-////			cv.visit(Opcodes.V1_5, access, name, signature, superName,
-////					interfaces);
-////		}
-//	}
+	@Override
+	public void visit(int version, int access, String name, String signature,
+			String superName, String[] interfaces) {
+		System.out.println("version : " + version);
+		System.out.println("access : " + access);
+		System.out.println("name : " + name);
+		System.out.println("signature : " + signature);
+		System.out.println("superName : " + superName);
+		System.out.println("interfaces : " + interfaces);
+		if (cv != null) {
+			cv.visit(Opcodes.V1_5, access, name, signature, superName,
+					interfaces);
+		}
+	}
 }

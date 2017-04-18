@@ -1,4 +1,4 @@
-package com.m2u.eyelink.agent;
+package com.m2u.eyelink.agent.sample;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
@@ -9,13 +9,9 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 
-import com.m2u.eyelink.agent.sample.ChangeVersionAdapter;
-import com.m2u.eyelink.agent.sample.RemoveDebugAdapter;
-import com.m2u.eyelink.agent.sample.RemoveMethodAdapter;
+public class ELClassFileTransformer implements ClassFileTransformer {
 
-public class ELClassFileTransformer6 implements ClassFileTransformer {
-
-	public ELClassFileTransformer6() {
+	public ELClassFileTransformer() {
 		super();
 	}
 	
@@ -24,14 +20,16 @@ public class ELClassFileTransformer6 implements ClassFileTransformer {
 			Class classBeingRedefined, ProtectionDomain protectionDomain,
 			byte[] classfileBuffer) throws IllegalClassFormatException {
 		
-		System.out.println("className : " + className);
-		
-		// Method Filter 적
-		ClassReader cr = new ClassReader(classfileBuffer); 
-		ClassWriter cw = new ClassWriter(cr, 0); 
-		AddFieldAdapter ca = new AddFieldAdapter(Opcodes.ASM5, cw, "addedField", null); 
-		cr.accept(ca, 0); 
+		// TODO Auto-generated method stub
+		ClassWriter cw = new ClassWriter(0);
 
+		// cv forwards all events to cw 
+		ClassVisitor cv = new ClassVisitor(Opcodes.ASM5, cw) {};
+
+		ClassReader cr = new ClassReader(classfileBuffer);
+		cr.accept(cv, 0);
+		
+			
 		return cw.toByteArray(); // ret represents the same class as b
 	}
 

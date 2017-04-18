@@ -1,47 +1,95 @@
 package com.m2u.eyelink.agent;
 
 import java.lang.instrument.Instrumentation;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.jar.JarFile;
 
-import com.m2u.eyelink.agent.sample2.JdbcQueryTransformer;
 
 public class ELAgent {
+	private static final ELLogger logger = ELLogger.getLogger(ELAgent.class
+			.getName());
+	private static final String ProductName = "EyeLink";
+
 	public static void premain(String agentArgs, Instrumentation inst) {
-		System.out.println("#### Call EyeLink Java Agent!!!! ###");
-		// instrumentation.addTransformer(new ClassFileTransformer() {
-		// public byte[] transform(ClassLoader l, String name, Class c,
-		// ProtectionDomain d, byte[] b)
-		// throws IllegalClassFormatException {
-		// byte[] ret = null;
-		//
-		// /* TODO do somthing and fill ret */
-		//
-		// return ret;
+		logger.info("#### Intercept EyeLink Java Agent!!!! ###");
+		if (agentArgs == null) {
+			agentArgs = "";
+		}
+		logger.info(ProductName + " agentArgs:" + agentArgs);
+
+		// TODO 이미 Agent가 실행중일 경우 Skip 처리 로직 필요.
+		// final boolean success = STATE.start();
+		// if (!success) {
+		// logger.warn("pinpoint-bootstrap already started. skipping agent loading.");
+		// return;
 		// }
-		// });
 
-		// ASM 01 : No Action
-//		inst.addTransformer(new ELClassFileTransformer());
+		// Agent Arguement Parsing
+		Map<String, String> agentArgsMap = argsParser(agentArgs);
+		if (!agentArgsMap.isEmpty()) {
+			logger.info("agentParameter :" + agentArgs);
+		}
 
-		// ASM 02 : Change Version
-//		inst.addTransformer(new ELClassFileTransformer2());
+		final ClassPathResolver classPathResolver = new AgentDirBaseClassPathResolver();
+		if (!classPathResolver.verify()) {
+			logger.warn("Agent Directory Verify fail. skipping agent loading.");
+			logELAgentLoadFail();
+			return;
+		}
 
-		// ASM 03 : Method Filter
-//		inst.addTransformer(new ELClassFileTransformer3());
-		
-		// ASM 04 : Delete Member
-//		inst.addTransformer(new ELClassFileTransformer4());
-	
-		// ASM 05 : Delete Method
-//		inst.addTransformer(new ELClassFileTransformer5());
+		// Load Agent Class in ELAgent.jar 
+		ELAgentJarFile agentJarFile = classPathResolver.getELAgentJarFile();
+		appendToELAgentClassLoader(inst, agentJarFile);
 
-		// ASM 06 : Add Class Member
-		inst.addTransformer(new ELClassFileTransformer6());
-		
-		// Javassist 사용 
-//		inst.addTransformer(new JdbcQueryTransformer());
+		ELAgentStarter elagent = new ELAgentStarter(agentArgsMap, agentJarFile, classPathResolver, inst);
+		if (!elagent.start()) {
+			logELAgentLoadFail();
+		}
 	}
 
-//	public static void agentmain(String args, Instrumentation inst) {
-//		inst.addTransformer(new JdbcQueryTransformer());
-//	}
+	private static void appendToELAgentClassLoader(
+			Instrumentation instrumentation, ELAgentJarFile agentJarFile) {
+		List<JarFile> jarFileList = agentJarFile.getJarFileList();
+		for (JarFile jarFile : jarFileList) {
+			logger.info("appendToBootstrapClassLoader:" + jarFile.getName());
+			instrumentation.appendToBootstrapClassLoaderSearch(jarFile);
+		}
+	}
+
+	public static Map<String, String> argsParser(String args) {
+		if (args == null || args.isEmpty()) {
+			return Collections.emptyMap();
+		}
+
+		final Map<String, String> map = new HashMap<String, String>();
+
+		Scanner scanner = new Scanner(args);
+		scanner.useDelimiter("\\s*,\\s*");
+
+		while (scanner.hasNext()) {
+			String token = scanner.next();
+			int assign = token.indexOf('=');
+
+			if (assign == -1) {
+				map.put(token, "");
+			} else {
+				String key = token.substring(0, assign);
+				String value = token.substring(assign + 1);
+				map.put(key, value);
+			}
+		}
+		scanner.close();
+		return Collections.unmodifiableMap(map);
+	}
+
+	private static void logELAgentLoadFail() {
+		final String errorLog = "*****************************************************************************\n"
+				+ "* EyeLink Agent load failure\n"
+				+ "*****************************************************************************";
+		System.err.println(errorLog);
+	}
 }

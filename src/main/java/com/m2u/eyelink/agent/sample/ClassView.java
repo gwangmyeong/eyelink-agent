@@ -7,7 +7,9 @@ public class ClassView {
 	public static void main(String[] args) {
 		try {
 			ClassPrinter cp = new ClassPrinter();
-			ClassReader cr = new ClassReader("com.m2u.eyelink.agent.sample.HelloWorld");
+			ClassReader cr = new ClassReader("java.lang.Runnable");
+//			ClassReader cr = new ClassReader("com.m2u.eyelink.agent.sample.HelloWorld");
+			
 			cr.accept(cp, 0);
 		} catch (Throwable t) {
 			t.printStackTrace();

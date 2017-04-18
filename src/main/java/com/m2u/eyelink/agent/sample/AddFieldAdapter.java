@@ -10,7 +10,7 @@ public class AddFieldAdapter extends ClassVisitor {
 	private String fDesc;
 	private boolean isFieldPresent;
 
-	public AddFieldAdapter(ClassVisitor cv, int fAcc, String fName, String fDesc) {
+	public AddFieldAdapter(int fAcc, ClassVisitor cv, String fName, String fDesc) {
 		super(Opcodes.ASM4, cv);
 		this.fAcc = fAcc;
 		this.fName = fName;
