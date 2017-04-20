@@ -22,7 +22,6 @@ public class ELClassFileTransformer2 implements ClassFileTransformer {
 
 		System.out.println("className : " + className);
 		
-		// TODO Auto-generated method stub
 		ClassWriter cw = new ClassWriter(0);
 
 		ChangeVersionAdapter cv = new ChangeVersionAdapter(Opcodes.ASM5, cw);

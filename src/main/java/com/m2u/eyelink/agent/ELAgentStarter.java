@@ -1,11 +1,12 @@
 package com.m2u.eyelink.agent;
 
 import java.lang.instrument.Instrumentation;
+import java.net.URL;
 import java.util.Map;
 
 public class ELAgentStarter {
 
-	private static final ELLogger logger = ELLogger.getLogger(ELAgent.class
+	private final ELLogger logger = ELLogger.getLogger(this.getClass()
 			.getName());
 	
     private final Map<String, String> agentArgs;
@@ -36,6 +37,7 @@ public class ELAgentStarter {
 	}
 
 	boolean start() {
+		// eyelink.agentId, eyelink.applicationName 설정여부 체크
         final IdValidator idValidator = new IdValidator();
         final String agentId = idValidator.getAgentId();
         if (agentId == null) {
@@ -46,7 +48,8 @@ public class ELAgentStarter {
             return false;
         }
 
-		
+        //
+        URL[] pluginJars = classPathResolver.resolvePlugins();
 		
 		return true;
 	}

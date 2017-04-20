@@ -3,6 +3,7 @@ package com.m2u.eyelink.agent;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,15 +16,15 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 			.getName());
 
 	static final String VERSION_PATTERN = "(-[0-9]+\\.[0-9]+\\.[0-9]+((\\-SNAPSHOT)|(-RC[0-9]+))?)?";
-	static final Pattern DEFAULT_AGENT_PATTERN = compile("ELAgent"
+	static final Pattern DEFAULT_AGENT_PATTERN = compile("eyelink-agent"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_AGENT_COMMONS_PATTERN = compile("ELAgent-commons"
+	static final Pattern DEFAULT_AGENT_COMMONS_PATTERN = compile("eyelink-agent-commons"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_AGENT_CORE_PATTERN = compile("ELAgent-core"
+	static final Pattern DEFAULT_AGENT_CORE_PATTERN = compile("eyelink-agent-core"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_AGENT_CORE_OPTIONAL_PATTERN = compile("ELAgent-optional"
+	static final Pattern DEFAULT_AGENT_CORE_OPTIONAL_PATTERN = compile("eyelink-agent-optional"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_ANNOTATIONS = compile("ELAgent-annotations"
+	static final Pattern DEFAULT_ANNOTATIONS = compile("eyelink-agent-annotations"
 			+ VERSION_PATTERN + "\\.jar");
 
 	private final Pattern agentPattern;
@@ -83,7 +84,7 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		// find ELAgent.jar file
 		final boolean agentJarFileNotFound = this.findAgentJar();
 		if (agentJarFileNotFound) {
-			logger.warn("ELAgent-x.x.x(-SNAPSHOT).jar not found.");
+			logger.warn("eyelink-agent-x.x.x(-SNAPSHOT).jar not found.");
 			return false;
 		}
 
@@ -91,11 +92,14 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		return true;
 	}
 
-	boolean findAgentJar() {
+	public boolean findAgentJar() {
+		logger.info("classpath:" + classPath);
+		// classpat내에서 ELAent-xxx.jar 파일을 찾음.
 		Matcher matcher = agentPattern.matcher(classPath);
 		if (!matcher.find()) {
 			return false;
 		}
+		
 		this.agentJarName = parseAgentJar(matcher);
 		this.agentJarFullPath = parseAgentJarPath(classPath, agentJarName);
 		if (agentJarFullPath == null) {
@@ -111,14 +115,13 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		this.agentDirPath = toCanonicalPath(agentDirPath);
 		logger.info("Agent canonical-path:" + agentDirPath);
 
-		this.ElAgentCommonsJar = findFromBootDir("ELAgent-commons.jar",
+		this.ElAgentCommonsJar = findFromBootDir("eyelink-agent-commons.jar",
 				agentCommonsPattern);
-		this.ElAgentCoreJar = findFromBootDir("ELAgent-core.jar",
+		this.ElAgentCoreJar = findFromBootDir("eyelink-agent-core.jar",
 				agentCorePattern);
-		this.ElAgentOptionalJar = findFromBootDir(
-				"ELAgent-core-optional.jar",
+		this.ElAgentOptionalJar = findFromBootDir("eyelink-agent-core-optional.jar",
 				agentCoreOptionalPattern);
-		this.annotationsJar = findFromBootDir("ELAgent-annotations.jar",
+		this.annotationsJar = findFromBootDir("eyelink-agent-annotations.jar",
 				annotationsPattern);
 		return true;
 	}
@@ -180,23 +183,24 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 			return null;
 		}
 	}
-	
-    private File[] listFiles(final String name, final Pattern pattern, String bootDirPath) {
-        File bootDir = new File(bootDirPath);
-        return bootDir.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String fileName) {
-                Matcher matcher = pattern.matcher(fileName);
-                if (matcher.matches()) {
 
-                    logger.info("found " + name + ". " + dir.getAbsolutePath() + File.separator + fileName);
-                    return true;
-                }
-                return false;
-            }
-        });
-    }
+	private File[] listFiles(final String name, final Pattern pattern,
+			String bootDirPath) {
+		File bootDir = new File(bootDirPath);
+		return bootDir.listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String fileName) {
+				Matcher matcher = pattern.matcher(fileName);
+				if (matcher.matches()) {
 
+					logger.info("found " + name + ". " + dir.getAbsolutePath()
+							+ File.separator + fileName);
+					return true;
+				}
+				return false;
+			}
+		});
+	}
 
 	@Override
 	public ELAgentJarFile getELAgentJarFile() {
@@ -245,14 +249,52 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 
 	@Override
 	public List<URL> resolveLib() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public URL[] resolvePlugins() {
-		// TODO Auto-generated method stub
-		return null;
+		final File file = new File(getAgentPluginPath());
+
+		if (!file.exists()) {
+			logger.warn(file + " not found");
+			return new URL[0];
+		}
+
+		if (!file.isDirectory()) {
+			logger.warn(file + " is not a directory");
+			return new URL[0];
+		}
+
+		final File[] jars = file.listFiles(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".jar");
+			}
+		});
+
+		if (jars == null || jars.length == 0) {
+			return new URL[0];
+		}
+
+		final URL[] urls = new URL[jars.length];
+
+		for (int i = 0; i < jars.length; i++) {
+			try {
+				urls[i] = jars[i].toURI().toURL();
+			} catch (MalformedURLException e) {
+				// TODO have to change to PinpointException AFTER moving the
+				// exception to pinpoint-common
+				throw new RuntimeException("Fail to load plugin jars", e);
+			}
+		}
+
+		for (File pluginJar : jars) {
+			logger.info("Found plugins: " + pluginJar.getPath());
+		}
+
+		return urls;
 	}
 
 	@Override
