@@ -1,4 +1,4 @@
-package com.m2u.eyelink.agent.util;
+package com.m2u.eyelink.util;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;

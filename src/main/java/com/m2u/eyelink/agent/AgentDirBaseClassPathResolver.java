@@ -1,15 +1,20 @@
 package com.m2u.eyelink.agent;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.m2u.eyelink.common.ELConstants;
 
 public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 	private final ELLogger logger = ELLogger.getLogger(this.getClass()
@@ -82,8 +87,8 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		final ELAgentJarFile agentJarFile = new ELAgentJarFile();
 
 		// find ELAgent.jar file
-		final boolean agentJarFileNotFound = this.findAgentJar();
-		if (agentJarFileNotFound) {
+		final boolean agentJarFileFound = this.findAgentJar();
+		if (!agentJarFileFound) {
 			logger.warn("eyelink-agent-x.x.x(-SNAPSHOT).jar not found.");
 			return false;
 		}
@@ -94,7 +99,8 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 
 	public boolean findAgentJar() {
 		logger.info("classpath:" + classPath);
-		// classpat내에서 ELAent-xxx.jar 파일을 찾음.
+		logger.info(agentPattern.toString());
+		// classpath 내에서 eyelink-agent-xxx.jar 파일을 찾음.
 		Matcher matcher = agentPattern.matcher(classPath);
 		if (!matcher.find()) {
 			return false;
@@ -102,10 +108,13 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		
 		this.agentJarName = parseAgentJar(matcher);
 		this.agentJarFullPath = parseAgentJarPath(classPath, agentJarName);
+		logger.info("Agent Jar Name:" + agentJarName);
+		logger.info("Agent Jar Full Path:" + agentJarFullPath);
 		if (agentJarFullPath == null) {
 			return false;
 		}
 		this.agentDirPath = parseAgentDirPath(agentJarFullPath);
+		logger.info("Agent Dir Path:" + agentDirPath);
 		if (agentDirPath == null) {
 			return false;
 		}
@@ -249,7 +258,43 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 
 	@Override
 	public List<URL> resolveLib() {
-		return null;
+	       String agentLibPath = getAgentLibPath();
+	        File libDir = new File(agentLibPath);
+	        if (!libDir.exists()) {
+	            logger.warn(agentLibPath + " not found");
+	            return Collections.emptyList();
+	        }
+	        if (!libDir.isDirectory()) {
+	            logger.warn(agentLibPath + " not Directory");
+	            return Collections.emptyList();
+	        }
+	        final List<URL> jarURLList =  new ArrayList<URL>();
+
+	        final File[] findJarList = findJar(libDir);
+	        if (findJarList != null) {
+	            for (File file : findJarList) {
+	                URL url = toURI(file);
+	                if (url != null) {
+	                    jarURLList.add(url);
+	                }
+	            }
+	        }
+
+	        URL agentDirUri = toURI(new File(agentLibPath));
+	        if (agentDirUri != null) {
+	            jarURLList.add(agentDirUri);
+	        }
+
+	        // hot fix. boot jars not found from classPool ??
+	        jarURLList.add(toURI(new File(getELAgentCommonsJar())));
+	        jarURLList.add(toURI(new File(getELAgentCoreJar())));
+	        String bootstrapCoreOptionalJar = getELAgentOptionalJar();
+	        // bootstrap-core-optional jar is not required and is okay to be null
+	        if (bootstrapCoreOptionalJar != null) {
+	            jarURLList.add(toURI(new File(bootstrapCoreOptionalJar)));
+	        }
+
+	        return jarURLList;
 	}
 
 	@Override
@@ -297,6 +342,15 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		return urls;
 	}
 
+    private URL toURI(File file) {
+        URI uri = file.toURI();
+        try {
+            return uri.toURL();
+        } catch (MalformedURLException e) {
+            logger.warn(file.getName() + ".toURL() failed.", e);
+            return null;
+        }
+    }
 	@Override
 	public String getAgentDirPath() {
 		return agentDirPath;
@@ -304,6 +358,23 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 
 	@Override
 	public String getAgentConfigPath() {
-		return agentDirPath + File.separator + "ELAgent.config";
+		// TODO 임시로 config path 지정함.
+//		return agentDirPath + File.separator + ELConstants.ProductName + ".config";
+		return agentDirPath + File.separator + "classes" + File.separator + ELConstants.ProductName + ".config";
 	}
+	
+	   private File[] findJar(File libDir) {
+	        return libDir.listFiles(new FileFilter() {
+	            @Override
+	            public boolean accept(File pathname) {
+	                String path = pathname.getName();
+	                for (String extension : fileExtensionList) {
+	                    if (path.lastIndexOf("." + extension) != -1) {
+	                        return true;
+	                    }
+	                }
+	                return false;
+	            }
+	        });
+	    }
 }

@@ -8,18 +8,19 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.jar.JarFile;
 
+import com.m2u.eyelink.common.ELConstants;
+
 
 public class ELAgent {
 	private static final ELLogger logger = ELLogger.getLogger(ELAgent.class
 			.getName());
-	private static final String ProductName = "EyeLink";
 
 	public static void premain(String agentArgs, Instrumentation inst) {
 		logger.info("#### Intercept EyeLink Java Agent!!!! ###");
 		if (agentArgs == null) {
 			agentArgs = "";
 		}
-		logger.info(ProductName + " agentArgs:" + agentArgs);
+		logger.info(ELConstants.ProductName + " agentArgs:" + agentArgs);
 
 		// TODO 이미 Agent가 실행중일 경우 Skip 처리 로직 필요.
 		// final boolean success = STATE.start();
@@ -55,7 +56,7 @@ public class ELAgent {
 			Instrumentation instrumentation, ELAgentJarFile agentJarFile) {
 		List<JarFile> jarFileList = agentJarFile.getJarFileList();
 		for (JarFile jarFile : jarFileList) {
-			logger.info("appendToBootstrapClassLoader:" + jarFile.getName());
+			logger.info("appendTELAgentClassLoader:" + jarFile.getName());
 			instrumentation.appendToBootstrapClassLoaderSearch(jarFile);
 		}
 	}
