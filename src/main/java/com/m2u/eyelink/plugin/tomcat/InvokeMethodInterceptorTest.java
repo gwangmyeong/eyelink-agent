@@ -25,7 +25,6 @@ import com.m2u.eyelink.context.MethodDescriptor;
 import com.m2u.eyelink.context.TraceContext;
 import com.m2u.eyelink.plugin.tomcat.interceptor.StandardHostValveInvokeInterceptor;
 import com.m2u.eyelink.test.TestAgentDirBaseClassPathResolver;
-import com.navercorp.pinpoint.test.MockTraceContextFactory;
 
 public class InvokeMethodInterceptorTest {
 	private static final Logger logger = LoggerFactory

@@ -2,9 +2,11 @@ package com.m2u.eyelink.plugin.tomcat;
 
 import java.util.List;
 
+import com.m2u.eyelink.config.ExcludeMethodFilter;
 import com.m2u.eyelink.config.ExcludePathFilter;
 import com.m2u.eyelink.config.Filter;
 import com.m2u.eyelink.config.ProfilerConfig;
+import com.m2u.eyelink.config.SkipFilter;
 
 public class TomcatConfig {
     private final boolean tomcatEnable;
