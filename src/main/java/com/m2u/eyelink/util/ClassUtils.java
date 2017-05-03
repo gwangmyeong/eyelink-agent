@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClassUtils {
-    private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<Class<?>, Class<?>>();
+    public class ClassLoaderCallable {
+
+	}
+
+	private static final Map<Class<?>, Class<?>> primitiveWrapperMap = new HashMap<Class<?>, Class<?>>();
     static {
         primitiveWrapperMap.put(Boolean.TYPE, Boolean.class);
         primitiveWrapperMap.put(Byte.TYPE, Byte.class);

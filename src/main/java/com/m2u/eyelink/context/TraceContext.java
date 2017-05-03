@@ -53,9 +53,9 @@ public interface TraceContext {
     int cacheString(String value);
 
     // TODO extract jdbc related methods
-//    ParsingResult parseSql(String sql);
+    ParsingResult parseSql(String sql);
 
-//    boolean cacheSql(ParsingResult parsingResult);
+    boolean cacheSql(ParsingResult parsingResult);
 
     TraceId createTraceId(String transactionId, long parentSpanID, long spanID, short flags);
 

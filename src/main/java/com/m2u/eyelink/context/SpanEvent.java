@@ -22,7 +22,12 @@ public class SpanEvent extends TSpanEvent implements FrameAttachment {
         this.addToAnnotations(annotation);
     }
 
-    public void setExceptionInfo(int exceptionClassId, String exceptionMessage) {
+    private void addToAnnotations(Annotation annotation) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setExceptionInfo(int exceptionClassId, String exceptionMessage) {
         final TIntStringValue exceptionInfo = new TIntStringValue(exceptionClassId);
         if (exceptionMessage != null && !exceptionMessage.isEmpty()) {
             exceptionInfo.setStringValue(exceptionMessage);
@@ -40,22 +45,24 @@ public class SpanEvent extends TSpanEvent implements FrameAttachment {
         this.setStartElapsed(startElapsed);
     }
 
-    public long getStartTime() {
+
+	public long getStartTime() {
         return span.getStartTime() + getStartElapsed();
     }
 
-    public void markAfterTime() {
+	public void markAfterTime() {
         final int endElapsed = (int)(System.currentTimeMillis() - getStartTime());
         if (endElapsed != 0) {
             this.setEndElapsed(endElapsed);
         }
     }
 
-    public long getAfterTime() {
+	public long getAfterTime() {
         return span.getStartTime() + getStartElapsed() + getEndElapsed();
     }
 
-    public int getStackId() {
+
+	public int getStackId() {
         return stackId;
     }
 
@@ -89,4 +96,14 @@ public class SpanEvent extends TSpanEvent implements FrameAttachment {
         this.frameObject = null;
         return delete;
     }
+
+	public void setSequence(short s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setDepth(int latestStackIndex) {
+		// TODO Auto-generated method stub
+		
+	}
 }

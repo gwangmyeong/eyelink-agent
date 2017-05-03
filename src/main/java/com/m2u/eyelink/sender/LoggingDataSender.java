@@ -1,5 +1,6 @@
 package com.m2u.eyelink.sender;
 
+import org.apache.thrift.TBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

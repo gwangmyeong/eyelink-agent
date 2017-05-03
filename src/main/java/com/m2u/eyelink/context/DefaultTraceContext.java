@@ -6,312 +6,342 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.config.ProfilerConfig;
+import com.m2u.eyelink.context.monitor.DefaultPluginMonitorContext;
+import com.m2u.eyelink.context.monitor.DisabledPluginMonitorContext;
 import com.m2u.eyelink.plugin.monitor.PluginMonitorContext;
 import com.m2u.eyelink.sender.EnhancedDataSender;
+import com.m2u.eyelink.annotations.*;
 
 public class DefaultTraceContext implements TraceContext {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final boolean isDebug = logger.isDebugEnabled();
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final boolean isDebug = logger.isDebugEnabled();
 
-    private static final boolean TRACE_ACTIVE_THREAD = true;
-    private static final boolean TRACE_DATASOURCE = false;
+	private static final boolean TRACE_ACTIVE_THREAD = true;
+	private static final boolean TRACE_DATASOURCE = false;
 
-    private final TraceFactory traceFactory;
+	private final TraceFactory traceFactory;
 
-    private AgentInformation agentInformation;
+	private AgentInformation agentInformation;
 
-    private EnhancedDataSender priorityDataSender;
+	private EnhancedDataSender priorityDataSender;
 
-    private final CachingSqlNormalizer cachingSqlNormalizer;
+	private final CachingSqlNormalizer cachingSqlNormalizer;
 
-    private final SimpleCache<String> apiCache = new SimpleCache<String>();
-    private final SimpleCache<String> stringCache = new SimpleCache<String>();
+	private final SimpleCache<String> apiCache = new SimpleCache<String>();
+	private final SimpleCache<String> stringCache = new SimpleCache<String>();
 
-    private ProfilerConfig profilerConfig;
+	private ProfilerConfig profilerConfig;
 
-    private final ServerMetaDataHolder serverMetaDataHolder;
+	private final ServerMetaDataHolder serverMetaDataHolder;
 
-    private final AtomicInteger asyncId = new AtomicInteger();
+	private final AtomicInteger asyncId = new AtomicInteger();
 
-    private final PluginMonitorContext pluginMonitorContext;
+	private final PluginMonitorContext pluginMonitorContext;
 
-    private final IdGenerator idGenerator = new IdGenerator();
+	private final IdGenerator idGenerator = new IdGenerator();
 
-    private final TransactionCounter transactionCounter = new DefaultTransactionCounter(this.idGenerator);
+	private final TransactionCounter transactionCounter = new DefaultTransactionCounter(
+			this.idGenerator);
 
-    // for test
-    public DefaultTraceContext(final AgentInformation agentInformation) {
-        this(LRUCache.DEFAULT_CACHE_SIZE, agentInformation, new LogStorageFactory(), new TrueSampler(), new DefaultServerMetaDataHolder(RuntimeMXBeanUtils.getVmArgs()), TRACE_ACTIVE_THREAD, TRACE_DATASOURCE);
-    }
+	// for test
+	public DefaultTraceContext(final AgentInformation agentInformation) {
+		this(
+				LRUCache.DEFAULT_CACHE_SIZE,
+				agentInformation,
+				new LogStorageFactory(),
+				new TrueSampler(),
+				new DefaultServerMetaDataHolder(RuntimeMXBeanUtils.getVmArgs()),
+				TRACE_ACTIVE_THREAD, TRACE_DATASOURCE);
+	}
 
-    public DefaultTraceContext(final int sqlCacheSize, final AgentInformation agentInformation, StorageFactory storageFactory, Sampler sampler, ServerMetaDataHolder serverMetaDataHolder, final boolean traceActiveThread) {
-        this(sqlCacheSize, agentInformation, storageFactory, sampler, serverMetaDataHolder, traceActiveThread, TRACE_DATASOURCE);
-    }
+	public DefaultTraceContext(final int sqlCacheSize,
+			final AgentInformation agentInformation,
+			StorageFactory storageFactory, Sampler sampler,
+			ServerMetaDataHolder serverMetaDataHolder,
+			final boolean traceActiveThread) {
+		this(sqlCacheSize, agentInformation, storageFactory, sampler,
+				serverMetaDataHolder, traceActiveThread, TRACE_DATASOURCE);
+	}
 
-    public DefaultTraceContext(final int sqlCacheSize, final AgentInformation agentInformation, StorageFactory storageFactory, Sampler sampler, ServerMetaDataHolder serverMetaDataHolder, final boolean traceActiveThread, final boolean traceDataSource) {
-        if (agentInformation == null) {
-            throw new NullPointerException("agentInformation must not be null");
-        }
-        if (storageFactory == null) {
-            throw new NullPointerException("storageFactory must not be null");
-        }
-        if (sampler == null) {
-            throw new NullPointerException("sampler must not be null");
-        }
-        this.agentInformation = agentInformation;
+	public DefaultTraceContext(final int sqlCacheSize,
+			final AgentInformation agentInformation,
+			StorageFactory storageFactory, Sampler sampler,
+			ServerMetaDataHolder serverMetaDataHolder,
+			final boolean traceActiveThread, final boolean traceDataSource) {
+		if (agentInformation == null) {
+			throw new NullPointerException("agentInformation must not be null");
+		}
+		if (storageFactory == null) {
+			throw new NullPointerException("storageFactory must not be null");
+		}
+		if (sampler == null) {
+			throw new NullPointerException("sampler must not be null");
+		}
+		this.agentInformation = agentInformation;
 
-        this.cachingSqlNormalizer = new DefaultCachingSqlNormalizer(sqlCacheSize);
+		this.cachingSqlNormalizer = new DefaultCachingSqlNormalizer(
+				sqlCacheSize);
 
-        this.traceFactory = createTraceFactory(storageFactory, sampler, traceActiveThread);
+		this.traceFactory = createTraceFactory(storageFactory, sampler,
+				traceActiveThread);
 
-        this.serverMetaDataHolder = serverMetaDataHolder;
+		this.serverMetaDataHolder = serverMetaDataHolder;
 
-        if (traceDataSource) {
-            this.pluginMonitorContext = new DefaultPluginMonitorContext();
-        } else {
-            this.pluginMonitorContext = new DisabledPluginMonitorContext();
-        }
-    }
+		if (traceDataSource) {
+			this.pluginMonitorContext = new DefaultPluginMonitorContext();
+		} else {
+			this.pluginMonitorContext = new DisabledPluginMonitorContext();
+		}
+	}
 
-    private TraceFactory createTraceFactory(StorageFactory storageFactory, Sampler sampler, boolean recordActiveThread) {
-        // TODO extract TraceFactory builder?
-        BaseTraceFactory baseTraceFactory = new DefaultBaseTraceFactory(this, storageFactory, sampler, this.idGenerator);
-        Logger baseTraceFactoryLogger = LoggerFactory.getLogger(DefaultBaseTraceFactory.class);
-        if (baseTraceFactoryLogger.isDebugEnabled()) {
-            baseTraceFactory = LoggingBaseTraceFactory.wrap(baseTraceFactory);
-        }
+	private TraceFactory createTraceFactory(StorageFactory storageFactory,
+			Sampler sampler, boolean recordActiveThread) {
+		// TODO extract TraceFactory builder?
+		BaseTraceFactory baseTraceFactory = new DefaultBaseTraceFactory(this,
+				storageFactory, sampler, this.idGenerator);
+		Logger baseTraceFactoryLogger = LoggerFactory
+				.getLogger(DefaultBaseTraceFactory.class);
+		if (baseTraceFactoryLogger.isDebugEnabled()) {
+			baseTraceFactory = LoggingBaseTraceFactory.wrap(baseTraceFactory);
+		}
 
-        TraceFactory traceFactory = new ThreadLocalTraceFactory(baseTraceFactory);
-        if (recordActiveThread) {
-            traceFactory = ActiveTraceFactory.wrap(traceFactory);
-        }
+		TraceFactory traceFactory = new ThreadLocalTraceFactory(
+				baseTraceFactory);
+		if (recordActiveThread) {
+			traceFactory = ActiveTraceFactory.wrap(traceFactory);
+		}
 
-        return traceFactory;
-    }
+		return traceFactory;
+	}
 
-    /**
-     * Return trace only if current transaction can be sampled.
-     *
-     * @return
-     */
-    public Trace currentTraceObject() {
-        return traceFactory.currentTraceObject();
-    }
+	/**
+	 * Return trace only if current transaction can be sampled.
+	 *
+	 * @return
+	 */
+	public Trace currentTraceObject() {
+		return traceFactory.currentTraceObject();
+	}
 
-    public Trace currentRpcTraceObject() {
-        return traceFactory.currentTraceObject();
-    }
+	public Trace currentRpcTraceObject() {
+		return traceFactory.currentTraceObject();
+	}
 
-    /**
-     * Return trace without sampling check.
-     *
-     * @return
-     */
-    @Override
-    public Trace currentRawTraceObject() {
-        return traceFactory.currentRawTraceObject();
-    }
+	/**
+	 * Return trace without sampling check.
+	 *
+	 * @return
+	 */
+	@Override
+	public Trace currentRawTraceObject() {
+		return traceFactory.currentRawTraceObject();
+	}
 
-    @Override
-    public Trace disableSampling() {
-        // return null; is bug. #93
-        return traceFactory.disableSampling();
-    }
+	@Override
+	public Trace disableSampling() {
+		// return null; is bug. #93
+		return traceFactory.disableSampling();
+	}
 
-    public void setProfilerConfig(final ProfilerConfig profilerConfig) {
-        if (profilerConfig == null) {
-            throw new NullPointerException("profilerConfig must not be null");
-        }
-        this.profilerConfig = profilerConfig;
-    }
+	public void setProfilerConfig(final ProfilerConfig profilerConfig) {
+		if (profilerConfig == null) {
+			throw new NullPointerException("profilerConfig must not be null");
+		}
+		this.profilerConfig = profilerConfig;
+	}
 
-    @Override
-    public ProfilerConfig getProfilerConfig() {
-        return profilerConfig;
-    }
+	@Override
+	public ProfilerConfig getProfilerConfig() {
+		return profilerConfig;
+	}
 
-    @Override
-    public Trace continueTraceObject(final TraceId traceId) {
-        return traceFactory.continueTraceObject(traceId);
-    }
+	@Override
+	public Trace continueTraceObject(final TraceId traceId) {
+		return traceFactory.continueTraceObject(traceId);
+	}
 
+	@Override
+	public Trace continueTraceObject(Trace trace) {
+		return traceFactory.continueTraceObject(trace);
+	}
 
-    @Override
-    public Trace continueTraceObject(Trace trace) {
-        return traceFactory.continueTraceObject(trace);
-    }
+	@Override
+	public Trace newTraceObject() {
+		return traceFactory.newTraceObject();
+	}
 
+	@InterfaceAudience.LimitedPrivate("vert.x")
+	@Override
+	public Trace newAsyncTraceObject() {
+		return traceFactory.newAsyncTraceObject();
+	}
 
-    @Override
-    public Trace newTraceObject() {
-        return traceFactory.newTraceObject();
-    }
+	@InterfaceAudience.LimitedPrivate("vert.x")
+	@Override
+	public Trace continueAsyncTraceObject(final TraceId traceId) {
+		return traceFactory.continueAsyncTraceObject(traceId);
+	}
 
-    @InterfaceAudience.LimitedPrivate("vert.x")
-    @Override
-    public Trace newAsyncTraceObject() {
-        return traceFactory.newAsyncTraceObject();
-    }
+	@Override
+	public Trace continueAsyncTraceObject(AsyncTraceId traceId, int asyncId,
+			long startTime) {
+		return traceFactory.continueAsyncTraceObject(traceId, asyncId,
+				startTime);
+	}
 
-    @InterfaceAudience.LimitedPrivate("vert.x")
-    @Override
-    public Trace continueAsyncTraceObject(final TraceId traceId) {
-        return traceFactory.continueAsyncTraceObject(traceId);
-    }
+	@Override
+	public Trace removeTraceObject() {
+		return traceFactory.removeTraceObject();
+	}
 
-    @Override
-    public Trace continueAsyncTraceObject(AsyncTraceId traceId, int asyncId, long startTime) {
-        return traceFactory.continueAsyncTraceObject(traceId, asyncId, startTime);
-    }
+	public AgentInformation getAgentInformation() {
+		return agentInformation;
+	}
 
-    @Override
-    public Trace removeTraceObject() {
-        return traceFactory.removeTraceObject();
-    }
+	@Override
+	public String getAgentId() {
+		return this.agentInformation.getAgentId();
+	}
 
-    public AgentInformation getAgentInformation() {
-        return agentInformation;
-    }
+	@Override
+	public String getApplicationName() {
+		return this.agentInformation.getApplicationName();
+	}
 
-    @Override
-    public String getAgentId() {
-        return this.agentInformation.getAgentId();
-    }
+	@Override
+	public long getAgentStartTime() {
+		return this.agentInformation.getStartTime();
+	}
 
-    @Override
-    public String getApplicationName() {
-        return this.agentInformation.getApplicationName();
-    }
+	@Override
+	public short getServerTypeCode() {
+		return this.agentInformation.getServerType().getCode();
+	}
 
-    @Override
-    public long getAgentStartTime() {
-        return this.agentInformation.getStartTime();
-    }
+	@Override
+	public String getServerType() {
+		return this.agentInformation.getServerType().getDesc();
+	}
 
-    @Override
-    public short getServerTypeCode() {
-        return this.agentInformation.getServerType().getCode();
-    }
+	@Override
+	public int cacheApi(final MethodDescriptor methodDescriptor) {
+		final String fullName = methodDescriptor.getFullName();
+		final Result result = this.apiCache.put(fullName);
 
-    @Override
-    public String getServerType() {
-        return this.agentInformation.getServerType().getDesc();
-    }
+		methodDescriptor.setApiId(result.getId());
 
-    @Override
-    public int cacheApi(final MethodDescriptor methodDescriptor) {
-        final String fullName = methodDescriptor.getFullName();
-        final Result result = this.apiCache.put(fullName);
+		if (result.isNewValue()) {
+			final TApiMetaData apiMetadata = new TApiMetaData();
+			apiMetadata.setAgentId(getAgentId());
+			apiMetadata.setAgentStartTime(getAgentStartTime());
 
-        methodDescriptor.setApiId(result.getId());
+			apiMetadata.setApiId(result.getId());
+			apiMetadata.setApiInfo(methodDescriptor.getApiDescriptor());
+			apiMetadata.setLine(methodDescriptor.getLineNumber());
+			apiMetadata.setType(methodDescriptor.getType());
 
-        if (result.isNewValue()) {
-            final TApiMetaData apiMetadata = new TApiMetaData();
-            apiMetadata.setAgentId(getAgentId());
-            apiMetadata.setAgentStartTime(getAgentStartTime());
+			this.priorityDataSender.request(apiMetadata);
+		}
 
-            apiMetadata.setApiId(result.getId());
-            apiMetadata.setApiInfo(methodDescriptor.getApiDescriptor());
-            apiMetadata.setLine(methodDescriptor.getLineNumber());
-            apiMetadata.setType(methodDescriptor.getType());
+		return result.getId();
+	}
 
-            this.priorityDataSender.request(apiMetadata);
-        }
+	@Override
+	public int cacheString(final String value) {
+		if (value == null) {
+			return 0;
+		}
+		final Result result = this.stringCache.put(value);
+		if (result.isNewValue()) {
+			final TStringMetaData stringMetaData = new TStringMetaData();
+			stringMetaData.setAgentId(getAgentId());
+			stringMetaData.setAgentStartTime(getAgentStartTime());
 
-        return result.getId();
-    }
+			stringMetaData.setStringId(result.getId());
+			stringMetaData.setStringValue(value);
+			this.priorityDataSender.request(stringMetaData);
+		}
+		return result.getId();
+	}
 
-    @Override
-    public int cacheString(final String value) {
-        if (value == null) {
-            return 0;
-        }
-        final Result result = this.stringCache.put(value);
-        if (result.isNewValue()) {
-            final TStringMetaData stringMetaData = new TStringMetaData();
-            stringMetaData.setAgentId(getAgentId());
-            stringMetaData.setAgentStartTime(getAgentStartTime());
+	@Override
+	public TraceId createTraceId(final String transactionId,
+			final long parentSpanID, final long spanID, final short flags) {
+		if (transactionId == null) {
+			throw new NullPointerException("transactionId must not be null");
+		}
+		// TODO Should handle exception when parsing failed.
+		return DefaultTraceId.parse(transactionId, parentSpanID, spanID, flags);
+	}
 
-            stringMetaData.setStringId(result.getId());
-            stringMetaData.setStringValue(value);
-            this.priorityDataSender.request(stringMetaData);
-        }
-        return result.getId();
-    }
+	@Override
+	public ParsingResult parseSql(final String sql) {
+		// lazy sql normalization
+		return this.cachingSqlNormalizer.wrapSql(sql);
+	}
 
-    @Override
-    public TraceId createTraceId(final String transactionId, final long parentSpanID, final long spanID, final short flags) {
-        if (transactionId == null) {
-            throw new NullPointerException("transactionId must not be null");
-        }
-        // TODO Should handle exception when parsing failed.
-        return DefaultTraceId.parse(transactionId, parentSpanID, spanID, flags);
-    }
+	@Override
+	public boolean cacheSql(ParsingResult parsingResult) {
+		if (parsingResult == null) {
+			return false;
+		}
+		// lazy sql parsing
+		boolean isNewValue = this.cachingSqlNormalizer
+				.normalizedSql(parsingResult);
+		if (isNewValue) {
+			if (isDebug) {
+				// TODO logging hit ratio could help debugging
+				logger.debug("NewSQLParsingResult:{}", parsingResult);
+			}
 
-    @Override
-    public ParsingResult parseSql(final String sql) {
-        // lazy sql normalization
-        return this.cachingSqlNormalizer.wrapSql(sql);
-    }
+			// isNewValue means that the value is newly cached.
+			// So the sql could be new one. We have to send sql metadata to
+			// collector.
+			final TSqlMetaData sqlMetaData = new TSqlMetaData();
+			sqlMetaData.setAgentId(getAgentId());
+			sqlMetaData.setAgentStartTime(getAgentStartTime());
 
-    @Override
-    public boolean cacheSql(ParsingResult parsingResult) {
-        if (parsingResult == null) {
-            return false;
-        }
-        // lazy sql parsing
-        boolean isNewValue = this.cachingSqlNormalizer.normalizedSql(parsingResult);
-        if (isNewValue) {
-            if (isDebug) {
-                // TODO logging hit ratio could help debugging
-                logger.debug("NewSQLParsingResult:{}", parsingResult);
-            }
+			sqlMetaData.setSqlId(parsingResult.getId());
+			sqlMetaData.setSql(parsingResult.getSql());
 
-            // isNewValue means that the value is newly cached.
-            // So the sql could be new one. We have to send sql metadata to collector.
-            final TSqlMetaData sqlMetaData = new TSqlMetaData();
-            sqlMetaData.setAgentId(getAgentId());
-            sqlMetaData.setAgentStartTime(getAgentStartTime());
+			this.priorityDataSender.request(sqlMetaData);
+		}
+		return isNewValue;
+	}
 
-            sqlMetaData.setSqlId(parsingResult.getId());
-            sqlMetaData.setSql(parsingResult.getSql());
+	public void setPriorityDataSender(
+			final EnhancedDataSender priorityDataSender) {
+		this.priorityDataSender = priorityDataSender;
+	}
 
-            this.priorityDataSender.request(sqlMetaData);
-        }
-        return isNewValue;
-    }
+	@Override
+	public ServerMetaDataHolder getServerMetaDataHolder() {
+		return this.serverMetaDataHolder;
+	}
 
-    public void setPriorityDataSender(final EnhancedDataSender priorityDataSender) {
-        this.priorityDataSender = priorityDataSender;
-    }
+	@Override
+	public int getAsyncId() {
+		final int id = asyncId.incrementAndGet();
+		return id == -1 ? asyncId.incrementAndGet() : id;
+	}
 
-    @Override
-    public ServerMetaDataHolder getServerMetaDataHolder() {
-        return this.serverMetaDataHolder;
-    }
+	@Override
+	public PluginMonitorContext getPluginMonitorContext() {
+		return pluginMonitorContext;
+	}
 
-    @Override
-    public int getAsyncId() {
-        final int id = asyncId.incrementAndGet();
-        return id == -1 ? asyncId.incrementAndGet() : id;
-    }
+	public ActiveTraceLocator getActiveTraceLocator() {
+		if (traceFactory instanceof ActiveTraceFactory) {
+			return (ActiveTraceLocator) ((ActiveTraceFactory) traceFactory)
+					.getActiveTraceLocator();
+		} else {
+			return null;
+		}
+	}
 
-    @Override
-    public PluginMonitorContext getPluginMonitorContext() {
-        return pluginMonitorContext;
-    }
-
-    public ActiveTraceLocator getActiveTraceLocator() {
-        if (traceFactory instanceof ActiveTraceFactory) {
-            return (ActiveTraceLocator) ((ActiveTraceFactory) traceFactory).getActiveTraceLocator();
-        } else {
-            return null;
-        }
-    }
-
-    public TransactionCounter getTransactionCounter() {
-        return this.transactionCounter;
-    }
+	public TransactionCounter getTransactionCounter() {
+		return this.transactionCounter;
+	}
 
 }
