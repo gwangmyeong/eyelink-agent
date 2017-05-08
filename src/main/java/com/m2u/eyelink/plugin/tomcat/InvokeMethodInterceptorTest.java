@@ -23,8 +23,9 @@ import com.m2u.eyelink.context.DefaultMethodDescriptor;
 import com.m2u.eyelink.context.Header;
 import com.m2u.eyelink.context.MethodDescriptor;
 import com.m2u.eyelink.context.TraceContext;
+import com.m2u.eyelink.logging.PLoggerFactory;
+import com.m2u.eyelink.logging.Slf4jLoggerBinder;
 import com.m2u.eyelink.plugin.tomcat.interceptor.StandardHostValveInvokeInterceptor;
-import com.m2u.eyelink.test.TestAgentDirBaseClassPathResolver;
 
 public class InvokeMethodInterceptorTest {
 	private static final Logger logger = LoggerFactory
@@ -43,7 +44,7 @@ public class InvokeMethodInterceptorTest {
 
 	@BeforeClass
 	public static void before() {
-		// PLoggerFactory.initialize(new Slf4jLoggerBinder());
+		 PLoggerFactory.initialize(new Slf4jLoggerBinder());
 	}
 
 	@Before
@@ -61,7 +62,7 @@ public class InvokeMethodInterceptorTest {
 	@Test
 	public void testHeaderNOTExists() {
 
-		when(request.getRequestURI()).thenReturn("/hellotest.jsp");
+		when(request.getRequestURI()).thenReturn("/spring-mvc-showcase");
 		when(request.getRemoteAddr()).thenReturn("10.0.0.1");
 		when(request.getHeader(Header.HTTP_TRACE_ID.toString())).thenReturn(
 				null);

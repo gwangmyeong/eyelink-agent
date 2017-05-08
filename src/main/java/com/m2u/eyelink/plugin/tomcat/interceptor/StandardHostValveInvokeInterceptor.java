@@ -4,9 +4,6 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.m2u.eyelink.config.Filter;
 import com.m2u.eyelink.context.Header;
 import com.m2u.eyelink.context.MethodDescriptor;
@@ -25,7 +22,6 @@ import com.m2u.eyelink.plugin.tomcat.ServletAsyncMethodDescriptor;
 import com.m2u.eyelink.plugin.tomcat.ServletSyncMethodDescriptor;
 import com.m2u.eyelink.plugin.tomcat.TomcatConfig;
 import com.m2u.eyelink.plugin.tomcat.TraceAccessor;
-import com.m2u.eyelink.test.TestAgentDirBaseClassPathResolver;
 import com.m2u.eyelink.trace.AnnotationKey;
 import com.m2u.eyelink.trace.ServiceType;
 import com.m2u.eyelink.util.NetworkUtils;
@@ -76,6 +72,7 @@ public class StandardHostValveInvokeInterceptor implements AroundInterceptor {
 
 	@Override
 	public void before(Object target, Object[] args) {
+		System.out.println("before!!!!!!");
 		if (isDebug) {
 			logger.beforeInterceptor(target, args);
 		}
