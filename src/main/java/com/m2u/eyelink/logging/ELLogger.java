@@ -1,4 +1,4 @@
-package com.m2u.eyelink.agent;
+package com.m2u.eyelink.logging;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -28,7 +28,7 @@ public class ELLogger {
         this.err = err;
     }
     
-    static ELLogger getLogger(String loggerName) {
+    public static ELLogger getLogger(String loggerName) {
         return new ELLogger(loggerName);
     }
 

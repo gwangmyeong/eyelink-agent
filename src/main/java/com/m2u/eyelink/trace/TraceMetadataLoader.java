@@ -38,7 +38,7 @@ public class TraceMetadataLoader {
         if (urls == null) {
             throw new NullPointerException("urls must not be null");
         }
-
+        logger.info("plugin jars list size : " + urls.length);
         List<TraceMetadataProvider> providers = PluginLoader.load(TraceMetadataProvider.class, urls);
         load(providers);
     }

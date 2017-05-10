@@ -4,6 +4,7 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.m2u.eyelink.logging.ELLogger;
 import com.m2u.eyelink.util.ByteUtils;
 
 public class IdValidator {

@@ -9,6 +9,7 @@ import java.util.Scanner;
 import java.util.jar.JarFile;
 
 import com.m2u.eyelink.common.ELConstants;
+import com.m2u.eyelink.logging.ELLogger;
 
 
 public class ELAgent {

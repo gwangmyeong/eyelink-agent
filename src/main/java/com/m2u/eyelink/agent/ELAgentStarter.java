@@ -16,6 +16,7 @@ import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
 import com.m2u.eyelink.common.service.TraceMetadataLoaderService;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.logging.CommonLoggerFactory;
+import com.m2u.eyelink.logging.ELLogger;
 import com.m2u.eyelink.logging.StdoutCommonLoggerFactory;
 import com.m2u.eyelink.plugin.tomcat.DefaultProfilerConfig;
 import com.m2u.eyelink.util.ELAgentThreadFactory;

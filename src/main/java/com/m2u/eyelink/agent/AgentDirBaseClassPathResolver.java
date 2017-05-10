@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.m2u.eyelink.common.ELConstants;
+import com.m2u.eyelink.logging.ELLogger;
 
 public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 	private final ELLogger logger = ELLogger.getLogger(this.getClass()
