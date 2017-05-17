@@ -22,7 +22,7 @@ public class AgentDirBaseClassPathResolverTest {
 
     private static final Logger logger = LoggerFactory.getLogger(AgentDirBaseClassPathResolverTest.class);
 
-    private static final String BOOTSTRAP_JAR = "pinpoint-bootstrap-" + Version.VERSION + ".jar";
+    private static final String BOOTSTRAP_JAR = "ELAgent-" + Version.VERSION + ".jar";
     private static final String TEST_AGENT_DIR = "testagent";
     private static final String SEPARATOR = File.separator;
 

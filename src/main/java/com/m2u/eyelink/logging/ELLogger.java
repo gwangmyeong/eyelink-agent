@@ -83,4 +83,9 @@ public class ELLogger {
         }
         return exceptionMessage;
     }
+
+	public boolean isDebugEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

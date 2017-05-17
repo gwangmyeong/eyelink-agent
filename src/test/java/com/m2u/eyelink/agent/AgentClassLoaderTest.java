@@ -20,15 +20,15 @@ public class AgentClassLoaderTest {
 	@Test
 	public void boot() throws IOException, ClassNotFoundException {
 		AgentClassLoader agentClassLoader = new AgentClassLoader(new URL[0]);
-		agentClassLoader
-				.setBootClass("com.m2u.eyelink.agent.DummyAgent");
+//		agentClassLoader.setBootClass("com.m2u.eyelink.agent.DummyAgent");
+		agentClassLoader.setBootClass("com.m2u.eyelink.agent.DefaultAgent");
 		AgentOption option = new DefaultAgentOption(new DummyInstrumentation(),
 				"testCaseAgent", "testCaseAppName",
 				new DefaultProfilerConfig(), new URL[0], null,
 				new DefaultServiceTypeRegistryService(),
 				new DefaultAnnotationKeyRegistryService());
 		agentClassLoader.boot(option);
-		
+
 		// TODO need verification - implementation for obtaining logger changed
 		// PLoggerBinder loggerBinder = (PLoggerBinder)
 		// agentClassLoader.initializeLoggerBinder();
