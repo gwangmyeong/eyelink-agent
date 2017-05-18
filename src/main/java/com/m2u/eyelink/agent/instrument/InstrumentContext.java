@@ -2,6 +2,10 @@ package com.m2u.eyelink.agent.instrument;
 
 import java.io.InputStream;
 
+import com.m2u.eyelink.agent.instrument.transformer.TransformCallback;
+import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
+import com.m2u.eyelink.context.TraceContext;
+
 public interface InstrumentContext {
 
     TraceContext getTraceContext();

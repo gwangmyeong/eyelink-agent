@@ -7,18 +7,20 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.m2u.eyelink.agent.Agent;
 import com.m2u.eyelink.agent.AgentOption;
 import com.m2u.eyelink.agent.ProductInfo;
+import com.m2u.eyelink.agent.instrument.InstrumentClassPool;
+import com.m2u.eyelink.agent.profiler.monitor.AgentStatMonitor;
 import com.m2u.eyelink.config.ProfilerConfig;
-import com.m2u.eyelink.logging.ELLogger;
 import com.m2u.eyelink.logging.PLoggerBinder;
 
 public class DefaultAgent implements Agent {
 
-	private final ELLogger logger = ELLogger.getLogger(this.getClass()
-			.getName());
-
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final PLoggerBinder binder;
 
     private final ClassFileTransformerDispatcher classFileTransformer;
