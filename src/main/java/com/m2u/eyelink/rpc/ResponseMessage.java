@@ -1,4 +1,6 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc;
+
+import com.m2u.eyelink.sender.Message;
 
 
 public class ResponseMessage implements Message {

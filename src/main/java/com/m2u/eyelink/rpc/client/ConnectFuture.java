@@ -1,4 +1,4 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc.client;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;

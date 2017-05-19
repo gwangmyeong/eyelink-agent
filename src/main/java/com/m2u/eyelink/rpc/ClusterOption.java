@@ -1,4 +1,4 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.m2u.eyelink.sender.Role;
 
 public class ClusterOption {
     public static final ClusterOption DISABLE_CLUSTER_OPTION = new ClusterOption(false, "", Collections.EMPTY_LIST);

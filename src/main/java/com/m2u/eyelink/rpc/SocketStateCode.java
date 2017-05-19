@@ -1,4 +1,4 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc;
 
 import java.util.HashSet;
 import java.util.Set;

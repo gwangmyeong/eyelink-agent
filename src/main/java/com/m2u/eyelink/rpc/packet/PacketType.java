@@ -1,4 +1,4 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc.packet;
 
 public class PacketType {
 	public static final short APPLICATION_SEND = 1;

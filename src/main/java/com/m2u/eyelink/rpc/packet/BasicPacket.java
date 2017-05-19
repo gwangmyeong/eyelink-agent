@@ -1,4 +1,5 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc.packet;
+
 
 
 public abstract class BasicPacket implements Packet {

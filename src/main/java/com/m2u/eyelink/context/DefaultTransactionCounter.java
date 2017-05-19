@@ -1,5 +1,7 @@
 package com.m2u.eyelink.context;
 
+import com.m2u.eyelink.agent.profiler.context.TransactionCounter;
+
 public class DefaultTransactionCounter implements TransactionCounter {
     private final IdGenerator idGenerator;
 

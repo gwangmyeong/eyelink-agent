@@ -1,4 +1,4 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc.packet;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 

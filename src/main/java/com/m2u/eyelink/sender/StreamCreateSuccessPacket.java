@@ -3,6 +3,8 @@ package com.m2u.eyelink.sender;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
+import com.m2u.eyelink.rpc.packet.PacketType;
+
 public class StreamCreateSuccessPacket extends BasicStreamPacket {
 
     private final static short PACKET_TYPE = PacketType.APPLICATION_STREAM_CREATE_SUCCESS;

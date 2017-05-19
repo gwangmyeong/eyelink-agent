@@ -10,6 +10,7 @@ import com.m2u.eyelink.context.monitor.DefaultPluginMonitorContext;
 import com.m2u.eyelink.context.monitor.DisabledPluginMonitorContext;
 import com.m2u.eyelink.plugin.monitor.PluginMonitorContext;
 import com.m2u.eyelink.sender.EnhancedDataSender;
+import com.m2u.eyelink.agent.profiler.context.TransactionCounter;
 import com.m2u.eyelink.annotations.*;
 
 public class DefaultTraceContext implements TraceContext {

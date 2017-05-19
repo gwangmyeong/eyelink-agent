@@ -1,7 +1,11 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
+
+import com.m2u.eyelink.rpc.packet.BasicPacket;
+import com.m2u.eyelink.rpc.packet.PacketType;
+import com.m2u.eyelink.rpc.packet.PayloadPacket;
 
 
 public class RequestPacket extends BasicPacket {

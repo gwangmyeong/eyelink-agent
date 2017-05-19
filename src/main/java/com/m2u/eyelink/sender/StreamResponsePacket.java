@@ -3,6 +3,8 @@ package com.m2u.eyelink.sender;
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.buffer.ChannelBuffers;
 
+import com.m2u.eyelink.rpc.packet.PacketType;
+import com.m2u.eyelink.rpc.packet.PayloadPacket;
 import com.m2u.eyelink.util.AssertUtils;
 
 

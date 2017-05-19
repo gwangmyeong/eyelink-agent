@@ -1,4 +1,4 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc;
 
 public class ELAgentSocketException  extends RuntimeException {
     public ELAgentSocketException() {

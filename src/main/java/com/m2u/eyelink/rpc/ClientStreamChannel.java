@@ -1,7 +1,12 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc;
 
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
+
+import com.m2u.eyelink.sender.StreamChannel;
+import com.m2u.eyelink.sender.StreamChannelManager;
+import com.m2u.eyelink.sender.StreamChannelStateCode;
+import com.m2u.eyelink.sender.StreamCreatePacket;
 
 public class ClientStreamChannel extends StreamChannel {
 

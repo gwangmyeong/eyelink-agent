@@ -11,6 +11,9 @@ import org.jboss.netty.channel.ChannelFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.rpc.ELAgentSocketException;
+import com.m2u.eyelink.rpc.StreamChannelStateChangeEventHandler;
+
 public abstract class StreamChannel {
 	   protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 

@@ -6,8 +6,11 @@ import java.security.ProtectionDomain;
 import java.util.List;
 
 import com.m2u.eyelink.agent.instrument.DynamicTransformRequestListener;
+import com.m2u.eyelink.agent.instrument.RequestHandle;
 import com.m2u.eyelink.agent.instrument.transformer.TransformerRegistry;
 import com.m2u.eyelink.agent.profiler.plugin.DefaultProfilerPluginContext;
+import com.m2u.eyelink.agent.profiler.plugin.MatchableClassFileTransformer;
+import com.m2u.eyelink.config.Filter;
 import com.m2u.eyelink.logging.ELLogger;
 
 public class ClassFileTransformerDispatcher implements ClassFileTransformer,

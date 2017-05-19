@@ -14,9 +14,35 @@ import com.m2u.eyelink.agent.Agent;
 import com.m2u.eyelink.agent.AgentOption;
 import com.m2u.eyelink.agent.ProductInfo;
 import com.m2u.eyelink.agent.instrument.InstrumentClassPool;
+import com.m2u.eyelink.agent.profiler.context.TransactionCounter;
+import com.m2u.eyelink.agent.profiler.interceptor.registry.DefaultInterceptorRegistryBinder;
+import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistryBinder;
+import com.m2u.eyelink.agent.profiler.monitor.AgentStatCollectorFactory;
 import com.m2u.eyelink.agent.profiler.monitor.AgentStatMonitor;
+import com.m2u.eyelink.agent.profiler.plugin.DefaultProfilerPluginContext;
+import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
 import com.m2u.eyelink.config.ProfilerConfig;
+import com.m2u.eyelink.context.ActiveTraceLocator;
+import com.m2u.eyelink.context.AgentInformation;
+import com.m2u.eyelink.context.DefaultServerMetaDataHolder;
+import com.m2u.eyelink.context.DefaultTraceContext;
+import com.m2u.eyelink.context.HandshakePropertyType;
+import com.m2u.eyelink.context.RuntimeMXBeanUtils;
+import com.m2u.eyelink.context.Sampler;
+import com.m2u.eyelink.context.ServerMetaDataHolder;
+import com.m2u.eyelink.context.StorageFactory;
+import com.m2u.eyelink.context.TraceContext;
+import com.m2u.eyelink.logging.PLogger;
 import com.m2u.eyelink.logging.PLoggerBinder;
+import com.m2u.eyelink.logging.PLoggerFactory;
+import com.m2u.eyelink.logging.Slf4jLoggerBinder;
+import com.m2u.eyelink.plugin.tomcat.DefaultProfilerConfig;
+import com.m2u.eyelink.rpc.ClassPreLoader;
+import com.m2u.eyelink.rpc.client.ELAgentClient;
+import com.m2u.eyelink.rpc.client.ELAgentClientFactory;
+import com.m2u.eyelink.sender.DataSender;
+import com.m2u.eyelink.sender.EnhancedDataSender;
+import com.m2u.eyelink.trace.ServiceType;
 
 public class DefaultAgent implements Agent {
 
@@ -32,8 +58,8 @@ public class DefaultAgent implements Agent {
 
     private final TraceContext traceContext;
 
-    private PinpointClientFactory clientFactory;
-    private PinpointClient client;
+    private ELAgentClientFactory clientFactory;
+    private ELAgentClient client;
     private final EnhancedDataSender tcpDataSender;
 
     private final DataSender statDataSender;
@@ -313,8 +339,8 @@ public class DefaultAgent implements Agent {
         return serverMetaDataHolder;
     }
 
-    protected PinpointClientFactory createPinpointClientFactory(CommandDispatcher commandDispatcher) {
-        PinpointClientFactory pinpointClientFactory = new PinpointClientFactory();
+    protected ELAgentClientFactory createELAgentClientFactory(CommandDispatcher commandDispatcher) {
+        ELAgentClientFactory pinpointClientFactory = new ELAgentClientFactory();
         pinpointClientFactory.setTimeoutMillis(1000 * 5);
 
         Map<String, Object> properties = this.agentInformation.toMap();
@@ -336,8 +362,8 @@ public class DefaultAgent implements Agent {
     }
 
     protected EnhancedDataSender createTcpDataSender(CommandDispatcher commandDispatcher) {
-        this.clientFactory = createPinpointClientFactory(commandDispatcher);
-        this.client = ClientFactoryUtils.createPinpointClient(this.profilerConfig.getCollectorTcpServerIp(), this.profilerConfig.getCollectorTcpServerPort(), clientFactory);
+        this.clientFactory = createELAgentClientFactory(commandDispatcher);
+        this.client = ClientFactoryUtils.createELAgentClient(this.profilerConfig.getCollectorTcpServerIp(), this.profilerConfig.getCollectorTcpServerPort(), clientFactory);
         return new TcpDataSender(client);
     }
 
