@@ -1,6 +1,6 @@
 package com.m2u.eyelink.rpc;
 
-import com.m2u.eyelink.sender.StreamChannel;
+import com.m2u.eyelink.rpc.stream.StreamChannel;
 import com.m2u.eyelink.sender.StreamChannelStateCode;
 
 public interface StreamChannelStateChangeEventHandler <S extends StreamChannel>{

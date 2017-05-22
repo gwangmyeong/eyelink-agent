@@ -5,18 +5,22 @@ import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.m2u.eyelink.agent.instrument.DynamicTransformRequestListener;
 import com.m2u.eyelink.agent.instrument.RequestHandle;
 import com.m2u.eyelink.agent.instrument.transformer.TransformerRegistry;
+import com.m2u.eyelink.agent.profiler.instrument.LegacyProfilerPluginClassInjector;
+import com.m2u.eyelink.agent.profiler.instrument.transformer.DebugTransformer;
+import com.m2u.eyelink.agent.profiler.instrument.transformer.DefaultTransformerRegistry;
 import com.m2u.eyelink.agent.profiler.plugin.DefaultProfilerPluginContext;
 import com.m2u.eyelink.agent.profiler.plugin.MatchableClassFileTransformer;
 import com.m2u.eyelink.config.Filter;
-import com.m2u.eyelink.logging.ELLogger;
 
 public class ClassFileTransformerDispatcher implements ClassFileTransformer,
 		DynamicTransformRequestListener {
-	private final ELLogger logger = ELLogger.getLogger(this.getClass()
-			.getName());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private final boolean isDebug = logger.isDebugEnabled();
 
 	private final ClassLoader agentClassLoader = this.getClass()
@@ -45,7 +49,7 @@ public class ClassFileTransformerDispatcher implements ClassFileTransformer,
 				.getProfilableClassFilter();
 		this.debugTransformer = new DebugTransformer(globalContext);
 
-		this.pinpointClassFilter = new PinpointClassFilter(agentClassLoader);
+		this.pinpointClassFilter = new ELAgentClassFilter(agentClassLoader);
 		this.unmodifiableFilter = new UnmodifiableClassFilter();
 
 		this.transformerRegistry = createTransformerRegistry(pluginContexts);

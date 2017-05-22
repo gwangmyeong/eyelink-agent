@@ -2,6 +2,8 @@ package com.m2u.eyelink.sender;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.m2u.eyelink.rpc.stream.StreamChannel;
+
 public abstract class StreamChannelContext {
     private final ConcurrentHashMap<String, Object> attribute = new ConcurrentHashMap<String, Object>();
 

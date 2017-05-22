@@ -2,6 +2,7 @@ package com.m2u.eyelink.rpc;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.m2u.eyelink.rpc.stream.ClientStreamChannel;
 import com.m2u.eyelink.sender.StreamChannelContext;
 import com.m2u.eyelink.sender.StreamCreateFailPacket;
 import com.m2u.eyelink.util.AssertUtils;
