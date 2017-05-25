@@ -11,6 +11,7 @@ import com.m2u.eyelink.exception.ELAgentException;
 
 public class AgentClassLoader {
 
+
     private static final SecurityManager SECURITY_MANAGER = System.getSecurityManager();
 
     private final URLClassLoader classLoader;
@@ -32,12 +33,14 @@ public class AgentClassLoader {
 
     private ELAgentURLClassLoader createClassLoader(final URL[] urls, final ClassLoader bootStrapClassLoader) {
         if (SECURITY_MANAGER != null) {
+        	System.out.println("=====> SECURITY_MANAGER != null");
             return AccessController.doPrivileged(new PrivilegedAction<ELAgentURLClassLoader>() {
                 public ELAgentURLClassLoader run() {
                     return new ELAgentURLClassLoader(urls, bootStrapClassLoader);
                 }
             });
         } else {
+        	System.out.println("=====> SECURITY_MANAGER is null");
             return new ELAgentURLClassLoader(urls, bootStrapClassLoader);
         }
     }

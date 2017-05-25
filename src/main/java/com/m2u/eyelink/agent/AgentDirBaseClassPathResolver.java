@@ -285,10 +285,12 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 	        if (agentDirUri != null) {
 	            jarURLList.add(agentDirUri);
 	        }
+	        
+	        // FIXME commonjar, corejar가 없으므로 SKIP 처리함.
 
 	        // hot fix. boot jars not found from classPool ??
-	        jarURLList.add(toURI(new File(getELAgentCommonsJar())));
-	        jarURLList.add(toURI(new File(getELAgentCoreJar())));
+//	        jarURLList.add(toURI(new File(getELAgentCommonsJar())));
+//	        jarURLList.add(toURI(new File(getELAgentCoreJar())));
 	        String bootstrapCoreOptionalJar = getELAgentOptionalJar();
 	        // bootstrap-core-optional jar is not required and is okay to be null
 	        if (bootstrapCoreOptionalJar != null) {

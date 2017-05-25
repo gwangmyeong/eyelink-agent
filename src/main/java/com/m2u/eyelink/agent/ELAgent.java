@@ -47,6 +47,7 @@ public class ELAgent {
 		ELAgentJarFile agentJarFile = classPathResolver.getELAgentJarFile();
 		appendToELAgentClassLoader(inst, agentJarFile);
 
+		logger.info("===========>ELAgentStarter before");
 		ELAgentStarter elagent = new ELAgentStarter(agentArgsMap, agentJarFile, classPathResolver, inst);
 		if (!elagent.start()) {
 			logELAgentLoadFail();

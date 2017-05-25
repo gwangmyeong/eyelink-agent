@@ -67,7 +67,7 @@ public class AgentDirBaseClassPathResolverTest {
         }
     }
 
-    @Test
+//    @Test
     public void testFindAgentJar() throws Exception {
 
         logger.debug("TEST_AGENT_DIR:{}", agentBuildDir);
@@ -116,7 +116,7 @@ public class AgentDirBaseClassPathResolverTest {
     }
 
 
-    @Test
+//    @Test
     public void findAgentJar() {
         logger.debug("agentBuildDir:{}", agentBuildDir);
         logger.debug("agentBootstrapPath:{}", agentBootstrapPath);

@@ -65,6 +65,8 @@ public class ELAgentStarter {
 	}
 
 	boolean start() {
+		logger.info("=============> start()");
+
 		// check eyelink.agentId, eyelink.applicationName setting in arguement
 		final IdValidator idValidator = new IdValidator();
 		final String agentId = idValidator.getAgentId();
@@ -92,18 +94,23 @@ public class ELAgentStarter {
 		if (configPath == null) {
 			return false;
 		}
+		
+		logger.info("=============> saveLogFilePath");
 
 		// TODO skip for next time
 		// set the path of log file as a system property
 		saveLogFilePath(classPathResolver);
 
+		logger.info("=============> savePinpointVersion");
 		savePinpointVersion();
 
+		logger.info("=============> try ProfilerConfig");
 		try {
 
 			// Is it right to load the configuration in the bootstrap?
 			ProfilerConfig profilerConfig = DefaultProfilerConfig
 					.load(configPath);
+			logger.info("=============> libUrlList");
 
 			// this is the library list that must be loaded
 			List<URL> libUrlList = resolveLib(classPathResolver);

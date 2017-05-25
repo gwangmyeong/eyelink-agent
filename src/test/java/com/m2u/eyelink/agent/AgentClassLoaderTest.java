@@ -18,10 +18,28 @@ public class AgentClassLoaderTest {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Test
-	public void boot() throws IOException, ClassNotFoundException {
+	public void boot_DummyAgent() throws IOException, ClassNotFoundException {
 		AgentClassLoader agentClassLoader = new AgentClassLoader(new URL[0]);
-//		agentClassLoader.setBootClass("com.m2u.eyelink.agent.DummyAgent");
-		agentClassLoader.setBootClass("com.m2u.eyelink.agent.DefaultAgent");
+		agentClassLoader.setBootClass("com.m2u.eyelink.agent.DummyAgent");
+		AgentOption option = new DefaultAgentOption(new DummyInstrumentation(),
+				"testCaseAgent", "testCaseAppName",
+				new DefaultProfilerConfig(), new URL[0], null,
+				new DefaultServiceTypeRegistryService(),
+				new DefaultAnnotationKeyRegistryService());
+		agentClassLoader.boot(option);
+
+		// TODO need verification - implementation for obtaining logger changed
+		// PLoggerBinder loggerBinder = (PLoggerBinder)
+		// agentClassLoader.initializeLoggerBinder();
+		// PLogger test = loggerBinder.getLogger("test");
+		// test.info("slf4j logger test");
+
+	}
+
+	@Test
+	public void boot_DefaultAgent() throws IOException, ClassNotFoundException {
+		AgentClassLoader agentClassLoader = new AgentClassLoader(new URL[0]);
+		agentClassLoader.setBootClass("com.m2u.eyelink.agent.profiler.DefaultAgent");
 		AgentOption option = new DefaultAgentOption(new DummyInstrumentation(),
 				"testCaseAgent", "testCaseAppName",
 				new DefaultProfilerConfig(), new URL[0], null,
