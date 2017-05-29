@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.agent.profiler.DefaultAgent;
 import com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService;
 import com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService;
 import com.m2u.eyelink.plugin.tomcat.DefaultProfilerConfig;
@@ -17,7 +18,7 @@ public class AgentClassLoaderTest {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Test
+//	@Test
 	public void boot_DummyAgent() throws IOException, ClassNotFoundException {
 		AgentClassLoader agentClassLoader = new AgentClassLoader(new URL[0]);
 		agentClassLoader.setBootClass("com.m2u.eyelink.agent.DummyAgent");

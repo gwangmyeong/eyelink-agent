@@ -244,12 +244,12 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 
 	@Override
 	public String getAgentLibPath() {
-		return this.agentDirPath + File.separator + "Lib";
+		return this.agentDirPath + File.separator + "lib";
 	}
 
 	@Override
 	public String getAgentLogFilePath() {
-		return this.agentDirPath + File.separator + "Log";
+		return this.agentDirPath + File.separator + "log";
 	}
 
 	@Override

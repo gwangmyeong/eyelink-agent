@@ -1,6 +1,9 @@
 package com.m2u.eyelink.agent;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +16,7 @@ public class ELAgentURLClassLoaderTest {
 		ELAgentURLClassLoader cl = new ELAgentURLClassLoader(new URL[] {},
 				Thread.currentThread().getContextClassLoader());
 		try {
-			cl.loadClass("test");
+			cl.loadClass("com.m2u.eyelink.agent.profiler.DefaultAgent");
 			Assert.fail();
 		} catch (ClassNotFoundException ignored) {
 		}
@@ -29,6 +32,20 @@ public class ELAgentURLClassLoaderTest {
 		// classloader, but it would be harder to maintain.
 		// for now, just test if DefaultAgent is specified to be loaded
 		Assert.assertTrue(cl
-				.onLoadClass("com.navercorp.pinpoint.profiler.DefaultAgent"));
+				.onLoadClass("com.m2u.eyelink.agent.profiler.DefaultAgent"));
+	}
+
+
+	// classloader를 이용한 jar 파일 Loading Test
+	@Test
+	public void testJarFile() throws MalformedURLException, ClassNotFoundException {
+		File file  = new File("/Users/baesunghan/git/m2u/pinpoint/quickstart/agent/target/pinpoint-agent/pinpoint-bootstrap-1.6.1-SNAPSHOT.jar");
+
+		URL url = file.toURL();  
+		URL[] urls = new URL[]{url};
+
+		ClassLoader cl = new URLClassLoader(urls);
+		Class cls = cl.loadClass("org.jboss.netty.channel.group.ChannelGroup");
+		Class cls2 = cl.loadClass("com.navercorp.pinpoint.bootstrap.LoadState");
 	}
 }

@@ -57,7 +57,9 @@ public class AgentClassLoader {
             @Override
             public Object call() throws Exception {
                 try {
+                	System.out.println("=====> AgentClassLoader call() start");
                     Constructor<?> constructor = bootStrapClazz.getConstructor(AgentOption.class);
+                    System.out.println("=====> AgentClassLoader call() end");
                     return constructor.newInstance(agentOption);
                 } catch (InstantiationException e) {
                     throw new ELAgentException("boot create failed. Error:" + e.getMessage(), e);

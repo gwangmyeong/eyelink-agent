@@ -63,6 +63,7 @@ import com.m2u.eyelink.trace.ServiceType;
 
 public class DefaultAgent implements Agent {
 
+	
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final PLoggerBinder binder;
 
@@ -98,8 +99,10 @@ public class DefaultAgent implements Agent {
     
 
     static {
-        // Preload classes related to pinpoint-rpc module.
+    	System.out.println("====> ClassPreLoader.preload() before");
+        // Preload classes related to ELAgent-rpc module.
         ClassPreLoader.preload();
+        System.out.println("====> ClassPreLoader.preload() after");
     }
     public DefaultAgent(AgentOption agentOption) {
         this(agentOption, createInterceptorRegistry(agentOption));

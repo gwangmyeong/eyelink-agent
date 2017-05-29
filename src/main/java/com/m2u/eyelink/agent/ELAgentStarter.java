@@ -2,6 +2,7 @@ package com.m2u.eyelink.agent;
 
 import java.lang.instrument.Instrumentation;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,8 @@ public class ELAgentStarter {
 		// loading Plugin jar files
 		URL[] pluginJars = classPathResolver.resolvePlugins();
 
+		logger.info("=====> pluginJars size : "+ pluginJars.length);
+		
 		// TODO using PLogger instead of CommonLogger
 		CommonLoggerFactory loggerFactory = StdoutCommonLoggerFactory.INSTANCE;
 		TraceMetadataLoaderService typeLoaderService = new DefaultTraceMetadataLoaderService(
@@ -101,8 +104,8 @@ public class ELAgentStarter {
 		// set the path of log file as a system property
 		saveLogFilePath(classPathResolver);
 
-		logger.info("=============> savePinpointVersion");
-		savePinpointVersion();
+		logger.info("=============> saveELAgentVersion");
+		saveELAgentVersion();
 
 		logger.info("=============> try ProfilerConfig");
 		try {
@@ -119,14 +122,20 @@ public class ELAgentStarter {
 			final String bootClass = getBootClass();
 			agentClassLoader.setBootClass(bootClass);
 			logger.info("EyeLink agent [" + bootClass + "] starting...");
-
+			
+//			logger.info("=====> size : " + libUrlList.size());
+//			ClassLoader cl = new URLClassLoader(new URL[libUrlList.size()]);
+//			Class cls = cl.loadClass("org.jboss.netty.channel.group.ChannelGroup");
+			
+			
 			AgentOption option = createAgentOption(agentId, applicationName,
 					profilerConfig, instrumentation, pluginJars,
 					agentJarFile, serviceTypeRegistryService,
 					annotationKeyRegistryService);
-			Agent pinpointAgent = agentClassLoader.boot(option);
-			pinpointAgent.start();
-			registerShutdownHook(pinpointAgent);
+//			logger.info("=====> AgentOption : " + option.toString());
+			Agent elAgent = agentClassLoader.boot(option);
+			elAgent.start();
+			registerShutdownHook(elAgent);
 
 			logger.info("EyeLink agent started normally.");
 
@@ -182,7 +191,7 @@ public class ELAgentStarter {
 		systemProperty.setProperty(ProductInfo.NAME + ".log", agentLogFilePath);
 	}
 
-	private void savePinpointVersion() {
+	private void saveELAgentVersion() {
 		logger.info("pinpoint version:" + Version.VERSION);
 		systemProperty.setProperty(ProductInfo.NAME + ".version",
 				Version.VERSION);

@@ -58,7 +58,7 @@ public class ELAgent {
 			Instrumentation instrumentation, ELAgentJarFile agentJarFile) {
 		List<JarFile> jarFileList = agentJarFile.getJarFileList();
 		for (JarFile jarFile : jarFileList) {
-			logger.info("appendTELAgentClassLoader:" + jarFile.getName());
+			logger.info("appendToELAgentClassLoader:" + jarFile.getName());
 			instrumentation.appendToBootstrapClassLoaderSearch(jarFile);
 		}
 	}

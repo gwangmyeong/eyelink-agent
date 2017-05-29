@@ -20,6 +20,7 @@ public class ContextClassLoaderExecuteTemplate<V> {
             final ClassLoader before = currentThread.getContextClassLoader();
             currentThread.setContextClassLoader(ContextClassLoaderExecuteTemplate.this.classLoader);
             try {
+            	System.out.println("=====> ContextClassLoaderExecuteTemplate call()");
                 return callable.call();
             } finally {
                 // even though  the "BEFORE" classloader  is null, rollback  is needed.
