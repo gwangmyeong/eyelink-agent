@@ -3,6 +3,7 @@ package com.m2u.eyelink.rpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.rpc.client.DefaultELAgentClientFactory;
 import com.m2u.eyelink.rpc.client.ELAgentClient;
 import com.m2u.eyelink.rpc.client.ELAgentClientFactory;
 import com.m2u.eyelink.rpc.server.ELAgentServerAcceptor;
@@ -27,7 +28,7 @@ public final class ClassPreLoader {
             System.out.println("=====> preload after");
             serverAcceptor.bind("127.0.0.1", port);
 
-            clientFactory = new ELAgentClientFactory();
+            clientFactory = new DefaultELAgentClientFactory();
             client = clientFactory.connect("127.0.0.1", port);
             client.sendSync(new byte[0]);
 

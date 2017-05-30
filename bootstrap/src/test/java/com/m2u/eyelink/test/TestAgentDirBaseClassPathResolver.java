@@ -21,7 +21,7 @@ public class TestAgentDirBaseClassPathResolver {
 	private static final Logger logger = LoggerFactory.getLogger(TestAgentDirBaseClassPathResolver.class
 			.getName());
 	
-    private static final String ELAgent_JAR = "eyelink-agent-1.0.0-SNAPSHOT.jar";
+    private static final String ELAgent_JAR = "eyelink-bootstrap-1.0.0-SNAPSHOT.jar";
     private static final String TEST_AGENT_DIR = "";
     private static final String SEPARATOR = File.separator;
     

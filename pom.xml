@@ -177,7 +177,7 @@
         </dependencies>
     </dependencyManagement>
 
-	<build>
+<!-- 	<build>
 		<resources>
 			<resource>
 				<directory>${basedir}/src/main/java</directory>
@@ -208,12 +208,12 @@
 				<version>3.0.2</version>
 				<configuration>
 					<archive>
-						<!-- <manifestFile>./src/main/resources/META-INF/MANIFEST.MF</manifestFile> 
-							<manifest> <mainClass>com.example.hello.JavaHello</mainClass> </manifest> -->
+						<manifestFile>./src/main/resources/META-INF/MANIFEST.MF</manifestFile> 
+							<manifest> <mainClass>com.example.hello.JavaHello</mainClass> </manifest>
 					</archive>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
+			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.8</version>
 				<executions>
@@ -231,7 +231,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 		</plugins>
-	</build>
+	</build> -->
 </project>

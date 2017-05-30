@@ -7,6 +7,7 @@ public class TomcatTypeProvider implements TraceMetadataProvider {
 
     @Override
     public void setup(TraceMetadataSetupContext context) {
+    	System.out.println("=====> tomcat TomcatTypeProvider");
         context.addServiceType(TomcatConstants.TOMCAT);
         context.addServiceType(TomcatConstants.TOMCAT_METHOD);
     }

@@ -21,8 +21,8 @@ import com.m2u.eyelink.context.thrift.TResult;
 import com.m2u.eyelink.rpc.Future;
 import com.m2u.eyelink.rpc.ResponseMessage;
 import com.m2u.eyelink.rpc.client.ELAgentClient;
+import com.m2u.eyelink.rpc.client.ELAgentClientReconnectEventListener;
 import com.m2u.eyelink.rpc.util.TimerFactory;
-import com.m2u.eyelink.sender.ELAgentClientReconnectEventListener;
 import com.m2u.eyelink.sender.EnhancedDataSender;
 import com.m2u.eyelink.sender.FutureListener;
 
@@ -85,12 +85,12 @@ public class TcpDataSender extends AbstractDataSender implements EnhancedDataSen
 
     @Override
     public boolean addReconnectEventListener(ELAgentClientReconnectEventListener eventListener) {
-        return this.client.addPinpointClientReconnectEventListener(eventListener);
+        return this.client.addELAgentClientReconnectEventListener(eventListener);
     }
 
     @Override
     public boolean removeReconnectEventListener(ELAgentClientReconnectEventListener eventListener) {
-        return this.client.removePinpointClientReconnectEventListener(eventListener);
+        return this.client.removeELAgentClientReconnectEventListener(eventListener);
     }
 
     @Override

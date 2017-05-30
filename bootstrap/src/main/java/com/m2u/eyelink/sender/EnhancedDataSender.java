@@ -3,6 +3,7 @@ package com.m2u.eyelink.sender;
 import org.apache.thrift.TBase;
 
 import com.m2u.eyelink.rpc.ResponseMessage;
+import com.m2u.eyelink.rpc.client.ELAgentClientReconnectEventListener;
 
 public interface EnhancedDataSender extends DataSender {
     boolean request(TBase<?, ?> data);

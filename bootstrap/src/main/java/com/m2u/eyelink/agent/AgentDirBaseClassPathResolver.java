@@ -22,15 +22,15 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 			.getName());
 
 	static final String VERSION_PATTERN = "(-[0-9]+\\.[0-9]+\\.[0-9]+((\\-SNAPSHOT)|(-RC[0-9]+))?)?";
-	static final Pattern DEFAULT_AGENT_PATTERN = compile("eyelink-agent"
+	static final Pattern DEFAULT_AGENT_PATTERN = compile("eyelink-bootstrap"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_AGENT_COMMONS_PATTERN = compile("eyelink-agent-commons"
+	static final Pattern DEFAULT_AGENT_COMMONS_PATTERN = compile("eyelink-bootstrap-commons"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_AGENT_CORE_PATTERN = compile("eyelink-agent-core"
+	static final Pattern DEFAULT_AGENT_CORE_PATTERN = compile("eyelink-bootstrap-core"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_AGENT_CORE_OPTIONAL_PATTERN = compile("eyelink-agent-optional"
+	static final Pattern DEFAULT_AGENT_CORE_OPTIONAL_PATTERN = compile("eyelink-bootstrap-optional"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_ANNOTATIONS = compile("eyelink-agent-annotations"
+	static final Pattern DEFAULT_ANNOTATIONS = compile("eyelink-bootstrap-annotations"
 			+ VERSION_PATTERN + "\\.jar");
 
 	private final Pattern agentPattern;
@@ -125,13 +125,13 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		this.agentDirPath = toCanonicalPath(agentDirPath);
 		logger.info("Agent canonical-path:" + agentDirPath);
 
-		this.ElAgentCommonsJar = findFromBootDir("eyelink-agent-commons.jar",
+		this.ElAgentCommonsJar = findFromBootDir("eyelink-bootstrap-commons.jar",
 				agentCommonsPattern);
-		this.ElAgentCoreJar = findFromBootDir("eyelink-agent-core.jar",
+		this.ElAgentCoreJar = findFromBootDir("eyelink-bootstrap-core.jar",
 				agentCorePattern);
-		this.ElAgentOptionalJar = findFromBootDir("eyelink-agent-core-optional.jar",
+		this.ElAgentOptionalJar = findFromBootDir("eyelink-bootstrap-core-optional.jar",
 				agentCoreOptionalPattern);
-		this.annotationsJar = findFromBootDir("eyelink-agent-annotations.jar",
+		this.annotationsJar = findFromBootDir("eyelink-bootstrap-annotations.jar",
 				annotationsPattern);
 		return true;
 	}
