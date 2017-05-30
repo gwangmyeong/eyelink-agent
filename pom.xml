@@ -5,7 +5,7 @@
 	<groupId>com.m2u.eyelink</groupId>
 	<artifactId>eyelink-agent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<organization>
 		<name>M2U Technology</name>
@@ -21,6 +21,11 @@
 		<env>local</env>
 	</properties>
 
+	<modules>
+		<module>bootstrap</module>
+		<module>plugins</module>
+	</modules>
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -156,6 +161,22 @@
 		</dependency>
 	</dependencies>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.m2u.eyelink</groupId>
+                <artifactId>eyelink-bootstrap</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.m2u.eyelink</groupId>
+                <artifactId>eyelink-plugins</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 	<build>
 		<resources>
 			<resource>
@@ -192,7 +213,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.8</version>
 				<executions>
@@ -210,7 +231,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 </project>
