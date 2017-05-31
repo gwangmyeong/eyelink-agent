@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.apache.thrift.TBase;
 
+import com.m2u.eyelink.agent.profiler.context.active.ActiveTraceRepository;
 import com.m2u.eyelink.agent.profiler.receiver.ProfilerRequestCommandService;
 import com.m2u.eyelink.agent.profiler.util.ActiveThreadDumpUtils;
 import com.m2u.eyelink.agent.profiler.util.ThreadDumpUtils;
 import com.m2u.eyelink.context.ActiveTraceInfo;
-import com.m2u.eyelink.context.ActiveTraceLocator;
 import com.m2u.eyelink.context.thrift.TActiveThreadDump;
 import com.m2u.eyelink.context.thrift.TCmdActiveThreadDump;
 import com.m2u.eyelink.context.thrift.TCmdActiveThreadDumpRes;
@@ -19,10 +19,10 @@ import com.m2u.eyelink.util.JvmUtils;
 
 public class ActiveThreadDumpService implements ProfilerRequestCommandService {
 
-    private final ActiveTraceLocator activeTraceLocator;
+    private final ActiveTraceRepository activeTraceRepository;
 
-    public ActiveThreadDumpService(ActiveTraceLocator activeTraceLocator) {
-        this.activeTraceLocator = activeTraceLocator;
+    public ActiveThreadDumpService(ActiveTraceRepository activeTraceRepository) {
+        this.activeTraceRepository = activeTraceRepository;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ActiveThreadDumpService implements ProfilerRequestCommandService {
     }
 
     private List<TActiveThreadDump> getActiveThreadDumpList(TCmdActiveThreadDump request) {
-        List<ActiveTraceInfo> activeTraceInfoList = activeTraceLocator.collect();
+        List<ActiveTraceInfo> activeTraceInfoList = activeTraceRepository.collect();
 
         int limit = request.getLimit();
         if (limit > 0) {

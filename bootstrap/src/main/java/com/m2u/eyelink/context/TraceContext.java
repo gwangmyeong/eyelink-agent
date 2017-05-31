@@ -1,10 +1,11 @@
 package com.m2u.eyelink.context;
 
+import com.m2u.eyelink.agent.profiler.metadata.JdbcContext;
 import com.m2u.eyelink.annotations.InterfaceAudience;
 import com.m2u.eyelink.config.ProfilerConfig;
-import com.m2u.eyelink.plugin.monitor.PluginMonitorContext;
 
 public interface TraceContext {
+
     Trace currentTraceObject();
 
     /**
@@ -67,5 +68,7 @@ public interface TraceContext {
 
     int getAsyncId();
 
-    PluginMonitorContext getPluginMonitorContext();
+    JdbcContext getJdbcContext();
+
 }
+

@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.agent.profiler.context.ActiveTraceHistogramFactory;
 import com.m2u.eyelink.agent.profiler.context.ActiveTraceHistogramFactory.ActiveTraceHistogram;
+import com.m2u.eyelink.agent.profiler.context.active.ActiveTraceRepository;
 import com.m2u.eyelink.agent.profiler.receiver.CommandSerializer;
 import com.m2u.eyelink.agent.profiler.receiver.ProfilerRequestCommandService;
 import com.m2u.eyelink.agent.profiler.receiver.ProfilerStreamCommandService;
-import com.m2u.eyelink.context.ActiveTraceLocator;
 import com.m2u.eyelink.context.thrift.SerializationUtils;
 import com.m2u.eyelink.context.thrift.TCmdActiveThreadCount;
 import com.m2u.eyelink.context.thrift.TCmdActiveThreadCountRes;
@@ -45,15 +45,15 @@ public class ActiveThreadCountService implements ProfilerRequestCommandService, 
 
     private final ActiveTraceHistogramFactory activeTraceHistogramFactory;
 
-    public ActiveThreadCountService(ActiveTraceLocator activeTraceLocator) {
-        this(activeTraceLocator, DEFAULT_FLUSH_DELAY);
+    public ActiveThreadCountService(ActiveTraceRepository activeTraceRepository) {
+        this(activeTraceRepository, DEFAULT_FLUSH_DELAY);
     }
 
-    public ActiveThreadCountService(ActiveTraceLocator activeTraceLocator, long flushDelay) {
-        if (activeTraceLocator == null) {
-            throw new NullPointerException("activeTraceLocator");
+    public ActiveThreadCountService(ActiveTraceRepository activeTraceRepository, long flushDelay) {
+        if (activeTraceRepository == null) {
+            throw new NullPointerException("activeTraceRepository");
         }
-        this.activeTraceHistogramFactory = new ActiveTraceHistogramFactory(activeTraceLocator);
+        this.activeTraceHistogramFactory = new ActiveTraceHistogramFactory(activeTraceRepository);
         this.flushDelay = flushDelay;
     }
 

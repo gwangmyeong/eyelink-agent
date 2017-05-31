@@ -1,7 +1,5 @@
 package com.m2u.eyelink.agent;
 
-import com.m2u.eyelink.config.ProfilerConfig;
-import com.m2u.eyelink.context.TraceContext;
 
 public class DummyAgent implements Agent {
 
@@ -17,14 +15,5 @@ public class DummyAgent implements Agent {
     public void stop() {
     }
 
-    @Override
-    public TraceContext getTraceContext() {
-        return null;
-    }
-
-    @Override
-     public ProfilerConfig getProfilerConfig() {
-        return null;
-    }
 
 }

@@ -18,11 +18,18 @@ public class BootstrapClassLoaderHandler implements ClassInjector {
     private final Object lock = new Object();
     private boolean injectedToRoot = false;
 
-    public BootstrapClassLoaderHandler(PluginConfig pluginConfig) {
+    private final InstrumentEngine instrumentEngine;
+
+
+    public BootstrapClassLoaderHandler(PluginConfig pluginConfig, InstrumentEngine instrumentEngine) {
         if (pluginConfig == null) {
             throw new NullPointerException("pluginConfig must not be null");
         }
+        if (instrumentEngine == null) {
+            throw new NullPointerException("instrumentEngine must not be null");
+        }
         this.pluginConfig = pluginConfig;
+        this.instrumentEngine = instrumentEngine;
     }
 
     @Override
@@ -48,8 +55,7 @@ public class BootstrapClassLoaderHandler implements ClassInjector {
         synchronized (lock) {
             if (this.injectedToRoot == false) {
                 this.injectedToRoot = true;
-                pluginConfig.getInstrumentation().appendToBootstrapClassLoaderSearch(pluginConfig.getPluginJarFile());
-                pluginConfig.getClassPool().appendToBootstrapClassPath(pluginConfig.getPluginJarFile().getName());
+                instrumentEngine.appendToBootstrapClassPath(pluginConfig.getPluginJarFile());
             }
         }
     }

@@ -77,9 +77,9 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
     
     private final Timer channelTimer;
 
-    private final ELAgentClientFactory clientFactory;
+    private final DefaultELAgentClientFactory clientFactory;
     private SocketAddress connectSocketAddress;
-    private volatile ELAgentClient elagentClient;
+    private volatile ELAgentClient pinpointClient;
 
     private final MessageListener messageListener;
     private final ServerStreamChannelMessageListener serverStreamChannelMessageListener;
@@ -100,16 +100,16 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
     private final ClusterOption localClusterOption;
     private ClusterOption remoteClusterOption = ClusterOption.DISABLE_CLUSTER_OPTION;
     
-    public DefaultELAgentClientHandler(ELAgentClientFactory clientFactory) {
+    public DefaultELAgentClientHandler(DefaultELAgentClientFactory clientFactory) {
         this(clientFactory, DEFAULT_PING_DELAY, DEFAULT_ENABLE_WORKER_PACKET_DELAY, DEFAULT_TIMEOUTMILLIS);
     }
 
-    public DefaultELAgentClientHandler(ELAgentClientFactory clientFactory, long pingDelay, long handshakeRetryInterval, long timeoutMillis) {
+    public DefaultELAgentClientHandler(DefaultELAgentClientFactory clientFactory, long pingDelay, long handshakeRetryInterval, long timeoutMillis) {
         if (clientFactory == null) {
             throw new NullPointerException("pinpointClientFactory must not be null");
         }
         
-        HashedWheelTimer timer = TimerFactory.createHashedWheelTimer("Pinpoint-PinpointClientHandler-Timer", 100, TimeUnit.MILLISECONDS, 512);
+        HashedWheelTimer timer = TimerFactory.createHashedWheelTimer("ELAgent-ELAgentClientHandler-Timer", 100, TimeUnit.MILLISECONDS, 512);
         timer.start();
         
         this.channelTimer = timer;
@@ -131,11 +131,11 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
         this.localClusterOption = clientFactory.getClusterOption();
     }
 
-    public void setELAgentClient(ELAgentClient elagentClient) {
-        if (elagentClient == null) {
-            throw new NullPointerException("elagentClient must not be null");
+    public void setELAgentClient(ELAgentClient pinpointClient) {
+        if (pinpointClient == null) {
+            throw new NullPointerException("pinpointClient must not be null");
         }
-        this.elagentClient = elagentClient;
+        this.pinpointClient = pinpointClient;
     }
 
     public void setConnectSocketAddress(SocketAddress connectSocketAddress) {
@@ -395,10 +395,10 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
                     return;
                 // have to handle a request message through connector
                 case PacketType.APPLICATION_REQUEST:
-                    this.messageListener.handleRequest((RequestPacket) message, elagentClient);
+                    this.messageListener.handleRequest((RequestPacket) message, pinpointClient);
                     return;
                 case PacketType.APPLICATION_SEND:
-                    this.messageListener.handleSend((SendPacket) message, elagentClient);
+                    this.messageListener.handleSend((SendPacket) message, pinpointClient);
                     return;
                 case PacketType.APPLICATION_STREAM_CREATE:
                 case PacketType.APPLICATION_STREAM_CLOSE:
@@ -493,7 +493,7 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
         throw new ELAgentSocketException("Invalid socket state:" + currentStateCode);
     }
 
-    // Calling this method on a closed PinpointClientHandler has no effect.
+    // Calling this method on a closed ELAgentClientHandler has no effect.
     public void close() {
         logger.debug("{} close() started.", objectUniqName);
         
@@ -522,7 +522,7 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
         }
     }
 
-    // Calling this method on a closed PinpointClientHandler has no effect.
+    // Calling this method on a closed ELAgentClientHandler has no effect.
     private void closeResources() {
         logger.debug("{} closeResources() started.", objectUniqName);
 
@@ -583,7 +583,7 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
             }
 
             if (needReconnect) {
-                clientFactory.reconnect(this.elagentClient, this.connectSocketAddress);
+                clientFactory.reconnect(this.pinpointClient, this.connectSocketAddress);
             }
         } finally {
             closeResources();
@@ -646,7 +646,7 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
     }
 
     protected ELAgentClient getELAgentClient() {
-        return elagentClient;
+        return pinpointClient;
     }
 
     protected String getObjectName() {

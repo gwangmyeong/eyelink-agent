@@ -5,8 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.rpc.ResponseMessage;
+import com.m2u.eyelink.rpc.client.ELAgentClientReconnectEventListener;
 
-public class LoggingDataSender  implements EnhancedDataSender {
+public class LoggingDataSender implements EnhancedDataSender {
 
     public static final DataSender DEFAULT_LOGGING_DATA_SENDER = new LoggingDataSender();
 

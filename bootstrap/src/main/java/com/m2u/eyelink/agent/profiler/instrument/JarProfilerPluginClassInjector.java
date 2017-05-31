@@ -17,11 +17,11 @@ public class JarProfilerPluginClassInjector implements PluginClassInjector {
     private final ClassInjector plainClassLoaderHandler;
     private final PluginConfig pluginConfig;
 
-    public JarProfilerPluginClassInjector(PluginConfig pluginConfig) {
+    public JarProfilerPluginClassInjector(PluginConfig pluginConfig, InstrumentEngine instrumentEngine) {
         if (pluginConfig == null) {
             throw new NullPointerException("pluginConfig must not be null");
         }
-        this.bootstrapClassLoaderHandler = new BootstrapClassLoaderHandler(pluginConfig);
+        this.bootstrapClassLoaderHandler = new BootstrapClassLoaderHandler(pluginConfig, instrumentEngine);
         this.urlClassLoaderHandler = new URLClassLoaderHandler(pluginConfig);
         this.plainClassLoaderHandler = new PlainClassLoaderHandler(pluginConfig);
         this.pluginConfig = pluginConfig;

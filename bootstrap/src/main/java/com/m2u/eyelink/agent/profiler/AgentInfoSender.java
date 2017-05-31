@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.agent.profiler.context.provider.JvmInformationProvider;
 import com.m2u.eyelink.common.Version;
 import com.m2u.eyelink.context.AgentInformation;
 import com.m2u.eyelink.context.ServerMetaData;
@@ -195,7 +196,7 @@ public class AgentInfoSender implements ServerMetaDataListener {
         private int maxTryPerAttempt = DEFAULT_MAX_TRY_COUNT_PER_ATTEMPT;
 
         Builder(EnhancedDataSender dataSender, AgentInformation agentInformation) {
-            this(dataSender, agentInformation, new JvmInformationFactory().createJvmInformation());
+            this(dataSender, agentInformation, new JvmInformationProvider().get());
         }
 
         public Builder(EnhancedDataSender dataSender, AgentInformation agentInformation, JvmInformation jvmInformation) {

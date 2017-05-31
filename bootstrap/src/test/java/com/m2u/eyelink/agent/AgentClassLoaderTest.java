@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.m2u.eyelink.agent.profiler.DefaultAgent;
 import com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService;
 import com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService;
 import com.m2u.eyelink.config.DefaultProfilerConfig;

@@ -1,15 +1,25 @@
 package com.m2u.eyelink.context;
 
+import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
+import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.trace.AnnotationKey;
 import com.m2u.eyelink.util.AnnotationKeyUtils;
 import com.m2u.eyelink.util.StringUtils;
 
 public abstract class AbstractRecorder {
 
-    protected final TraceContext traceContext;
+    protected final StringMetaDataService stringMetaDataService;
+    protected final SqlMetaDataService sqlMetaDataService;
     
-    public AbstractRecorder(final TraceContext traceContext) {
-        this.traceContext = traceContext;
+    public AbstractRecorder(final StringMetaDataService stringMetaDataService, SqlMetaDataService sqlMetaDataService) {
+        if (stringMetaDataService == null) {
+            throw new NullPointerException("stringMetaDataService must not be null");
+        }
+        if (sqlMetaDataService == null) {
+            throw new NullPointerException("sqlMetaDataService must not be null");
+        }
+        this.stringMetaDataService = stringMetaDataService;
+        this.sqlMetaDataService = sqlMetaDataService;
     }
     
     public void recordException(Throwable throwable) {
@@ -22,7 +32,7 @@ public abstract class AbstractRecorder {
         }
         final String drop = StringUtils.abbreviate(throwable.getMessage(), 256);
         // An exception that is an instance of a proxy class could make something wrong because the class name will vary.
-        final int exceptionId = traceContext.cacheString(throwable.getClass().getName());
+        final int exceptionId = stringMetaDataService.cacheString(throwable.getClass().getName());
         setExceptionInfo(markError, exceptionId, drop);
     }
 
@@ -81,7 +91,7 @@ public abstract class AbstractRecorder {
 
     private void recordSingleCachedString(String args, int index) {
         if (args != null) {
-            int cacheId = traceContext.cacheString(args);
+            int cacheId = stringMetaDataService.cacheString(args);
             recordAttribute(AnnotationKeyUtils.getCachedArgs(index), cacheId);
         }
     }

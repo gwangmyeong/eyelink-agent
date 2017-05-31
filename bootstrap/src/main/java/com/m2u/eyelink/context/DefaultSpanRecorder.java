@@ -3,6 +3,9 @@ package com.m2u.eyelink.context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.agent.profiler.context.DefaultTrace;
+import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
+import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.trace.LoggingInfo;
 import com.m2u.eyelink.trace.ServiceType;
 
@@ -11,23 +14,18 @@ public class DefaultSpanRecorder extends AbstractRecorder implements SpanRecorde
     private final boolean isDebug = logger.isDebugEnabled();
     
     private final Span span;
-    private final TraceId traceId;
+    private final boolean isRoot;
     private final boolean sampling;
     
-    public DefaultSpanRecorder(final TraceContext traceContext, final Span span, final TraceId traceId, final boolean sampling) {
-        super(traceContext);
-
+    public DefaultSpanRecorder(final Span span, final boolean isRoot, final boolean sampling, final StringMetaDataService stringMetaDataService, SqlMetaDataService sqlMetaDataService) {
+        super(stringMetaDataService, sqlMetaDataService);
         this.span = span;
-        this.traceId = traceId;
+        this.isRoot = isRoot;
         this.sampling = sampling;
     }
 
     public Span getSpan() {
         return span;
-    }
-    
-    public void recordTraceId(TraceId traceId) {
-        span.recordTraceId(traceId);
     }
 
     @Override
@@ -108,7 +106,7 @@ public class DefaultSpanRecorder extends AbstractRecorder implements SpanRecorde
 
     @Override
     public boolean isRoot() {
-        return traceId.isRoot();
+        return isRoot;
     }
     
     @Override
@@ -121,7 +119,7 @@ public class DefaultSpanRecorder extends AbstractRecorder implements SpanRecorde
     @Override
     public void recordTime(boolean time) {
         span.setTimeRecording(time);
-        if(time) {
+        if (time) {
             if(!span.isSetStartTime()) {
                 span.markBeforeTime();
             }

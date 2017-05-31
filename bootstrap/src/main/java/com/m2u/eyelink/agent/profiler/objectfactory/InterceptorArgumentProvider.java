@@ -7,23 +7,32 @@ import com.m2u.eyelink.agent.instrument.InstrumentMethod;
 import com.m2u.eyelink.agent.interceptor.annotation.Name;
 import com.m2u.eyelink.agent.interceptor.annotation.NoCache;
 import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
+import com.m2u.eyelink.agent.plugin.monitor.DataSourceMonitorRegistry;
+import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 import com.m2u.eyelink.agent.profiler.util.TypeUtils;
 import com.m2u.eyelink.context.MethodDescriptor;
-import com.m2u.eyelink.context.TraceContext;
-import com.m2u.eyelink.exception.ELAgentException;
+import com.m2u.eyelink.exception.PinpointException;
 
 public class InterceptorArgumentProvider implements ArgumentProvider {
-    private final TraceContext traceContext;
+    private final DataSourceMonitorRegistry dataSourceMonitorRegistry;
+    private final ApiMetaDataService apiMetaDataService;
     private final InterceptorScope interceptorScope;
     private final InstrumentClass targetClass;
     private final InstrumentMethod targetMethod;
 
-    public InterceptorArgumentProvider(TraceContext traceContext, InstrumentClass targetClass) {
-        this(traceContext, null, targetClass, null);
+    public InterceptorArgumentProvider(DataSourceMonitorRegistry dataSourceMonitorRegistry, ApiMetaDataService apiMetaDataService, InstrumentClass targetClass) {
+        this(dataSourceMonitorRegistry, apiMetaDataService, null, targetClass, null);
     }
     
-    public InterceptorArgumentProvider(TraceContext traceContext, InterceptorScope interceptorScope, InstrumentClass targetClass, InstrumentMethod targetMethod) {
-        this.traceContext = traceContext;
+    public InterceptorArgumentProvider(DataSourceMonitorRegistry dataSourceMonitorRegistry, ApiMetaDataService apiMetaDataService, InterceptorScope interceptorScope, InstrumentClass targetClass, InstrumentMethod targetMethod) {
+        if (dataSourceMonitorRegistry == null) {
+            throw new NullPointerException("dataSourceMonitorRegistry must not be null");
+        }
+        if (apiMetaDataService == null) {
+            throw new NullPointerException("apiMetaDataService must not be null");
+        }
+        this.dataSourceMonitorRegistry = dataSourceMonitorRegistry;
+        this.apiMetaDataService = apiMetaDataService;
         this.interceptorScope = interceptorScope;
         this.targetClass = targetClass;
         this.targetMethod = targetMethod;
@@ -45,13 +54,15 @@ public class InterceptorArgumentProvider implements ArgumentProvider {
             
             if (annotation == null) {
                 if (interceptorScope == null) {
-                    throw new ELAgentException("Scope parameter is not annotated with @Name and the target class is not associated with any Scope");
+                    throw new PinpointException("Scope parameter is not annotated with @Name and the target class is not associated with any Scope");
                 } else {
                     return Option.withValue(interceptorScope);
                 }
             } else {
                 return Option.empty();
             }
+        } else if (type == DataSourceMonitorRegistry.class) {
+            return Option.withValue(dataSourceMonitorRegistry);
         }
         
         return Option.empty();
@@ -60,7 +71,7 @@ public class InterceptorArgumentProvider implements ArgumentProvider {
     private void cacheApiIfAnnotationNotPresent(Annotation[] annotations, MethodDescriptor descriptor) {
         Annotation annotation = TypeUtils.findAnnotation(annotations, NoCache.class);
         if (annotation == null) {
-            traceContext.cacheApi(descriptor);
+            this.apiMetaDataService.cacheApi(descriptor);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.m2u.eyelink.agent.profiler.plugin;
 
+import com.m2u.eyelink.agent.profiler.plugin.jdbc.JdbcUrlParserV2;
 import com.m2u.eyelink.config.ProfilerConfig;
 
 public class GuardProfilerPluginContext implements ProfilerPluginSetupContext {
@@ -26,6 +27,12 @@ public class GuardProfilerPluginContext implements ProfilerPluginSetupContext {
     public void addApplicationTypeDetector(ApplicationTypeDetector... detectors) {
         checkOpen();
         this.delegate.addApplicationTypeDetector(detectors);
+    }
+
+    @Override
+    public void addJdbcUrlParser(JdbcUrlParserV2 jdbcUrlParser) {
+        checkOpen();
+        this.delegate.addJdbcUrlParser(jdbcUrlParser);
     }
 
     private void checkOpen() {

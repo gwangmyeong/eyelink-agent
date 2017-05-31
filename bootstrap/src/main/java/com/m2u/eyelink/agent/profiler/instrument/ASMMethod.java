@@ -19,6 +19,8 @@ import com.m2u.eyelink.agent.profiler.interceptor.InterceptorType;
 import com.m2u.eyelink.agent.profiler.interceptor.factory.AnnotatedInterceptorFactory;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistry;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistryBinder;
+import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
+import com.m2u.eyelink.agent.profiler.objectfactory.ObjectBinderFactory;
 import com.m2u.eyelink.context.DefaultMethodDescriptor;
 import com.m2u.eyelink.context.MethodDescriptor;
 import com.m2u.eyelink.util.Asserts;
@@ -30,19 +32,34 @@ public class ASMMethod implements InstrumentMethod {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final boolean isDebug = logger.isDebugEnabled();
 
+    private final ObjectBinderFactory objectBinderFactory;
     private final InstrumentContext pluginContext;
     private final InterceptorRegistryBinder interceptorRegistryBinder;
     private final ASMClass declaringClass;
     private final ASMMethodNodeAdapter methodNode;
     private final MethodDescriptor descriptor;
+    private final ApiMetaDataService apiMetaDataService;
 
-    public ASMMethod(InstrumentContext pluginContext, InterceptorRegistryBinder interceptorRegistryBinder, ASMClass declaringClass, MethodNode methodNode) {
-        this(pluginContext, interceptorRegistryBinder, declaringClass, new ASMMethodNodeAdapter(JavaAssistUtils.javaNameToJvmName(declaringClass.getName()), methodNode));
+
+    public ASMMethod(ObjectBinderFactory objectBinderFactory, InstrumentContext pluginContext, ApiMetaDataService apiMetaDataService, InterceptorRegistryBinder interceptorRegistryBinder, ASMClass declaringClass, MethodNode methodNode) {
+        this(objectBinderFactory, pluginContext, interceptorRegistryBinder, apiMetaDataService, declaringClass, new ASMMethodNodeAdapter(JavaAssistUtils.javaNameToJvmName(declaringClass.getName()), methodNode));
+
     }
 
-    public ASMMethod(InstrumentContext pluginContext, InterceptorRegistryBinder interceptorRegistryBinder, ASMClass declaringClass, ASMMethodNodeAdapter methodNode) {
+    public ASMMethod(ObjectBinderFactory objectBinderFactory, InstrumentContext pluginContext, InterceptorRegistryBinder interceptorRegistryBinder, ApiMetaDataService apiMetaDataService, ASMClass declaringClass, ASMMethodNodeAdapter methodNode) {
+        if (objectBinderFactory == null) {
+            throw new NullPointerException("objectBinderFactory must not be null");
+        }
+        if (pluginContext == null) {
+            throw new NullPointerException("pluginContext must not be null");
+        }
+        if (apiMetaDataService == null) {
+            throw new NullPointerException("apiMetaDataService must not be null");
+        }
+        this.objectBinderFactory = objectBinderFactory;
         this.pluginContext = pluginContext;
         this.interceptorRegistryBinder = interceptorRegistryBinder;
+        this.apiMetaDataService = apiMetaDataService;
         this.declaringClass = declaringClass;
         this.methodNode = methodNode;
 
@@ -236,7 +253,7 @@ public class ASMMethod implements InstrumentMethod {
     private Interceptor createInterceptor(String interceptorClassName, ScopeInfo scopeInfo, Object[] constructorArgs) {
         final ClassLoader classLoader = this.declaringClass.getClassLoader();
         // exception handling.
-        final AnnotatedInterceptorFactory factory = new AnnotatedInterceptorFactory(this.pluginContext, true);
+        final AnnotatedInterceptorFactory factory = objectBinderFactory.newAnnotatedInterceptorFactory(this.pluginContext, true);
         final Interceptor interceptor = factory.getInterceptor(classLoader, interceptorClassName, constructorArgs, scopeInfo.getScope(), scopeInfo.getPolicy(), this.declaringClass, this);
 
         return interceptor;
@@ -262,7 +279,7 @@ public class ASMMethod implements InstrumentMethod {
 
         int apiId = -1;
         if (interceptorDefinition.getInterceptorType() == InterceptorType.API_ID_AWARE) {
-            apiId = this.pluginContext.getTraceContext().cacheApi(this.descriptor);
+            apiId = this.apiMetaDataService.cacheApi(this.descriptor);
         }
 
         // add before interceptor.

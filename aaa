@@ -1,0 +1,517 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for com.m2u.eyelink:eyelink-bootstrap:jar:1.0.0-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-jar-plugin is missing. @ com.m2u.eyelink:eyelink-bootstrap:[unknown-version], /Users/baesunghan/git/m2u/eyelink-agent/bootstrap/pom.xml, line 25, column 21
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] agent
+[INFO] eyelink-bootstrap
+[INFO] eyelink-plugin-tomcat
+[INFO] plugins
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building agent 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ eyelink-agent ---
+[INFO] Installing /Users/baesunghan/git/m2u/eyelink-agent/pom.xml to /Users/baesunghan/.m2/repository/com/m2u/eyelink/eyelink-agent/1.0.0-SNAPSHOT/eyelink-agent-1.0.0-SNAPSHOT.pom
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building eyelink-bootstrap 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ eyelink-bootstrap ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ eyelink-bootstrap ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ eyelink-bootstrap ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ eyelink-bootstrap ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ eyelink-bootstrap ---
+[INFO] Surefire report directory: /Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.m2u.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 sec
+Running com.m2u.eyelink.agent.AgentClassLoaderTest
+=====> SECURITY_MANAGER is null
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.trace.TraceMetadataLoader) Loading TraceMetadataProviders
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.trace.TraceMetadataLoader) Finished loading ServiceType:
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.trace.TraceMetadataLoader) Finished loading AnnotationKeys:
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:UNDEFINED
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:UNKNOWN
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:USER
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:UNKNOWN_GROUP
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:TEST
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:COLLECTOR
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:ASYNC
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:STAND_ALONE
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:TEST_STAND_ALONE
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:UNAUTHORIZED
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:UNKNOWN_DB
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:UNKNOWN_DB
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:INTERNAL_METHOD
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:SPRING
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService) add Default ServiceType:SPRING
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.trace.TraceMetadataLoader) Loading TraceMetadataProviders
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.trace.TraceMetadataLoader) Finished loading ServiceType:
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.trace.TraceMetadataLoader) Finished loading AnnotationKeys:
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=12, name='API}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=13, name='API-METADATA}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=14, name='RETURN_DATA}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=10015, name='API-TAG}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=10000010, name='API-METADATA-ERROR}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=10000011, name='API-METADATA-AGENT-INFO-NOT-FOUND}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=10000012, name='API-METADATA-IDENTIFIER-CHECK_ERROR}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=10000013, name='API-METADATA-NOT-FOUND}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=10000014, name='API-METADATA-DID-COLLSION}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=20, name='SQL-ID}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=21, name='SQL}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=22, name='SQL-METADATA}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=23, name='SQL-PARAM}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=24, name='SQL-BindValue}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=30, name='STRING_ID}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=40, name='http.url}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=41, name='http.param}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=42, name='http.entity}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=45, name='http.cookie}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=46, name='http.status.code}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=48, name='http.internal.display}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=49, name='http.io}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=100, name='message.queue.url}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-1, name='args[0]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-2, name='args[1]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-3, name='args[2]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-4, name='args[3]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-5, name='args[4]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-6, name='args[5]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-7, name='args[6]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-8, name='args[7]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-9, name='args[8]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-10, name='args[9]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-11, name='args[N]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-30, name='cached_args[0]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-31, name='cached_args[1]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-32, name='cached_args[2]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-33, name='cached_args[3]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-34, name='cached_args[4]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-35, name='cached_args[5]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-36, name='cached_args[6]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-37, name='cached_args[7]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-38, name='cached_args[8]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-39, name='cached_args[9]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-40, name='cached_args[N]}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-50, name='Exception}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-51, name='ExceptionClass}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-9999, name='UNKNOWN}
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService) add Default AnnotationKey:AnnotationKey{code=-100, name='Asynchronous Invocation}
+loadClass start
+=====> name : com.m2u.eyelink.agent.profiler.DefaultAgent, false
+loadClass end
+=====> ContextClassLoaderExecuteTemplate call()
+=====> AgentClassLoader call() start
+=====> AgentClassLoader call() end
+====> ClassPreLoader.preload() before
+=====> preload before
+=====> preload after
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.ELAgentServerAcceptor    :146) bind() /127.0.0.1:65535
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.s.ELAgentServerAcceptor    :237) sendPing
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.s.ELAgentServerAcceptor    :270) newPingTimeout
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.ELAgentClientFactory     :194) createBootStrap boss:1, worker:1
+2017-05-30 15:59:27 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:152) DefaultELAgentClientHandler@271053e1 channelOpen() started. channel:[id: 0xd8603fde]
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.ELAgentServerAcceptor    :330) channelConnected channel:[id: 0x009364ba, /127.0.0.1:59246 => /127.0.0.1:65535]
+2017-05-30 15:59:27 [INFO ](m.e.r.c.DefaultELAgentClientHandler:164) DefaultELAgentClientHandler@271053e1 channelConnected() started. channel:[id: 0xd8603fde, /127.0.0.1:59246 => /127.0.0.1:65535]
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.ELAgentClientHandlerState: 99) DefaultELAgentClientHandler@271053e1 stateTo() started. to:CONNECTED
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandlerState:106) DefaultELAgentClientHandler@271053e1 stateTo() completed. Socket state change success(updateWanted:CONNECTED ,before:NONE ,current:CONNECTED).
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.ELAgentClientHandlerState: 99) DefaultELAgentClientHandler@271053e1 stateTo() started. to:RUN_WITHOUT_HANDSHAKE
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandlerState:106) DefaultELAgentClientHandler@271053e1 stateTo() completed. Socket state change success(updateWanted:RUN_WITHOUT_HANDSHAKE ,before:CONNECTED ,current:RUN_WITHOUT_HANDSHAKE).
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  : 69) ELAgentClientHandshaker@2a77b607 handshakeStart() started. channel:[id: 0xd8603fde, /127.0.0.1:59246 => /127.0.0.1:65535]
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServer     :124) DefaultELAgentServer@37f4f9b9 start() started. channel:[id: 0x009364ba, /127.0.0.1:59246 => /127.0.0.1:65535].
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.s.DefaultELAgentServerState: 91) DefaultELAgentServer@37f4f9b9 stateTo() started. to:CONNECTED
+2017-05-30 15:59:27 [INFO ](h.DoNothingChannelStateEventHandler: 18) DoNothingChannelStateEventHandler eventPerformed(). pinpointServer:DefaultELAgentServer@37f4f9b9(remote:/127.0.0.1:59246, state:CONNECTED), code:CONNECTED
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServerState: 98) DefaultELAgentServer@37f4f9b9 stateTo() completed. Socket state change success(updateWanted:CONNECTED ,before:NONE ,current:CONNECTED).
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.s.DefaultELAgentServerState: 91) DefaultELAgentServer@37f4f9b9 stateTo() started. to:RUN_WITHOUT_HANDSHAKE
+2017-05-30 15:59:27 [INFO ](h.DoNothingChannelStateEventHandler: 18) DoNothingChannelStateEventHandler eventPerformed(). pinpointServer:DefaultELAgentServer@37f4f9b9(remote:/127.0.0.1:59246, state:RUN_WITHOUT_HANDSHAKE), code:RUN_WITHOUT_HANDSHAKE
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServerState: 98) DefaultELAgentServer@37f4f9b9 stateTo() completed. Socket state change success(updateWanted:RUN_WITHOUT_HANDSHAKE ,before:CONNECTED ,current:RUN_WITHOUT_HANDSHAKE).
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServer     :129) DefaultELAgentServer@37f4f9b9 start() completed.
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :118) ELAgentClientHandshaker@2a77b607 do handshake(1/2147483647). channel:[id: 0xd8603fde, /127.0.0.1:59246 => /127.0.0.1:65535].
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.ELAgentClientHandshaker  : 36) HandShakePacket write success. channel:[id: 0xd8603fde, /127.0.0.1:59246 => /127.0.0.1:65535]
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.ELAgentClientHandshaker  :131) ELAgentClientHandshaker@2a77b607 reserveHandshake() started.
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :101) ELAgentClientHandshaker@2a77b607 handshakeStart() completed. channel:[id: 0xd8603fde, /127.0.0.1:59246 => /127.0.0.1:65535], data:{socketId=1}
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServer     :359) DefaultELAgentServer@37f4f9b9 handleHandshake() started. Packet:ControlHandshakePacket{requestId=0, payloadLength=17}
+2017-05-30 15:59:27 [INFO ](m.e.r.c.DefaultELAgentClientHandler:192) DefaultELAgentClientHandler@271053e1 channelConnected() completed.
+2017-05-30 15:59:27 [INFO ](m.e.r.s.SimpleServerMessageListener: 36) handleHandshake properties:{socketId=1}
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.s.DefaultELAgentServerState: 91) DefaultELAgentServer@37f4f9b9 stateTo() started. to:RUN_SIMPLEX
+2017-05-30 15:59:27 [INFO ](h.DoNothingChannelStateEventHandler: 18) DoNothingChannelStateEventHandler eventPerformed(). pinpointServer:DefaultELAgentServer@37f4f9b9(remote:/127.0.0.1:59246, state:RUN_SIMPLEX), code:RUN_SIMPLEX
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServerState: 98) DefaultELAgentServer@37f4f9b9 stateTo() completed. Socket state change success(updateWanted:RUN_SIMPLEX ,before:RUN_WITHOUT_HANDSHAKE ,current:RUN_SIMPLEX).
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServer     :374) DefaultELAgentServer@37f4f9b9 handleHandshake(). ResponseCode:SIMPLEX_COMMUNICATION
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServer     :379) DefaultELAgentServer@37f4f9b9 handleHandshake() completed.
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :136) ELAgentClientHandshaker@2a77b607 handshakeComplete() started. responsePacket:ControlHandshakeResponsePacket{requestId=0, payloadLength=27}
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :154) ELAgentClientHandshaker@2a77b607 handshakeComplete() completed. handshake-response:{code=0, subCode=1}.
+2017-05-30 15:59:27 [INFO ](m.e.r.c.DefaultELAgentClientHandler:436) DefaultELAgentClientHandler@271053e1 handleHandshakePacket() started. message:ControlHandshakeResponsePacket{requestId=0, payloadLength=27}
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.ELAgentClientHandlerState: 99) DefaultELAgentClientHandler@271053e1 stateTo() started. to:RUN_SIMPLEX
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandlerState:106) DefaultELAgentClientHandler@271053e1 stateTo() completed. Socket state change success(updateWanted:RUN_SIMPLEX ,before:RUN_WITHOUT_HANDSHAKE ,current:RUN_SIMPLEX).
+2017-05-30 15:59:27 [INFO ](m.e.r.c.DefaultELAgentClientHandler:453) [id: 0xd8603fde, /127.0.0.1:59246 => /127.0.0.1:65535] handleHandshakePacket() completed. code:SIMPLEX_COMMUNICATION
+2017-05-30 15:59:27 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:498) DefaultELAgentClientHandler@271053e1 close() started.
+2017-05-30 15:59:27 [INFO ](m.e.r.s.SimpleServerMessageListener: 30) handleSend packet:SendPacket{payloadLength=0}, remote:/127.0.0.1:59246
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.ELAgentClientHandlerState: 99) DefaultELAgentClientHandler@271053e1 stateTo() started. to:BEING_CLOSE_BY_CLIENT
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandlerState:106) DefaultELAgentClientHandler@271053e1 stateTo() completed. Socket state change success(updateWanted:BEING_CLOSE_BY_CLIENT ,before:RUN_SIMPLEX ,current:BEING_CLOSE_BY_CLIENT).
+2017-05-30 15:59:27 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:555) DefaultELAgentClientHandler@271053e1 sendClosedPacket() started.
+2017-05-30 15:59:27 [DEBUG](m.e.r.c.DefaultELAgentClientHandler: 36) sendClosedPacket() write success. channel:[id: 0xd8603fde, /127.0.0.1:59246 => /127.0.0.1:65535]
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServer     :413) DefaultELAgentServer@37f4f9b9 handleClosePacket() started.
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.s.DefaultELAgentServerState: 91) DefaultELAgentServer@37f4f9b9 stateTo() started. to:BEING_CLOSE_BY_CLIENT
+2017-05-30 15:59:27 [INFO ](h.DoNothingChannelStateEventHandler: 18) DoNothingChannelStateEventHandler eventPerformed(). pinpointServer:DefaultELAgentServer@37f4f9b9(remote:/127.0.0.1:59246, state:BEING_CLOSE_BY_CLIENT), code:BEING_CLOSE_BY_CLIENT
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServerState: 98) DefaultELAgentServer@37f4f9b9 stateTo() completed. Socket state change success(updateWanted:BEING_CLOSE_BY_CLIENT ,before:RUN_SIMPLEX ,current:BEING_CLOSE_BY_CLIENT).
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServer     :419) DefaultELAgentServer@37f4f9b9 handleClosePacket() completed.
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.s.DefaultELAgentServerState: 91) DefaultELAgentServer@37f4f9b9 stateTo() started. to:CLOSED_BY_CLIENT
+2017-05-30 15:59:27 [INFO ](h.DoNothingChannelStateEventHandler: 18) DoNothingChannelStateEventHandler eventPerformed(). pinpointServer:DefaultELAgentServer@37f4f9b9(remote:/127.0.0.1:59246, state:CLOSED_BY_CLIENT), code:CLOSED_BY_CLIENT
+2017-05-30 15:59:27 [INFO ](c.m.e.r.s.DefaultELAgentServerState: 98) DefaultELAgentServer@37f4f9b9 stateTo() completed. Socket state change success(updateWanted:CLOSED_BY_CLIENT ,before:BEING_CLOSE_BY_CLIENT ,current:CLOSED_BY_CLIENT).
+2017-05-30 15:59:27 [DEBUG](m.e.r.c.DefaultELAgentClientHandler: 36) close() event success. channel:[id: 0xd8603fde, /127.0.0.1:59246 :> /127.0.0.1:65535]
+2017-05-30 15:59:27 [INFO ](m.e.r.c.DefaultELAgentClientHandler:564) DefaultELAgentClientHandler@271053e1 channelClosed() started.
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.ELAgentClientHandlerState: 99) DefaultELAgentClientHandler@271053e1 stateTo() started. to:CLOSED_BY_CLIENT
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandlerState:106) DefaultELAgentClientHandler@271053e1 stateTo() completed. Socket state change success(updateWanted:CLOSED_BY_CLIENT ,before:BEING_CLOSE_BY_CLIENT ,current:CLOSED_BY_CLIENT).
+2017-05-30 15:59:27 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:527) DefaultELAgentClientHandler@271053e1 closeResources() started.
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :225) ELAgentClientHandshaker@2a77b607 handshakeAbort() started.
+2017-05-30 15:59:27 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :229) ELAgentClientHandshaker@2a77b607 unexpected state
+2017-05-30 15:59:27 [DEBUG](c.m.e.r.c.RequestManager           :145) close()
+====> ClassPreLoader.preload() after
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :141) AgentOption:DefaultAgentOption{instrumentation=com.m2u.eyelink.agent.DummyInstrumentation@7f13d6e, agentId='testCaseAgent', applicationName='testCaseAppName', profilerConfig=DefaultProfilerConfig{properties={}, interceptorRegistrySize=8192, propertyPlaceholderHelper=com.m2u.eyelink.util.string.PropertyPlaceholderHelper@51cdd8a, profileEnable=false, collectorSpanServerIp=127.0.0.1, collectorSpanServerPort=9996, collectorStatServerIp=127.0.0.1, collectorStatServerPort=9995, collectorTcpServerIp=127.0.0.1, collectorTcpServerPort=9994, spanDataSenderWriteQueueSize=5120, spanDataSenderSocketSendBufferSize=1048576, spanDataSenderSocketTimeout=3000, spanDataSenderChunkSize=16384, spanDataSenderSocketType=OIO, statDataSenderWriteQueueSize=5120, statDataSenderSocketSendBufferSize=1048576, statDataSenderSocketTimeout=3000, statDataSenderChunkSize=16384, statDataSenderSocketType=OIO, tcpDataSenderCommandAcceptEnable=false, tcpDataSenderCommandActiveThreadEnable=false, tcpDataSenderCommandActiveThreadCountEnable=false, tcpDataSenderCommandActiveThreadDumpEnable=false, tcpDataSenderCommandActiveThreadLightDumpEnable=false, traceAgentActiveThread=true, traceAgentDataSource=false, callStackMaxDepth=512, jdbcSqlCacheSize=1024, traceSqlBindValue=false, maxSqlBindValueSize=1024, samplingEnable=true, samplingRate=1, ioBufferingEnable=false, ioBufferingBufferSize=0, profileJvmCollectInterval=0, profilableClassFilter=com.m2u.eyelink.config.SkipFilter@d44fc21, DEFAULT_AGENT_INFO_SEND_RETRY_INTERVAL=300000, agentInfoSendRetryInterval=300000, applicationServerType=null, applicationTypeDetectOrder=[], disabledPlugins=[]}, pluginJars=[], bootstrapJarPaths=[], serviceTypeRegistryService=com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService@23faf8f2, annotationKeyRegistryService=com.m2u.eyelink.common.service.DefaultAnnotationKeyRegistryService@2d6eabae}
+2017-05-30 15:59:27 [INFO ](c.m.e.l.Slf4jLoggerBinder          :332) PLoggerFactory.initialize() bind:com.m2u.eyelink.logging.Slf4jLoggerBinder cl:sun.misc.Launcher$AppClassLoader@6e0be858
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.runtime.name=Java(TM) SE Runtime Environment
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.boot.library.path=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vm.version=25.112-b16
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties gopherProxySet=false
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vm.vendor=Oracle Corporation
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vendor.url=http://java.oracle.com/
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties path.separator=:
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties file.encoding.pkg=sun.io
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties user.country=KR
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.java.launcher=SUN_STANDARD
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.os.patch.level=unknown
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vm.specification.name=Java Virtual Machine Specification
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties user.dir=/Users/baesunghan/git/m2u/eyelink-agent/bootstrap
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.runtime.version=1.8.0_112-b16
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.awt.graphicsenv=sun.awt.CGraphicsEnvironment
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties basedir=/Users/baesunghan/git/m2u/eyelink-agent/bootstrap
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.endorsed.dirs=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/endorsed
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties os.arch=x86_64
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties surefire.real.class.path=/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/surefire/surefirebooter3291080245311225130.jar
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.io.tmpdir=/var/folders/0y/124f1qys05q4gvfgs1f4bg2h0000gn/T/
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties line.separator=
+
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vm.specification.vendor=Oracle Corporation
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties os.name=Mac OS X
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.jnu.encoding=UTF-8
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.library.path=/Users/baesunghan/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties surefire.test.class.path=/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/classes:/Users/baesunghan/.m2/repository/junit/junit/4.12/junit-4.12.jar:/Users/baesunghan/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/baesunghan/.m2/repository/org/ow2/asm/asm-debug-all/5.1/asm-debug-all-5.1.jar:/Users/baesunghan/.m2/repository/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA.jar:/Users/baesunghan/.m2/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/../lib/tools.jar:/Users/baesunghan/.m2/repository/org/slf4j/slf4j-log4j12/1.7.25/slf4j-log4j12-1.7.25.jar:/Users/baesunghan/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/Users/baesunghan/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/Users/baesunghan/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar:/Users/baesunghan/.m2/repository/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar:/Users/baesunghan/.m2/repository/javax/servlet/jstl/1.1.0/jstl-1.1.0.jar:/Users/baesunghan/.m2/repository/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar:/Users/baesunghan/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar:/Users/baesunghan/.m2/repository/taglibs/standard/1.1.2/standard-1.1.2.jar:/Users/baesunghan/.m2/repository/org/mockito/mockito-all/1.10.19/mockito-all-1.10.19.jar:/Users/baesunghan/.m2/repository/io/netty/netty/3.10.6.Final/netty-3.10.6.Final.jar:/Users/baesunghan/.m2/repository/io/netty/netty-all/4.0.18.Final/netty-all-4.0.18.Final.jar:/Users/baesunghan/.m2/repository/com/google/guava/guava/19.0/guava-19.0.jar:/Users/baesunghan/.m2/repository/org/apache/thrift/libthrift/0.9.2/libthrift-0.9.2.jar:/Users/baesunghan/.m2/repository/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA.jar:/Users/baesunghan/.m2/repository/com/codahale/metrics/metrics-core/3.0.2/metrics-core-3.0.2.jar:/Users/baesunghan/.m2/repository/com/codahale/metrics/metrics-jvm/3.0.2/metrics-jvm-3.0.2.jar:
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.nio.ch.bugLevel=
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.specification.name=Java Platform API Specification
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.class.version=52.0
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties os.version=10.12.5
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties http.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties user.home=/Users/baesunghan
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties user.timezone=Asia/Seoul
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.awt.printerjob=sun.lwawt.macosx.CPrinterJob
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.specification.version=1.8
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties file.encoding=UTF-8
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties user.name=baesunghan
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.class.path=/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/classes:/Users/baesunghan/.m2/repository/junit/junit/4.12/junit-4.12.jar:/Users/baesunghan/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/Users/baesunghan/.m2/repository/org/ow2/asm/asm-debug-all/5.1/asm-debug-all-5.1.jar:/Users/baesunghan/.m2/repository/javassist/javassist/3.12.1.GA/javassist-3.12.1.GA.jar:/Users/baesunghan/.m2/repository/mysql/mysql-connector-java/5.1.41/mysql-connector-java-5.1.41.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/../lib/tools.jar:/Users/baesunghan/.m2/repository/org/slf4j/slf4j-log4j12/1.7.25/slf4j-log4j12-1.7.25.jar:/Users/baesunghan/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/Users/baesunghan/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar:/Users/baesunghan/.m2/repository/commons-io/commons-io/2.5/commons-io-2.5.jar:/Users/baesunghan/.m2/repository/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1.jar:/Users/baesunghan/.m2/repository/javax/servlet/jstl/1.1.0/jstl-1.1.0.jar:/Users/baesunghan/.m2/repository/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar:/Users/baesunghan/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar:/Users/baesunghan/.m2/repository/taglibs/standard/1.1.2/standard-1.1.2.jar:/Users/baesunghan/.m2/repository/org/mockito/mockito-all/1.10.19/mockito-all-1.10.19.jar:/Users/baesunghan/.m2/repository/io/netty/netty/3.10.6.Final/netty-3.10.6.Final.jar:/Users/baesunghan/.m2/repository/io/netty/netty-all/4.0.18.Final/netty-all-4.0.18.Final.jar:/Users/baesunghan/.m2/repository/com/google/guava/guava/19.0/guava-19.0.jar:/Users/baesunghan/.m2/repository/org/apache/thrift/libthrift/0.9.2/libthrift-0.9.2.jar:/Users/baesunghan/.m2/repository/org/javassist/javassist/3.21.0-GA/javassist-3.21.0-GA.jar:/Users/baesunghan/.m2/repository/com/codahale/metrics/metrics-core/3.0.2/metrics-core-3.0.2.jar:/Users/baesunghan/.m2/repository/com/codahale/metrics/metrics-jvm/3.0.2/metrics-jvm-3.0.2.jar:
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vm.specification.version=1.8
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.arch.data.model=64
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.home=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.java.command=/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/surefire/surefirebooter3291080245311225130.jar /Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/surefire/surefire4218944666556764294tmp /Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/surefire/surefire_07320782068183348819tmp
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.specification.vendor=Oracle Corporation
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties user.language=ko
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties user.language.format=ko-Kore
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties awt.toolkit=sun.lwawt.macosx.LWCToolkit
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vm.info=mixed mode
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.version=1.8.0_112
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.ext.dirs=/Users/baesunghan/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.boot.class.path=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre/classes
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vendor=Oracle Corporation
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties localRepository=/Users/baesunghan/.m2/repository
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties file.separator=/
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties java.vendor.url.bug=http://bugreport.sun.com/bugreport/
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.cpu.endian=little
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.io.unicode.encoding=UnicodeBig
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties socksNonProxyHosts=local|*.local|169.254/16|*.169.254/16
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties ftp.nonProxyHosts=local|*.local|169.254/16|*.169.254/16
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :291) SystemProperties sun.cpu.isalist=
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :298) dumpConfig
+DefaultProfilerConfig{properties={}, interceptorRegistrySize=8192, propertyPlaceholderHelper=com.m2u.eyelink.util.string.PropertyPlaceholderHelper@51cdd8a, profileEnable=false, collectorSpanServerIp=127.0.0.1, collectorSpanServerPort=9996, collectorStatServerIp=127.0.0.1, collectorStatServerPort=9995, collectorTcpServerIp=127.0.0.1, collectorTcpServerPort=9994, spanDataSenderWriteQueueSize=5120, spanDataSenderSocketSendBufferSize=1048576, spanDataSenderSocketTimeout=3000, spanDataSenderChunkSize=16384, spanDataSenderSocketType=OIO, statDataSenderWriteQueueSize=5120, statDataSenderSocketSendBufferSize=1048576, statDataSenderSocketTimeout=3000, statDataSenderChunkSize=16384, statDataSenderSocketType=OIO, tcpDataSenderCommandAcceptEnable=false, tcpDataSenderCommandActiveThreadEnable=false, tcpDataSenderCommandActiveThreadCountEnable=false, tcpDataSenderCommandActiveThreadDumpEnable=false, tcpDataSenderCommandActiveThreadLightDumpEnable=false, traceAgentActiveThread=true, traceAgentDataSource=false, callStackMaxDepth=512, jdbcSqlCacheSize=1024, traceSqlBindValue=false, maxSqlBindValueSize=1024, samplingEnable=true, samplingRate=1, ioBufferingEnable=false, ioBufferingBufferSize=0, profileJvmCollectInterval=0, profilableClassFilter=com.m2u.eyelink.config.SkipFilter@d44fc21, DEFAULT_AGENT_INFO_SEND_RETRY_INTERVAL=300000, agentInfoSendRetryInterval=300000, applicationServerType=null, applicationTypeDetectOrder=[], disabledPlugins=[]}
+2017-05-30 15:59:27 [DEBUG](c.m.e.a.p.DefaultAgent             :310) Agent status is changed. INITIALIZING
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :215) ASM InstrumentEngine.
+2017-05-30 15:59:27 [INFO ](c.m.e.a.p.DefaultAgent             :162) DefaultAgent classLoader:sun.misc.Launcher$AppClassLoader@6e0be858
+2017-05-30 15:59:27 [INFO ](com.m2u.eyelink.config.DefaultProfilerConfig) bytecode.dump.enable=false
+2017-05-30 15:59:27 [DEBUG](ApplicationServerTypePluginResolver:273) Server type not resolved. Defaulting to STAND_ALONE
+2017-05-30 15:59:27 [INFO ](a.p.u.ApplicationServerTypeResolver: 54) Resolved ApplicationServerType : STAND_ALONE
+2017-05-30 15:59:42 [INFO ](c.m.e.a.p.DefaultAgent             :180) agentInformation:AgentInformation{agentId='testCaseAgent', applicationName='testCaseAppName', startTime=1496127566816, pid=13844, machineName='Tovensui-MacBook-Pro.local', hostIp='192.168.10.24', serverType=STAND_ALONE, jvmVersion='1.8.0_112', agentVersion='1.0.0-SNAPSHOT'}
+2017-05-30 15:59:42 [INFO ](c.m.e.a.p.s.UdpDataSender          : 58) UdpDataSender initialized. host=127.0.0.1, port=9996
+2017-05-30 15:59:42 [INFO ](c.m.e.a.p.s.AsyncQueueingExecutor  : 59) Pinpoint-UdpSpanDataExecutor(8-0) started.
+2017-05-30 15:59:42 [INFO ](c.m.e.a.p.s.UdpDataSender          : 58) UdpDataSender initialized. host=127.0.0.1, port=9995
+2017-05-30 15:59:42 [INFO ](c.m.e.a.p.s.AsyncQueueingExecutor  : 59) Pinpoint-UdpStatDataExecutor(9-0) started.
+2017-05-30 15:59:42 [INFO ](c.m.e.a.p.DefaultAgent             :325) StorageFactoryType:com.m2u.eyelink.agent.profiler.context.storage.SpanStorageFactory@78e67e0a
+2017-05-30 15:59:42 [INFO ](c.m.e.a.p.DefaultAgent             :328) SamplerType:TrueSampler
+2017-05-30 15:59:42 [DEBUG](c.m.e.r.c.ELAgentClientFactory     :194) createBootStrap boss:1, worker:1
+2017-05-30 15:59:42 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:152) DefaultELAgentClientHandler@543c6f6d channelOpen() started. channel:[id: 0xd85c0b8a]
+2017-05-30 15:59:42 [INFO ](m.e.r.c.DefaultELAgentClientHandler:564) DefaultELAgentClientHandler@543c6f6d channelClosed() started.
+2017-05-30 15:59:42 [DEBUG](c.m.e.r.c.ELAgentClientHandlerState: 99) DefaultELAgentClientHandler@543c6f6d stateTo() started. to:CONNECT_FAILED
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandlerState:106) DefaultELAgentClientHandler@543c6f6d stateTo() completed. Socket state change fail(updateWanted:CONNECT_FAILED ,before:NONE ,current:NONE).
+2017-05-30 15:59:42 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:527) DefaultELAgentClientHandler@543c6f6d closeResources() started.
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :225) ELAgentClientHandshaker@6ea21233 handshakeAbort() started.
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :229) ELAgentClientHandshaker@6ea21233 unexpected state
+2017-05-30 15:59:42 [DEBUG](c.m.e.r.c.RequestManager           :145) close()
+2017-05-30 15:59:42 [WARN ](m.e.r.c.DefaultELAgentClientHandler:470) DefaultELAgentClientHandler@543c6f6d exceptionCaught() occurred. state:NONE. Caused:Connection refused: /127.0.0.1:9994
+java.net.ConnectException: Connection refused: /127.0.0.1:9994
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.connect(NioClientBoss.java:152)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.processSelectedKeys(NioClientBoss.java:105)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.process(NioClientBoss.java:79)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.run(NioClientBoss.java:42)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-05-30 15:59:42 [WARN ](c.m.e.r.u.ClientFactoryUtils       : 29) tcp connect fail. remote:/127.0.0.1:9994 try reconnect, retryCount:0
+2017-05-30 15:59:42 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:152) DefaultELAgentClientHandler@13eb8acf channelOpen() started. channel:[id: 0x5550343f]
+2017-05-30 15:59:42 [WARN ](m.e.r.c.DefaultELAgentClientHandler:470) DefaultELAgentClientHandler@13eb8acf exceptionCaught() occurred. state:NONE. Caused:Connection refused: /127.0.0.1:9994
+java.net.ConnectException: Connection refused: /127.0.0.1:9994
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.connect(NioClientBoss.java:152)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.processSelectedKeys(NioClientBoss.java:105)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.process(NioClientBoss.java:79)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.run(NioClientBoss.java:42)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-05-30 15:59:42 [INFO ](m.e.r.c.DefaultELAgentClientHandler:564) DefaultELAgentClientHandler@13eb8acf channelClosed() started.
+2017-05-30 15:59:42 [DEBUG](c.m.e.r.c.ELAgentClientHandlerState: 99) DefaultELAgentClientHandler@13eb8acf stateTo() started. to:CONNECT_FAILED
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandlerState:106) DefaultELAgentClientHandler@13eb8acf stateTo() completed. Socket state change fail(updateWanted:CONNECT_FAILED ,before:NONE ,current:NONE).
+2017-05-30 15:59:42 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:527) DefaultELAgentClientHandler@13eb8acf closeResources() started.
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :225) ELAgentClientHandshaker@6065e197 handshakeAbort() started.
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :229) ELAgentClientHandshaker@6065e197 unexpected state
+2017-05-30 15:59:42 [DEBUG](c.m.e.r.c.RequestManager           :145) close()
+2017-05-30 15:59:42 [WARN ](c.m.e.r.u.ClientFactoryUtils       : 29) tcp connect fail. remote:/127.0.0.1:9994 try reconnect, retryCount:1
+2017-05-30 15:59:42 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:152) DefaultELAgentClientHandler@51c8530f channelOpen() started. channel:[id: 0xb92ef2f6]
+2017-05-30 15:59:42 [WARN ](m.e.r.c.DefaultELAgentClientHandler:470) DefaultELAgentClientHandler@51c8530f exceptionCaught() occurred. state:NONE. Caused:Connection refused: /127.0.0.1:9994
+java.net.ConnectException: Connection refused: /127.0.0.1:9994
+	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
+	at sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:717)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.connect(NioClientBoss.java:152)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.processSelectedKeys(NioClientBoss.java:105)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.process(NioClientBoss.java:79)
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:337)
+	at org.jboss.netty.channel.socket.nio.NioClientBoss.run(NioClientBoss.java:42)
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108)
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-05-30 15:59:42 [INFO ](m.e.r.c.DefaultELAgentClientHandler:564) DefaultELAgentClientHandler@51c8530f channelClosed() started.
+2017-05-30 15:59:42 [DEBUG](c.m.e.r.c.ELAgentClientHandlerState: 99) DefaultELAgentClientHandler@51c8530f stateTo() started. to:CONNECT_FAILED
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandlerState:106) DefaultELAgentClientHandler@51c8530f stateTo() completed. Socket state change fail(updateWanted:CONNECT_FAILED ,before:NONE ,current:NONE).
+2017-05-30 15:59:42 [DEBUG](m.e.r.c.DefaultELAgentClientHandler:527) DefaultELAgentClientHandler@51c8530f closeResources() started.
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :225) ELAgentClientHandshaker@645a7943 handshakeAbort() started.
+2017-05-30 15:59:42 [INFO ](c.m.e.r.c.ELAgentClientHandshaker  :229) ELAgentClientHandshaker@645a7943 unexpected state
+2017-05-30 15:59:42 [DEBUG](c.m.e.r.c.RequestManager           :145) close()
+2017-05-30 15:59:42 [WARN ](c.m.e.r.u.ClientFactoryUtils       : 29) tcp connect fail. remote:/127.0.0.1:9994 try reconnect, retryCount:2
+2017-05-30 15:59:42 [WARN ](c.m.e.r.u.ClientFactoryUtils       : 32) change background tcp connect mode remote:/127.0.0.1:9994 
+2017-05-30 15:59:42 [INFO ](c.m.e.a.p.s.AsyncQueueingExecutor  : 59) Pinpoint-TcpDataExecutor(17-0) started.
+2017-05-30 15:59:42 [INFO ](m.e.a.p.m.AgentStatCollectorFactory:110) found : HotSpot's Parallel (Old) collector
+2017-05-30 15:59:42 [ERROR](.e.a.p.m.c.CpuLoadMetricSetSelector: 59) Error creating CpuLoadMetricSet [com.navercorp.pinpoint.profiler.monitor.codahale.cpu.metric.oracle.DefaultCpuLoadMetricSet].
+java.lang.ClassNotFoundException: com.navercorp.pinpoint.profiler.monitor.codahale.cpu.metric.oracle.DefaultCpuLoadMetricSet
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:331)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:264)
+	at com.m2u.eyelink.agent.profiler.monitor.codahale.CpuLoadMetricSetSelector.createCpuLoadMetricSet(CpuLoadMetricSetSelector.java:56)
+	at com.m2u.eyelink.agent.profiler.monitor.codahale.CpuLoadMetricSetSelector.getCpuLoadMetricSet(CpuLoadMetricSetSelector.java:48)
+	at com.m2u.eyelink.agent.profiler.monitor.MetricMonitorRegistry.registerCpuLoadMonitor(MetricMonitorRegistry.java:82)
+	at com.m2u.eyelink.agent.profiler.monitor.AgentStatCollectorFactory.createCpuLoadCollector(AgentStatCollectorFactory.java:116)
+	at com.m2u.eyelink.agent.profiler.monitor.AgentStatCollectorFactory.<init>(AgentStatCollectorFactory.java:65)
+	at com.m2u.eyelink.agent.profiler.DefaultAgent.<init>(DefaultAgent.java:199)
+	at com.m2u.eyelink.agent.profiler.DefaultAgent.<init>(DefaultAgent.java:108)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.m2u.eyelink.agent.AgentClassLoader$2.call(AgentClassLoader.java:63)
+	at com.m2u.eyelink.agent.ContextClassLoaderExecuteTemplate.execute(ContextClassLoaderExecuteTemplate.java:24)
+	at com.m2u.eyelink.agent.AgentClassLoader.boot(AgentClassLoader.java:56)
+	at com.m2u.eyelink.agent.AgentClassLoaderTest.boot_DefaultAgent(AgentClassLoaderTest.java:49)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+2017-05-30 15:59:42 [INFO ](m.e.a.p.m.AgentStatCollectorFactory:118) loaded : Disabled CpuLoadMetricSet
+2017-05-30 15:59:42 [INFO ](m.e.a.p.m.AgentStatCollectorFactory:128) loaded : Default TransactionMetricSet
+2017-05-30 15:59:42 [INFO ](m.e.a.p.m.AgentStatCollectorFactory:145) loaded : Default ActiveTraceCountMetricSet
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.847 sec
+Running com.m2u.eyelink.agent.AgentVersionTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec
+Running com.m2u.eyelink.agent.ELAgentURLClassLoaderTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec
+Running com.m2u.eyelink.agent.LoadStateTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Running com.m2u.eyelink.agent.ValidIdCheckerTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Running com.m2u.eyelink.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+Running com.m2u.eyelink.test.TestAgentDirBaseClassPathResolver
+2017-05-30 15:59:42 [DEBUG](t.TestAgentDirBaseClassPathResolver: 35) beforeClass start
+2017-05-30 15:59:42 [DEBUG](t.TestAgentDirBaseClassPathResolver: 64) codeSource.getLocation:file:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/
+2017-05-30 15:59:42 [DEBUG](t.TestAgentDirBaseClassPathResolver: 37) buildDir:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes
+2017-05-30 15:59:42 [DEBUG](t.TestAgentDirBaseClassPathResolver: 43) agentBuildDir:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/..
+2017-05-30 15:59:42 [DEBUG](t.TestAgentDirBaseClassPathResolver: 47) agentPath:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/../eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+2017-05-30 15:59:42 [DEBUG](t.TestAgentDirBaseClassPathResolver: 51) beforeClass end
+2017-05-30 15:59:42 [DEBUG](t.TestAgentDirBaseClassPathResolver: 76) TEST_AGENT_DIR:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/..
+2017-05-30 15:59:42 [DEBUG](t.TestAgentDirBaseClassPathResolver: 77) agentPath:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/../eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) classpath:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/../eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap(-[0-9]+\.[0-9]+\.[0-9]+((\-SNAPSHOT)|(-RC[0-9]+))?)?\.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent Jar Name:eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent Jar Full Path:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/../eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent Dir Path:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/..
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent original-path:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/..
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent canonical-path:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap-commons.jar not found.
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap-core.jar not found.
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap-core-optional.jar not found.
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap-annotations.jar not found.
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) classpath:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/../eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap(-[0-9]+\.[0-9]+\.[0-9]+((\-SNAPSHOT)|(-RC[0-9]+))?)?\.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent Jar Name:eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent Jar Full Path:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/../eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent Dir Path:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/..
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent original-path:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/test-classes/..
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) Agent canonical-path:/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap-commons.jar not found.
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap-core.jar not found.
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap-core-optional.jar not found.
+2017-05-30 15:59:42 [INFO ](com.m2u.eyelink.agent.AgentDirBaseClassPathResolver) eyelink-bootstrap-annotations.jar not found.
+eyelink-agent-1.0.0-SNAPSHOT.jar는 패턴에 일치함.
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 sec
+
+Results :
+
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ eyelink-bootstrap ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ eyelink-bootstrap ---
+[INFO] Installing /Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/eyelink-bootstrap-1.0.0-SNAPSHOT.jar to /Users/baesunghan/.m2/repository/com/m2u/eyelink/eyelink-bootstrap/1.0.0-SNAPSHOT/eyelink-bootstrap-1.0.0-SNAPSHOT.jar
+[INFO] Installing /Users/baesunghan/git/m2u/eyelink-agent/bootstrap/pom.xml to /Users/baesunghan/.m2/repository/com/m2u/eyelink/eyelink-bootstrap/1.0.0-SNAPSHOT/eyelink-bootstrap-1.0.0-SNAPSHOT.pom
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building eyelink-plugin-tomcat 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ eyelink-plugin-tomcat ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ eyelink-plugin-tomcat ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 15 source files to /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/target/classes
+[WARNING] /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/src/main/java/com/m2u/eyelink/plugin/tomcat/InvokeMethodInterceptorTest.java: /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/src/main/java/com/m2u/eyelink/plugin/tomcat/InvokeMethodInterceptorTest.java uses unchecked or unsafe operations.
+[WARNING] /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/src/main/java/com/m2u/eyelink/plugin/tomcat/InvokeMethodInterceptorTest.java: Recompile with -Xlint:unchecked for details.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ eyelink-plugin-tomcat ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ eyelink-plugin-tomcat ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ eyelink-plugin-tomcat ---
+[INFO] Surefire report directory: /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.m2u.eyelink.tomcat.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.057 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ eyelink-plugin-tomcat ---
+[INFO] Building jar: /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/target/eyelink-plugin-tomcat-1.0.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ eyelink-plugin-tomcat ---
+[INFO] Installing /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/target/eyelink-plugin-tomcat-1.0.0-SNAPSHOT.jar to /Users/baesunghan/.m2/repository/com/m2u/eyelink/eyelink-plugin-tomcat/1.0.0-SNAPSHOT/eyelink-plugin-tomcat-1.0.0-SNAPSHOT.jar
+[INFO] Installing /Users/baesunghan/git/m2u/eyelink-agent/plugins/tomcat/pom.xml to /Users/baesunghan/.m2/repository/com/m2u/eyelink/eyelink-plugin-tomcat/1.0.0-SNAPSHOT/eyelink-plugin-tomcat-1.0.0-SNAPSHOT.pom
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building plugins 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ plugins ---
+[INFO] Installing /Users/baesunghan/git/m2u/eyelink-agent/plugins/pom.xml to /Users/baesunghan/.m2/repository/com/m2u/eyelink/plugins/1.0.0-SNAPSHOT/plugins-1.0.0-SNAPSHOT.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] agent .............................................. SUCCESS [  0.285 s]
+[INFO] eyelink-bootstrap .................................. SUCCESS [ 18.282 s]
+[INFO] eyelink-plugin-tomcat .............................. SUCCESS [  1.414 s]
+[INFO] plugins ............................................ SUCCESS [  0.006 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 20.102 s
+[INFO] Finished at: 2017-05-30T15:59:45+09:00
+[INFO] Final Memory: 22M/302M
+[INFO] ------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 package com.m2u.eyelink.test;
 
+import com.m2u.eyelink.agent.profiler.DefaultAgentInformation;
 import com.m2u.eyelink.common.Version;
-import com.m2u.eyelink.context.AgentInformation;
 import com.m2u.eyelink.trace.ServiceType;
 import com.m2u.eyelink.util.SystemPropertyKey;
 import com.m2u.eyelink.util.jdk.JvmUtils;
 
-public class TestAgentInformation extends AgentInformation {
+public class TestAgentInformation extends DefaultAgentInformation {
     
     private static final String AGENT_ID = "test-agent";
     private static final String APPLICATION_NAME = "TEST_APPLICATION";

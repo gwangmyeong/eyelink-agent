@@ -13,23 +13,43 @@ import com.m2u.eyelink.agent.instrument.InstrumentContext;
 import com.m2u.eyelink.agent.plugin.ObjectFactory;
 import com.m2u.eyelink.agent.plugin.ObjectFactory.ByConstructor;
 import com.m2u.eyelink.agent.plugin.ObjectFactory.ByStaticFactoryMethod;
-import com.m2u.eyelink.exception.ELAgentException;
+import com.m2u.eyelink.config.ProfilerConfig;
+import com.m2u.eyelink.context.TraceContext;
+import com.m2u.eyelink.exception.PinpointException;
 
 public class AutoBindingObjectFactory {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final boolean isDebug = logger.isDebugEnabled();
-    
+
     private final InstrumentContext pluginContext;
     private final ClassLoader classLoader;
     private final List<ArgumentProvider> commonProviders;
-    
-    public AutoBindingObjectFactory(InstrumentContext pluginContext, ClassLoader classLoader, ArgumentProvider... argumentProviders) {
+
+    public AutoBindingObjectFactory(ProfilerConfig profilerConfig, TraceContext traceContext, InstrumentContext pluginContext, ClassLoader classLoader, ArgumentProvider... argumentProviders) {
+        if (profilerConfig == null) {
+            throw new NullPointerException("profilerConfig must not be null");
+        }
+        if (traceContext == null) {
+            throw new NullPointerException("traceContext must not be null");
+        }
+        if (pluginContext == null) {
+            throw new NullPointerException("pluginContext must not be null");
+        }
         this.pluginContext = pluginContext;
         this.classLoader = classLoader;
-        this.commonProviders = new ArrayList<ArgumentProvider>(Arrays.asList(argumentProviders));
-        this.commonProviders.add(new ProfilerPluginArgumentProvider(pluginContext));
+        this.commonProviders = newArgumentProvider(profilerConfig, traceContext, pluginContext, argumentProviders);
     }
-    
+
+    private List<ArgumentProvider> newArgumentProvider(ProfilerConfig profilerConfig, TraceContext traceContext, InstrumentContext pluginContext, ArgumentProvider[] argumentProviders) {
+        final List<ArgumentProvider> commonProviders = new ArrayList<ArgumentProvider>();
+        for (ArgumentProvider argumentProvider : argumentProviders) {
+            commonProviders.add(argumentProvider);
+        }
+        ProfilerPluginArgumentProvider profilerPluginArgumentProvider = new ProfilerPluginArgumentProvider(profilerConfig, traceContext, pluginContext);
+        commonProviders.add(profilerPluginArgumentProvider);
+        return commonProviders;
+    }
+
     public Object createInstance(ObjectFactory objectFactory, ArgumentProvider... providers) {
         final Class<?> type = pluginContext.injectClass(classLoader, objectFactory.getClassName());
         final ArgumentsResolver argumentsResolver = getArgumentResolver(objectFactory, providers);
@@ -47,7 +67,7 @@ public class AutoBindingObjectFactory {
         final ConstructorResolver resolver = new ConstructorResolver(type, argumentsResolver);
         
         if (!resolver.resolve()) {
-            throw new ELAgentException("Cannot find suitable constructor for " + type.getName());
+            throw new PinpointException("Cannot find suitable constructor for " + type.getName());
         }
         
         final Constructor<?> constructor = resolver.getResolvedConstructor();
@@ -60,7 +80,7 @@ public class AutoBindingObjectFactory {
         try {
             return constructor.newInstance(resolvedArguments);
         } catch (Exception e) {
-            throw new ELAgentException("Fail to invoke constructor: " + constructor + ", arguments: " + Arrays.toString(resolvedArguments), e);
+            throw new PinpointException("Fail to invoke constructor: " + constructor + ", arguments: " + Arrays.toString(resolvedArguments), e);
         }
     }
 
@@ -68,7 +88,7 @@ public class AutoBindingObjectFactory {
         StaticMethodResolver resolver = new StaticMethodResolver(type, staticFactoryMethod.getFactoryMethodName(), argumentsResolver);
         
         if (!resolver.resolve()) {
-            throw new ELAgentException("Cannot find suitable factory method " + type.getName() + "." + staticFactoryMethod.getFactoryMethodName());
+            throw new PinpointException("Cannot find suitable factory method " + type.getName() + "." + staticFactoryMethod.getFactoryMethodName());
         }
         
         final Method method = resolver.getResolvedMethod();
@@ -81,7 +101,7 @@ public class AutoBindingObjectFactory {
         try {
             return method.invoke(null, resolvedArguments);
         } catch (Exception e) {
-            throw new ELAgentException("Fail to invoke factory method: " + type.getName() + "." + staticFactoryMethod.getFactoryMethodName() + ", arguments: " + Arrays.toString(resolvedArguments), e);
+            throw new PinpointException("Fail to invoke factory method: " + type.getName() + "." + staticFactoryMethod.getFactoryMethodName() + ", arguments: " + Arrays.toString(resolvedArguments), e);
         }
 
     }

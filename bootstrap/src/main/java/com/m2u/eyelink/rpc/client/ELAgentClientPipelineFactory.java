@@ -11,13 +11,13 @@ import com.m2u.eyelink.rpc.codec.PacketEncoder;
 
 public class ELAgentClientPipelineFactory implements ChannelPipelineFactory {
 
-    private final ELAgentClientFactory elagentClientFactory;
+    private final DefaultELAgentClientFactory pinpointClientFactory;
 
-    public ELAgentClientPipelineFactory(ELAgentClientFactory pinpointClientFactory) {
+    public ELAgentClientPipelineFactory(DefaultELAgentClientFactory pinpointClientFactory) {
         if (pinpointClientFactory == null) {
             throw new NullPointerException("pinpointClientFactory must not be null");
         }
-        this.elagentClientFactory = pinpointClientFactory;
+        this.pinpointClientFactory = pinpointClientFactory;
     }
 
 
@@ -27,13 +27,13 @@ public class ELAgentClientPipelineFactory implements ChannelPipelineFactory {
         pipeline.addLast("encoder", new PacketEncoder());
         pipeline.addLast("decoder", new PacketDecoder());
         
-        long pingDelay = elagentClientFactory.getPingDelay();
-        long enableWorkerPacketDelay = elagentClientFactory.getEnableWorkerPacketDelay();
-        long timeoutMillis = elagentClientFactory.getTimeoutMillis();
+        long pingDelay = pinpointClientFactory.getPingDelay();
+        long enableWorkerPacketDelay = pinpointClientFactory.getEnableWorkerPacketDelay();
+        long timeoutMillis = pinpointClientFactory.getTimeoutMillis();
         
-        DefaultELAgentClientHandler defaultPinpointClientHandler = new DefaultELAgentClientHandler(elagentClientFactory, pingDelay, enableWorkerPacketDelay, timeoutMillis);
-        pipeline.addLast("writeTimeout", new WriteTimeoutHandler(defaultPinpointClientHandler.getChannelTimer(), 3000, TimeUnit.MILLISECONDS));
-        pipeline.addLast("socketHandler", defaultPinpointClientHandler);
+        DefaultELAgentClientHandler defaultELAgentClientHandler = new DefaultELAgentClientHandler(pinpointClientFactory, pingDelay, enableWorkerPacketDelay, timeoutMillis);
+        pipeline.addLast("writeTimeout", new WriteTimeoutHandler(defaultELAgentClientHandler.getChannelTimer(), 3000, TimeUnit.MILLISECONDS));
+        pipeline.addLast("socketHandler", defaultELAgentClientHandler);
         
         return pipeline;
     }

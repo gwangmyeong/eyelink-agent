@@ -4,7 +4,6 @@ import java.io.InputStream;
 
 import com.m2u.eyelink.agent.instrument.transformer.TransformCallback;
 import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
-import com.m2u.eyelink.context.TraceContext;
 
 public class GuardInstrumentContext implements InstrumentContext {
     private final InstrumentContext instrumentContext;
@@ -18,11 +17,6 @@ public class GuardInstrumentContext implements InstrumentContext {
         this.instrumentContext = instrumentContext;
     }
 
-    @Override
-    public TraceContext getTraceContext() {
-        checkOpen();
-        return instrumentContext.getTraceContext();
-    }
 
     @Override
     public InstrumentClass getInstrumentClass(ClassLoader classLoader, String className, byte[] classfileBuffer) {

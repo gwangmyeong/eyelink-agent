@@ -16,6 +16,8 @@ import com.m2u.eyelink.agent.instrument.MethodFilter;
 import com.m2u.eyelink.agent.interceptor.scope.ExecutionPolicy;
 import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistryBinder;
+import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
+import com.m2u.eyelink.agent.profiler.objectfactory.ObjectBinderFactory;
 import com.m2u.eyelink.util.Asserts;
 
 public class ASMNestedClass implements InstrumentClass {
@@ -23,12 +25,12 @@ public class ASMNestedClass implements InstrumentClass {
 
     private final ASMClass aClass;
 
-    public ASMNestedClass(final InstrumentContext pluginContext, final InterceptorRegistryBinder interceptorRegistryBinder, final ClassLoader classLoader, final ClassNode classNode) {
-        this.aClass = new ASMClass(pluginContext, interceptorRegistryBinder, classLoader, classNode);
+    public ASMNestedClass(ObjectBinderFactory objectBinderFactory, final InstrumentContext pluginContext, final InterceptorRegistryBinder interceptorRegistryBinder, ApiMetaDataService apiMetaDataService, final ClassLoader classLoader, final ClassNode classNode) {
+        this.aClass = new ASMClass(objectBinderFactory, pluginContext, interceptorRegistryBinder, apiMetaDataService, classLoader, classNode);
     }
 
-    public ASMNestedClass(final InstrumentContext pluginContext, final InterceptorRegistryBinder interceptorRegistryBinder, final ClassLoader classLoader, final ASMClassNodeAdapter classNodeAdapter) {
-        this.aClass = new ASMClass(pluginContext, interceptorRegistryBinder, classLoader, classNodeAdapter);
+    public ASMNestedClass(ObjectBinderFactory objectBinderFactory, final InstrumentContext pluginContext, final InterceptorRegistryBinder interceptorRegistryBinder, ApiMetaDataService apiMetaDataService, final ClassLoader classLoader, final ASMClassNodeAdapter classNodeAdapter) {
+        this.aClass = new ASMClass(objectBinderFactory, pluginContext, interceptorRegistryBinder, apiMetaDataService, classLoader, classNodeAdapter);
     }
 
     public ClassLoader getClassLoader() {

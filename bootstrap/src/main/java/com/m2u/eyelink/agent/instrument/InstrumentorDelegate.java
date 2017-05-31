@@ -5,18 +5,23 @@ import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
 import com.m2u.eyelink.config.ProfilerConfig;
 
 public class InstrumentorDelegate implements Instrumentor {
+    private final ProfilerConfig profilerConfig;
     private final InstrumentContext instrumentContext;
 
-    public InstrumentorDelegate(InstrumentContext instrumentContext) {
+    public InstrumentorDelegate(ProfilerConfig profilerConfig, InstrumentContext instrumentContext) {
+        if (profilerConfig == null) {
+            throw new NullPointerException("profilerConfig must not be null");
+        }
         if (instrumentContext == null) {
             throw new NullPointerException("instrumentContext must not be null");
         }
+        this.profilerConfig = profilerConfig;
         this.instrumentContext = instrumentContext;
     }
 
     @Override
     public ProfilerConfig getProfilerConfig() {
-        return instrumentContext.getTraceContext().getProfilerConfig();
+        return profilerConfig;
     }
 
     @Override

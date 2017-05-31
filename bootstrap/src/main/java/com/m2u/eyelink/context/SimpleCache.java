@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.m2u.eyelink.agent.profiler.metadata.Result;
 import com.m2u.eyelink.util.BytesUtils;
 
 public class SimpleCache<T> {

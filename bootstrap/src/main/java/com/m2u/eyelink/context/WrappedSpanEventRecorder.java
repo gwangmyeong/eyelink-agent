@@ -3,6 +3,9 @@ package com.m2u.eyelink.context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.agent.profiler.context.DefaultTrace;
+import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
+import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.trace.AnnotationKey;
 import com.m2u.eyelink.trace.ServiceType;
 
@@ -12,8 +15,8 @@ public class WrappedSpanEventRecorder extends AbstractRecorder implements SpanEv
 
     private SpanEvent spanEvent;
 
-    public WrappedSpanEventRecorder(final TraceContext traceContext) {
-        super(traceContext);
+    public WrappedSpanEventRecorder(final StringMetaDataService stringMetaDataService, final SqlMetaDataService sqlMetaCacheService) {
+        super(stringMetaDataService, sqlMetaCacheService);
     }
 
     public void setWrapped(final SpanEvent spanEvent) {
@@ -25,7 +28,7 @@ public class WrappedSpanEventRecorder extends AbstractRecorder implements SpanEv
         if (sql == null) {
             return null;
         }
-        ParsingResult parsingResult = traceContext.parseSql(sql);
+        ParsingResult parsingResult = sqlMetaDataService.parseSql(sql);
         recordSqlParsingResult(parsingResult);
         return parsingResult;
     }
@@ -40,7 +43,7 @@ public class WrappedSpanEventRecorder extends AbstractRecorder implements SpanEv
         if (parsingResult == null) {
             return;
         }
-        final boolean isNewCache = traceContext.cacheSql(parsingResult);
+        final boolean isNewCache = sqlMetaDataService.cacheSql(parsingResult);
         if (isDebug) {
             if (isNewCache) {
                 logger.debug("update sql cache. parsingResult:{}", parsingResult);
