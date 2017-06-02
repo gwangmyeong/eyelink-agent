@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class ELAgentURLClassLoaderTest {
 
-//	@Test
+	// @Test
 	// FIXME test error
 	public void testOnLoadClass() throws Exception {
 
@@ -36,17 +36,36 @@ public class ELAgentURLClassLoaderTest {
 				.onLoadClass("com.m2u.eyelink.agent.profiler.DefaultAgent"));
 	}
 
-
 	// classloader를 이용한 jar 파일 Loading Test
 	@Test
-	public void testJarFile() throws MalformedURLException, ClassNotFoundException {
-		File file  = new File("/Users/baesunghan/git/m2u/pinpoint/quickstart/agent/target/pinpoint-agent/pinpoint-bootstrap-1.6.1-SNAPSHOT.jar");
+	public void testJarFile() throws MalformedURLException,
+			ClassNotFoundException {
+		File file = new File(
+				"/Users/baesunghan/git/m2u/pinpoint/quickstart/agent/target/pinpoint-agent/pinpoint-bootstrap-1.6.1-SNAPSHOT.jar");
+		File file2 = new File(
+				"/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/lib/netty-3.10.6.Final1.jar");
 
-		URL url = file.toURL();  
-		URL[] urls = new URL[]{url};
+//		URL url = file.toURL();
+		URL[] urls = new URL[] { file.toURL(), file2.toURL() };
 
 		ClassLoader cl = new URLClassLoader(urls);
-		Class cls = cl.loadClass("org.jboss.netty.channel.group.ChannelGroup");
-		Class cls2 = cl.loadClass("com.navercorp.pinpoint.bootstrap.LoadState");
+//		Class cls = cl.loadClass("org.jboss.netty.channel.group.ChannelGroup");
+//		Class cls2 = cl.loadClass("com.navercorp.pinpoint.bootstrap.LoadState");
 	}
+
+	public static void main(String[] args) {
+		ELAgentURLClassLoaderTest et = new ELAgentURLClassLoaderTest();
+		ChannelClassLoaderTest ccl = new ChannelClassLoaderTest();
+		ccl.load();
+		try {
+			et.testJarFile();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
