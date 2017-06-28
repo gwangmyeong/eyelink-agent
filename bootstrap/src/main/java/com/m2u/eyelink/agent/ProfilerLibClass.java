@@ -4,7 +4,7 @@ public class ProfilerLibClass implements LibClass {
 
 	// TODO bootClass가 일치하면 classloading 하지 않음.
     private static final String[] ELAGENT_PROFILER_CLASS = new String[] {
-            "com.m2u.eyelink.agent.profiler2",
+            "com.m2u.eyelink.agent.profiler",
             "com.m2u.eyelink.context.thrift",
             "com.m2u.eyelink.rpc",
             /*

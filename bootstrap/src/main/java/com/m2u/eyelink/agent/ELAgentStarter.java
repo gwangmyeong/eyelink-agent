@@ -20,6 +20,7 @@ import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.logging.CommonLoggerFactory;
 import com.m2u.eyelink.logging.ELLogger;
 import com.m2u.eyelink.logging.StdoutCommonLoggerFactory;
+import com.m2u.eyelink.util.CheckClassLoader;
 import com.m2u.eyelink.util.ELAgentThreadFactory;
 import com.m2u.eyelink.util.SimpleProperty;
 import com.m2u.eyelink.util.SystemProperty;
@@ -98,22 +99,17 @@ public class ELAgentStarter {
 			return false;
 		}
 		
-		logger.info("=============> saveLogFilePath");
-
 		// TODO skip for next time
 		// set the path of log file as a system property
 		saveLogFilePath(classPathResolver);
 
-		logger.info("=============> saveELAgentVersion");
 		saveELAgentVersion();
 
-		logger.info("=============> try ProfilerConfig");
 		try {
 
 			// Is it right to load the configuration in the bootstrap?
 			ProfilerConfig profilerConfig = DefaultProfilerConfig
 					.load(configPath);
-			logger.info("=============> libUrlList");
 
 			// this is the library list that must be loaded
 			List<URL> libUrlList = resolveLib(classPathResolver);
@@ -126,13 +122,14 @@ public class ELAgentStarter {
 //			logger.info("=====> size : " + libUrlList.size());
 //			ClassLoader cl = new URLClassLoader(new URL[libUrlList.size()]);
 //			Class cls = cl.loadClass("org.jboss.netty.channel.group.ChannelGroup");
-			
+
+			CheckClassLoader ccl = new CheckClassLoader();
+			ccl.displayClassLoader("org.jboss.netty.channel.group.ChannelGroup");
 			
 			AgentOption option = createAgentOption(agentId, applicationName,
 					profilerConfig, instrumentation, pluginJars,
 					agentJarFile, serviceTypeRegistryService,
 					annotationKeyRegistryService);
-//			logger.info("=====> AgentOption : " + option.toString());
 			Agent elAgent = agentClassLoader.boot(option);
 			elAgent.start();
 			registerShutdownHook(elAgent);

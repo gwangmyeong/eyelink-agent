@@ -24,7 +24,6 @@ public class PluginLoader {
                 }
             });
         } else {
-        	System.out.println("=====> PluginLoader : SECURITY_MANAGER is null");
             return new PluginLoaderClassLoader(urls, parent);
         }
     }

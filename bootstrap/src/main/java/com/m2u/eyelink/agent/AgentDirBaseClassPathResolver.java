@@ -285,17 +285,20 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 	        if (agentDirUri != null) {
 	            jarURLList.add(agentDirUri);
 	        }
+
+	        // eyelink-bootstrap-xx.jar 파일내에 com.m2u.eyelink.agent.profiler.DefaultAgent 가 있으므로 추가함.
+	        jarURLList.add(toURI(new File(getAgentJarFullPath())));
 	        
 	        // FIXME commonjar, corejar가 없으므로 SKIP 처리함.
 
 	        // hot fix. boot jars not found from classPool ??
 //	        jarURLList.add(toURI(new File(getELAgentCommonsJar())));
 //	        jarURLList.add(toURI(new File(getELAgentCoreJar())));
-	        String bootstrapCoreOptionalJar = getELAgentOptionalJar();
+//	        String bootstrapCoreOptionalJar = getELAgentOptionalJar();
 	        // bootstrap-core-optional jar is not required and is okay to be null
-	        if (bootstrapCoreOptionalJar != null) {
-	            jarURLList.add(toURI(new File(bootstrapCoreOptionalJar)));
-	        }
+//	        if (bootstrapCoreOptionalJar != null) {
+//	            jarURLList.add(toURI(new File(bootstrapCoreOptionalJar)));
+//	        }
 
 	        return jarURLList;
 	}

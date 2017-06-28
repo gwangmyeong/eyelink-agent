@@ -57,11 +57,12 @@ public class ELAgentURLClassLoaderTest {
 	}
 
 	public static void main(String[] args) {
+		
 		ELAgentURLClassLoaderTest et = new ELAgentURLClassLoaderTest();
 		ChannelClassLoaderTest ccl = new ChannelClassLoaderTest();
 		try {
 			et.testJarFile();
-			loadJarIndDir("/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/lib/");
+			loadJarIndDir("/Users/baesunghan/git/m2u/eyelink-agent/bootstrap/target/lib2/");
 			ccl.load();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

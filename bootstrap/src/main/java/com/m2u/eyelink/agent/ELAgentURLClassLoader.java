@@ -30,11 +30,9 @@ public class ELAgentURLClassLoader extends URLClassLoader {
 
     @Override
     protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-    	System.out.println("loadClass start");
         // First, check if the class has already been loaded
         Class clazz = findLoadedClass(name);
         if (clazz == null) {
-        	System.out.println("=====> name : " + name + ", " + onLoadClass(name));
             if (onLoadClass(name)) {
                 // load a class used for Pinpoint itself by this PinpointURLClassLoader
                 clazz = findClass(name);
@@ -53,7 +51,6 @@ public class ELAgentURLClassLoader extends URLClassLoader {
         if (resolve) {
             resolveClass(clazz);
         }
-    	System.out.println("loadClass end");
     	return clazz;
     }
 
