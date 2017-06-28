@@ -33,14 +33,12 @@ public class AgentClassLoader {
 
     private ELAgentURLClassLoader createClassLoader(final URL[] urls, final ClassLoader bootStrapClassLoader) {
         if (SECURITY_MANAGER != null) {
-        	System.out.println("=====> SECURITY_MANAGER != null");
             return AccessController.doPrivileged(new PrivilegedAction<ELAgentURLClassLoader>() {
                 public ELAgentURLClassLoader run() {
                     return new ELAgentURLClassLoader(urls, bootStrapClassLoader);
                 }
             });
         } else {
-        	System.out.println("=====> SECURITY_MANAGER is null");
             return new ELAgentURLClassLoader(urls, bootStrapClassLoader);
         }
     }
@@ -57,9 +55,7 @@ public class AgentClassLoader {
             @Override
             public Object call() throws Exception {
                 try {
-                	System.out.println("=====> AgentClassLoader call() start");
                     Constructor<?> constructor = bootStrapClazz.getConstructor(AgentOption.class);
-                    System.out.println("=====> AgentClassLoader call() end");
                     return constructor.newInstance(agentOption);
                 } catch (InstantiationException e) {
                     throw new ELAgentException("boot create failed. Error:" + e.getMessage(), e);

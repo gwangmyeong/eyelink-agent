@@ -23,9 +23,7 @@ public final class ClassPreLoader {
         ELAgentClient client = null;
         ELAgentClientFactory clientFactory = null;
         try {
-        	System.out.println("=====> preload before");
             serverAcceptor = new ELAgentServerAcceptor();
-            System.out.println("=====> preload after");
             serverAcceptor.bind("127.0.0.1", port);
 
             clientFactory = new DefaultELAgentClientFactory();
