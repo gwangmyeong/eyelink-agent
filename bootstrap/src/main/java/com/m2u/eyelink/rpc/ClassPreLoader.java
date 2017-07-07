@@ -12,7 +12,8 @@ public final class ClassPreLoader {
 
     public static void preload() {
         try {
-            preload(65535);
+        	// TODO pinpoint 와 동시실행으로 인한 충돌 방지 처리 
+            preload(65534);
         } catch (Exception ignore) {
             // skip
         }

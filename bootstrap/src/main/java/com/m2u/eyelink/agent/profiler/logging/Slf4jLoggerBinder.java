@@ -1,9 +1,12 @@
-package com.m2u.eyelink.logging;
+package com.m2u.eyelink.agent.profiler.logging;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import org.slf4j.LoggerFactory;
+
+import com.m2u.eyelink.logging.PLogger;
+import com.m2u.eyelink.logging.PLoggerBinder;
 
 public class Slf4jLoggerBinder implements PLoggerBinder {
 

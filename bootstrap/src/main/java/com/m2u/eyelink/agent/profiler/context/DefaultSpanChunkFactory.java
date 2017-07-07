@@ -7,7 +7,6 @@ import com.m2u.eyelink.agent.profiler.context.module.AgentId;
 import com.m2u.eyelink.agent.profiler.context.module.AgentStartTime;
 import com.m2u.eyelink.agent.profiler.context.module.ApplicationName;
 import com.m2u.eyelink.agent.profiler.context.module.ApplicationServerType;
-import com.m2u.eyelink.context.Span;
 import com.m2u.eyelink.context.SpanEvent;
 import com.m2u.eyelink.trace.ServiceType;
 

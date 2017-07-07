@@ -2,6 +2,8 @@ package com.m2u.eyelink.context;
 
 import java.util.Arrays;
 
+import com.m2u.eyelink.agent.profiler.context.Span;
+
 public class CallStack {
     private static final int STACK_SIZE = 8;
     private static final int DEFAULT_INDEX = 0;

@@ -1,10 +1,10 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc.stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.rpc.StreamChannelStateChangeEventHandler;
-import com.m2u.eyelink.rpc.stream.StreamChannel;
+import com.m2u.eyelink.sender.StreamChannelStateCode;
 
 public class LoggingStreamChannelStateChangeEventHandler implements StreamChannelStateChangeEventHandler {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

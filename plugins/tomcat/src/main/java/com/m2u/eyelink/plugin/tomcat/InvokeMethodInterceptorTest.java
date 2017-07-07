@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.m2u.eyelink.agent.profiler.logging.Slf4jLoggerBinder;
 import com.m2u.eyelink.config.DefaultProfilerConfig;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.context.DefaultMethodDescriptor;
@@ -26,7 +27,6 @@ import com.m2u.eyelink.context.MethodDescriptor;
 import com.m2u.eyelink.context.TraceContext;
 import com.m2u.eyelink.context.TraceId;
 import com.m2u.eyelink.logging.PLoggerFactory;
-import com.m2u.eyelink.logging.Slf4jLoggerBinder;
 import com.m2u.eyelink.plugin.tomcat.interceptor.StandardHostValveInvokeInterceptor;
 
 public class InvokeMethodInterceptorTest {

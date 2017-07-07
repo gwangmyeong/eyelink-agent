@@ -3,6 +3,8 @@ package com.m2u.eyelink.context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.agent.profiler.context.Span;
+
 public class LogStorageFactory implements StorageFactory {
 
     public final static Storage DEFAULT_STORAGE = new LogStorage();

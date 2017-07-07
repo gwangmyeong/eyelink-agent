@@ -1,4 +1,4 @@
-package com.m2u.eyelink.logging;
+package com.m2u.eyelink.agent.profiler.logging;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -14,6 +14,8 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
+
+import com.m2u.eyelink.logging.PLogger;
 
 public class Slf4jPLoggerAdapter implements PLogger {
     public static final int BUFFER_SIZE = 512;

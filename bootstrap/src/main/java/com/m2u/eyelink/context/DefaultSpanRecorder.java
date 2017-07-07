@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.agent.profiler.context.DefaultTrace;
+import com.m2u.eyelink.agent.profiler.context.Span;
 import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
 import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.trace.LoggingInfo;

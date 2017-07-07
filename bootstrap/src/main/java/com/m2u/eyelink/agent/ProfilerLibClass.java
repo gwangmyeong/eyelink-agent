@@ -19,7 +19,7 @@ public class ProfilerLibClass implements LibClass {
             "org.apache.commons.lang",
             "org.apache.log4j",
             "com.codahale.metrics",
-            "com.nhncorp.nelo2"
+            "com.m2u.eyelink.nelo2"
     };
 
     @Override

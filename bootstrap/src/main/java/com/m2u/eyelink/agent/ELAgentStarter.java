@@ -123,8 +123,8 @@ public class ELAgentStarter {
 //			ClassLoader cl = new URLClassLoader(new URL[libUrlList.size()]);
 //			Class cls = cl.loadClass("org.jboss.netty.channel.group.ChannelGroup");
 
-			CheckClassLoader ccl = new CheckClassLoader();
-			ccl.displayClassLoader("org.jboss.netty.channel.group.ChannelGroup");
+//			CheckClassLoader ccl = new CheckClassLoader();
+//			ccl.displayClassLoader("org.jboss.netty.channel.group.ChannelGroup");
 			
 			AgentOption option = createAgentOption(agentId, applicationName,
 					profilerConfig, instrumentation, pluginJars,
@@ -189,7 +189,7 @@ public class ELAgentStarter {
 	}
 
 	private void saveELAgentVersion() {
-		logger.info("pinpoint version:" + Version.VERSION);
+		logger.info("ELAgent version:" + Version.VERSION);
 		systemProperty.setProperty(ProductInfo.NAME + ".version",
 				Version.VERSION);
 	}

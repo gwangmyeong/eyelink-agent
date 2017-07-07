@@ -3,7 +3,7 @@ package com.m2u.eyelink.agent.profiler.context.storage;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.m2u.eyelink.context.Span;
+import com.m2u.eyelink.agent.profiler.context.Span;
 import com.m2u.eyelink.context.SpanEvent;
 import com.m2u.eyelink.context.Storage;
 import com.m2u.eyelink.context.TSpanEvent;

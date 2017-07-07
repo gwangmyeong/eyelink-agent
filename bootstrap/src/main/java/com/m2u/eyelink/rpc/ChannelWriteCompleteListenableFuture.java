@@ -3,8 +3,6 @@ package com.m2u.eyelink.rpc;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelFutureListener;
 
-import com.m2u.eyelink.sender.DefaultFuture;
-
 public class ChannelWriteCompleteListenableFuture<T> extends DefaultFuture<T> implements ChannelFutureListener {
 
     private T result;

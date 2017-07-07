@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 
 import com.m2u.eyelink.annotations.*;
 import com.m2u.eyelink.context.ListenableAsyncState;
-import com.m2u.eyelink.context.Span;
 import com.m2u.eyelink.context.Storage;
 import com.m2u.eyelink.context.ListenableAsyncState.AsyncStateListener;
 

@@ -17,7 +17,6 @@ import com.m2u.eyelink.rpc.ServerStreamChannelMessageListener;
 import com.m2u.eyelink.rpc.StreamChannelStateChangeEventHandler;
 import com.m2u.eyelink.rpc.packet.PacketType;
 import com.m2u.eyelink.sender.IDGenerator;
-import com.m2u.eyelink.sender.LoggingStreamChannelStateChangeEventHandler;
 import com.m2u.eyelink.sender.ServerStreamChannelContext;
 import com.m2u.eyelink.sender.StreamChannelContext;
 import com.m2u.eyelink.sender.StreamChannelStateCode;

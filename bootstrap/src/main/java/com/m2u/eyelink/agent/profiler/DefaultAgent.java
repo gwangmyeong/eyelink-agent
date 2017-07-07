@@ -11,13 +11,13 @@ import com.m2u.eyelink.agent.profiler.context.module.ApplicationContext;
 import com.m2u.eyelink.agent.profiler.context.module.DefaultApplicationContext;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.DefaultInterceptorRegistryBinder;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistryBinder;
+import com.m2u.eyelink.agent.profiler.logging.Slf4jLoggerBinder;
 import com.m2u.eyelink.agent.profiler.util.SystemPropertyDumper;
 import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.logging.PLogger;
 import com.m2u.eyelink.logging.PLoggerBinder;
 import com.m2u.eyelink.logging.PLoggerFactory;
-import com.m2u.eyelink.logging.Slf4jLoggerBinder;
 import com.m2u.eyelink.rpc.ClassPreLoader;
 
 public class DefaultAgent implements Agent {

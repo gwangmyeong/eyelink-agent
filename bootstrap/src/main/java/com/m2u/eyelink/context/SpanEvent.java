@@ -1,5 +1,7 @@
 package com.m2u.eyelink.context;
 
+import com.m2u.eyelink.agent.profiler.context.Span;
+
 public class SpanEvent extends TSpanEvent implements FrameAttachment {
 
     private final Span span;

@@ -8,7 +8,6 @@ import com.m2u.eyelink.agent.profiler.context.recorder.RecorderFactory;
 import com.m2u.eyelink.context.AsyncTraceId;
 import com.m2u.eyelink.context.CallStack;
 import com.m2u.eyelink.context.DefaultAsyncTraceId;
-import com.m2u.eyelink.context.Span;
 import com.m2u.eyelink.context.SpanEvent;
 import com.m2u.eyelink.context.SpanEventRecorder;
 import com.m2u.eyelink.context.SpanRecorder;

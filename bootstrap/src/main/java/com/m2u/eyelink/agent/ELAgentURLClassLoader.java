@@ -33,6 +33,7 @@ public class ELAgentURLClassLoader extends URLClassLoader {
         // First, check if the class has already been loaded
         Class clazz = findLoadedClass(name);
         if (clazz == null) {
+        	
             if (onLoadClass(name)) {
                 // load a class used for Pinpoint itself by this PinpointURLClassLoader
                 clazz = findClass(name);

@@ -13,13 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.rpc.ChannelWriteFailListenableFuture;
+import com.m2u.eyelink.rpc.DefaultFuture;
 import com.m2u.eyelink.rpc.ELAgentSocketException;
+import com.m2u.eyelink.rpc.FailureEventHandler;
 import com.m2u.eyelink.rpc.RequestPacket;
 import com.m2u.eyelink.rpc.ResponseMessage;
 import com.m2u.eyelink.rpc.packet.ResponsePacket;
 import com.m2u.eyelink.rpc.server.ELAgentServer;
-import com.m2u.eyelink.sender.DefaultFuture;
-import com.m2u.eyelink.sender.FailureEventHandler;
 
 public class RequestManager {
 

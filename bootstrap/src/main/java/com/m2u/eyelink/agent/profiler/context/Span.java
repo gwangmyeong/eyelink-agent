@@ -1,4 +1,4 @@
-package com.m2u.eyelink.context;
+package com.m2u.eyelink.agent.profiler.context;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -20,6 +20,11 @@ import org.apache.thrift.scheme.SchemeFactory;
 import org.apache.thrift.scheme.StandardScheme;
 import org.apache.thrift.scheme.TupleScheme;
 
+import com.m2u.eyelink.context.Annotation;
+import com.m2u.eyelink.context.FrameAttachment;
+import com.m2u.eyelink.context.SpanId;
+import com.m2u.eyelink.context.TIntStringValue;
+import com.m2u.eyelink.context.TraceId;
 import com.m2u.eyelink.context.thrift.TSpan;
 import com.m2u.eyelink.util.TransactionIdUtils;
 

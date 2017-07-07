@@ -1,10 +1,10 @@
 package com.m2u.eyelink.agent.profiler.context.recorder;
 
 import com.google.inject.Inject;
+import com.m2u.eyelink.agent.profiler.context.Span;
 import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
 import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.context.DefaultSpanRecorder;
-import com.m2u.eyelink.context.Span;
 import com.m2u.eyelink.context.SpanRecorder;
 import com.m2u.eyelink.context.WrappedSpanEventRecorder;
 

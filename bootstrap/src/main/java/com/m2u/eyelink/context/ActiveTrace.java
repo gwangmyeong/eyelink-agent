@@ -1,5 +1,7 @@
 package com.m2u.eyelink.context;
 
+import com.m2u.eyelink.agent.profiler.context.Span;
+
 public class ActiveTrace {
 
     private final Trace trace;

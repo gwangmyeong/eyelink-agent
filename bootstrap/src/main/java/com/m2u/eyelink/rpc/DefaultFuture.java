@@ -1,12 +1,11 @@
-package com.m2u.eyelink.sender;
+package com.m2u.eyelink.rpc;
 
 import org.jboss.netty.util.Timeout;
 import org.jboss.netty.util.TimerTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.m2u.eyelink.rpc.ELAgentSocketException;
-import com.m2u.eyelink.rpc.Future;
+import com.m2u.eyelink.sender.FutureListener;
 
 public class DefaultFuture<T> implements TimerTask, Future<T> {
 
