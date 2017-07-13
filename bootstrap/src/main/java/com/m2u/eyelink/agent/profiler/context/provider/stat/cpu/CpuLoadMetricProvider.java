@@ -14,11 +14,11 @@ import com.m2u.eyelink.util.jdk.JvmVersion;
 public class CpuLoadMetricProvider implements Provider<CpuLoadMetric> {
 
     // Oracle
-    private static final String ORACLE_JDK6_CPU_LOAD_METRIC = "com.navercorp.pinpoint.profiler.monitor.metric.cpu.oracle.Java6CpuLoadMetric";
-    private static final String ORACLE_CPU_LOAD_METRIC = "com.navercorp.pinpoint.profiler.monitor.metric.cpu.oracle.DefaultCpuLoadMetric";
+    private static final String ORACLE_JDK6_CPU_LOAD_METRIC = "com.m2u.eyelink.agent.profiler.monitor.metric.cpu.oracle.Java6CpuLoadMetric";
+    private static final String ORACLE_CPU_LOAD_METRIC = "com.m2u.eyelink.agent.profiler.monitor.metric.cpu.oracle.DefaultCpuLoadMetric";
     // IBM
-    private static final String IBM_JDK6_CPU_LOAD_METRIC = "com.navercorp.pinpoint.profiler.monitor.metric.cpu.ibm.Java6CpuLoadMetric";
-    private static final String IBM_CPU_LOAD_METRIC = "com.navercorp.pinpoint.profiler.monitor.metric.cpu.ibm.DefaultCpuLoadMetric";
+    private static final String IBM_JDK6_CPU_LOAD_METRIC = "com.m2u.eyelink.agent.profiler.monitor.metric.cpu.ibm.Java6CpuLoadMetric";
+    private static final String IBM_CPU_LOAD_METRIC = "com.m2u.eyelink.agent.profiler.monitor.metric.cpu.ibm.DefaultCpuLoadMetric";
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

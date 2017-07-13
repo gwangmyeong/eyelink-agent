@@ -3,7 +3,6 @@ package com.m2u.eyelink.agent.profiler.metadata;
 import com.m2u.eyelink.agent.profiler.context.module.AgentId;
 import com.m2u.eyelink.agent.profiler.context.module.AgentStartTime;
 import com.m2u.eyelink.context.MethodDescriptor;
-import com.m2u.eyelink.context.SimpleCache;
 import com.m2u.eyelink.context.TApiMetaData;
 import com.m2u.eyelink.sender.EnhancedDataSender;
 
