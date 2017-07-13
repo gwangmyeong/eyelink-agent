@@ -1,4 +1,4 @@
-package com.m2u.eyelink.agent.profiler.context;
+package com.m2u.eyelink.agent.profiler.context.id;
 
 public interface TransactionCounter {
 	long getSampledNewCount();

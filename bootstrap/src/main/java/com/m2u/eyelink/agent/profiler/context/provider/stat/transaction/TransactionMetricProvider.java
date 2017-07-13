@@ -2,7 +2,7 @@ package com.m2u.eyelink.agent.profiler.context.provider.stat.transaction;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.m2u.eyelink.agent.profiler.context.TransactionCounter;
+import com.m2u.eyelink.agent.profiler.context.id.TransactionCounter;
 import com.m2u.eyelink.agent.profiler.monitor.metric.transaction.DefaultTransactionMetric;
 import com.m2u.eyelink.agent.profiler.monitor.metric.transaction.TransactionMetric;
 

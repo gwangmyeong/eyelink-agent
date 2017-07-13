@@ -1,9 +1,6 @@
-package com.m2u.eyelink.context;
+package com.m2u.eyelink.agent.profiler.context.id;
 
 import com.google.inject.Inject;
-import com.m2u.eyelink.agent.profiler.context.TransactionCounter;
-import com.m2u.eyelink.agent.profiler.context.id.AtomicIdGenerator;
-import com.m2u.eyelink.agent.profiler.context.id.IdGenerator;
 
 public class DefaultTransactionCounter implements TransactionCounter {
 

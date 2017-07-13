@@ -7,12 +7,17 @@ import java.util.concurrent.ConcurrentMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.inject.Inject;
 import com.m2u.eyelink.agent.instrument.RequestHandle;
 
 public class DefaultDynamicTransformerRegistry implements DynamicTransformerRegistry {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ConcurrentMap<TransformerKey, ClassFileTransformer> transformerMap = new ConcurrentHashMap<TransformerKey, ClassFileTransformer>();
+
+    @Inject
+    public DefaultDynamicTransformerRegistry() {
+    }
 
     @Override
     public RequestHandle onRetransformRequest(Class<?> target, final ClassFileTransformer transformer) {

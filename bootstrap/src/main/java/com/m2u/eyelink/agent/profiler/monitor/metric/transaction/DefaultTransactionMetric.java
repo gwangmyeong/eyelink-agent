@@ -1,7 +1,7 @@
 package com.m2u.eyelink.agent.profiler.monitor.metric.transaction;
 
 import com.codahale.metrics.Gauge;
-import com.m2u.eyelink.agent.profiler.context.TransactionCounter;
+import com.m2u.eyelink.agent.profiler.context.id.TransactionCounter;
 
 public class DefaultTransactionMetric implements TransactionMetric {
 
