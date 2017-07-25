@@ -10,12 +10,13 @@ public class NonBlockingServer {
 
 	private void start() {
 		try {
-			TNonblockingServerTransport serverTransport = new TNonblockingServerSocket(7911);
+			int port = 29996;
+			TNonblockingServerTransport serverTransport = new TNonblockingServerSocket(port);
 			
 			ArithmeticService.Processor processor = new ArithmeticService.Processor<ArithmeticService.Iface>(new ArithmeticServiceImpl());
 			
 			TServer server = new TNonblockingServer(new TNonblockingServer.Args(serverTransport));
-			System.out.println("Starting server on port 7911...");
+			System.out.println("Starting server on port " + port + "...");
 			server.serve();
 		} catch (TTransportException e) {
 			e.printStackTrace();
