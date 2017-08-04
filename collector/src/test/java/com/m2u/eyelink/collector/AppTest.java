@@ -1,4 +1,4 @@
-package com;
+package com.m2u.eyelink.collector;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
