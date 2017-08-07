@@ -35,6 +35,29 @@
 
 	</bean>
 
+    <bean id="networkAvailabilityCheckPacketFilter" class="com.m2u.eyelink.collector.receiver.udp.NetworkAvailabilityCheckPacketFilter"/>
+
+    <bean id="tBaseFilterChain" class="com.m2u.eyelink.collector.receiver.udp.TBaseFilterChain">
+        <constructor-arg>
+            <list>
+                <ref bean="networkAvailabilityCheckPacketFilter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler"/>
+
+    <bean id="udpDispatchHandlerWrapper" class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+        <constructor-arg ref="udpDispatchHandler"/>
+    </bean>
+
+    <!-- UDPStatReceiver related Beans -->
+    <bean id="udpStatBasePacketHandler" class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">
+        <constructor-arg index="0" ref="udpDispatchHandlerWrapper"/>
+        <constructor-arg index="1" ref="tBaseFilterChain"/>
+        <constructor-arg index="2" value="#{collectorConfiguration.l4IpList}"/>
+    </bean>
+
 	<!-- DispatchHandler-related Beans -->
 	<bean id="udpStatReceiver"
 		class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
