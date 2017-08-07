@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<context:component-scan
+		base-package="com.m2u.eyelink.collector.handler,
+                        com.m2u.eyelink.collector.manage,
+                        com.m2u.eyelink.collector.mapper,
+                        com.m2u.eyelink.collector.util,
+                        com.m2u.eyelink.collector.config,
+                        com.m2u.eyelink.common.server.bo.codec,
+                        com.m2u.eyelink.common.server.util,
+                        com.m2u.eyelink.common.server.bo" />
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:collector.properties</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<!-- DispatchHandler-related Beans -->
+	<bean id="udpStatReceiver"
+		class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
+		<constructor-arg index="0" value="Pinpoint-UDP-Stat" />
+		<constructor-arg index="1" ref="udpStatBasePacketHandler" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.udpStatListenIp}" />
+		<constructor-arg index="3"
+			value="#{collectorConfiguration.udpStatListenPort}" />
+		<constructor-arg index="4"
+			value="#{collectorConfiguration.udpStatSocketReceiveBufferSize}" />
+		<constructor-arg index="5" ref="udpStatWorkerOption" />
+	</bean>
+
+
+</beans>

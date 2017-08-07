@@ -15,10 +15,18 @@
 	<packaging>war</packaging>
 
 	<properties>
+		<jdk.version>1.8</jdk.version>
+		<jdk.home>${env.JAVA_HOME}</jdk.home>
+		<sniffer.artifactid>java18</sniffer.artifactid>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.m2u.eyelink</groupId>
+			<artifactId>eyelink-bootstrap</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -51,6 +59,33 @@
 			<artifactId>spring-webmvc</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>servlet-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 
 	<repositories>
@@ -75,15 +110,23 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
 				<configuration>
-					<overlays>
-						<overlay>
-							<groupId>com.m2u.eyelink</groupId>
-							<artifactId>collector</artifactId>
-						</overlay>
-					</overlays>
-					<webappDirectory>target/deploy</webappDirectory>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<debug>true</debug>
+					<optimize>true</optimize>
+					<encoding>${encoding}</encoding>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<webappDirectory>${basedir}/target/deploy</webappDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -98,7 +141,7 @@
 						</goals>
 						<configuration>
 							<files>
-								<file>${baasedir}/../../conf/collector.properties</file>
+								<file>${basedir}/../conf/collector.properties</file>
 							</files>
 						</configuration>
 					</execution>
@@ -109,8 +152,8 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<path>${collector.context.path}</path>
-					<port>${collector.port}</port>
+					<path>/</path>
+					<port>18080</port>
 					<uriEncoding>utf-8</uriEncoding>
 					<warSourceDirectory>${basedir}/target/deploy</warSourceDirectory>
 				</configuration>
