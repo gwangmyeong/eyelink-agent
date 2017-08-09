@@ -20,9 +20,10 @@
                         com.m2u.eyelink.collector.mapper,
                         com.m2u.eyelink.collector.util,
                         com.m2u.eyelink.collector.config,
-                        com.m2u.eyelink.common.server.bo.codec,
-                        com.m2u.eyelink.common.server.util,
-                        com.m2u.eyelink.common.server.bo" />
+                        com.m2u.eyelink.collector.common.elasticsearch,
+                        com.m2u.eyelink.collector.server.bo.codec,
+                        com.m2u.eyelink.collector.server.util,
+                        com.m2u.eyelink.collector.server.bo" />
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -35,32 +36,49 @@
 
 	</bean>
 
-    <bean id="networkAvailabilityCheckPacketFilter" class="com.m2u.eyelink.collector.receiver.udp.NetworkAvailabilityCheckPacketFilter"/>
+	<util:properties id="eyelink_collector_properties"
+		location="classpath:collector.properties" />
 
-    <bean id="tBaseFilterChain" class="com.m2u.eyelink.collector.receiver.udp.TBaseFilterChain">
-        <constructor-arg>
-            <list>
-                <ref bean="networkAvailabilityCheckPacketFilter"/>
-            </list>
-        </constructor-arg>
+    <bean id="collectorConfiguration" class="com.m2u.eyelink.collector.config.CollectorConfiguration">
+        <property name="properties" ref="eyelink_collector_properties"/>
     </bean>
+    
+	<bean id="networkAvailabilityCheckPacketFilter"
+		class="com.m2u.eyelink.collector.receiver.udp.NetworkAvailabilityCheckPacketFilter" />
 
-    <bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler"/>
+	<bean id="tBaseFilterChain" class="com.m2u.eyelink.collector.receiver.udp.TBaseFilterChain">
+		<constructor-arg>
+			<list>
+				<ref bean="networkAvailabilityCheckPacketFilter" />
+			</list>
+		</constructor-arg>
+	</bean>
 
-    <bean id="udpDispatchHandlerWrapper" class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
-        <constructor-arg ref="udpDispatchHandler"/>
+	<bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler" />
+
+	<bean id="udpDispatchHandlerWrapper"
+		class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+		<constructor-arg ref="udpDispatchHandler" />
+	</bean>
+
+	<!-- UDPStatReceiver related Beans -->
+	<bean id="udpStatBasePacketHandler"
+		class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">
+		<constructor-arg index="0" ref="udpDispatchHandlerWrapper" />
+		<constructor-arg index="1" ref="tBaseFilterChain" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.l4IpList}" />
+	</bean>
+
+    <!-- Manager-related Beans -->
+    <bean id="handlerManager" class="com.m2u.eyelink.collector.manage.HandlerManager">
     </bean>
-
-    <!-- UDPStatReceiver related Beans -->
-    <bean id="udpStatBasePacketHandler" class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">
-        <constructor-arg index="0" ref="udpDispatchHandlerWrapper"/>
-        <constructor-arg index="1" ref="tBaseFilterChain"/>
-        <constructor-arg index="2" value="#{collectorConfiguration.l4IpList}"/>
+    
+    <bean id="elasticSearchManager" class="com.m2u.eyelink.collector.manage.ElasticSearchManager">
     </bean>
-
+    
 	<!-- DispatchHandler-related Beans -->
-	<bean id="udpStatReceiver"
-		class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
+	<bean id="udpStatReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
 		<constructor-arg index="0" value="Pinpoint-UDP-Stat" />
 		<constructor-arg index="1" ref="udpStatBasePacketHandler" />
 		<constructor-arg index="2"
@@ -70,6 +88,19 @@
 		<constructor-arg index="4"
 			value="#{collectorConfiguration.udpStatSocketReceiveBufferSize}" />
 		<constructor-arg index="5" ref="udpStatWorkerOption" />
+	</bean>
+
+	<!-- ElasticSearch -->
+	<bean id="elasticSearchConfiguration"
+		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchConfigurationFactoryBean">
+
+	</bean>
+
+	<bean id="elasticSearchAdminTemplate"
+		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchAdminTemplate"
+		destroy-method="close">
+		<constructor-arg ref="elasticSearchConfiguration"
+			index="0"></constructor-arg>
 	</bean>
 
 
