@@ -1,6 +1,7 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
 
 public class Connection {
 
@@ -13,6 +14,11 @@ public class Connection {
 	public void close() throws IOException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Table getTable(TableName tableName, ExecutorService executor) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

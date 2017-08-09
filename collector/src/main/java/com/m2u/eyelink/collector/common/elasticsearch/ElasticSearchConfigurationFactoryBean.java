@@ -10,7 +10,7 @@ import org.springframework.util.Assert;
 public class ElasticSearchConfigurationFactoryBean implements InitializingBean, FactoryBean<Configuration> {
 
     private Configuration configuration;
-    private Configuration hadoopConfig;
+    private Configuration esConfig;
     private Properties properties;
 
     /**
@@ -19,7 +19,7 @@ public class ElasticSearchConfigurationFactoryBean implements InitializingBean, 
      * @param configuration The configuration to set.
      */
     public void setConfiguration(Configuration configuration) {
-        this.hadoopConfig = configuration;
+        this.esConfig = configuration;
     }
 
     /**
@@ -32,9 +32,8 @@ public class ElasticSearchConfigurationFactoryBean implements InitializingBean, 
     }
 
     public void afterPropertiesSet() {
-    		// FIXME change code HBase -> ES
-//        configuration = (hadoopConfig != null ? HBaseConfiguration.create(hadoopConfig) : HBaseConfiguration.create());
-//        addProperties(configuration, properties);
+        configuration = (esConfig != null ? ElasticSearchConfiguration.create(esConfig) : ElasticSearchConfiguration.create());
+        addProperties(configuration, properties);
     }
     
     /**
@@ -49,8 +48,7 @@ public class ElasticSearchConfigurationFactoryBean implements InitializingBean, 
             Enumeration<?> props = properties.propertyNames();
             while (props.hasMoreElements()) {
                 String key = props.nextElement().toString();
-                // FIXME change code HBase -> ES
-//                configuration.set(key, properties.getProperty(key));
+                configuration.set(key, properties.getProperty(key));
             }
         }
     }

@@ -31,6 +31,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:collector.properties</value>
+				<value>classpath:elasticsearch.properties</value>
 			</list>
 		</property>
 
@@ -39,10 +40,13 @@
 	<util:properties id="eyelink_collector_properties"
 		location="classpath:collector.properties" />
 
-    <bean id="collectorConfiguration" class="com.m2u.eyelink.collector.config.CollectorConfiguration">
-        <property name="properties" ref="eyelink_collector_properties"/>
+    <bean id="metricRegistry" class="com.codahale.metrics.MetricRegistry">
     </bean>
     
+	<bean id="collectorConfiguration" class="com.m2u.eyelink.collector.config.CollectorConfiguration">
+		<property name="properties" ref="eyelink_collector_properties" />
+	</bean>
+
 	<bean id="networkAvailabilityCheckPacketFilter"
 		class="com.m2u.eyelink.collector.receiver.udp.NetworkAvailabilityCheckPacketFilter" />
 
@@ -70,13 +74,23 @@
 			value="#{collectorConfiguration.l4IpList}" />
 	</bean>
 
-    <!-- Manager-related Beans -->
-    <bean id="handlerManager" class="com.m2u.eyelink.collector.manage.HandlerManager">
-    </bean>
-    
-    <bean id="elasticSearchManager" class="com.m2u.eyelink.collector.manage.ElasticSearchManager">
-    </bean>
-    
+	<!-- Manager-related Beans -->
+	<bean id="handlerManager" class="com.m2u.eyelink.collector.manage.HandlerManager">
+	</bean>
+
+	<bean id="elasticSearchManager" class="com.m2u.eyelink.collector.manage.ElasticSearchManager">
+	</bean>
+
+	<bean id="udpStatWorkerOption" class="com.m2u.eyelink.collector.receiver.WorkerOption">
+		<constructor-arg index="0"
+			value="#{collectorConfiguration.udpStatWorkerThread}" />
+		<constructor-arg index="1"
+			value="#{collectorConfiguration.udpStatWorkerQueueSize}" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.udpStatWorkerMonitor}" />
+	</bean>
+
+
 	<!-- DispatchHandler-related Beans -->
 	<bean id="udpStatReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
 		<constructor-arg index="0" value="Pinpoint-UDP-Stat" />
@@ -93,7 +107,49 @@
 	<!-- ElasticSearch -->
 	<bean id="elasticSearchConfiguration"
 		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchConfigurationFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="hbase.zookeeper.quorum">${hbase.client.host}</prop>
+				<prop key="hbase.zookeeper.property.clientPort">${hbase.client.port}</prop>
 
+				<!--Root ZNode for HBase in ZooKeeper. -->
+				<prop key="zookeeper.znode.parent">${hbase.zookeeper.znode.parent:/hbase}</prop>
+
+				<!-- hbase default:true -->
+				<prop key="hbase.ipc.client.tcpnodelay">${hbase.ipc.client.tcpnodelay}</prop>
+				<!-- hbase default:60000 -->
+				<prop key="hbase.rpc.timeout">${hbase.rpc.timeout}</prop>
+				<!-- hbase default:Integer.MAX_VALUE -->
+				<prop key="hbase.client.operation.timeout">${hbase.client.operation.timeout}</prop>
+
+				<!-- hbase socket read timeout. default: 200000 -->
+				<prop key="hbase.ipc.client.socket.timeout.read">${hbase.ipc.client.socket.timeout.read}</prop>
+				<!-- socket write timeout. hbase default: 600000 -->
+				<prop key="hbase.ipc.client.socket.timeout.write">${hbase.ipc.client.socket.timeout.write}</prop>
+
+				<!-- hbase async put operation. -->
+				<prop key="hbase.client.async.enable">${hbase.client.async.enable:false}</prop>
+				<prop key="hbase.client.async.in.queuesize">${hbase.client.async.in.queuesize:10000}</prop>
+				<prop key="hbase.tablemultiplexer.flush.period.ms">${hbase.client.async.flush.period.ms:100}</prop>
+				<prop key="hbase.client.max.retries.in.queue">${hbase.client.async.max.retries.in.queue:10}</prop>
+			</props>
+		</property>
+
+	</bean>
+
+	<bean id="connectionFactory"
+		class="com.m2u.eyelink.collector.common.elasticsearch.PooledElasticSearchFactory">
+		<constructor-arg ref="elasticSearchConfiguration" />
+		<constructor-arg value="${hbase.client.thread.max}" />
+		<constructor-arg value="${hbase.client.threadPool.queueSize}" />
+		<constructor-arg value="${hbase.client.threadPool.prestart}" />
+	</bean>
+
+	<bean id="asyncOperation"
+		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchAsyncOperationFactory"
+		factory-method="create">
+		<constructor-arg value="#{connectionFactory.getConnection()}" />
+		<constructor-arg ref="elasticSearchConfiguration" />
 	</bean>
 
 	<bean id="elasticSearchAdminTemplate"
