@@ -294,7 +294,7 @@ public class CollectorConfiguration implements InitializingBean {
     }
 
     private void readPropertyValues(Properties properties) {
-        logger.info("pinpoint-collector.properties read.");
+        logger.info("collector.properties read.");
         this.tcpListenIp = readString(properties, "collector.tcpListenIp", DEFAULT_LISTEN_IP);
         this.tcpListenPort = readInt(properties, "collector.tcpListenPort", 9994);
         

@@ -19,11 +19,16 @@
     </appender>
 
     <logger name="com.m2u.eyelink" additivity="false">
-        <level value="INFO"/>
+        <level value="DEBUG"/>
+        <appender-ref ref="console"/>
+    </logger>
+    
+    <logger name="com.m2u.eyelink.collector.receiver.udp" additivity="false">
+        <level value="DEBUG"/>
         <appender-ref ref="console"/>
     </logger>
 
-    <logger name="com.m2u.eyelink.cluster.route.filter" additivity="false">
+    <!-- <logger name="com.m2u.eyelink.cluster.route.filter" additivity="false">
         <level value="WARN"/>
         <appender-ref ref="console"/>
     </logger>
@@ -44,14 +49,14 @@
     </logger>
 
     <logger name="com.m2u.eyelink.collector.StateReport" additivity="false">
-        <!-- disable : WARN -->
+        disable : WARN
         <level value="INFO"/>
         <appender-ref ref="stat-appender"/>
-        <!--<appender-ref ref="console"/>-->
-    </logger>
+        <appender-ref ref="console"/>
+    </logger> -->
 
     <root>
-        <level value="WARN"/>
+        <level value="INFO"/>
         <appender-ref ref="console"/>
     </root>
 </log4j:configuration>

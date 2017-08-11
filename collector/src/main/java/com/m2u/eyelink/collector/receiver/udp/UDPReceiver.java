@@ -245,6 +245,10 @@ public class UDPReceiver implements DataReceiver {
     @Override
     public void start() {
         logger.info("{} start.", receiverName);
+        if (logger.isInfoEnabled()) {
+            logger.info("{} start.", receiverName);
+        }
+
         afterPropertiesSet();
         final DatagramSocket socket = this.socket;
         if (socket == null) {
