@@ -40,9 +40,9 @@
 	<util:properties id="eyelink_collector_properties"
 		location="classpath:collector.properties" />
 
-    <bean id="metricRegistry" class="com.codahale.metrics.MetricRegistry">
-    </bean>
-    
+	<bean id="metricRegistry" class="com.codahale.metrics.MetricRegistry">
+	</bean>
+
 	<bean id="collectorConfiguration" class="com.m2u.eyelink.collector.config.CollectorConfiguration">
 		<property name="properties" ref="eyelink_collector_properties" />
 	</bean>
@@ -57,6 +57,17 @@
 			</list>
 		</constructor-arg>
 	</bean>
+
+    <!-- TCPReceiver related Beans -->
+	<bean id="serverAcceptor" class="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" />
+
+    <bean id="tcpReceiver" class="com.m2u.eyelink.collector.receiver.tcp.TCPReceiver">
+        <constructor-arg type="com.m2u.eyelink.collector.config.CollectorConfiguration" ref="collectorConfiguration"/>
+        <constructor-arg type="com.m2u.eyelink.collector.receiver.DispatchHandler" ref="tcpDispatchHandlerWrapper"/>
+        <constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" ref="serverAcceptor"/>
+        <constructor-arg type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService" ref="clusterService"/>
+    </bean>
+
 
 	<bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler" />
 
@@ -93,7 +104,7 @@
 
 	<!-- DispatchHandler-related Beans -->
 	<bean id="udpStatReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
-		<constructor-arg index="0" value="Pinpoint-UDP-Stat" />
+		<constructor-arg index="0" value="EyeLink-UDP-Stat" />
 		<constructor-arg index="1" ref="udpStatBasePacketHandler" />
 		<constructor-arg index="2"
 			value="#{collectorConfiguration.udpStatListenIp}" />
