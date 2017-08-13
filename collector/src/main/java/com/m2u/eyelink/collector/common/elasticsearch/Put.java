@@ -11,4 +11,9 @@ public class Put {
 		
 	}
 
+	public void addColumn(byte[] familyName, byte[] qualifier, Long timestamp, byte[] value) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

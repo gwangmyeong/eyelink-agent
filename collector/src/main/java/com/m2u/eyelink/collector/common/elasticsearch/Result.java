@@ -1,5 +1,10 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
-public interface Result {
+public class Result {
+
+	public Object getRow() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

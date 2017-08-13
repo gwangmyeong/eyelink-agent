@@ -7,4 +7,9 @@ public class Bytes {
 		return null;
 	}
 
+	public static int compareTo(Object originalKey, Object originalKey2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

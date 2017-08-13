@@ -21,6 +21,7 @@
                         com.m2u.eyelink.collector.util,
                         com.m2u.eyelink.collector.config,
                         com.m2u.eyelink.collector.common.elasticsearch,
+                        com.m2u.eyelink.collector.dao.elasticsearch,
                         com.m2u.eyelink.collector.server.bo.codec,
                         com.m2u.eyelink.collector.server.util,
                         com.m2u.eyelink.collector.server.bo" />
@@ -58,21 +59,6 @@
 		</constructor-arg>
 	</bean>
 
-    <!-- TCPReceiver related Beans -->
-	<bean id="serverAcceptor" class="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" />
-
-    <bean id="tcpReceiver" class="com.m2u.eyelink.collector.receiver.tcp.TCPReceiver">
-        <constructor-arg type="com.m2u.eyelink.collector.config.CollectorConfiguration" ref="collectorConfiguration"/>
-        <constructor-arg type="com.m2u.eyelink.collector.receiver.DispatchHandler" ref="tcpDispatchHandlerWrapper"/>
-        <constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" ref="serverAcceptor"/>
-        <constructor-arg type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService" ref="clusterService"/>
-    </bean>
-
-    <bean id="tcpDispatchHandler" class="com.m2u.eyelink.collector.receiver.TcpDispatchHandler"/>
-    <bean id="tcpDispatchHandlerWrapper" class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
-        <constructor-arg ref="tcpDispatchHandler"/>
-    </bean>
-
 
 	<!-- UDPStatReceiver related Beans -->
 	<bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler" />
@@ -89,6 +75,22 @@
 		<constructor-arg index="2"
 			value="#{collectorConfiguration.l4IpList}" />
 	</bean>
+
+    <!-- TCPReceiver related Beans -->
+	<bean id="serverAcceptor" class="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" />
+
+    <bean id="tcpReceiver" class="com.m2u.eyelink.collector.receiver.tcp.TCPReceiver">
+        <constructor-arg type="com.m2u.eyelink.collector.config.CollectorConfiguration" ref="collectorConfiguration"/>
+        <constructor-arg type="com.m2u.eyelink.collector.receiver.DispatchHandler" ref="tcpDispatchHandlerWrapper"/>
+        <constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" ref="serverAcceptor"/>
+        <constructor-arg type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService" ref="clusterService"/>
+    </bean>
+
+    <bean id="tcpDispatchHandler" class="com.m2u.eyelink.collector.receiver.TcpDispatchHandler"/>
+    <bean id="tcpDispatchHandlerWrapper" class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+        <constructor-arg ref="tcpDispatchHandler"/>
+    </bean>
+
 
 	<!-- Manager-related Beans -->
 	<bean id="handlerManager" class="com.m2u.eyelink.collector.manage.HandlerManager">
@@ -175,5 +177,10 @@
 			index="0"></constructor-arg>
 	</bean>
 
+    <bean id="elasticSearchTemplate" class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTemplate2" destroy-method="destroy">
+        <property name="configuration" ref="elasticSearchConfiguration"/>
+        <property name="tableFactory" ref="connectionFactory"/>
+        <property name="asyncOperation" ref="asyncOperation"/>
+    </bean>
 
 </beans>

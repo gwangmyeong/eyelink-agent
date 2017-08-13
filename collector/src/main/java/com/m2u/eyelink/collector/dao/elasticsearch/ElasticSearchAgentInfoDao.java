@@ -26,7 +26,7 @@ public class ElasticSearchAgentInfoDao implements AgentInfoDao {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private ElasticSearchOperations2 hbaseTemplate;
+    private ElasticSearchOperations2 elasticSearchTemplate;
 
     @Autowired
     @Qualifier("agentInfoBoMapper")
@@ -74,6 +74,6 @@ public class ElasticSearchAgentInfoDao implements AgentInfoDao {
             put.addColumn(ElasticSearchTables.AGENTINFO_CF_INFO, ElasticSearchTables.AGENTINFO_CF_INFO_JVM, jvmInfoBoValue);
         }
 
-        hbaseTemplate.put(ElasticSearchTables.AGENTINFO, put);
+        elasticSearchTemplate.put(ElasticSearchTables.AGENTINFO, put);
     }
 }
