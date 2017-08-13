@@ -13,6 +13,7 @@ import com.m2u.eyelink.collector.bo.stat.DataSourceListBo;
 import com.m2u.eyelink.collector.bo.stat.JvmGcBo;
 import com.m2u.eyelink.collector.bo.stat.JvmGcDetailedBo;
 import com.m2u.eyelink.collector.bo.stat.TransactionBo;
+import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
 import com.m2u.eyelink.context.thrift.TAgentStat;
 import com.m2u.eyelink.context.thrift.TDataSource;
 import com.m2u.eyelink.context.thrift.TDataSourceList;

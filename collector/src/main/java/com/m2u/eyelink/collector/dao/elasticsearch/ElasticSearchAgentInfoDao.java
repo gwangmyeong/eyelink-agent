@@ -13,7 +13,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchOperations2;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.dao.AgentInfoDao;
-import com.m2u.eyelink.collector.mapper.thrift.stat.ThriftBoMapper;
+import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
 import com.m2u.eyelink.collector.util.RowKeyUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.context.thrift.TAgentInfo;

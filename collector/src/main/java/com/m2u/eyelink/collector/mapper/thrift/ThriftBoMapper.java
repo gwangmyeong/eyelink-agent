@@ -1,4 +1,4 @@
-package com.m2u.eyelink.collector.mapper.thrift.stat;
+package com.m2u.eyelink.collector.mapper.thrift;
 
 import org.apache.thrift.TBase;
 

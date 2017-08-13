@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.stat.JvmGcBo;
 import com.m2u.eyelink.collector.bo.stat.JvmGcType;
+import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
 import com.m2u.eyelink.context.thrift.TJvmGc;
 
 @Component

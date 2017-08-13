@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.stat.ActiveTraceBo;
+import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
 import com.m2u.eyelink.context.thrift.TActiveTrace;
 import com.m2u.eyelink.context.thrift.TActiveTraceHistogram;
 import com.m2u.eyelink.trace.SlotType;
