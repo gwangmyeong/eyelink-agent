@@ -16,4 +16,8 @@ public class ElasticSearchTables {
 	public static final byte[] AGENTINFO_CF_INFO_SERVER_META_DATA = Bytes.toBytes("m");
 	public static final byte[] AGENTINFO_CF_INFO_JVM = Bytes.toBytes("j");
 	public static final TableName AGENTINFO = TableName.valueOf("AgentInfo");
+	
+    public static final TableName APPLICATION_INDEX = TableName.valueOf("ApplicationIndex");
+    public static final byte[] APPLICATION_INDEX_CF_AGENTS = Bytes.toBytes("Agents");
+
 }

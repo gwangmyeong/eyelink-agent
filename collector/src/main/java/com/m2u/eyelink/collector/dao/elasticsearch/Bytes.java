@@ -12,4 +12,9 @@ public class Bytes {
 		return 0;
 	}
 
+	public static byte[] toBytes(short serviceType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
