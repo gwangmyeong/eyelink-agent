@@ -20,4 +20,9 @@ public class ElasticSearchTables {
     public static final TableName APPLICATION_INDEX = TableName.valueOf("ApplicationIndex");
     public static final byte[] APPLICATION_INDEX_CF_AGENTS = Bytes.toBytes("Agents");
 
+
+    public static final TableName SQL_METADATA_VER2 = TableName.valueOf("SqlMetaData_Ver2");
+    public static final byte[] SQL_METADATA_VER2_CF_SQL = Bytes.toBytes("Sql");
+    public static final byte[] SQL_METADATA_VER2_CF_SQL_QUALI_SQLSTATEMENT = Bytes.toBytes("P_sql_statement");
+
 }

@@ -183,4 +183,21 @@
         <property name="asyncOperation" ref="asyncOperation"/>
     </bean>
 
+    <bean id="sqlMetaDataHandler" class="com.m2u.eyelink.collector.handler.SqlMetaDataHandler">
+        <property name="sqlMetaDataDao" ref="elasticSearchSqlMetaDataDao"/>
+    </bean>
+
+    <bean id="elasticSearchSqlMetaDataDao" class="com.m2u.eyelink.collector.dao.elasticsearch.ElasticSearchSqlMetaDataDao"/>
+
+    <bean id="metadataRowKeyDistributor2" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="metadataRangeHasher2"/>
+    </bean>
+
+    <bean id="metadataRangeHasher2" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="36"/>
+        <constructor-arg type="int" value="32"/>
+    </bean>
+
+
 </beans>
