@@ -68,7 +68,13 @@
         <constructor-arg type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService" ref="clusterService"/>
     </bean>
 
+    <bean id="tcpDispatchHandler" class="com.m2u.eyelink.collector.receiver.TcpDispatchHandler"/>
+    <bean id="tcpDispatchHandlerWrapper" class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+        <constructor-arg ref="tcpDispatchHandler"/>
+    </bean>
 
+
+	<!-- UDPStatReceiver related Beans -->
 	<bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler" />
 
 	<bean id="udpDispatchHandlerWrapper"
@@ -76,7 +82,6 @@
 		<constructor-arg ref="udpDispatchHandler" />
 	</bean>
 
-	<!-- UDPStatReceiver related Beans -->
 	<bean id="udpStatBasePacketHandler"
 		class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">
 		<constructor-arg index="0" ref="udpDispatchHandlerWrapper" />
