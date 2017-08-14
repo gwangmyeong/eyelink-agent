@@ -113,6 +113,11 @@
 	</bean>
 
 	<!-- Serializer Factory Beans -->
+    <bean id="commandHeaderTBaseSerializerFactory" class="com.m2u.eyelink.collector.thrift.io.CommandHeaderTBaseSerializerFactory">
+    </bean>
+
+    <bean id="commandHeaderTBaseDeserializerFactory" class="com.m2u.eyelink.collector.thrift.io.CommandHeaderTBaseDeserializerFactory">
+    </bean>
 
 	<!-- Agent Event/Lifecycle related Beans -->
 	<bean id="agentEventWorker" class="com.m2u.eyelink.collector.util.ExecutorFactory"
@@ -125,6 +130,10 @@
 		<constructor-arg index="3" value="true" />
 	</bean>
 
+    <bean id="agentEventMessageSerializer" class="com.m2u.eyelink.collector.server.util.AgentEventMessageSerializer">
+        <constructor-arg ref="commandHeaderTBaseSerializerFactory"/>
+    </bean>
+    
 	<bean id="agentEventHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentEventHandler" />
 
 	<!-- Cluster-related Beans -->

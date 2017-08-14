@@ -33,5 +33,9 @@ public class ElasticSearchTables {
     public static final TableName STRING_METADATA = TableName.valueOf("StringMetaData");
     public static final byte[] STRING_METADATA_CF_STR = Bytes.toBytes("Str");
     public static final byte[] STRING_METADATA_CF_STR_QUALI_STRING = Bytes.toBytes("P_string");
+    
+    public static final TableName AGENT_EVENT = TableName.valueOf("AgentEvent");
+    public static final byte[] AGENT_EVENT_CF_EVENTS = Bytes.toBytes("E"); // agent events column family
+
 
 }

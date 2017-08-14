@@ -17,4 +17,9 @@ public class Bytes {
 		return null;
 	}
 
+	public static byte[] toBytes(int code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
