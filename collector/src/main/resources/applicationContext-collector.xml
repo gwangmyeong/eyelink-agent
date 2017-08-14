@@ -104,6 +104,10 @@
             </list>
         </constructor-arg>
     </bean>
+    
+    <!-- Agent Event/Lifecycle related Beans -->
+    <bean id="agentEventHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentEventHandler"/>
+    
     <!-- Cluster-related Beans -->
     <bean id="targetClusterPointRepository" class="com.m2u.eyelink.collector.cluster.ClusterPointRepository"/>
     
