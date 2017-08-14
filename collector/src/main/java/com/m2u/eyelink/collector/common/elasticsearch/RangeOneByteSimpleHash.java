@@ -1,6 +1,8 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
-public class RangeOneByteSimpleHash {
+import com.m2u.eyelink.collector.dao.elasticsearch.Hasher;
+
+public class RangeOneByteSimpleHash implements Hasher {
     protected final int start;
     protected final int end;
     private int mod;
