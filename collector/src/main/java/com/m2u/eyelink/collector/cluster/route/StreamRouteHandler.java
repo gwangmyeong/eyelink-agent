@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.m2u.eyelink.collector.cluster.ClusterPointLocator;
 import com.m2u.eyelink.collector.cluster.ELAgentServerClusterPoint;
 import com.m2u.eyelink.collector.cluster.TargetClusterPoint;
+import com.m2u.eyelink.collector.cluster.route.filter.RouteFilter;
 import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
 import com.m2u.eyelink.context.thrift.SerializationUtils;
 import com.m2u.eyelink.context.thrift.SerializerFactory;

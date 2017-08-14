@@ -6,6 +6,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.collector.cluster.route.filter.RouteFilter;
+
 public class DefaultRouteFilterChain<T extends RouteEvent> implements RouteFilterChain<T> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
