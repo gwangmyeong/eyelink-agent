@@ -21,7 +21,7 @@
                         com.m2u.eyelink.collector.util,
                         com.m2u.eyelink.collector.config,
                         com.m2u.eyelink.collector.common.elasticsearch,
-                        com.m2u.eyelink.collector.dao.elasticsearch,
+                        com.m2u.eyelink.collector.dao,
                         com.m2u.eyelink.collector.server.bo.codec,
                         com.m2u.eyelink.collector.server.util,
                         com.m2u.eyelink.collector.server.bo" />
