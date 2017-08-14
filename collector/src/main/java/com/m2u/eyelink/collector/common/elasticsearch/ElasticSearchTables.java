@@ -24,5 +24,14 @@ public class ElasticSearchTables {
     public static final TableName SQL_METADATA_VER2 = TableName.valueOf("SqlMetaData_Ver2");
     public static final byte[] SQL_METADATA_VER2_CF_SQL = Bytes.toBytes("Sql");
     public static final byte[] SQL_METADATA_VER2_CF_SQL_QUALI_SQLSTATEMENT = Bytes.toBytes("P_sql_statement");
+    
+    
+	public static final byte[] API_METADATA_CF_API = Bytes.toBytes("Api");
+	public static final byte[] API_METADATA_CF_API_QUALI_SIGNATURE = Bytes.toBytes("P_api_signature");
+	public static final TableName API_METADATA = TableName.valueOf("ApiMetaData");
+	
+    public static final TableName STRING_METADATA = TableName.valueOf("StringMetaData");
+    public static final byte[] STRING_METADATA_CF_STR = Bytes.toBytes("Str");
+    public static final byte[] STRING_METADATA_CF_STR_QUALI_STRING = Bytes.toBytes("P_string");
 
 }
