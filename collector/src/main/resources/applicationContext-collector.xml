@@ -76,20 +76,26 @@
 			value="#{collectorConfiguration.l4IpList}" />
 	</bean>
 
-    <!-- TCPReceiver related Beans -->
+	<!-- TCPReceiver related Beans -->
 	<bean id="serverAcceptor" class="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" />
 
-    <bean id="tcpReceiver" class="com.m2u.eyelink.collector.receiver.tcp.TCPReceiver">
-        <constructor-arg type="com.m2u.eyelink.collector.config.CollectorConfiguration" ref="collectorConfiguration"/>
-        <constructor-arg type="com.m2u.eyelink.collector.receiver.DispatchHandler" ref="tcpDispatchHandlerWrapper"/>
-        <constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" ref="serverAcceptor"/>
-        <constructor-arg type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService" ref="clusterService"/>
-    </bean>
+	<bean id="tcpReceiver" class="com.m2u.eyelink.collector.receiver.tcp.TCPReceiver">
+		<constructor-arg
+			type="com.m2u.eyelink.collector.config.CollectorConfiguration" ref="collectorConfiguration" />
+		<constructor-arg type="com.m2u.eyelink.collector.receiver.DispatchHandler"
+			ref="tcpDispatchHandlerWrapper" />
+		<constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor"
+			ref="serverAcceptor" />
+		<constructor-arg
+			type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService"
+			ref="clusterService" />
+	</bean>
 
-    <bean id="tcpDispatchHandler" class="com.m2u.eyelink.collector.receiver.TcpDispatchHandler"/>
-    <bean id="tcpDispatchHandlerWrapper" class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
-        <constructor-arg ref="tcpDispatchHandler"/>
-    </bean>
+	<bean id="tcpDispatchHandler" class="com.m2u.eyelink.collector.receiver.TcpDispatchHandler" />
+	<bean id="tcpDispatchHandlerWrapper"
+		class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+		<constructor-arg ref="tcpDispatchHandler" />
+	</bean>
 
 
 	<!-- Manager-related Beans -->
@@ -177,27 +183,44 @@
 			index="0"></constructor-arg>
 	</bean>
 
-    <bean id="elasticSearchTemplate" class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTemplate2" destroy-method="destroy">
-        <property name="configuration" ref="elasticSearchConfiguration"/>
-        <property name="tableFactory" ref="connectionFactory"/>
-        <property name="asyncOperation" ref="asyncOperation"/>
-    </bean>
+	<bean id="elasticSearchTemplate"
+		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTemplate2"
+		destroy-method="destroy">
+		<property name="configuration" ref="elasticSearchConfiguration" />
+		<property name="tableFactory" ref="connectionFactory" />
+		<property name="asyncOperation" ref="asyncOperation" />
+	</bean>
 
-    <bean id="sqlMetaDataHandler" class="com.m2u.eyelink.collector.handler.SqlMetaDataHandler">
-        <property name="sqlMetaDataDao" ref="elasticSearchSqlMetaDataDao"/>
-    </bean>
+	<bean id="sqlMetaDataHandler" class="com.m2u.eyelink.collector.handler.SqlMetaDataHandler">
+		<property name="sqlMetaDataDao" ref="elasticSearchSqlMetaDataDao" />
+	</bean>
 
-    <bean id="elasticSearchSqlMetaDataDao" class="com.m2u.eyelink.collector.dao.elasticsearch.ElasticSearchSqlMetaDataDao"/>
+	<bean id="elasticSearchSqlMetaDataDao"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.ElasticSearchSqlMetaDataDao" />
 
-    <bean id="metadataRowKeyDistributor2" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
-        <constructor-arg ref="metadataRangeHasher2"/>
-    </bean>
+	<bean id="metadataRowKeyDistributor"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+		<constructor-arg ref="metadataRangeHasher" />
+	</bean>
 
-    <bean id="metadataRangeHasher2" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
-        <constructor-arg type="int" value="0"/>
-        <constructor-arg type="int" value="36"/>
-        <constructor-arg type="int" value="32"/>
-    </bean>
+	<bean id="metadataRangeHasher"
+		class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+		<constructor-arg type="int" value="0" />
+		<constructor-arg type="int" value="32" />
+		<constructor-arg type="int" value="8" />
+	</bean>
+
+	<bean id="metadataRowKeyDistributor2"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+		<constructor-arg ref="metadataRangeHasher2" />
+	</bean>
+
+	<bean id="metadataRangeHasher2"
+		class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+		<constructor-arg type="int" value="0" />
+		<constructor-arg type="int" value="36" />
+		<constructor-arg type="int" value="32" />
+	</bean>
 
 
 </beans>
