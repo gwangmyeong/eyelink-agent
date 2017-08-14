@@ -59,6 +59,78 @@
 		</constructor-arg>
 	</bean>
 
+    <!-- Route Filters -->
+    <bean id="loggingRouteFilter" class="com.m2u.eyelink.collector.cluster.route.filter.LoggingFilter"/>
+    <bean id="agentEventHandlingFilter" class="com.m2u.eyelink.collector.cluster.route.filter.AgentEventHandlingFilter"/>
+
+
+    <!-- Filter Chains -->
+    <bean id="requestFilterChain" class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+        <constructor-arg>
+            <list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+                <ref bean="loggingRouteFilter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="responseFilterChain" class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+        <constructor-arg>
+            <list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+                <ref bean="loggingRouteFilter"/>
+                <ref bean="agentEventHandlingFilter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="streamCreateFilterChain" class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+        <constructor-arg>
+            <list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+                <ref bean="loggingRouteFilter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="streamResponseFilterChain" class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+        <constructor-arg>
+            <list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+                <ref bean="loggingRouteFilter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="streamCloseFilterChain" class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+        <constructor-arg>
+            <list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+            </list>
+        </constructor-arg>
+    </bean>
+    <!-- Cluster-related Beans -->
+    <bean id="targetClusterPointRepository" class="com.m2u.eyelink.collector.cluster.ClusterPointRepository"/>
+    
+    <bean id="defaultRouteHandler" class="com.m2u.eyelink.collector.cluster.route.DefaultRouteHandler">
+        <constructor-arg index="0" type="com.m2u.eyelink.collector.cluster.ClusterPointLocator" ref="targetClusterPointRepository"/>
+        <constructor-arg index="1" type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="requestFilterChain"/>
+        <constructor-arg index="2" type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="responseFilterChain"/>
+    </bean>
+    
+    <bean id="streamRouteHandler" class="com.m2u.eyelink.collector.cluster.route.StreamRouteHandler">
+        <constructor-arg index="0" type="com.m2u.eyelink.collector.cluster.ClusterPointLocator" ref="targetClusterPointRepository"/>
+        <constructor-arg index="1" type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="streamCreateFilterChain"/>
+        <constructor-arg index="2" type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="streamResponseFilterChain"/>
+        <constructor-arg index="3" type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="streamCloseFilterChain"/>
+    </bean>
+
+
+    <bean id="clusterPointRouter" class="com.m2u.eyelink.collector.cluster.ClusterPointRouter">
+        <constructor-arg ref="targetClusterPointRepository"/>
+        <constructor-arg ref="defaultRouteHandler"/>
+        <constructor-arg ref="streamRouteHandler"/>
+    </bean>
+    
+    <bean id="clusterService" class="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService">
+        <constructor-arg ref="collectorConfiguration"/>
+        <constructor-arg ref="clusterPointRouter"/>
+    </bean>
 
 	<!-- UDPStatReceiver related Beans -->
 	<bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler" />
@@ -95,8 +167,7 @@
 	<bean id="tcpDispatchHandlerWrapper"
 		class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
 		<constructor-arg ref="tcpDispatchHandler" />
-	</bean>
-
+	</bean>    
 
 	<!-- Manager-related Beans -->
 	<bean id="handlerManager" class="com.m2u.eyelink.collector.manage.HandlerManager">
