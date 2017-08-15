@@ -36,6 +36,10 @@ public class ElasticSearchTables {
     
     public static final TableName AGENT_EVENT = TableName.valueOf("AgentEvent");
     public static final byte[] AGENT_EVENT_CF_EVENTS = Bytes.toBytes("E"); // agent events column family
+    
+    public static final TableName AGENT_LIFECYCLE = TableName.valueOf("AgentLifeCycle");
+    public static final byte[] AGENT_LIFECYCLE_CF_STATUS = Bytes.toBytes("S"); // agent lifecycle column family
+    public static final byte[] AGENT_LIFECYCLE_CF_STATUS_QUALI_STATES = Bytes.toBytes("states"); // qualifier for agent lifecycle states
 
 
 }

@@ -135,6 +135,8 @@
     </bean>
     
 	<bean id="agentEventHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentEventHandler" />
+    <bean id="agentLifeCycleHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentLifeCycleHandler"/>
+    <bean id="agentLifeCycleChangeEventHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentLifeCycleChangeEventHandler"/>
 
 	<!-- Cluster-related Beans -->
 	<bean id="targetClusterPointRepository"
@@ -193,6 +195,10 @@
 
 	<!-- TCPReceiver related Beans -->
 	<bean id="serverAcceptor" class="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" />
+
+   <util:list id="channelStateChangeEventHandlers" value-type="com.m2u.eyelink.collector.rpc.server.ServerStateChangeEventHandler">
+        <ref bean="agentLifeCycleChangeEventHandler"/> 
+    </util:list>
 
 	<bean id="tcpReceiver" class="com.m2u.eyelink.collector.receiver.tcp.TCPReceiver">
 		<constructor-arg
