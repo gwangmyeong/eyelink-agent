@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.m2u.eyelink.collector.cluster.route.DefaultRouteHandler;
 import com.m2u.eyelink.collector.cluster.route.RequestEvent;
 import com.m2u.eyelink.collector.cluster.route.StreamEvent;
+import com.m2u.eyelink.collector.cluster.route.StreamRouteHandler;
 import com.m2u.eyelink.context.thrift.DeserializerFactory;
 import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializer;
 import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
