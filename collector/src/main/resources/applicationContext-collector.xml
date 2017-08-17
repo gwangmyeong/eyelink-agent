@@ -170,13 +170,13 @@
 		<constructor-arg ref="defaultRouteHandler" />
 		<constructor-arg ref="streamRouteHandler" />
 	</bean>
-
+<!-- 
 	<bean id="clusterService"
 		class="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService">
 		<constructor-arg ref="collectorConfiguration" />
 		<constructor-arg ref="clusterPointRouter" />
 	</bean>
-
+ -->
 	<!-- UDPStatReceiver related Beans -->
 	<bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler" />
 
@@ -205,11 +205,11 @@
 			type="com.m2u.eyelink.collector.config.CollectorConfiguration" ref="collectorConfiguration" />
 		<constructor-arg type="com.m2u.eyelink.collector.receiver.DispatchHandler"
 			ref="tcpDispatchHandlerWrapper" />
-		<constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor"
+		<!-- <constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor"
 			ref="serverAcceptor" />
 		<constructor-arg
 			type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService"
-			ref="clusterService" />
+			ref="clusterService" /> -->
 	</bean>
 
 	<bean id="tcpDispatchHandler" class="com.m2u.eyelink.collector.receiver.TcpDispatchHandler" />

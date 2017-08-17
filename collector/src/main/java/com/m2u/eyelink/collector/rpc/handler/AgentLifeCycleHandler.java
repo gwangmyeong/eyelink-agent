@@ -31,10 +31,10 @@ public class AgentLifeCycleHandler {
     @Autowired
     private AgentLifeCycleDao agentLifeCycleDao;
 
-    public void handleLifeCycleEvent(ELAgentServer pinpointServer, long eventTimestamp,
+    public void handleLifeCycleEvent(ELAgentServer elagentServer, long eventTimestamp,
             AgentLifeCycleState agentLifeCycleState, int eventCounter) {
-        if (pinpointServer == null) {
-            throw new NullPointerException("pinpointServer may not be null");
+        if (elagentServer == null) {
+            throw new NullPointerException("elagentServer may not be null");
         }
         if (agentLifeCycleState == null) {
             throw new NullPointerException("agentLifeCycleState may not be null");
@@ -42,13 +42,13 @@ public class AgentLifeCycleHandler {
         if (eventCounter < 0) {
             throw new IllegalArgumentException("eventCounter may not be negative");
         }
-        logger.info("handle lifecycle event - pinpointServer:{}, state:{}", pinpointServer, agentLifeCycleState);
+        logger.info("handle lifecycle event - elagentServer:{}, state:{}", elagentServer, agentLifeCycleState);
 
-        Map<Object, Object> channelProperties = pinpointServer.getChannelProperties();
+        Map<Object, Object> channelProperties = elagentServer.getChannelProperties();
         final Integer socketId = MapUtils.getInteger(channelProperties, SOCKET_ID_KEY);
         if (socketId == null) {
-            logger.debug("socketId not found, agent does not support life cycle management - pinpointServer:{}",
-                    pinpointServer);
+            logger.debug("socketId not found, agent does not support life cycle management - elagentServer:{}",
+                    elagentServer);
             return;
         }
 
