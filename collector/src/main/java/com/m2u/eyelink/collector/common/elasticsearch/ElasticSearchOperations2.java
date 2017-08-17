@@ -237,4 +237,9 @@ public interface ElasticSearchOperations2 {
      * @return object mapping the target row
      */
     <T> T get(TableName tableName, final String rowName, final String familyName, final String qualifier, final RowMapper<T> mapper);
+
+    // For ElasticSearch
+    void put(String indexName, String typeName, String jsonData);
+	<T> T execute(String IndexName, String typeName, ActionCallback<T> action);
+
 }

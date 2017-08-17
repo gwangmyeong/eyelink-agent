@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.client.transport.TransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -21,7 +23,7 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
     public static final boolean DEFAULT_PRESTART_THREAD_POOL = false;
 
     private final ExecutorService executor;
-    private final Connection connection;
+    private final TransportClient connection;
 
 
     public PooledElasticSearchFactory(Configuration config) {
@@ -37,7 +39,7 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
         } 
     }
 
-    public Connection getConnection() {
+    public TransportClient getConnection() {
         return connection;
     }
 
@@ -45,7 +47,7 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
 
         logger.info("create HConnectionThreadPoolExecutor poolSize:{}, workerQueueMaxSize:{}", poolSize, workQueueMaxSize);
 
-        ThreadPoolExecutor threadPoolExecutor = ExecutorFactory.newFixedThreadPool(poolSize, workQueueMaxSize, "Pinpoint-HConnectionExecutor", true);
+        ThreadPoolExecutor threadPoolExecutor = ExecutorFactory.newFixedThreadPool(poolSize, workQueueMaxSize, "ELAgent-HConnectionExecutor", true);
         if (prestartThreadPool) {
             logger.info("prestartAllCoreThreads");
             threadPoolExecutor.prestartAllCoreThreads();
@@ -58,8 +60,9 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
     @Override
     public Table getTable(TableName tableName) {
         try {
-            return connection.getTable(tableName, executor);
-        } catch (IOException e) {
+            //return connection.getTable(tableName, executor);
+        		return null;
+        } catch (Exception e) {
             throw new ElasticSearchSystemException(e);
         }
     }
@@ -85,7 +88,7 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
         if (connection != null) {
             try {
                 this.connection.close();
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 logger.warn("Connection.close() error:" + ex.getMessage(), ex);
             }
         }
@@ -103,4 +106,16 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
             }
         }
     }
+
+    // For ElasticSearch
+	@Override
+	public boolean insertData(String indexName, String typeName, String json) {
+		IndexResponse response = connection.prepareIndex(indexName, typeName)
+		        .setSource(json)
+		        .get();
+		// FIXME 결과처리 로직 보완 필요.
+		return true;
+	}
+    
+    
 }

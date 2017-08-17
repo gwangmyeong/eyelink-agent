@@ -40,6 +40,10 @@ public class ElasticSearchTables {
     public static final TableName AGENT_LIFECYCLE = TableName.valueOf("AgentLifeCycle");
     public static final byte[] AGENT_LIFECYCLE_CF_STATUS = Bytes.toBytes("S"); // agent lifecycle column family
     public static final byte[] AGENT_LIFECYCLE_CF_STATUS_QUALI_STATES = Bytes.toBytes("states"); // qualifier for agent lifecycle states
+    
+    // for ElasticSearch
+    public static final String IndexNamePrefix = "elagent";  	// elagent_[agentid]-[날짜]
+    public static final String TYPE_AGENTINFO = "AgentInfo";
 
 
 }

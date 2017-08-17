@@ -10,12 +10,15 @@ import java.util.Map;
 
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
+import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
+import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.get.MultiGetItemResponse;
 import org.elasticsearch.action.get.MultiGetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.client.AdminClient;
 import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
@@ -40,9 +43,10 @@ public class ElasticSearchClientTest {
 
 			client = new PreBuiltTransportClient(settings)
 					.addTransportAddress(new InetSocketTransportAddress(
-							InetAddress.getByName("m2utech.eastus.cloudapp.azure.com"), 9300))
-					.addTransportAddress(new InetSocketTransportAddress(
-							InetAddress.getByName("m2u-da.eastus.cloudapp.azure.com"), 9300));
+							InetAddress.getByName("m2utech.eastus.cloudapp.azure.com"), 9300));
+			
+//					.addTransportAddress(new InetSocketTransportAddress(
+//							InetAddress.getByName("m2u-da.eastus.cloudapp.azure.com"), 9300));
 			;
 
 			// create index no mapping
@@ -57,10 +61,21 @@ public class ElasticSearchClientTest {
 	@Test
 	public void createIndex() {
 		// create index mapping
-		client.admin().indices().prepareCreate("twitter100")
+		client.admin().indices().prepareCreate(indexName + "100")
 				.setSettings(Settings.builder().put("index.number_of_shards", 3).put("index.number_of_replicas", 2))
 				.get();
 				
+	}
+	
+	@Test
+	@Ignore
+	public void getIndex() {
+		// create index no mapping
+		client.admin().indices().prepareCreate(indexName+ "200").get();
+		IndicesAdminClient adminClient = client.admin().indices();
+		
+		AdminClient adminClient2 = client.admin();
+//		adminClient.prepareGetIndex()
 	}
 
 	@SuppressWarnings("deprecation")
@@ -105,8 +120,8 @@ public class ElasticSearchClientTest {
 		IndexResponse response = client.prepareIndex(indexName+"-insertdata", "tweet")
 		        .setSource(json)
 		        .get();
-		
 	}
+	
 	
 	@Test 
 	public void insertDataMap() {
@@ -114,6 +129,7 @@ public class ElasticSearchClientTest {
 		json.put("user","kimchy2");
 		json.put("postDate",new Date());
 		json.put("message","trying out Elasticsearch");
+		
 		
 		IndexResponse response = client.prepareIndex(indexName+"-insertdata", "tweet")
 		        .setSource(json)
@@ -183,7 +199,7 @@ public class ElasticSearchClientTest {
 
 	@AfterClass
 	public static void close() {
-		deleteIndex();
+//		deleteIndex();
 		
 		// close
 		client.close();

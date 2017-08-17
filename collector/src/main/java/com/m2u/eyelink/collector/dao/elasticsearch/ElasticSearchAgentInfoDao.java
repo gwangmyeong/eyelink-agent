@@ -14,6 +14,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.dao.AgentInfoDao;
 import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.RowKeyUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.context.thrift.TAgentInfo;
@@ -74,6 +75,7 @@ public class ElasticSearchAgentInfoDao implements AgentInfoDao {
             put.addColumn(ElasticSearchTables.AGENTINFO_CF_INFO, ElasticSearchTables.AGENTINFO_CF_INFO_JVM, jvmInfoBoValue);
         }
 
-        elasticSearchTemplate.put(ElasticSearchTables.AGENTINFO, put);
+//        elasticSearchTemplate.put(ElasticSearchTables.AGENTINFO, put);
+        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId()), ElasticSearchTables.TYPE_AGENTINFO, agentInfo.toJson());
     }
 }

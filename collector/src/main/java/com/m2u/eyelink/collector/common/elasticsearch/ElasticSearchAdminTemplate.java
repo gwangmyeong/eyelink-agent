@@ -2,16 +2,18 @@ package com.m2u.eyelink.collector.common.elasticsearch;
 
 import java.io.IOException;
 
+import org.elasticsearch.client.transport.TransportClient;
+
 public class ElasticSearchAdminTemplate {
 	// FIXME bsh convert HBASE -> ElasticSearch
 	
     private final Admin admin;
-    private final Connection connection;
+    private final TransportClient connection;
 
     public ElasticSearchAdminTemplate(Configuration configuration) {
         try {
             connection = ConnectionFactory.createConnection(configuration);
-            admin = connection.getAdmin();
+            admin = null;
         } catch (Exception e) {
             throw new ElasticSearchSystemException(e);
         }
@@ -63,7 +65,7 @@ public class ElasticSearchAdminTemplate {
         try {
             this.admin.close();
             this.connection.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new ElasticSearchSystemException(e);
         }
     }

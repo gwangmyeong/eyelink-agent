@@ -1720,5 +1720,27 @@ public class TAgentInfo implements org.apache.thrift.TBase<TAgentInfo, TAgentInf
     }
   }
 
+//  private String hostname; // required
+//  private String ip; // required
+//  private String ports; // required
+//  private String agentId; // required
+//  private String applicationName; // required
+//  private short serviceType; // required
+//  private int pid; // required
+//  private String agentVersion; // required
+//  private String vmVersion; // required
+//  private long startTimestamp; // required
+//  private long endTimestamp; // optional
+//  private int endStatus; // optional
+//  private TServerMetaData serverMetaData; // optional
+//  private TJvmInfo jvmInfo; // optional
+  
+public String toJson() {
+	StringBuffer sb = new StringBuffer();
+	sb.append("{");
+	sb.append("hostname:").append(hostname);
+	return null;
+}
+
 }
 

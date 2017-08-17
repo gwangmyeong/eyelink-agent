@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.util.PropertyUtils;
 
 public class ElasticSearchTemplate2Test {
@@ -19,8 +20,13 @@ public class ElasticSearchTemplate2Test {
         Properties properties = PropertyUtils.loadPropertyFromClassPath("elasticsearch.properties");
 
         Configuration cfg = ElasticSearchConfiguration.create();
-        cfg.set("hbase.zookeeper.quorum", properties.getProperty("hbase.client.host"));
-        cfg.set("hbase.zookeeper.property.clientPort", properties.getProperty("hbase.client.port"));
+        cfg.set("elasticsearch.cluster.name", properties.getProperty("elasticsearch.cluster.name"));
+        int i = 1;
+        while(properties.getProperty("elasticsearch.host.ip."+i) != null) {
+	        	cfg.set("elasticsearch.host.ip."+i, properties.getProperty("elasticsearch.host.ip."+i));
+	        	cfg.set("elasticsearch.host.port."+i, properties.getProperty("elasticsearch.host.port."+i));
+	        	i++;
+        }
         
         elasticSearchTemplate2 = new ElasticSearchTemplate2();
         elasticSearchTemplate2.setConfiguration(cfg);
@@ -37,10 +43,15 @@ public class ElasticSearchTemplate2Test {
 
     @Test
 //    @Ignore
-    public void notExist() throws Exception {
+    public void insertJsonData() throws Exception {
         try {
-            elasticSearchTemplate2.put(TableName.valueOf("NOT_EXIST"), new byte[] {0, 0, 0}, "familyName".getBytes(), "columnName".getBytes(), new byte[]{0, 0, 0});
-            Assert.fail("exceptions");
+	    		String json = "{" +
+	    		        "\"user\":\"kimchy\"," +
+	    		        "\"postDate\":\"2013-01-30\"," +
+	    		        "\"message\":\"trying out Elasticsearch\"" +
+	    		    "}";
+
+            elasticSearchTemplate2.put(ElasticSearchUtils.generateIndexName("TEST"), ElasticSearchTables.TYPE_AGENTINFO, json);
         } catch (ElasticSearchSystemException e) {
 //            RetriesExhaustedWithDetailsException exception = (RetriesExhaustedWithDetailsException)(e.getCause());
 //            if (!(exception.getCause(0) instanceof TableNotFoundException)) {

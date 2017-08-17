@@ -747,5 +747,46 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
     private void releaseTable(Table table) {
         getTableFactory().releaseTable(table);
     }
+    
+    // For ElasticSearch 
+    public void put(String IndexName, String typeName, String jsonData) {
+        assertAccessAvailable();
+        execute(IndexName, typeName, new ActionCallback() {
+            @Override
+            public Object doInsert() throws Throwable {
+                insertData(IndexName, typeName, jsonData);
+                return null;
+            }
+        });		
+	}
+
+    private boolean insertData(String indexName, String typeName, String jsonData) {
+        return getTableFactory().insertData(indexName, typeName, jsonData);
+    }
+
+
+    @Override
+    public <T> T execute(String indexName, String typeName, ActionCallback<T> action) {
+        Assert.notNull(action, "Callback object must not be null");
+        Assert.notNull(indexName, "No indexName specified");
+        Assert.notNull(typeName, "No typeName specified");
+        assertAccessAvailable();
+
+        try {
+            T result = action.doInsert();
+            return result;
+        } catch (Throwable e) {
+            if (e instanceof Error) {
+                throw ((Error) e);
+            }
+            if (e instanceof RuntimeException) {
+                throw ((RuntimeException) e);
+            }
+            throw new ElasticSearchSystemException((Exception) e);
+        } finally {
+        		// TO-DO check need or not
+//            releaseTable(table);
+        }
+    }
 
 }

@@ -17,4 +17,7 @@ public interface TableFactory {
 	   * @param table
 	   */
 	  void releaseTable(final Table table);
+	  
+	  // For ElasticSearch
+	  boolean insertData(String indexName, String typeName, String json);
 	}
