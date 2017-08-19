@@ -113,6 +113,8 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
 		IndexResponse response = connection.prepareIndex(indexName, typeName)
 		        .setSource(json)
 		        .get();
+		if(logger.isDebugEnabled()) 
+			logger.debug("indexName : {}, typeName : {}, data : {}", indexName, typeName, json);
 		// FIXME 결과처리 로직 보완 필요.
 		return true;
 	}

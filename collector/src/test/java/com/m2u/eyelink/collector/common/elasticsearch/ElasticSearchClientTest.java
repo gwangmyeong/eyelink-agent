@@ -199,7 +199,7 @@ public class ElasticSearchClientTest {
 
 	@AfterClass
 	public static void close() {
-//		deleteIndex();
+		deleteIndex();
 		
 		// close
 		client.close();
