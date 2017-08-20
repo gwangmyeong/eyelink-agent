@@ -47,6 +47,7 @@ public class ElasticSearchTables {
 	public static final String TYPE_AGENT_EVENT = "AgentEvent";
 	public static final String TYPE_AGENT_LIFECYCLE = "AgentLifeCycle";
 	public static final String TYPE_APPLICATION_INDEX = "ApplicationIndex";
+	public static final String TYPE_API_METADATA = "ApiMetaData";
 
 
 }
