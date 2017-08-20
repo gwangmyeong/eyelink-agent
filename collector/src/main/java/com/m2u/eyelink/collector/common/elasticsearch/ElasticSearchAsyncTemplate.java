@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.stereotype.Component;
 
 // FIXME @Component not existed in pinpoint
@@ -19,7 +20,7 @@ public class ElasticSearchAsyncTemplate implements ElasticSearchAsyncOperation {
         this.hTableMultiplexer = new HTableMultiplexer(conf, perRegionServerBufferQueueSize);
     }
 
-    public ElasticSearchAsyncTemplate(Connection connection, Configuration conf, int perRegionServerBufferQueueSize) throws IOException {
+    public ElasticSearchAsyncTemplate(TransportClient connection, Configuration conf, int perRegionServerBufferQueueSize) throws IOException {
         this.hTableMultiplexer = new HTableMultiplexer(connection, conf, perRegionServerBufferQueueSize);
     }
 

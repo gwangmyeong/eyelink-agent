@@ -253,6 +253,13 @@
 		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchConfigurationFactoryBean">
 		<property name="properties">
 			<props>
+				<!--  for elaticsearch  -->
+				<prop key="elasticsearch.cluster.name">${elasticsearch.cluster.name}</prop>
+				<prop key="elasticsearch.host.ip.1">${elasticsearch.host.ip.1}</prop>
+				<prop key="elasticsearch.host.port.1">${elasticsearch.host.port.1}</prop>
+				<prop key="elasticsearch.host.ip.2">${elasticsearch.host.ip.2}</prop>
+				<prop key="elasticsearch.host.port.2">${elasticsearch.host.port.2}</prop>
+				
 				<prop key="hbase.zookeeper.quorum">${hbase.client.host}</prop>
 				<prop key="hbase.zookeeper.property.clientPort">${hbase.client.port}</prop>
 

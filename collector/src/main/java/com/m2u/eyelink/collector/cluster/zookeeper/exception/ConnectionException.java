@@ -1,5 +1,6 @@
 package com.m2u.eyelink.collector.cluster.zookeeper.exception;
 
+
 public class ConnectionException extends ELAgentZookeeperException {
 
     public ConnectionException() {

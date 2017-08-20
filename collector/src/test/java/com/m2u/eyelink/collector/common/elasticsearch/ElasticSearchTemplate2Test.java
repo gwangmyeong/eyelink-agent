@@ -41,6 +41,7 @@ public class ElasticSearchTemplate2Test {
         }
     }
 
+    
     @Test
 //    @Ignore
     public void insertJsonData() throws Exception {

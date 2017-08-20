@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.util.Assert;
 
+
 public class RowMapperResultsExtractor<T> implements ResultsExtractor<List<T>> {
 
     private final RowMapper<T> rowMapper;

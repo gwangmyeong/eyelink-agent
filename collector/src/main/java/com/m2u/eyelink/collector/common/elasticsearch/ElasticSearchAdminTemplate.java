@@ -33,8 +33,10 @@ public class ElasticSearchAdminTemplate {
 //
     public boolean tableExists(TableName tableName) {
         try {
-            return admin.tableExists(tableName);
-        } catch (IOException e) {
+        		// FIXME, change logic
+//            return admin.tableExists(tableName);
+            return true;
+        } catch (Exception e) {
             throw new ElasticSearchSystemException(e);
         }
     }

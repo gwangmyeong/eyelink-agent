@@ -4,6 +4,7 @@ import java.io.IOException;
 
 public class Admin {
 
+	
 	// FIXME add ES logic
 	public boolean tableExists(TableName tableName) throws IOException {
 		// TODO Auto-generated method stub

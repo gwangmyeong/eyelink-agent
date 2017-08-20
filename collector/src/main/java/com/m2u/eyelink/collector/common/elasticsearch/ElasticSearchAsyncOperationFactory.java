@@ -2,6 +2,7 @@ package com.m2u.eyelink.collector.common.elasticsearch;
 
 import java.io.IOException;
 
+import org.elasticsearch.client.transport.TransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,7 @@ public class ElasticSearchAsyncOperationFactory {
         return new ElasticSearchAsyncTemplate(configuration, queueSize);
     }
 
-    public static ElasticSearchAsyncOperation create(Connection connection, Configuration configuration) throws IOException {
+    public static ElasticSearchAsyncOperation create(TransportClient connection, Configuration configuration) throws IOException {
         boolean enableAsyncMethod = configuration.getBoolean(ENABLE_ASYNC_METHOD, DEFAULT_ENABLE_ASYNC_METHOD);
         if (!enableAsyncMethod) {
             return DisabledElasticSearchAsyncOperation.INSTANCE;
