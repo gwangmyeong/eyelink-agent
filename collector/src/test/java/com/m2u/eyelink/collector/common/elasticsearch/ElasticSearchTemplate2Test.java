@@ -1,6 +1,9 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.junit.AfterClass;
@@ -52,7 +55,7 @@ public class ElasticSearchTemplate2Test {
 	    		        "\"message\":\"trying out Elasticsearch\"" +
 	    		    "}";
 
-            elasticSearchTemplate2.put(ElasticSearchUtils.generateIndexName("TEST"), ElasticSearchTables.TYPE_AGENTINFO, json);
+            elasticSearchTemplate2.put(ElasticSearchUtils.generateIndexName("TEST"), ElasticSearchTables.TYPE_AGENT_INFO, json);
         } catch (ElasticSearchSystemException e) {
 //            RetriesExhaustedWithDetailsException exception = (RetriesExhaustedWithDetailsException)(e.getCause());
 //            if (!(exception.getCause(0) instanceof TableNotFoundException)) {
@@ -61,4 +64,29 @@ public class ElasticSearchTemplate2Test {
         }
 
     }
+    
+    @Test
+//  @Ignore
+  public void insertMapData() throws Exception {
+      try {
+  		Map<String, Object> map = new HashMap<String, Object>();
+  		map.put("user","kimchy2");
+  		map.put("postDate",new Date());
+  		map.put("message","trying out Elasticsearch");
+  		Map<String, Object> child_json = new HashMap<String, Object>();
+  		child_json.put("child_user", "child_kimchy2");
+  		child_json.put("child_postDate", new Date());
+  		child_json.put("child_message", "trying out Elasticsearch");
+  		map.put("child", child_json);
+
+
+          elasticSearchTemplate2.put(ElasticSearchUtils.generateIndexName("JUNIT_TEST"), ElasticSearchTables.TYPE_AGENT_INFO, map);
+      } catch (ElasticSearchSystemException e) {
+//          RetriesExhaustedWithDetailsException exception = (RetriesExhaustedWithDetailsException)(e.getCause());
+//          if (!(exception.getCause(0) instanceof TableNotFoundException)) {
+              Assert.fail("unexpected exception :" + e.getCause()); 
+//          }
+      }
+
+  }
 }

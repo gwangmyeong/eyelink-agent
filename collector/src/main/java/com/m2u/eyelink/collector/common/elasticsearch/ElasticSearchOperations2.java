@@ -1,6 +1,7 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.zookeeper.Op.Delete;
 
@@ -240,6 +241,7 @@ public interface ElasticSearchOperations2 {
 
     // For ElasticSearch
     void put(String indexName, String typeName, String jsonData);
+    void put(String indexName, String typeName, Map mapData);
 	<T> T execute(String IndexName, String typeName, ActionCallback<T> action);
 
 }

@@ -42,8 +42,11 @@ public class ElasticSearchTables {
     public static final byte[] AGENT_LIFECYCLE_CF_STATUS_QUALI_STATES = Bytes.toBytes("states"); // qualifier for agent lifecycle states
     
     // for ElasticSearch
-    public static final String IndexNamePrefix = "elagent";  	// elagent_[agentid]-[날짜]
-    public static final String TYPE_AGENTINFO = "AgentInfo";
+    public static final String INDEX_NAME_PREFIX = "elagent";  	// elagent_[agentid]-[날짜]
+    public static final String TYPE_AGENT_INFO = "AgentInfo";
+	public static final String TYPE_AGENT_EVENT = "AgentEvent";
+	public static final String TYPE_AGENT_LIFECYCLE = "AgentLifeCycle";
+	public static final String TYPE_APPLICATION_INDEX = "ApplicationIndex";
 
 
 }

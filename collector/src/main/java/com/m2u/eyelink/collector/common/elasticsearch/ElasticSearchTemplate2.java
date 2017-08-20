@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -764,6 +765,20 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
         return getTableFactory().insertData(indexName, typeName, jsonData);
     }
 
+    public void put(String IndexName, String typeName, Map mapData) {
+        assertAccessAvailable();
+        execute(IndexName, typeName, new ActionCallback() {
+            @Override
+            public Object doInsert() throws Throwable {
+                insertData(IndexName, typeName, mapData);
+                return null;
+            }
+        });		
+	}
+
+    private boolean insertData(String indexName, String typeName, Map mapData) {
+        return getTableFactory().insertData(indexName, typeName, mapData);
+    }
 
     @Override
     public <T> T execute(String indexName, String typeName, ActionCallback<T> action) {

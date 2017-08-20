@@ -2,6 +2,7 @@ package com.m2u.eyelink.collector.common.elasticsearch;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -117,6 +118,18 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
 			logger.debug("indexName : {}, typeName : {}, data : {}", indexName, typeName, json);
 		// FIXME 결과처리 로직 보완 필요.
 		return true;
+	}
+
+	@Override
+	public boolean insertData(String indexName, String typeName, Map<String, Object> map) {
+		IndexResponse response = connection.prepareIndex(indexName, typeName)
+		        .setSource(map)
+		        .get();
+		if(logger.isDebugEnabled()) 
+			logger.debug("indexName : {}, typeName : {}, data : {}", indexName, typeName, map.toString());
+		// FIXME 결과처리 로직 보완 필요.
+		return true;
+
 	}
     
     

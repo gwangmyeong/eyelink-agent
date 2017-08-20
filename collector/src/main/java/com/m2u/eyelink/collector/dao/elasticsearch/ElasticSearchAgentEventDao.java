@@ -11,6 +11,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.dao.AgentEventDao;
 import com.m2u.eyelink.collector.dao.elasticsearch.mapper.AgentEventValueMapper;
 import com.m2u.eyelink.collector.util.AgentEventType;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.RowKeyUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.util.BytesUtils;
@@ -44,7 +45,10 @@ public class ElasticSearchAgentEventDao implements AgentEventDao {
         final AgentEventType eventType = agentEventBo.getEventType();
         byte[] qualifier = Bytes.toBytes(eventType.getCode());
 
-        this.elasticSearchTemplate.put(ElasticSearchTables.AGENT_EVENT, rowKey, ElasticSearchTables.AGENT_EVENT_CF_EVENTS, qualifier, agentEventBo, this.valueMapper);
+//        this.elasticSearchTemplate.put(ElasticSearchTables.AGENT_EVENT, rowKey, ElasticSearchTables.AGENT_EVENT_CF_EVENTS, qualifier, agentEventBo, this.valueMapper);
+		this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentEventBo.getAgentId()),
+				ElasticSearchTables.TYPE_AGENT_EVENT, agentEventBo.getMap());
+
     }
 
     byte[] createRowKey(String agentId, long eventTimestamp) {

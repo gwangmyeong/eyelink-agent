@@ -10,6 +10,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchOperations2;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.dao.AgentLifeCycleDao;
 import com.m2u.eyelink.collector.dao.elasticsearch.mapper.AgentLifeCycleValueMapper;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.util.BytesUtils;
 
@@ -38,10 +39,13 @@ public class ElasticSearchAgentLifeCycleDao implements AgentLifeCycleDao {
 		final long startTimestamp = agentLifeCycleBo.getStartTimestamp();
 		final long eventIdentifier = agentLifeCycleBo.getEventIdentifier();
 
-		byte[] rowKey = createRowKey(agentId, startTimestamp, eventIdentifier);
+		// byte[] rowKey = createRowKey(agentId, startTimestamp, eventIdentifier);
 
-		this.elasticSearchTemplate.put(ElasticSearchTables.AGENT_LIFECYCLE, rowKey, ElasticSearchTables.AGENT_LIFECYCLE_CF_STATUS,
-				ElasticSearchTables.AGENT_LIFECYCLE_CF_STATUS_QUALI_STATES, agentLifeCycleBo, this.valueMapper);
+//		this.elasticSearchTemplate.put(ElasticSearchTables.AGENT_LIFECYCLE, rowKey,
+//				ElasticSearchTables.AGENT_LIFECYCLE_CF_STATUS,
+//				ElasticSearchTables.AGENT_LIFECYCLE_CF_STATUS_QUALI_STATES, agentLifeCycleBo, this.valueMapper);
+		this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId),
+				ElasticSearchTables.TYPE_AGENT_LIFECYCLE, agentLifeCycleBo.getMap());
 	}
 
 	byte[] createRowKey(String agentId, long startTimestamp, long eventIdentifier) {

@@ -1,5 +1,8 @@
 package com.m2u.eyelink.collector.bo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.m2u.eyelink.collector.util.AgentEventType;
 
 public class AgentEventBo {
@@ -118,5 +121,15 @@ public class AgentEventBo {
         sb.append(", eventType='").append(this.getEventType().getDesc()).append('\'');
         return sb.toString();
     }
+
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("version", this.version);
+		map.put("agentId", this.agentId);
+		map.put("startTimestamp", this.startTimestamp);
+		map.put("eventTimestamp", this.eventTimestamp);
+		map.put("eventType", this.getEventType().getDesc());
+		return map;
+	}
 
 }

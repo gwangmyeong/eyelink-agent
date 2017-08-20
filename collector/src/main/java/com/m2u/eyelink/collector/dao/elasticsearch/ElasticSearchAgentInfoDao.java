@@ -54,8 +54,8 @@ public class ElasticSearchAgentInfoDao implements AgentInfoDao {
 
         byte[] agentId = Bytes.toBytes(agentInfo.getAgentId());
         long reverseKey = TimeUtils.reverseTimeMillis(agentInfo.getStartTimestamp());
-        byte[] rowKey = RowKeyUtils.concatFixedByteAndLong(agentId, ElasticSearchTables.AGENT_NAME_MAX_LEN, reverseKey);
-        Put put = new Put(rowKey);
+//        byte[] rowKey = RowKeyUtils.concatFixedByteAndLong(agentId, ElasticSearchTables.AGENT_NAME_MAX_LEN, reverseKey);
+        Put put = new Put(null);
 
         // should add additional agent informations. for now added only starttime for sqlMetaData
         AgentInfoBo agentInfoBo = this.agentInfoBoMapper.map(agentInfo);
@@ -76,6 +76,6 @@ public class ElasticSearchAgentInfoDao implements AgentInfoDao {
         }
 
 //        elasticSearchTemplate.put(ElasticSearchTables.AGENTINFO, put);
-        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName("TEST"), ElasticSearchTables.TYPE_AGENTINFO, agentInfo.toJson());
+        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId()), ElasticSearchTables.TYPE_AGENT_INFO, agentInfo.getMap());
     }
 }

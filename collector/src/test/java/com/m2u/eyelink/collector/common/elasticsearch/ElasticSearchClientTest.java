@@ -129,7 +129,11 @@ public class ElasticSearchClientTest {
 		json.put("user","kimchy2");
 		json.put("postDate",new Date());
 		json.put("message","trying out Elasticsearch");
-		
+		Map<String, Object> child_json = new HashMap<String, Object>();
+		child_json.put("child_user", "child_kimchy2");
+		child_json.put("child_postDate", new Date());
+		child_json.put("child_message", "trying out Elasticsearch");
+		json.put("child", child_json);
 		
 		IndexResponse response = client.prepareIndex(indexName+"-insertdata", "tweet")
 		        .setSource(json)
@@ -199,7 +203,7 @@ public class ElasticSearchClientTest {
 
 	@AfterClass
 	public static void close() {
-		deleteIndex();
+//		deleteIndex();
 		
 		// close
 		client.close();

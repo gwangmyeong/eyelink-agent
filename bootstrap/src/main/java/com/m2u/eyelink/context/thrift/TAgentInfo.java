@@ -1429,12 +1429,38 @@ public class TAgentInfo implements org.apache.thrift.TBase<TAgentInfo, TAgentInf
 	}
 
 	
+//	this.hostname = null;
+//	this.ip = null;
+//	this.ports = null;
+//	this.agentId = null;
+//	this.applicationName = null;
+//	setServiceTypeIsSet(false);
+//	this.serviceType = 0;
+//	setPidIsSet(false);
+//	this.pid = 0;
+//	this.agentVersion = null;
+//	this.vmVersion = null;
+//	setStartTimestampIsSet(false);
+//	this.startTimestamp = 0;
+//	setEndTimestampIsSet(false);
+//	this.endTimestamp = 0;
+//	setEndStatusIsSet(false);
+//	this.endStatus = 0;
+//	this.serverMetaData = null;
+//	this.jvmInfo = null;
+
+	
 	// for elasticsearch
-	public String toJson() {
-		StringBuffer sb = new StringBuffer();
-		sb.append("{");
-		sb.append("hostname:").append(hostname);
-		return sb.toString();
+	// FIXME need to add parameter in Map
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("hostname", this.hostname);
+		map.put("ip", this.ip);
+		map.put("ports", this.ports);
+		map.put("agentId", this.agentId);
+		map.put("applicationName", this.applicationName);
+		map.put("serviceType", this.serviceType);
+		return map;
 	}
 
 	private static class TAgentInfoStandardSchemeFactory implements SchemeFactory {

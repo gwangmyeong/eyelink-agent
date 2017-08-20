@@ -1,5 +1,8 @@
 package com.m2u.eyelink.collector.bo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.m2u.eyelink.collector.server.util.AgentLifeCycleState;
 
 public class AgentLifeCycleBo {
@@ -82,5 +85,16 @@ public class AgentLifeCycleBo {
         sb.append(", state=").append(this.agentLifeCycleState.toString());
         return sb.toString();
     }
+
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("version", this.version);
+		map.put("agentId", this.agentId);
+		map.put("startTimestamp", this.startTimestamp);
+		map.put("eventTimestamp", this.eventTimestamp);
+		map.put("eventIdentifier", this.eventIdentifier);
+		map.put("state", this.agentLifeCycleState.toString());
+		return map;
+	}
 
 }
