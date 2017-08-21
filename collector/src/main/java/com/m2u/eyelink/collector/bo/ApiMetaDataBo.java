@@ -17,7 +17,7 @@ public class ApiMetaDataBo {
 	private String apiInfo;
 	private int lineNumber;
 	private MethodTypeEnum methodTypeEnum = MethodTypeEnum.DEFAULT;
-	private String type;
+	private int type;
 
 	public ApiMetaDataBo() {
 	}
@@ -30,10 +30,10 @@ public class ApiMetaDataBo {
 		this.agentId = agentId;
 		this.startTime = startTime;
 		this.apiId = apiId;
-		this.type = "";
+		this.type = 0;
 	}
 
-	public ApiMetaDataBo(String agentId, long startTime, int apiId, String type) {
+	public ApiMetaDataBo(String agentId, long startTime, int apiId, int type) {
 		if (agentId == null) {
 			throw new NullPointerException("agentId must not be null");
 		}
@@ -41,6 +41,18 @@ public class ApiMetaDataBo {
 		this.agentId = agentId;
 		this.startTime = startTime;
 		this.apiId = apiId;
+		this.type = type;
+	}
+
+	public ApiMetaDataBo(String agentId, long startTime, int apiId, String apiInfo, int type) {
+		if (agentId == null) {
+			throw new NullPointerException("agentId must not be null");
+		}
+
+		this.agentId = agentId;
+		this.startTime = startTime;
+		this.apiId = apiId;
+		this.apiInfo = apiInfo;
 		this.type = type;
 	}
 
@@ -131,7 +143,7 @@ public class ApiMetaDataBo {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("agentId", this.agentId);
 		map.put("agentStartTime", this.startTime);
-		map.put("apiId", this.agentId);
+		map.put("apiId", this.apiId);
 		map.put("apiInfo", this.apiInfo);
 		map.put("line", this.lineNumber);
 		map.put("type", this.type);

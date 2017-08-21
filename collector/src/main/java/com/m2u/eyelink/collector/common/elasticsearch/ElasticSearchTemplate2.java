@@ -804,4 +804,10 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
         }
     }
 
+	@Override
+	public boolean asyncPut(String typeAgentStat, Put put) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -4,6 +4,8 @@ public interface AbstractRowKeyDistributor {
 
 	Scan[] getDistributedScans(Scan originalScan);
 
-	Object getOriginalKey(Object row);
+	byte[] getOriginalKey(Object row);
+
+	byte[] getDistributedKey(byte[] key);
 
 }

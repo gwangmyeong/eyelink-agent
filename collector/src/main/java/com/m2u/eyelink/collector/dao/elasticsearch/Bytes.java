@@ -2,7 +2,7 @@ package com.m2u.eyelink.collector.dao.elasticsearch;
 
 public class Bytes {
 
-	public static byte[] toBytes(String agentId) {
+	public static byte[] toBytes(String string) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -18,6 +18,16 @@ public class Bytes {
 	}
 
 	public static byte[] toBytes(int code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static byte[] toBytes(long collectInterval) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static byte[] toBytes(double jvmCpuLoad) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -35,7 +35,7 @@ public class ElasticSearchApiMetaDataDao implements ApiMetaDataDao {
 		}
 
 		ApiMetaDataBo apiMetaDataBo = new ApiMetaDataBo(apiMetaData.getAgentId(), apiMetaData.getAgentStartTime(),
-				apiMetaData.getApiId());
+				apiMetaData.getApiId(), apiMetaData.getApiInfo(), apiMetaData.getType());
 		byte[] rowKey = getDistributedKey(apiMetaDataBo.toRowKey());
 
 		final Put put = new Put(rowKey);

@@ -244,4 +244,6 @@ public interface ElasticSearchOperations2 {
     void put(String indexName, String typeName, Map mapData);
 	<T> T execute(String IndexName, String typeName, ActionCallback<T> action);
 
+	boolean asyncPut(String typeAgentStat, Put put);
+
 }

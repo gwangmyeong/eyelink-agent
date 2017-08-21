@@ -1,5 +1,7 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
+import java.nio.ByteBuffer;
+
 public class Put {
 
 	public Put(byte[] rowKey) {
@@ -12,6 +14,12 @@ public class Put {
 	}
 
 	public void addColumn(byte[] familyName, byte[] qualifier, Long timestamp, byte[] value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addColumn(byte[] agentStatCfStatistics, ByteBuffer qualifierBuffer, Long latestTimestamp,
+			ByteBuffer valueBuffer) {
 		// TODO Auto-generated method stub
 		
 	}
