@@ -22,7 +22,8 @@
                         com.m2u.eyelink.collector.config,
                         com.m2u.eyelink.collector.common.elasticsearch,
                         com.m2u.eyelink.collector.dao,
-                        com.m2u.eyelink.collector.bo" />
+                        com.m2u.eyelink.collector.bo,
+                        com.m2u.eyelink.collector.server" />
 
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -111,11 +112,13 @@
 	</bean>
 
 	<!-- Serializer Factory Beans -->
-    <bean id="commandHeaderTBaseSerializerFactory" class="com.m2u.eyelink.collector.thrift.io.CommandHeaderTBaseSerializerFactory">
-    </bean>
+	<bean id="commandHeaderTBaseSerializerFactory"
+		class="com.m2u.eyelink.collector.thrift.io.CommandHeaderTBaseSerializerFactory">
+	</bean>
 
-    <bean id="commandHeaderTBaseDeserializerFactory" class="com.m2u.eyelink.collector.thrift.io.CommandHeaderTBaseDeserializerFactory">
-    </bean>
+	<bean id="commandHeaderTBaseDeserializerFactory"
+		class="com.m2u.eyelink.collector.thrift.io.CommandHeaderTBaseDeserializerFactory">
+	</bean>
 
 	<!-- Agent Event/Lifecycle related Beans -->
 	<bean id="agentEventWorker" class="com.m2u.eyelink.collector.util.ExecutorFactory"
@@ -128,13 +131,16 @@
 		<constructor-arg index="3" value="true" />
 	</bean>
 
-    <bean id="agentEventMessageSerializer" class="com.m2u.eyelink.collector.server.util.AgentEventMessageSerializer">
-        <constructor-arg ref="commandHeaderTBaseSerializerFactory"/>
-    </bean>
-    
+	<bean id="agentEventMessageSerializer"
+		class="com.m2u.eyelink.collector.server.util.AgentEventMessageSerializer">
+		<constructor-arg ref="commandHeaderTBaseSerializerFactory" />
+	</bean>
+
 	<bean id="agentEventHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentEventHandler" />
-    <bean id="agentLifeCycleHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentLifeCycleHandler"/>
-    <bean id="agentLifeCycleChangeEventHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentLifeCycleChangeEventHandler"/>
+	<bean id="agentLifeCycleHandler"
+		class="com.m2u.eyelink.collector.rpc.handler.AgentLifeCycleHandler" />
+	<bean id="agentLifeCycleChangeEventHandler"
+		class="com.m2u.eyelink.collector.rpc.handler.AgentLifeCycleChangeEventHandler" />
 
 	<!-- Cluster-related Beans -->
 	<bean id="targetClusterPointRepository"
@@ -168,13 +174,10 @@
 		<constructor-arg ref="defaultRouteHandler" />
 		<constructor-arg ref="streamRouteHandler" />
 	</bean>
-<!-- 
-	<bean id="clusterService"
-		class="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService">
-		<constructor-arg ref="collectorConfiguration" />
-		<constructor-arg ref="clusterPointRouter" />
-	</bean>
- -->
+	<!-- <bean id="clusterService" class="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService"> 
+		<constructor-arg ref="collectorConfiguration" /> <constructor-arg ref="clusterPointRouter" 
+		/> </bean> -->
+
 	<!-- UDPStatReceiver related Beans -->
 	<bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler" />
 
@@ -190,23 +193,70 @@
 		<constructor-arg index="2"
 			value="#{collectorConfiguration.l4IpList}" />
 	</bean>
+	
+	<!-- DispatchHandler-related Beans -->
+	<bean id="udpSpanDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpSpanDispatchHandler"/>
+	<bean id="udpSpanDispatchHandlerWrapper"
+		class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+		<constructor-arg ref="udpSpanDispatchHandler" />
+	</bean>
+
+	<!-- udpStatReceiver related Beans -->
+	<bean id="udpStatReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
+		<constructor-arg index="0" value="EyeLink-UDP-Stat" />
+		<constructor-arg index="1" ref="udpStatBasePacketHandler" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.udpStatListenIp}" />
+		<constructor-arg index="3"
+			value="#{collectorConfiguration.udpStatListenPort}" />
+		<constructor-arg index="4"
+			value="#{collectorConfiguration.udpStatSocketReceiveBufferSize}" />
+		<constructor-arg index="5" ref="udpStatWorkerOption" />
+	</bean>
+
+	<!-- UDPSpanReceiver related Beans -->
+	<bean id="udpSpanBasePacketHandler"
+		class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">
+		<constructor-arg index="0" ref="udpSpanDispatchHandlerWrapper" />
+		<constructor-arg index="1" ref="tBaseFilterChain" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.l4IpList}" />
+	</bean>
+
+   <bean id="udpSpanWorkerOption" class="com.m2u.eyelink.collector.receiver.WorkerOption">
+        <constructor-arg index="0" value="#{collectorConfiguration.udpSpanWorkerThread}"/>
+        <constructor-arg index="1" value="#{collectorConfiguration.udpSpanWorkerQueueSize}"/>
+        <constructor-arg index="2" value="#{collectorConfiguration.udpSpanWorkerMonitor}"/>
+    </bean>
+    
+	<!-- UDPSpanReceiver Beans -->
+	<bean id="udpSpanReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
+		<constructor-arg index="0" value="EyeLink-UDP-Span" />
+		<constructor-arg index="1" ref="udpSpanBasePacketHandler" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.udpSpanListenIp}" />
+		<constructor-arg index="3"
+			value="#{collectorConfiguration.udpSpanListenPort}" />
+		<constructor-arg index="4"
+			value="#{collectorConfiguration.udpSpanSocketReceiveBufferSize}" />
+		<constructor-arg index="5" ref="udpSpanWorkerOption" />
+	</bean>
 
 	<!-- TCPReceiver related Beans -->
 	<bean id="serverAcceptor" class="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" />
 
-   <util:list id="channelStateChangeEventHandlers" value-type="com.m2u.eyelink.collector.rpc.server.ServerStateChangeEventHandler">
-        <ref bean="agentLifeCycleChangeEventHandler"/> 
-    </util:list>
+	<util:list id="channelStateChangeEventHandlers"
+		value-type="com.m2u.eyelink.collector.rpc.server.ServerStateChangeEventHandler">
+		<ref bean="agentLifeCycleChangeEventHandler" />
+	</util:list>
 
 	<bean id="tcpReceiver" class="com.m2u.eyelink.collector.receiver.tcp.TCPReceiver">
 		<constructor-arg
 			type="com.m2u.eyelink.collector.config.CollectorConfiguration" ref="collectorConfiguration" />
 		<constructor-arg type="com.m2u.eyelink.collector.receiver.DispatchHandler"
 			ref="tcpDispatchHandlerWrapper" />
-		<!-- <constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor"
-			ref="serverAcceptor" />
-		<constructor-arg
-			type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService"
+		<!-- <constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" 
+			ref="serverAcceptor" /> <constructor-arg type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService" 
 			ref="clusterService" /> -->
 	</bean>
 
@@ -232,32 +282,18 @@
 			value="#{collectorConfiguration.udpStatWorkerMonitor}" />
 	</bean>
 
-
-	<!-- DispatchHandler-related Beans -->
-	<bean id="udpStatReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
-		<constructor-arg index="0" value="EyeLink-UDP-Stat" />
-		<constructor-arg index="1" ref="udpStatBasePacketHandler" />
-		<constructor-arg index="2"
-			value="#{collectorConfiguration.udpStatListenIp}" />
-		<constructor-arg index="3"
-			value="#{collectorConfiguration.udpStatListenPort}" />
-		<constructor-arg index="4"
-			value="#{collectorConfiguration.udpStatSocketReceiveBufferSize}" />
-		<constructor-arg index="5" ref="udpStatWorkerOption" />
-	</bean>
-
 	<!-- ElasticSearch -->
 	<bean id="elasticSearchConfiguration"
 		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchConfigurationFactoryBean">
 		<property name="properties">
 			<props>
-				<!--  for elaticsearch  -->
+				<!-- for elaticsearch -->
 				<prop key="elasticsearch.cluster.name">${elasticsearch.cluster.name}</prop>
 				<prop key="elasticsearch.host.ip.1">${elasticsearch.host.ip.1}</prop>
 				<prop key="elasticsearch.host.port.1">${elasticsearch.host.port.1}</prop>
 				<prop key="elasticsearch.host.ip.2">${elasticsearch.host.ip.2}</prop>
 				<prop key="elasticsearch.host.port.2">${elasticsearch.host.port.2}</prop>
-				
+
 				<prop key="hbase.zookeeper.quorum">${hbase.client.host}</prop>
 				<prop key="hbase.zookeeper.property.clientPort">${hbase.client.port}</prop>
 
@@ -347,14 +383,30 @@
 		<constructor-arg type="int" value="32" />
 	</bean>
 
-    <bean id="agentStatV2RowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
-        <constructor-arg ref="agentStatV2RangeHasher"/>
-    </bean>
+	<bean id="agentStatV2RowKeyDistributor"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+		<constructor-arg ref="agentStatV2RangeHasher" />
+	</bean>
 
-    <bean id="agentStatV2RangeHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
-        <constructor-arg type="int" value="0"/>
-        <constructor-arg type="int" value="33"/>
-        <constructor-arg type="int" value="64"/>
-    </bean>
+	<bean id="agentStatV2RangeHasher"
+		class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+		<constructor-arg type="int" value="0" />
+		<constructor-arg type="int" value="33" />
+		<constructor-arg type="int" value="64" />
+	</bean>
 
+	<bean id="agentStatRowKeyDistributor"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+		<constructor-arg ref="agentStatRangeHasher" />
+	</bean>
+
+	<bean id="agentStatRangeHasher"
+		class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+		<constructor-arg type="int" value="0" />
+		<constructor-arg type="int" value="24" />
+		<constructor-arg type="int" value="32" />
+	</bean>
+
+    <bean id="timeSlot" class="com.m2u.eyelink.collector.util.DefaultTimeSlot">
+    </bean>
 </beans>

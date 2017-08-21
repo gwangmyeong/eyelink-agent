@@ -1,0 +1,153 @@
+package com.m2u.eyelink.collector.util;
+
+import com.m2u.eyelink.common.ELAgentConstants;
+import com.m2u.eyelink.trace.HistogramSchema;
+import com.m2u.eyelink.trace.HistogramSlot;
+import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.util.AutomaticBuffer;
+import com.m2u.eyelink.util.Buffer;
+import com.m2u.eyelink.util.BytesUtils;
+
+public class ApplicationMapStatisticsUtils {
+    private ApplicationMapStatisticsUtils() {
+    }
+
+    public static byte[] makeColumnName(short serviceType, String applicationName, String destHost, short slotNumber) {
+        if (applicationName == null) {
+            throw new NullPointerException("applicationName must not be null");
+        }
+        if (destHost == null) {
+            // throw new NullPointerException("destHost must not be null");
+            destHost = "";
+        }
+        // approximate size of destHost
+        final Buffer buffer = new AutomaticBuffer(BytesUtils.SHORT_BYTE_LENGTH + ELAgentConstants.APPLICATION_NAME_MAX_LEN + destHost.length() + BytesUtils.SHORT_BYTE_LENGTH);
+        buffer.putShort(serviceType);
+        buffer.putShort(slotNumber);
+        buffer.put2PrefixedString(applicationName);
+        buffer.putBytes(BytesUtils.toBytes(destHost));
+        return buffer.getBuffer();
+    }
+
+    public static short getSlotNumber(ServiceType serviceType, int elapsed, boolean isError) {
+        return findResponseHistogramSlotNo(serviceType, elapsed, isError);
+    }
+
+
+    public static byte[] makeColumnName(String agentId, short columnSlotNumber) {
+        if (agentId == null) {
+            // null check ??
+            agentId = "";
+        }
+        final Buffer buffer = new AutomaticBuffer(agentId.length() + BytesUtils.SHORT_BYTE_LENGTH);
+        buffer.putShort(columnSlotNumber);
+
+        final byte[] agentIdBytes = BytesUtils.toBytes(agentId);
+        buffer.putBytes(agentIdBytes);
+
+        return buffer.getBuffer();
+    }
+
+
+    private static short findResponseHistogramSlotNo(ServiceType serviceType, int elapsed, boolean isError) {
+        if (serviceType == null) {
+            throw new NullPointerException("serviceType must not be null");
+        }
+        final HistogramSchema histogramSchema = serviceType.getHistogramSchema();
+        final HistogramSlot histogramSlot = histogramSchema.findHistogramSlot(elapsed, isError);
+        return histogramSlot.getSlotTime();
+    }
+
+    public static short getDestServiceTypeFromColumnName(byte[] bytes) {
+        return BytesUtils.bytesToShort(bytes, 0);
+    }
+
+    /**
+     * @param bytes
+     * @return <pre>
+     *         0 > : ms
+     *         0 : slow
+     *         -1 : error
+     *         </pre>
+     */
+    public static short getHistogramSlotFromColumnName(byte[] bytes) {
+        return BytesUtils.bytesToShort(bytes, 2);
+    }
+
+    public static String getDestApplicationNameFromColumnName(byte[] bytes) {
+        final short length = BytesUtils.bytesToShort(bytes, 4);
+        return BytesUtils.toStringAndRightTrim(bytes, 6, length);
+    }
+    
+    public static String getDestApplicationNameFromColumnNameForUser(byte[] bytes, ServiceType destServiceType) {
+        String destApplicationName = getDestApplicationNameFromColumnName(bytes);
+        String destServiceTypeName = destServiceType.getName();
+        return destApplicationName + "_" + destServiceTypeName;
+    }
+    
+    public static String getHost(byte[] bytes) {
+        int offset = 6 + BytesUtils.bytesToShort(bytes, 4);
+
+        if (offset == bytes.length) {
+            return null;
+        }
+        return BytesUtils.toStringAndRightTrim(bytes, offset, bytes.length - offset);
+    }
+
+    /**
+     * <pre>
+     * rowkey format = "APPLICATIONNAME(max 24bytes)" + apptype(2byte) + "TIMESTAMP(8byte)"
+     * </pre>
+     *
+     * @param applicationName
+     * @param timestamp
+     * @return
+     */
+    public static byte[] makeRowKey(String applicationName, short applicationType, long timestamp) {
+        if (applicationName == null) {
+            throw new NullPointerException("applicationName must not be null");
+        }
+        final byte[] applicationNameBytes= BytesUtils.toBytes(applicationName);
+
+        final Buffer buffer = new AutomaticBuffer(2 + applicationNameBytes.length + 2 + 8);
+//        buffer.put2PrefixedString(applicationName);
+        buffer.putShort((short)applicationNameBytes.length);
+        buffer.putBytes(applicationNameBytes);
+        buffer.putShort(applicationType);
+        long reverseTimeMillis = TimeUtils.reverseTimeMillis(timestamp);
+        buffer.putLong(reverseTimeMillis);
+        return buffer.getBuffer();
+    }
+
+    public static String getApplicationNameFromRowKey(byte[] bytes, int offset) {
+        if (bytes == null) {
+            throw new NullPointerException("bytes must not be null");
+        }
+        short applicationNameLength = BytesUtils.bytesToShort(bytes, offset);
+        return BytesUtils.toString(bytes, offset + 2, applicationNameLength); //.trim();
+    }
+
+    public static String getApplicationNameFromRowKey(byte[] bytes) {
+        return getApplicationNameFromRowKey(bytes, 0);
+    }
+
+    public static short getApplicationTypeFromRowKey(byte[] bytes) {
+        return getApplicationTypeFromRowKey(bytes, 0);
+    }
+
+    public static short getApplicationTypeFromRowKey(byte[] bytes, int offset) {
+        if (bytes == null) {
+            throw new NullPointerException("bytes must not be null");
+        }
+        short applicationNameLength = BytesUtils.bytesToShort(bytes, offset);
+        return BytesUtils.bytesToShort(bytes, offset + applicationNameLength + 2);
+    }
+
+    public static long getTimestampFromRowKey(byte[] bytes) {
+        if (bytes == null) {
+            throw new NullPointerException("bytes must not be null");
+        }
+        short applicationNameLength = BytesUtils.bytesToShort(bytes, 0);
+        return TimeUtils.recoveryTimeMillis(BytesUtils.bytesToLong(bytes, applicationNameLength + 4));
+    }
+}

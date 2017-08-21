@@ -78,6 +78,18 @@ public class ElasticSearchTables {
     @Deprecated public static final byte[] AGENT_STAT_COL_TRANSACTION_UNSAMPLED_NEW = Bytes.toBytes("tUnSN"); // qualifier for unsampled new count
     @Deprecated public static final byte[] AGENT_STAT_COL_TRANSACTION_UNSAMPLED_CONTINUATION = Bytes.toBytes("tUnSC"); // qualifier for unsampled continuation count
     @Deprecated public static final byte[] AGENT_STAT_COL_ACTIVE_TRACE_HISTOGRAM = Bytes.toBytes("aH"); // qualifier for active trace histogram
-
+	public static final TableName MAP_STATISTICS_CALLER_VER2 = null;
+	public static final byte[] MAP_STATISTICS_CALLER_VER2_CF_COUNTER = null;
+	public static final TableName MAP_STATISTICS_CALLEE_VER2 = null;
+	public static final byte[] MAP_STATISTICS_CALLEE_VER2_CF_COUNTER = null;
+	public static final TableName MAP_STATISTICS_SELF_VER2 = null;
+	public static final byte[] MAP_STATISTICS_SELF_VER2_CF_COUNTER = null;
+	public static final byte[] APPLICATION_TRACE_INDEX_CF_TRACE = null;
+	public static final TableName APPLICATION_TRACE_INDEX = null;
+	public static final TableName HOST_APPLICATION_MAP_VER2 = null;
+	public static final byte[] HOST_APPLICATION_MAP_VER2_CF_MAP = null;
+	public static final byte[] TRACE_V2_CF_SPAN = null;
+	public static final TableName TRACE_V2 = null;
+	public static final TableName TRACES = null;
 
 }

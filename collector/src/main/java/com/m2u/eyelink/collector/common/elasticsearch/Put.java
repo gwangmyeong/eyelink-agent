@@ -8,6 +8,10 @@ public class Put {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Put(byte[] rowKey, long acceptedTime) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void addColumn(byte[] agentinfoCfInfo, byte[] agentinfoCfInfoIdentifier, byte[] agentInfoBoValue) {
 		// TODO Auto-generated method stub
 		
@@ -22,6 +26,16 @@ public class Put {
 			ByteBuffer valueBuffer) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public long getTimeStamp() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
