@@ -41,6 +41,8 @@ public class ElasticSearchTables {
     public static final byte[] AGENT_LIFECYCLE_CF_STATUS = Bytes.toBytes("S"); // agent lifecycle column family
     public static final byte[] AGENT_LIFECYCLE_CF_STATUS_QUALI_STATES = Bytes.toBytes("states"); // qualifier for agent lifecycle states
     
+    public static final int TYPE_CODE_BYTE_LENGTH = 0;
+
     // for ElasticSearch
     public static final String INDEX_NAME_PREFIX = "elagent";  	// elagent_[agentid]-[날짜]
     public static final String TYPE_AGENT_INFO = "AgentInfo";
@@ -48,6 +50,34 @@ public class ElasticSearchTables {
 	public static final String TYPE_AGENT_LIFECYCLE = "AgentLifeCycle";
 	public static final String TYPE_APPLICATION_INDEX = "ApplicationIndex";
 	public static final String TYPE_API_METADATA = "ApiMetaData";
+	public static final String TYPE_AGENT_STAT_VER2 = "AgentStatV2";
+	public static final String TYPE_AGENT_STAT = "AgentStat";
+
+    // Time delta (in milliseconds) we can store in each row of AgentStatV2
+    public static final int AGENT_STAT_TIMESPAN_MS = 5 * 60 * 1000;
+
+    public static final byte[] AGENT_STAT_CF_STATISTICS = Bytes.toBytes("S"); // agent statistics column family
+    // FIXME (2014.08) Legacy column for storing serialzied TAgentStat Thrift DTO.
+    @Deprecated public static final byte[] AGENT_STAT_CF_STATISTICS_V1 = Bytes.toBytes("V1"); // qualifier
+    // FIXME (2015.10) Legacy column for storing serialzied Bos separately.
+    @Deprecated public static final byte[] AGENT_STAT_CF_STATISTICS_MEMORY_GC = Bytes.toBytes("Gc"); // qualifier for Heap Memory/Gc statistics
+    @Deprecated public static final byte[] AGENT_STAT_CF_STATISTICS_CPU_LOAD = Bytes.toBytes("Cpu"); // qualifier for CPU load statistics
+    // FIXME (2016.06) Legacy column for storing stat data directly to columns
+    @Deprecated public static final byte[] AGENT_STAT_COL_INTERVAL = Bytes.toBytes("int"); // qualifier for collection interval
+    @Deprecated public static final byte[] AGENT_STAT_COL_GC_TYPE = Bytes.toBytes("gcT"); // qualifier for GC type
+    @Deprecated public static final byte[] AGENT_STAT_COL_GC_OLD_COUNT = Bytes.toBytes("gcOldC"); // qualifier for GC old count
+    @Deprecated public static final byte[] AGENT_STAT_COL_GC_OLD_TIME = Bytes.toBytes("gcOldT"); // qualifier for GC old time
+    @Deprecated public static final byte[] AGENT_STAT_COL_HEAP_USED = Bytes.toBytes("hpU"); // gualifier for heap used
+    @Deprecated public static final byte[] AGENT_STAT_COL_HEAP_MAX = Bytes.toBytes("hpM"); // qualifier for heap max
+    @Deprecated public static final byte[] AGENT_STAT_COL_NON_HEAP_USED = Bytes.toBytes("nHpU"); // qualifier for non-heap used
+    @Deprecated public static final byte[] AGENT_STAT_COL_NON_HEAP_MAX = Bytes.toBytes("nHpM"); // qualifier for non-heap max
+    @Deprecated public static final byte[] AGENT_STAT_COL_JVM_CPU = Bytes.toBytes("jvmCpu"); // qualifier for JVM CPU usage
+    @Deprecated public static final byte[] AGENT_STAT_COL_SYS_CPU = Bytes.toBytes("sysCpu"); // qualifier for system CPU usage
+    @Deprecated public static final byte[] AGENT_STAT_COL_TRANSACTION_SAMPLED_NEW = Bytes.toBytes("tSN"); // qualifier for sampled new count
+    @Deprecated public static final byte[] AGENT_STAT_COL_TRANSACTION_SAMPLED_CONTINUATION = Bytes.toBytes("tSC"); // qualifier for sampled continuation count
+    @Deprecated public static final byte[] AGENT_STAT_COL_TRANSACTION_UNSAMPLED_NEW = Bytes.toBytes("tUnSN"); // qualifier for unsampled new count
+    @Deprecated public static final byte[] AGENT_STAT_COL_TRANSACTION_UNSAMPLED_CONTINUATION = Bytes.toBytes("tUnSC"); // qualifier for unsampled continuation count
+    @Deprecated public static final byte[] AGENT_STAT_COL_ACTIVE_TRACE_HISTOGRAM = Bytes.toBytes("aH"); // qualifier for active trace histogram
 
 
 }

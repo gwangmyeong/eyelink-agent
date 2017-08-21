@@ -6,9 +6,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.m2u.eyelink.collector.bo.stat.ActiveTraceBo;
+import com.m2u.eyelink.collector.bo.stat.CpuLoadBo;
+import com.m2u.eyelink.collector.bo.stat.DataSourceListBo;
+import com.m2u.eyelink.collector.bo.stat.JvmGcBo;
+import com.m2u.eyelink.collector.bo.stat.JvmGcDetailedBo;
+import com.m2u.eyelink.collector.bo.stat.TransactionBo;
+import com.m2u.eyelink.collector.dao.AgentStatDaoV2;
+import com.m2u.eyelink.collector.mapper.thrift.stat.AgentStatBatchMapper;
 import com.m2u.eyelink.collector.mapper.thrift.stat.AgentStatMapper;
-import com.m2u.eyelink.context.thrift.TAgentStat;
-import com.m2u.eyelink.context.thrift.TAgentStatBatch;
+import com.m2u.eyelink.collector.service.AgentStatService;
 
 @Service("agentStatHandlerV2")
 public class AgentStatHandlerV2 implements Handler {
@@ -19,30 +26,30 @@ public class AgentStatHandlerV2 implements Handler {
     private AgentStatMapper agentStatMapper;
 
     // FIXME add logic under commented logic
-//    @Autowired
-//    private AgentStatBatchMapper agentStatBatchMapper;
-//
-//    @Autowired
-//    private AgentStatDaoV2<JvmGcBo> jvmGcDao;
-//
-//    @Autowired
-//    private AgentStatDaoV2<JvmGcDetailedBo> jvmGcDetailedDao;
-//
-//    @Autowired
-//    private AgentStatDaoV2<CpuLoadBo> cpuLoadDao;
-//
-//    @Autowired
-//    private AgentStatDaoV2<TransactionBo> transactionDao;
-//
-//    @Autowired
-//    private AgentStatDaoV2<ActiveTraceBo> activeTraceDao;
-//
-//    @Autowired
-//    private AgentStatDaoV2<DataSourceListBo> dataSourceListDao;
-//
-//    @Autowired(required = false)
-//    private AgentStatService agentStatService;
-//
+    @Autowired
+    private AgentStatBatchMapper agentStatBatchMapper;
+
+    @Autowired
+    private AgentStatDaoV2<JvmGcBo> jvmGcDao;
+
+    @Autowired
+    private AgentStatDaoV2<JvmGcDetailedBo> jvmGcDetailedDao;
+
+    @Autowired
+    private AgentStatDaoV2<CpuLoadBo> cpuLoadDao;
+
+    @Autowired
+    private AgentStatDaoV2<TransactionBo> transactionDao;
+
+    @Autowired
+    private AgentStatDaoV2<ActiveTraceBo> activeTraceDao;
+
+    @Autowired
+    private AgentStatDaoV2<DataSourceListBo> dataSourceListDao;
+
+    @Autowired(required = false)
+    private AgentStatService agentStatService;
+
     @Override
     public void handle(TBase<?, ?> tbase) {
         // FIXME (2014.08) Legacy - TAgentStat should not be sent over the wire.
