@@ -69,6 +69,7 @@ public class ElasticSearchAgentInfoDao implements AgentInfoDao {
 //            put.addColumn(ElasticSearchTables.AGENTINFO_CF_INFO, ElasticSearchTables.AGENTINFO_CF_INFO_SERVER_META_DATA, serverMetaDataBoValue);
 //        }
 
+        // FIXME, need to implement logic to save JvmInfo, bsh
         if (agentInfo.isSetJvmInfo()) {
             JvmInfoBo jvmInfoBo = this.jvmInfoBoMapper.map(agentInfo.getJvmInfo());
             byte[] jvmInfoBoValue = jvmInfoBo.writeValue();
