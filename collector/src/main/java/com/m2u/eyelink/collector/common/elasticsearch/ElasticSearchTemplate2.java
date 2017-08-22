@@ -805,7 +805,18 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
     }
 
 	@Override
-	public boolean asyncPut(String typeAgentStat, Put put) {
+	public boolean asyncPut(String indexName, String typeName, Map mapData) {
+        assertAccessAvailable();
+        if (asyncOperation.isAvailable()) {
+            return asyncOperation.put(indexName, typeName, mapData);
+        } else {
+            put(indexName, typeName, mapData);
+            return true;
+        }
+	}
+
+	@Override
+	public boolean asyncPut(String indexName, String typeAgentStat, Put put) {
 		// TODO Auto-generated method stub
 		return false;
 	}

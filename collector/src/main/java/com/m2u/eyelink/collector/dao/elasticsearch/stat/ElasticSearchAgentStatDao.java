@@ -13,6 +13,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.dao.AgentStatDao;
 import com.m2u.eyelink.collector.dao.elasticsearch.Bytes;
 import com.m2u.eyelink.collector.mapper.thrift.ActiveTraceHistogramBoMapper;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.RowKeyUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.context.thrift.TActiveTrace;
@@ -45,7 +46,7 @@ public class ElasticSearchAgentStatDao implements AgentStatDao {
         }
         Put put = createPut(agentStat);
 
-        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchTables.TYPE_AGENT_STAT, put);
+        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentStat.getAgentId()), ElasticSearchTables.TYPE_AGENT_STAT, agentStat.getMap());
         if (!success) {
             elasticSearchTemplate.put(ElasticSearchTables.AGENT_STAT, put);
         }

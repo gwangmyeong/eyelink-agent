@@ -1,4 +1,4 @@
-package com.m2u.eyelink.collector.dao;
+package com.m2u.eyelink.collector.dao.elasticsearch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.m2u.eyelink.collector.common.elasticsearch.AbstractRowKeyDistributor;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchOperations2;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
+import com.m2u.eyelink.collector.dao.HostApplicationMapDao;
 import com.m2u.eyelink.collector.server.util.AcceptedTimeService;
 import com.m2u.eyelink.collector.util.AtomicLongUpdateMap;
 import com.m2u.eyelink.collector.util.TimeSlot;

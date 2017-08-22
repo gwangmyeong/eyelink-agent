@@ -63,4 +63,10 @@ public class DisabledElasticSearchAsyncOperation implements ElasticSearchAsyncOp
 		return Collections.emptyMap();
 	}
 
+	@Override
+	public boolean put(String indexName, String typeAgentStat, Map<String, Object> mapData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

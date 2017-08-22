@@ -7,6 +7,15 @@ public class RangeOneByteSimpleHash implements Hasher {
     protected final int end;
     private int mod;
 	
+    // TODO add by bsh
+    public RangeOneByteSimpleHash(int maxBuckets) {
+
+        this.start = 1;
+        this.end = 256;
+        // i.e. "real" maxBuckets value = maxBuckets or maxBuckets-1
+        this.mod = maxBuckets;
+    }
+    
     public RangeOneByteSimpleHash(int start, int end, int maxBuckets) {
         if (maxBuckets < 1 || maxBuckets > 256) {
             throw new IllegalArgumentException("maxBuckets should be in 1..256 range");

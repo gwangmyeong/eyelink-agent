@@ -241,9 +241,10 @@ public interface ElasticSearchOperations2 {
 
     // For ElasticSearch
     void put(String indexName, String typeName, String jsonData);
-    void put(String indexName, String typeName, Map mapData);
+    void put(String indexName, String typeName, Map<String, Object> mapData);
 	<T> T execute(String IndexName, String typeName, ActionCallback<T> action);
 
-	boolean asyncPut(String typeAgentStat, Put put);
+	boolean asyncPut(String indexName, String typeAgentStat, Put put);
+	boolean asyncPut(String indexName, String typeAgentStat, Map<String, Object> mapData);
 
 }

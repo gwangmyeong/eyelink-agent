@@ -43,16 +43,6 @@ public class ElasticSearchTables {
     
     public static final int TYPE_CODE_BYTE_LENGTH = 0;
 
-    // for ElasticSearch
-    public static final String INDEX_NAME_PREFIX = "elagent";  	// elagent_[agentid]-[날짜]
-    public static final String TYPE_AGENT_INFO = "AgentInfo";
-	public static final String TYPE_AGENT_EVENT = "AgentEvent";
-	public static final String TYPE_AGENT_LIFECYCLE = "AgentLifeCycle";
-	public static final String TYPE_APPLICATION_INDEX = "ApplicationIndex";
-	public static final String TYPE_API_METADATA = "ApiMetaData";
-	public static final String TYPE_AGENT_STAT_VER2 = "AgentStatV2";
-	public static final String TYPE_AGENT_STAT = "AgentStat";
-
     // Time delta (in milliseconds) we can store in each row of AgentStatV2
     public static final int AGENT_STAT_TIMESPAN_MS = 5 * 60 * 1000;
 
@@ -78,18 +68,37 @@ public class ElasticSearchTables {
     @Deprecated public static final byte[] AGENT_STAT_COL_TRANSACTION_UNSAMPLED_NEW = Bytes.toBytes("tUnSN"); // qualifier for unsampled new count
     @Deprecated public static final byte[] AGENT_STAT_COL_TRANSACTION_UNSAMPLED_CONTINUATION = Bytes.toBytes("tUnSC"); // qualifier for unsampled continuation count
     @Deprecated public static final byte[] AGENT_STAT_COL_ACTIVE_TRACE_HISTOGRAM = Bytes.toBytes("aH"); // qualifier for active trace histogram
-	public static final TableName MAP_STATISTICS_CALLER_VER2 = null;
-	public static final byte[] MAP_STATISTICS_CALLER_VER2_CF_COUNTER = null;
-	public static final TableName MAP_STATISTICS_CALLEE_VER2 = null;
-	public static final byte[] MAP_STATISTICS_CALLEE_VER2_CF_COUNTER = null;
-	public static final TableName MAP_STATISTICS_SELF_VER2 = null;
-	public static final byte[] MAP_STATISTICS_SELF_VER2_CF_COUNTER = null;
-	public static final byte[] APPLICATION_TRACE_INDEX_CF_TRACE = null;
-	public static final TableName APPLICATION_TRACE_INDEX = null;
-	public static final TableName HOST_APPLICATION_MAP_VER2 = null;
-	public static final byte[] HOST_APPLICATION_MAP_VER2_CF_MAP = null;
-	public static final byte[] TRACE_V2_CF_SPAN = null;
-	public static final TableName TRACE_V2 = null;
-	public static final TableName TRACES = null;
+	public static final TableName MAP_STATISTICS_CALLER_VER2 = TableName.valueOf("ApplicationMapStatisticsCaller_Ver2");
+	public static final byte[] MAP_STATISTICS_CALLER_VER2_CF_COUNTER = Bytes.toBytes("C");
+    public static final TableName MAP_STATISTICS_CALLEE_VER2 = TableName.valueOf("ApplicationMapStatisticsCallee_Ver2");
+    public static final byte[] MAP_STATISTICS_CALLEE_VER2_CF_COUNTER = Bytes.toBytes("C");
+    public static final TableName MAP_STATISTICS_SELF_VER2 = TableName.valueOf("ApplicationMapStatisticsSelf_Ver2");
+    public static final byte[] MAP_STATISTICS_SELF_VER2_CF_COUNTER = Bytes.toBytes("C");
+    public static final TableName HOST_APPLICATION_MAP_VER2 = TableName.valueOf("HostApplicationMap_Ver2");
+    public static final byte[] HOST_APPLICATION_MAP_VER2_CF_MAP = Bytes.toBytes("M");
+    public static final TableName APPLICATION_TRACE_INDEX = TableName.valueOf("ApplicationTraceIndex");
+    public static final byte[] APPLICATION_TRACE_INDEX_CF_TRACE = Bytes.toBytes("I"); // applicationIndex
+    public static final int APPLICATION_TRACE_INDEX_ROW_DISTRIBUTE_SIZE = 1; // applicationIndex hash size
+    public static final byte[] TRACE_V2_CF_SPAN = Bytes.toBytes("S");  //Span
+	public static final TableName TRACE_V2 = TableName.valueOf("TraceV2");
+	public static final TableName TRACES = TableName.valueOf("Traces");
+
+    // for ElasticSearch
+    public static final String INDEX_NAME_PREFIX = "elagent";  	// elagent_[agentid]-[날짜]
+    public static final String TYPE_AGENT_INFO = "AgentInfo";
+	public static final String TYPE_AGENT_EVENT = "AgentEvent";
+	public static final String TYPE_AGENT_LIFECYCLE = "AgentLifeCycle";
+	public static final String TYPE_APPLICATION_INDEX = "ApplicationIndex";
+	public static final String TYPE_API_METADATA = "ApiMetaData";
+	public static final String TYPE_AGENT_STAT_VER2 = "AgentStatV2";
+	public static final String TYPE_AGENT_STAT = "AgentStat";
+	public static final String TYPE_TRACE_V2 = "TraceV2";
+	public static final String TYPE_TRACES = "Traces";
+	public static final String TYPE_MAP_STATISTICS_CALLER_VER2 = "ApplicationMapStatisticsCaller_Ver2";
+	public static final String TYPE_MAP_STATISTICS_CALLEE_VER2 = "ApplicationMapStatisticsCallee_Ver2";
+	public static final String TYPE_MAP_STATISTICS_SELF_VER2 = "ApplicationMapStatisticsSelf_Ver2";
+	public static final String TYPE_HOST_APPLICATION_MAP_VER2 = "HostApplicationMap_Ver2";
+	public static final String TYPE_APPLICATION_TRACE_INDEX = "ApplicationTraceIndex";
+
 
 }

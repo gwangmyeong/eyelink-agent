@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.annotation.Generated;
 
 import org.apache.thrift.EncodingUtils;
-import org.apache.thrift.TBase;
 import org.apache.thrift.protocol.TTupleProtocol;
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
@@ -986,6 +985,20 @@ public class TAgentStat implements org.apache.thrift.TBase<TAgentStat, TAgentSta
     return sb.toString();
   }
 
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("agentId", this.agentId);
+		map.put("startTimestamp", this.startTimestamp);
+		map.put("timestamp", this.timestamp);
+		map.put("collectInterval", this.collectInterval);
+		map.put("gc", this.gc);
+		map.put("cpuLoad", this.cpuLoad);
+		map.put("transaction", this.transaction);
+		map.put("activeTrace", this.activeTrace);
+		map.put("metadata", this.metadata);
+		return map;
+	}
+	
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
     // check for sub-struct validity
@@ -1333,6 +1346,8 @@ public class TAgentStat implements org.apache.thrift.TBase<TAgentStat, TAgentSta
       }
     }
   }
+
+
 
 }
 

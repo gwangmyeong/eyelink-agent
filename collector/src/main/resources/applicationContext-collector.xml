@@ -407,6 +407,95 @@
 		<constructor-arg type="int" value="32" />
 	</bean>
 
+    <bean id="traceV2Distributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="traceV2Hasher"/>
+    </bean>
+
+    <bean id="traceV2Hasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="32"/>
+        <constructor-arg type="int" value="40"/>
+        <constructor-arg type="int" value="256"/>
+    </bean>
+
+    <bean id="hTable" class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables">
+    </bean>
+    
+    <bean id="callerMerge" class="com.m2u.eyelink.collector.dao.elasticsearch.statistics.RowKeyMerge">
+        <constructor-arg value="#{hTable.MAP_STATISTICS_CALLEE_VER2_CF_COUNTER}"/>
+    </bean>
+
+    <bean id="calleeMerge" class="com.m2u.eyelink.collector.dao.elasticsearch.statistics.RowKeyMerge">
+        <constructor-arg value="#{hTable.MAP_STATISTICS_CALLER_VER2_CF_COUNTER}"/>
+    </bean>
+
+    <bean id="selfMerge" class="com.m2u.eyelink.collector.dao.elasticsearch.statistics.RowKeyMerge">
+        <constructor-arg value="#{hTable.MAP_STATISTICS_SELF_VER2_CF_COUNTER}"/>
+    </bean>
+    
+    <bean id="statisticsCalleeRowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="statisticsCalleeHasher"/>
+    </bean>
+
+    <bean id="statisticsCalleeHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="36"/>
+        <constructor-arg type="int" value="32"/>
+    </bean>
+
+    <bean id="statisticsCallerRowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="statisticsCallerHasher"/>
+    </bean>
+
+    <bean id="statisticsCallerHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="36"/>
+        <constructor-arg type="int" value="32"/>
+    </bean>
+
+    <bean id="statisticsSelfRowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="statisticsSelfHasher"/>
+    </bean>
+
+    <bean id="statisticsSelfHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="32"/>
+        <constructor-arg type="int" value="8"/>
+    </bean>
+
+    <bean id="StdoutCommonLoggerFactory" class="com.m2u.eyelink.logging.StdoutCommonLoggerFactory">
+    </bean>
+
+    <bean id="typeLoaderService" class="com.m2u.eyelink.common.service.DefaultTraceMetadataLoaderService">
+        <constructor-arg ref="StdoutCommonLoggerFactory"/>
+    </bean>
+
+    <bean id="serviceTypeRegistryService" class="com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService">
+        <constructor-arg ref="typeLoaderService"/>
+        <constructor-arg ref="StdoutCommonLoggerFactory"/>
+    </bean>
+
+    <bean id="applicationTraceIndexDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="applicationTraceIndex"/>
+    </bean>
+
+    <bean id="applicationTraceIndex" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg>
+            <value type="int">32</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="acceptApplicationRowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="acceptApplicationHasher"/>
+    </bean>
+
+    <bean id="acceptApplicationHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <!-- Hashing parentApplicationName -->
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="24"/>
+        <constructor-arg type="int" value="4"/>
+    </bean>
+
+        
     <bean id="timeSlot" class="com.m2u.eyelink.collector.util.DefaultTimeSlot">
     </bean>
 </beans>

@@ -2063,6 +2063,58 @@ public class TSpan implements org.apache.thrift.TBase<TSpan, TSpan._Fields>, jav
     return sb.toString();
   }
 
+//  private String agentId; // required
+//  private String applicationName; // required
+//  private long agentStartTime; // required
+//  private ByteBuffer transactionId; // required
+//  private long spanId; // required
+//  private long parentSpanId; // optional
+//  private long startTime; // required
+//  private int elapsed; // optional
+//  private String rpc; // optional
+//  private short serviceType; // required
+//  private String endPoint; // optional
+//  private String remoteAddr; // optional
+//  private List<TAnnotation> annotations; // optional
+//  private short flag; // optional
+//  private int err; // optional
+//  private List<TSpanEvent> spanEventList; // optional
+//  private String parentApplicationName; // optional
+//  private short parentApplicationType; // optional
+//  private String acceptorHost; // optional
+//  private int apiId; // optional
+//  private TIntStringValue exceptionInfo; // optional
+//  private short applicationServiceType; // optional
+//  private byte loggingTransactionInfo; // optional
+
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("agentId", this.agentId);
+		map.put("applicationName", this.applicationName);
+		map.put("agentStartTime", this.agentStartTime);
+		map.put("transactionId", this.transactionId);
+		map.put("spanId", this.spanId);
+		map.put("parentSpanId", this.parentSpanId);
+		map.put("startTime", this.startTime);
+		map.put("elapsed", this.elapsed);
+		map.put("rpc", this.rpc);
+		map.put("serviceType", this.serviceType);
+		map.put("endPoint", this.endPoint);
+		map.put("remoteAddr", this.remoteAddr);
+		map.put("annotations", this.annotations);
+		map.put("flag", this.flag);
+		map.put("err", this.err);
+		map.put("spanEventList", this.spanEventList);
+		map.put("parentApplicationName", this.parentApplicationName);
+		map.put("parentApplicationType", this.parentApplicationType);
+		map.put("acceptorHost", this.acceptorHost);
+		map.put("apiId", this.apiId);
+		map.put("exceptionInfo", this.exceptionInfo);
+		map.put("applicationServiceType", this.applicationServiceType);
+		map.put("loggingTransactionInfo", this.loggingTransactionInfo);
+		return map;
+	}
+
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
     // check for sub-struct validity
@@ -2754,6 +2806,7 @@ public class TSpan implements org.apache.thrift.TBase<TSpan, TSpan._Fields>, jav
       }
     }
   }
+
 
 }
 

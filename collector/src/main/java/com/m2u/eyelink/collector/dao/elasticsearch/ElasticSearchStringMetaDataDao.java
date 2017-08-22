@@ -1,4 +1,4 @@
-package com.m2u.eyelink.collector.dao;
+package com.m2u.eyelink.collector.dao.elasticsearch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +10,7 @@ import com.m2u.eyelink.collector.bo.StringMetaDataBo;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchOperations2;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.common.elasticsearch.Put;
-import com.m2u.eyelink.collector.dao.elasticsearch.Bytes;
-import com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix;
+import com.m2u.eyelink.collector.dao.StringMetaDataDao;
 import com.m2u.eyelink.context.TStringMetaData;
 
 @Repository

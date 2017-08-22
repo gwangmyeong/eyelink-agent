@@ -1,6 +1,8 @@
 package com.m2u.eyelink.collector.bo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SpanEventBo implements Event {
 
@@ -241,4 +243,30 @@ public class SpanEventBo implements Event {
 	        builder.append("}");
 	        return builder.toString();
 	    }
+
+
+		public Map<String, Object> getMap() {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("version", this.version);
+			map.put("sequence", this.sequence);
+			map.put("startElapsed", this.startElapsed);
+			map.put("rpc", this.rpc);
+			map.put("serviceType", this.serviceType);
+			map.put("destinationId", this.destinationId);
+			map.put("endPoint", this.endPoint);
+			map.put("apiId", this.apiId);
+			map.put("annotationBoList", this.annotationBoList);
+			map.put("depth", this.depth);
+			map.put("nextSpanId", this.nextSpanId);
+			map.put("hasException", this.hasException);
+			map.put("exceptionId", this.exceptionId);
+			map.put("exceptionMessage", this.exceptionMessage);
+			map.put("exceptionClass", this.exceptionClass);
+			map.put("asyncId", this.asyncId);
+			map.put("nextAsyncId", this.nextAsyncId);
+			map.put("asyncSequence", this.asyncSequence);
+			return map;
+		}
+	    
+	    
 	}

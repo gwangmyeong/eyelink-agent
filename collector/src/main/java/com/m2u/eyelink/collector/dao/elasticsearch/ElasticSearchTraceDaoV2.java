@@ -18,6 +18,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.common.elasticsearch.TableName;
 import com.m2u.eyelink.collector.dao.SpanChunkBo;
 import com.m2u.eyelink.collector.dao.TraceDao;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.util.CollectionUtils;
 import com.m2u.eyelink.util.TransactionId;
 
@@ -50,7 +51,6 @@ public class ElasticSearchTraceDaoV2 implements TraceDao {
             throw new NullPointerException("spanBo must not be null");
         }
 
-
         long acceptedTime = spanBo.getCollectorAcceptTime();
 
         TransactionId transactionId = spanBo.getTransactionId();
@@ -60,9 +60,10 @@ public class ElasticSearchTraceDaoV2 implements TraceDao {
         this.spanSerializer.serialize(spanBo, put, null);
 
 
-        boolean success = elasticSearchTemplate.asyncPut(TRACE_V2, put);
+//        boolean success = elasticSearchTemplate.asyncPut(TRACE_V2, put);
+        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(spanBo.getAgentId()), TYPE_TRACE_V2, spanBo.getMap());
         if (!success) {
-            elasticSearchTemplate.put(TRACE_V2, put);
+            elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(spanBo.getAgentId()), TYPE_TRACE_V2, spanBo.getMap());
         }
 
     }

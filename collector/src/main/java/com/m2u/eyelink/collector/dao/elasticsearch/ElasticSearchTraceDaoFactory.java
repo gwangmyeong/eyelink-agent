@@ -19,7 +19,7 @@ public class ElasticSearchTraceDaoFactory implements FactoryBean<TraceDao> {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    @Qualifier("elasticSearchTraceDao")
+    @Qualifier("elasticSearchTraceDaoV2")
     private TraceDao v1;
 
     @Autowired
@@ -29,7 +29,7 @@ public class ElasticSearchTraceDaoFactory implements FactoryBean<TraceDao> {
     @Autowired
     private ElasticSearchAdminTemplate adminTemplate;
 
-    @Value("#{pinpoint_collector_properties['collector.span.format.compatibility.version'] ?: 'v2'}")
+    @Value("#{eyelink_collector_properties['collector.span.format.compatibility.version'] ?: 'v2'}")
     private String mode = "v2";
 
     @Override

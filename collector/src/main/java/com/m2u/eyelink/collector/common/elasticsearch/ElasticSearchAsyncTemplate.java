@@ -91,4 +91,10 @@ public class ElasticSearchAsyncTemplate implements ElasticSearchAsyncOperation {
         return hTableMultiplexer.getHTableMultiplexerStatus().getAverageLatencyForEachRegionServer();
     }
 
+	@Override
+	public boolean put(String indexName, String typeAgentStat, Map<String, Object> mapData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
