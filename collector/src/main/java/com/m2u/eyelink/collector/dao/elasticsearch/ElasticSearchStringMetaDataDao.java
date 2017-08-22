@@ -11,6 +11,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchOperations2;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.dao.StringMetaDataDao;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.context.TStringMetaData;
 
 @Repository
@@ -18,7 +19,7 @@ public class ElasticSearchStringMetaDataDao implements StringMetaDataDao {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private ElasticSearchOperations2 hbaseTemplate;
+    private ElasticSearchOperations2 elasticSearchTemplate;
 
     @Autowired
     @Qualifier("metadataRowKeyDistributor")
@@ -42,7 +43,10 @@ public class ElasticSearchStringMetaDataDao implements StringMetaDataDao {
         byte[] sqlBytes = Bytes.toBytes(stringValue);
         put.addColumn(ElasticSearchTables.STRING_METADATA_CF_STR, ElasticSearchTables.STRING_METADATA_CF_STR_QUALI_STRING, sqlBytes);
 
-        hbaseTemplate.put(ElasticSearchTables.STRING_METADATA, put);
+//        elasticSearchTemplate.put(ElasticSearchTables.STRING_METADATA, put);
+        this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(stringMetaDataBo.getAgentId()),
+				ElasticSearchTables.TYPE_STRING_METADATA, stringMetaDataBo.getMap());
+        
     }
 
     private byte[] getDistributedKey(byte[] rowKey) {

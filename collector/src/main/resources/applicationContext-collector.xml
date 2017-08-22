@@ -273,6 +273,21 @@
 	<bean id="elasticSearchManager" class="com.m2u.eyelink.collector.manage.ElasticSearchManager">
 	</bean>
 
+    <bean id="collectorMetric" class="com.m2u.eyelink.collector.monitor.CollectorMetric">
+    </bean>
+    
+    <!-- Manager-related Beans -->
+    <bean id="jmxCollectorManager" class="com.m2u.eyelink.collector.manage.jmx.JMXCollectorManager">
+    </bean>
+
+    <bean id="jmxCollectorManagerList" class="com.m2u.eyelink.collector.manage.jmx.JMXCollectorManagerList">
+    </bean>
+
+    <bean id="clusterManager" class="com.m2u.eyelink.collector.manage.ClusterManager">
+        <constructor-arg ref="collectorConfiguration"/>
+        <constructor-arg ref="targetClusterPointRepository"/>
+    </bean>
+    
 	<bean id="udpStatWorkerOption" class="com.m2u.eyelink.collector.receiver.WorkerOption">
 		<constructor-arg index="0"
 			value="#{collectorConfiguration.udpStatWorkerThread}" />
@@ -498,4 +513,6 @@
         
     <bean id="timeSlot" class="com.m2u.eyelink.collector.util.DefaultTimeSlot">
     </bean>
+    
+    
 </beans>

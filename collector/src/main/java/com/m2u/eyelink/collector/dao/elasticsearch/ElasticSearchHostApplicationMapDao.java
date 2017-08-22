@@ -1,5 +1,8 @@
 package com.m2u.eyelink.collector.dao.elasticsearch;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.dao.HostApplicationMapDao;
 import com.m2u.eyelink.collector.server.util.AcceptedTimeService;
 import com.m2u.eyelink.collector.util.AtomicLongUpdateMap;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.TimeSlot;
 import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.util.AutomaticBuffer;
@@ -77,12 +81,24 @@ public class ElasticSearchHostApplicationMapDao implements HostApplicationMapDao
         final byte[] rowKey = createRowKey(parentApplicationName, parentServiceType, statisticsRowSlot, null);
 
         byte[] columnName = createColumnName(host, bindApplicationName, bindServiceType);
-
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("host", host);
+        map.put("bindApplicationName", bindApplicationName);
+        map.put("bindServiceType", bindServiceType);
+        map.put("statisticsRowSlot", statisticsRowSlot);
+        map.put("parentApplicationName", parentApplicationName);
+        map.put("parentServiceType", parentServiceType);
         try {
-            elasticSearchTemplate.put(ElasticSearchTables.HOST_APPLICATION_MAP_VER2, rowKey, ElasticSearchTables.HOST_APPLICATION_MAP_VER2_CF_MAP, columnName, null);
+//            elasticSearchTemplate.put(ElasticSearchTables.HOST_APPLICATION_MAP_VER2, rowKey, ElasticSearchTables.HOST_APPLICATION_MAP_VER2_CF_MAP, columnName, null);
+        	
+	        	this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName("hostapplictionmap"),
+	    				ElasticSearchTables.TYPE_HOST_APPLICATION_MAP_VER2, map);
         } catch (Exception ex) {
             logger.warn("retry one. Caused:{}", ex.getCause(), ex);
-            elasticSearchTemplate.put(ElasticSearchTables.HOST_APPLICATION_MAP_VER2, rowKey, ElasticSearchTables.HOST_APPLICATION_MAP_VER2_CF_MAP, columnName, null);
+//            elasticSearchTemplate.put(ElasticSearchTables.HOST_APPLICATION_MAP_VER2, rowKey, ElasticSearchTables.HOST_APPLICATION_MAP_VER2_CF_MAP, columnName, null);
+            this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName("hostapplictionmap"),
+            		ElasticSearchTables.TYPE_HOST_APPLICATION_MAP_VER2, map);
         }
     }
 

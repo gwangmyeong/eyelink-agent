@@ -99,6 +99,6 @@ public class ElasticSearchTables {
 	public static final String TYPE_MAP_STATISTICS_SELF_VER2 = "ApplicationMapStatisticsSelf_Ver2";
 	public static final String TYPE_HOST_APPLICATION_MAP_VER2 = "HostApplicationMap_Ver2";
 	public static final String TYPE_APPLICATION_TRACE_INDEX = "ApplicationTraceIndex";
-
+	public static final String TYPE_STRING_METADATA = "StringMetaData";
 
 }
