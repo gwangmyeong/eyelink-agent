@@ -1,5 +1,8 @@
 package com.m2u.eyelink.collector.dao.elasticsearch.statistics;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
 
@@ -96,5 +99,16 @@ public class CalleeColumnName implements ColumnName {
         sb.append(", callCount=").append(callCount);
         sb.append('}');
         return sb.toString();
+    }
+    
+    public Map<String, Object> getMap() {
+    		Map<String, Object> map = new HashMap<String, Object>();
+    		map.put("callerAgentId", callerAgentId);
+    		map.put("calleeServiceType", calleeServiceType);
+    		map.put("calleeApplicationName", calleeApplicationName);
+    		map.put("callHost", callHost);
+    		map.put("columnSlotNumber", columnSlotNumber);
+    		map.put("callCount", callCount);
+    		return map;
     }
 }

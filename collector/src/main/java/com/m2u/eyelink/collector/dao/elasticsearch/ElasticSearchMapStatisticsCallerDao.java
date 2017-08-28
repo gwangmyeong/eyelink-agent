@@ -24,6 +24,7 @@ import com.m2u.eyelink.collector.dao.elasticsearch.statistics.RowKeyMerge;
 import com.m2u.eyelink.collector.server.util.AcceptedTimeService;
 import com.m2u.eyelink.collector.util.ApplicationMapStatisticsUtils;
 import com.m2u.eyelink.collector.util.ConcurrentCounterMap;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.TimeSlot;
 import com.m2u.eyelink.trace.ServiceType;
 
@@ -105,6 +106,7 @@ public class ElasticSearchMapStatisticsCallerDao implements MapStatisticsCallerD
             throw new NullPointerException("columnName must not be null");
         }
         elasticSearchTemplate.incrementColumnValue(ElasticSearchTables.MAP_STATISTICS_CALLEE_VER2, rowKey, ElasticSearchTables.MAP_STATISTICS_CALLEE_VER2_CF_COUNTER, columnName, increment);
+//        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId()), ElasticSearchTables.TYPE_AGENT_INFO, agentInfo.getMap());
     }
 
     @Override
