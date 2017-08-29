@@ -1,12 +1,15 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.slf4j.Logger;
@@ -132,5 +135,29 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
 
 	}
     
+	@Override
+	public boolean insertBulkData(String indexName, String typeName, List<Map<String,Object>> list ){
+		boolean isSuccess = true;
+	    BulkRequestBuilder bulkRequest = connection.prepareBulk();
+
+	    Iterator<Map<String,Object>> itr = list.iterator();
+
+	    if (itr.hasNext()){
+	        Map<String,Object> document = itr.next();
+	        bulkRequest.add(connection.prepareIndex(indexName, typeName)
+	                .setSource(document));
+	    }
+
+	    BulkResponse bulkResponse = bulkRequest.execute().actionGet();
+
+		if(logger.isDebugEnabled()) 
+			logger.debug("indexName : {}, typeName : {}, data : {}", indexName, typeName, list.toString());
+
+	    if (bulkResponse.hasFailures()) {
+	        System.out.println(bulkResponse.buildFailureMessage());
+	        return !isSuccess;
+	    }   
+	    return isSuccess;
+	}
     
 }

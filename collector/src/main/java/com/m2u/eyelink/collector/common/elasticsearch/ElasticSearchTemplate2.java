@@ -765,7 +765,7 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
         return getTableFactory().insertData(indexName, typeName, jsonData);
     }
 
-    public void put(String IndexName, String typeName, Map mapData) {
+    public void put(String IndexName, String typeName, Map<String, Object> mapData) {
         assertAccessAvailable();
         execute(IndexName, typeName, new ActionCallback() {
             @Override
@@ -776,10 +776,25 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
         });		
 	}
 
-    private boolean insertData(String indexName, String typeName, Map mapData) {
+    public void put(String IndexName, String typeName, List<Map<String, Object>> listData) {
+	    	assertAccessAvailable();
+	    	execute(IndexName, typeName, new ActionCallback() {
+	    		@Override
+	    		public Object doInsert() throws Throwable {
+	    			insertBulkData(IndexName, typeName, listData);
+	    			return null;
+	    		}
+	    	});		
+    }
+    
+    private boolean insertData(String indexName, String typeName, Map<String, Object> mapData) {
         return getTableFactory().insertData(indexName, typeName, mapData);
     }
 
+    private boolean insertBulkData(String indexName, String typeName, List<Map<String, Object>> listData) {
+    		return getTableFactory().insertBulkData(indexName, typeName, listData);
+    }
+    
     @Override
     public <T> T execute(String indexName, String typeName, ActionCallback<T> action) {
         Assert.notNull(action, "Callback object must not be null");
@@ -805,7 +820,7 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
     }
 
 	@Override
-	public boolean asyncPut(String indexName, String typeName, Map mapData) {
+	public boolean asyncPut(String indexName, String typeName, Map<String, Object> mapData) {
         assertAccessAvailable();
         if (asyncOperation.isAvailable()) {
             return asyncOperation.put(indexName, typeName, mapData);
@@ -813,6 +828,18 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
             put(indexName, typeName, mapData);
             return true;
         }
+	}
+	
+	@Override
+	public boolean asyncPut(String indexName, String typeName, List<Map<String, Object>> listData) {
+		assertAccessAvailable();
+		// FIXME, need to implement async logic, bsh
+//		if (asyncOperation.isAvailable()) {
+//			return asyncOperation.put(indexName, typeName, listData);
+//		} else {
+			put(indexName, typeName, listData);
+			return true;
+//		}
 	}
 
 	@Override

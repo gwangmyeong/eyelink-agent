@@ -4,13 +4,18 @@ import static org.junit.Assert.assertEquals;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.get.GetIndexRequest;
+import org.elasticsearch.action.bulk.BulkRequestBuilder;
+import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.get.MultiGetItemResponse;
@@ -140,6 +145,50 @@ public class ElasticSearchClientTest {
 		        .get();
 	}
 	
+	@Test 
+	public void insertDataListMap() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> json = new HashMap<String, Object>();
+		json.put("user","kimchy2");
+		json.put("postDate",new Date());
+		json.put("message","trying out Elasticsearch");
+		Map<String, Object> child_json = new HashMap<String, Object>();
+		child_json.put("child_user", "child_kimchy2");
+		child_json.put("child_postDate", new Date());
+		child_json.put("child_message", "trying out Elasticsearch");
+		json.put("child", child_json);
+		Map<String, Object> json2 = new HashMap<String, Object>();
+		json.put("user","kimchy3");
+		json.put("postDate",new Date());
+		json.put("message","trying out Elasticsearch");
+		
+		list.add(json);
+		list.add(json2);
+		
+		assertEquals(true, insertBulkData(indexName+"-insertdatalist", "tweet", list));
+	}
+	
+	public boolean insertBulkData(String indexName, String typeName, List<Map<String, Object>> list ){
+		boolean isSuccess = true;
+	    BulkRequestBuilder bulkRequest = client.prepareBulk();
+
+	    Iterator<Map<String,Object>> itr = list.iterator();
+
+	    if (itr.hasNext()){
+	        Map<String,Object> document = itr.next();
+	        bulkRequest.add(client.prepareIndex(indexName, typeName)
+	                .setSource(document));
+	    }
+
+	    BulkResponse bulkResponse = bulkRequest.execute().actionGet();
+
+	    if (bulkResponse.hasFailures()) {
+	        System.out.println(bulkResponse.buildFailureMessage());
+	        return !isSuccess;
+	    }   
+	    return isSuccess;
+	}
+	
 	@Test
 	public void insertDataHelper() {
 //		XContentBuilder builder = jsonBuilder()
@@ -203,7 +252,7 @@ public class ElasticSearchClientTest {
 
 	@AfterClass
 	public static void close() {
-//		deleteIndex();
+		deleteIndex();
 		
 		// close
 		client.close();

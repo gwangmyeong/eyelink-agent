@@ -1,6 +1,7 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
 import java.nio.charset.Charset;
+import java.util.List;
 
 import org.springframework.util.StringUtils;
 
@@ -49,4 +50,5 @@ public class ElasticSearchAccessor {
     public Charset getCharset() {
         return (StringUtils.hasText(encoding) ? Charset.forName(encoding) : CHARSET);
     }
+
 }

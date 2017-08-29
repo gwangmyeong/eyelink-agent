@@ -92,7 +92,13 @@ public class ElasticSearchAsyncTemplate implements ElasticSearchAsyncOperation {
     }
 
 	@Override
-	public boolean put(String indexName, String typeAgentStat, Map<String, Object> mapData) {
+	public boolean put(String indexName, String typeName, Map<String, Object> mapData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean put(String indexName, String typeName, List<Map<String, Object>> listData) {
 		// TODO Auto-generated method stub
 		return false;
 	}

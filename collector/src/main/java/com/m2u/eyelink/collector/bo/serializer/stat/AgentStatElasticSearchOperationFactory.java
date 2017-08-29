@@ -1,7 +1,10 @@
 package com.m2u.eyelink.collector.bo.serializer.stat;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -64,6 +67,39 @@ public class AgentStatElasticSearchOperationFactory {
 		return puts;
 	}
 
+	// create by bsh
+	public <T extends AgentStatDataPoint> List<Map<String, Object>> createList(List<T> agentStatDataPoints)  {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		
+		Iterator<T> iterator = agentStatDataPoints.iterator();
+		while (iterator.hasNext()) {
+			@SuppressWarnings("unchecked")
+//			Map<String, Object> map = (Map<String, Object>) iterator.next();
+			Map<String, Object> map1 = ConverBOToMap(iterator.next());
+			list.add(map1);
+	    }
+		return list;
+	}
+	
+	public Map<String, Object> ConverBOToMap(Object obj) {
+		try {
+			// Field[] fields = obj.getClass().getFields();
+			// private field는 나오지 않음.
+			Field[] fields = obj.getClass().getDeclaredFields();
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			for (int i = 0; i <= fields.length - 1; i++) {
+				fields[i].setAccessible(true);
+				resultMap.put(fields[i].getName(), fields[i].get(obj));
+			}
+			return resultMap;
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public Scan createScan(String agentId, AgentStatType agentStatType, long startTimestamp, long endTimestamp) {
 		final AgentStatRowKeyComponent startRowKeyComponent = new AgentStatRowKeyComponent(agentId, agentStatType,
 				AgentStatUtils.getBaseTimestamp(endTimestamp));

@@ -69,4 +69,10 @@ public class DisabledElasticSearchAsyncOperation implements ElasticSearchAsyncOp
 		return false;
 	}
 
+	@Override
+	public boolean put(String indexName, String typeName, List<Map<String, Object>> listData) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
+import java.util.List;
 import java.util.Map;
 
 public interface TableFactory {
@@ -26,4 +27,6 @@ public interface TableFactory {
 	boolean insertData(String indexName, String typeName, String json);
 
 	boolean insertData(String indexName, String typeName, Map<String, Object> map);
+
+	boolean insertBulkData(String indexName, String typeName, List<Map<String, Object>> list);
 }

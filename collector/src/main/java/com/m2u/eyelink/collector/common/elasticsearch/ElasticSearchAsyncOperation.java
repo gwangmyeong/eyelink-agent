@@ -28,6 +28,8 @@ public interface ElasticSearchAsyncOperation {
 
     Map<String, Long> getOpsAverageLatencyForEachRegionServer();
 
-    boolean put(String indexName, String typeAgentStat, Map<String, Object> mapData);
+    boolean put(String indexName, String typeName, Map<String, Object> mapData);
+
+	boolean put(String indexName, String typeName, List<Map<String, Object>> listData);
     
 }
