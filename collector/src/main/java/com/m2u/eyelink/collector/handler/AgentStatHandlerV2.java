@@ -95,9 +95,10 @@ public class AgentStatHandlerV2 implements Handler {
         final String agentId = agentStatBo.getAgentId();
         try {
             this.jvmGcDao.insert(agentId, agentStatBo.getJvmGcBos());
-//            this.jvmGcDetailedDao.insert(agentId, agentStatBo.getJvmGcDetailedBos());
-//            this.cpuLoadDao.insert(agentId, agentStatBo.getCpuLoadBos());
-//            this.transactionDao.insert(agentId, agentStatBo.getTransactionBos());
+            this.jvmGcDetailedDao.insert(agentId, agentStatBo.getJvmGcDetailedBos());
+            this.cpuLoadDao.insert(agentId, agentStatBo.getCpuLoadBos());
+            this.transactionDao.insert(agentId, agentStatBo.getTransactionBos());
+            // FIXME, need to fix
 //            this.activeTraceDao.insert(agentId, agentStatBo.getActiveTraceBos());
 //            this.dataSourceListDao.insert(agentId, agentStatBo.getDataSourceListBos());
         } catch (Exception e) {

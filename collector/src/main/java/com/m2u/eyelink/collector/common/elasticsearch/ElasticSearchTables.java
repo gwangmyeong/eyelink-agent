@@ -90,7 +90,12 @@ public class ElasticSearchTables {
 	public static final String TYPE_AGENT_LIFECYCLE = "AgentLifeCycle";
 	public static final String TYPE_APPLICATION_INDEX = "ApplicationIndex";
 	public static final String TYPE_API_METADATA = "ApiMetaData";
-	public static final String TYPE_AGENT_STAT_VER2 = "AgentStatV2";
+	public static final String TYPE_AGENT_STAT_JVMGC = "AgentStatJvmGc";
+	public static final String TYPE_AGENT_STAT_JVMGC_DETAIL = "AgentStatJvmGcDetail";
+	public static final String TYPE_AGENT_STAT_CPULOAD = "AgentStatCpuLoad";
+	public static final String TYPE_AGENT_STAT_TRANACTION = "AgentStatTransaction";
+	public static final String TYPE_AGENT_STAT_ACTIVE_TRACE = "AgentStatActiveTrace";
+	public static final String TYPE_AGENT_STAT_DATA_SOURCE = "AgentStatDataSource";
 	public static final String TYPE_AGENT_STAT = "AgentStat";
 	public static final String TYPE_TRACE_V2 = "TraceV2";
 	public static final String TYPE_TRACES = "Traces";

@@ -3,6 +3,7 @@ package com.m2u.eyelink.collector.dao.elasticsearch.stat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchOperations2;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.dao.AgentStatDaoV2;
+import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.util.CollectionUtils;
 
 @Repository
@@ -45,12 +47,14 @@ public class ElasticSearchDataSourceListDao implements AgentStatDaoV2<DataSource
         }
 
         List<DataSourceListBo> reorderedDataSourceListBos = reorderDataSourceListBos(dataSourceListBos);
-        List<Put> activeTracePuts = this.agentStatElasticSearchOperationFactory.createPuts(agentId, AgentStatType.DATASOURCE, reorderedDataSourceListBos, dataSourceSerializer);
-        if (!activeTracePuts.isEmpty()) {
-            List<Put> rejectedPuts = this.elasticSearchTemplate.asyncPut(ElasticSearchTables.AGENT_STAT_VER2, activeTracePuts);
-            if (CollectionUtils.isNotEmpty(rejectedPuts)) {
-                this.elasticSearchTemplate.put(ElasticSearchTables.AGENT_STAT_VER2, rejectedPuts);
+        List<Map<String, Object>> listDataSourceListBos = this.agentStatElasticSearchOperationFactory.createList(reorderedDataSourceListBos);
+        if (!listDataSourceListBos.isEmpty()) {
+            boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
+            if (!isSuccess) {
+                this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
             }
+        } else {
+        		logger.info("listDataSourceListBos is empty");
         }
     }
 

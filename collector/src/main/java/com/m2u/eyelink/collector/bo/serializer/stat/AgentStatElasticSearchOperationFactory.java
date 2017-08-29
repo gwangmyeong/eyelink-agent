@@ -89,7 +89,11 @@ public class AgentStatElasticSearchOperationFactory {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			for (int i = 0; i <= fields.length - 1; i++) {
 				fields[i].setAccessible(true);
-				resultMap.put(fields[i].getName(), fields[i].get(obj));
+				
+				// FIXME, need to modify
+				if (fields[i].getType().equals("java.util.Map")) ;
+				else 
+					resultMap.put(fields[i].getName(), fields[i].get(obj));
 			}
 			return resultMap;
 		} catch (IllegalArgumentException e) {
