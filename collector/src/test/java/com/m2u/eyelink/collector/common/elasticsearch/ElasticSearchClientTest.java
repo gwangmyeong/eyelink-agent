@@ -57,6 +57,7 @@ public class ElasticSearchClientTest {
 			// create index no mapping
 			client.admin().indices().prepareCreate(indexName).get();
 
+			deleteIndex();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -252,7 +253,7 @@ public class ElasticSearchClientTest {
 
 	@AfterClass
 	public static void close() {
-		deleteIndex();
+//		deleteIndex();
 		
 		// close
 		client.close();
