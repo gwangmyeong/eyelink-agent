@@ -66,7 +66,7 @@ public class ActiveTraceCodecV2 implements AgentStatCodec<ActiveTraceBo> {
             timestamps.add(activeTraceBo.getTimestamp());
             versionAnalyzerBuilder.addValue(activeTraceBo.getVersion());
             schemaTypeAnalyzerBuilder.addValue(activeTraceBo.getHistogramSchemaType());
-            final Map<SlotType, Integer> activeTraceCounts = activeTraceBo.getActiveTraceCounts();
+            final Map<String, Integer> activeTraceCounts = activeTraceBo.getActiveTraceCounts();
             fastTraceCountsAnalyzerBuilder.addValue(MapUtils.getIntValue(activeTraceCounts, SlotType.FAST, ActiveTraceBo.UNCOLLECTED_ACTIVE_TRACE_COUNT));
             normalTraceCountsAnalyzerBuilder.addValue(MapUtils.getIntValue(activeTraceCounts, SlotType.NORMAL, ActiveTraceBo.UNCOLLECTED_ACTIVE_TRACE_COUNT));
             slowTraceCountsAnalyzerBuilder.addValue(MapUtils.getIntValue(activeTraceCounts, SlotType.SLOW, ActiveTraceBo.UNCOLLECTED_ACTIVE_TRACE_COUNT));
@@ -147,11 +147,11 @@ public class ActiveTraceCodecV2 implements AgentStatCodec<ActiveTraceBo> {
             activeTraceBo.setTimestamp(timestamps.get(i));
             activeTraceBo.setVersion(versions.get(i));
             activeTraceBo.setHistogramSchemaType(schemaTypes.get(i));
-            Map<SlotType, Integer> activeTraceCounts = new HashMap<SlotType, Integer>();
-            activeTraceCounts.put(SlotType.FAST, fastTraceCounts.get(i));
-            activeTraceCounts.put(SlotType.NORMAL, normalTraceCounts.get(i));
-            activeTraceCounts.put(SlotType.SLOW, slowTraceCounts.get(i));
-            activeTraceCounts.put(SlotType.VERY_SLOW, verySlowTraceCounts.get(i));
+            Map<String, Integer> activeTraceCounts = new HashMap<String, Integer>();
+            activeTraceCounts.put(""+SlotType.FAST, fastTraceCounts.get(i));
+            activeTraceCounts.put(""+SlotType.NORMAL, normalTraceCounts.get(i));
+            activeTraceCounts.put(""+SlotType.SLOW, slowTraceCounts.get(i));
+            activeTraceCounts.put(""+SlotType.VERY_SLOW, verySlowTraceCounts.get(i));
             activeTraceBo.setActiveTraceCounts(activeTraceCounts);
             activeTraceBos.add(activeTraceBo);
         }

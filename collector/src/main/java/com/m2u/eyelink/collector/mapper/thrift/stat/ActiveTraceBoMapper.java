@@ -19,7 +19,7 @@ public class ActiveTraceBoMapper implements ThriftBoMapper<ActiveTraceBo, TActiv
     @Override
     public ActiveTraceBo map(TActiveTrace tActiveTrace) {
         TActiveTraceHistogram tActiveTraceHistogram = tActiveTrace.getHistogram();
-        Map<SlotType, Integer> activeTraceCounts = createActiveTraceCountMap(tActiveTraceHistogram.getActiveTraceCount());
+        Map<String, Integer> activeTraceCounts = createActiveTraceCountMap(tActiveTraceHistogram.getActiveTraceCount());
         ActiveTraceBo activeTraceBo = new ActiveTraceBo();
         activeTraceBo.setVersion(tActiveTraceHistogram.getVersion());
         activeTraceBo.setHistogramSchemaType(tActiveTraceHistogram.getHistogramSchemaType());
@@ -27,18 +27,19 @@ public class ActiveTraceBoMapper implements ThriftBoMapper<ActiveTraceBo, TActiv
         return activeTraceBo;
     }
 
-    private Map<SlotType, Integer> createActiveTraceCountMap(List<Integer> activeTraceCounts) {
+    private Map<String, Integer> createActiveTraceCountMap(List<Integer> activeTraceCounts) {
         if (activeTraceCounts == null || activeTraceCounts.isEmpty()) {
             return Collections.emptyMap();
         } else {
             if (activeTraceCounts.size() != 4) {
                 return Collections.emptyMap();
             } else {
-                Map<SlotType, Integer> activeTraceCountMap = new HashMap<SlotType, Integer>();
-                activeTraceCountMap.put(SlotType.FAST, activeTraceCounts.get(0));
-                activeTraceCountMap.put(SlotType.NORMAL, activeTraceCounts.get(1));
-                activeTraceCountMap.put(SlotType.SLOW, activeTraceCounts.get(2));
-                activeTraceCountMap.put(SlotType.VERY_SLOW, activeTraceCounts.get(3));
+                Map<String, Integer> activeTraceCountMap = new HashMap<String, Integer>();
+                // TODO SlotType 값 String 변환 로직 점검.
+                activeTraceCountMap.put(""+SlotType.FAST, activeTraceCounts.get(0));
+                activeTraceCountMap.put(""+SlotType.NORMAL, activeTraceCounts.get(1));
+                activeTraceCountMap.put(""+SlotType.SLOW, activeTraceCounts.get(2));
+                activeTraceCountMap.put(""+SlotType.VERY_SLOW, activeTraceCounts.get(3));
                 return activeTraceCountMap;
             }
         }

@@ -133,7 +133,8 @@ public class ElasticSearchClientTest {
 	public void insertDataMap() {
 		Map<String, Object> json = new HashMap<String, Object>();
 		json.put("user","kimchy2");
-		json.put("postDate",new Date());
+		json.put("postDate","2017-08-30T11:30:21.333");
+		json.put("postDate2",new Date());
 		json.put("message","trying out Elasticsearch");
 		Map<String, Object> child_json = new HashMap<String, Object>();
 		child_json.put("child_user", "child_kimchy2");
@@ -240,6 +241,7 @@ public class ElasticSearchClientTest {
 	}
 	
 	@Test
+	@Ignore
 	public void getDataUsingSearch() {
 		SearchResponse response = client.prepareSearch("twitter", "twitter-insertdata")
 		        .setTypes("type1", "type2")

@@ -21,6 +21,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.AbstractRowKeyDistributor;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.common.elasticsearch.Scan;
+import com.m2u.eyelink.collector.util.TimeUtils;
 
 @Component
 public class AgentStatElasticSearchOperationFactory {
@@ -75,13 +76,13 @@ public class AgentStatElasticSearchOperationFactory {
 		while (iterator.hasNext()) {
 			@SuppressWarnings("unchecked")
 //			Map<String, Object> map = (Map<String, Object>) iterator.next();
-			Map<String, Object> map1 = ConverBOToMap(iterator.next());
+			Map<String, Object> map1 = converBOToMap(iterator.next());
 			list.add(map1);
 	    }
 		return list;
 	}
 	
-	public Map<String, Object> ConverBOToMap(Object obj) {
+	public Map<String, Object> converBOToMap(Object obj) {
 		try {
 			// Field[] fields = obj.getClass().getFields();
 			// private field는 나오지 않음.
@@ -91,7 +92,8 @@ public class AgentStatElasticSearchOperationFactory {
 				fields[i].setAccessible(true);
 				
 				// FIXME, need to modify
-				if (fields[i].getType().equals("java.util.Map")) ;
+				if (fields[i].getName().toLowerCase().indexOf("timestamp") > -1 && fields[i].getType() == Long.TYPE)
+					resultMap.put(fields[i].getName(), TimeUtils.convertEpochToDate(fields[i].get(obj)));
 				else 
 					resultMap.put(fields[i].getName(), fields[i].get(obj));
 			}

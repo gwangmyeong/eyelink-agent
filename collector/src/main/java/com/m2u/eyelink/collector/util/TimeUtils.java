@@ -21,9 +21,9 @@ public final class TimeUtils {
         return Long.MAX_VALUE - reverseCurrentTimeMillis;
     }
     
-    public static String convertEpochToDate(long epochTimeStamp) {
+    public static String convertEpochToDate(Object object) {
 	    	Date date = new Date ();
-	    	date.setTime((long)epochTimeStamp);
+	    	date.setTime((long)object);
 	    	DateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 	    	sf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
 	    	return sf.format(date).toString();

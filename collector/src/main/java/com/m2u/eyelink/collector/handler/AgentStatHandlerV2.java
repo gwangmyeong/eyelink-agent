@@ -99,8 +99,9 @@ public class AgentStatHandlerV2 implements Handler {
             this.cpuLoadDao.insert(agentId, agentStatBo.getCpuLoadBos());
             this.transactionDao.insert(agentId, agentStatBo.getTransactionBos());
             // FIXME, need to fix
-//            this.activeTraceDao.insert(agentId, agentStatBo.getActiveTraceBos());
-//            this.dataSourceListDao.insert(agentId, agentStatBo.getDataSourceListBos());
+            this.activeTraceDao.insert(agentId, agentStatBo.getActiveTraceBos());
+            // TODO data source 정의 후 테스트 필요함.
+            this.dataSourceListDao.insert(agentId, agentStatBo.getDataSourceListBos());
         } catch (Exception e) {
             logger.warn("Error inserting AgentStatBo. Caused:{}", e.getMessage(), e);
         }

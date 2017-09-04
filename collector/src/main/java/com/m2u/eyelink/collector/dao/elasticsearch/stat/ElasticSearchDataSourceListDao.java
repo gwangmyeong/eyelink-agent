@@ -47,14 +47,18 @@ public class ElasticSearchDataSourceListDao implements AgentStatDaoV2<DataSource
         }
 
         List<DataSourceListBo> reorderedDataSourceListBos = reorderDataSourceListBos(dataSourceListBos);
-        List<Map<String, Object>> listDataSourceListBos = this.agentStatElasticSearchOperationFactory.createList(reorderedDataSourceListBos);
-        if (!listDataSourceListBos.isEmpty()) {
-            boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
-            if (!isSuccess) {
-                this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
-            }
+        if (reorderedDataSourceListBos != null) {
+	        	List<Map<String, Object>> listDataSourceListBos = this.agentStatElasticSearchOperationFactory.createList(reorderedDataSourceListBos);
+	        	if (!listDataSourceListBos.isEmpty()) {
+	        		boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
+	        		if (!isSuccess) {
+	        			this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
+	        		}
+	        	} else {
+	        		logger.info("listDataSourceListBos is empty");
+	        	}
         } else {
-        		logger.info("listDataSourceListBos is empty");
+        		logger.info("reorderedDataSourceListBos is empty");
         }
     }
 
@@ -87,8 +91,12 @@ public class ElasticSearchDataSourceListDao implements AgentStatDaoV2<DataSource
             }
         }
 
-        Collection values = dataSourceListBoMap.values();
-        return new ArrayList<DataSourceListBo>(values);
+        if (dataSourceListBoMap.values() == null) {
+        		return null;
+        } else {
+	        	Collection values = dataSourceListBoMap.values();
+	        	return new ArrayList<DataSourceListBo>(values);
+        }
     }
 
 }

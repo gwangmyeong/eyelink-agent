@@ -12,11 +12,14 @@ import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 
 import com.m2u.eyelink.collector.util.ExecutorFactory;
+
+import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 public class PooledElasticSearchFactory implements TableFactory, DisposableBean {
 
@@ -140,10 +143,43 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
 		boolean isSuccess = true;
 	    BulkRequestBuilder bulkRequest = connection.prepareBulk();
 
+	    ElasticSearchIndicesOperations esOper = new ElasticSearchIndicesOperations(connection);
+	    if (!esOper.checkIndexExists(indexName)) {
+	    		esOper.createIndex(indexName);
+	    }
+	    
 	    Iterator<Map<String,Object>> itr = list.iterator();
 
+	    boolean isTrue = true;
 	    if (itr.hasNext()){
 	        Map<String,Object> document = itr.next();
+//	        // FIXME neet to check logic to fix NumberFormatException long -> date
+	        // timestamp 필드인 경우 type 을 Date로 지정한다. 
+//	        if (isTrue) {
+//	        		XContentBuilder builder = null;
+//	        		try {
+//	        			builder = jsonBuilder()
+//	        					.startObject()
+//	        						.startObject(typeName)
+//	        							.startObject("properties");
+//	        					
+//	        			for( String key : document.keySet() ) {
+//	        				if (key.toLowerCase().indexOf("timestamp") > -1) {
+//	        					builder
+//	        						.startObject(key)
+//	        							.field("type", "date")
+//	        						.endObject();
+//	        				}
+//	        			}
+//	        			builder.endObject().endObject().endObject();
+//	        			connection.admin().indices().preparePutMapping(indexName).setType(typeName).setSource(builder).execute().actionGet();
+//	        			
+//	        		} catch (Exception e) {
+//	        			logger.error("Unabled to create mapping - index : {}, type : {}, data : {}, error : {} ", indexName, typeName, document.toString(), e.toString());
+//	        			e.printStackTrace();
+//	        		}
+//	        		isTrue = false;
+//	        }
 	        bulkRequest.add(connection.prepareIndex(indexName, typeName)
 	                .setSource(document));
 	    }

@@ -78,7 +78,7 @@ public final class MapUtils {
         return defaultValue;
     }
 
-	public static Integer getIntValue(Map<SlotType, Integer> activeTraceCounts, SlotType fast,
+	public static Integer getIntValue(Map<String, Integer> activeTraceCounts, SlotType fast,
 			int uncollectedActiveTraceCount) {
 		// TODO Auto-generated method stub
 		return null;

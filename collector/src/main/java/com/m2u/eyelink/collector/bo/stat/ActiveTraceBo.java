@@ -13,7 +13,7 @@ public class ActiveTraceBo implements AgentStatDataPoint {
     private long timestamp;
     private short version = 0;
     private int histogramSchemaType;
-    private Map<SlotType, Integer> activeTraceCounts;
+    private Map<String, Integer> activeTraceCounts;
 
     @Override
     public String getAgentId() {
@@ -66,11 +66,11 @@ public class ActiveTraceBo implements AgentStatDataPoint {
         this.histogramSchemaType = histogramSchemaType;
     }
 
-    public Map<SlotType, Integer> getActiveTraceCounts() {
+    public Map<String, Integer> getActiveTraceCounts() {
         return activeTraceCounts;
     }
 
-    public void setActiveTraceCounts(Map<SlotType, Integer> activeTraceCounts) {
+    public void setActiveTraceCounts(Map<String, Integer> activeTraceCounts) {
         this.activeTraceCounts = activeTraceCounts;
     }
 
