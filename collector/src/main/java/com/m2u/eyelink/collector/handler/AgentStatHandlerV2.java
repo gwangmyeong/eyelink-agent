@@ -98,7 +98,7 @@ public class AgentStatHandlerV2 implements Handler {
             this.jvmGcDetailedDao.insert(agentId, agentStatBo.getJvmGcDetailedBos());
             this.cpuLoadDao.insert(agentId, agentStatBo.getCpuLoadBos());
             this.transactionDao.insert(agentId, agentStatBo.getTransactionBos());
-            // FIXME, need to fix
+            // TODO request 발생해서 카운트 정산 집계 여부 테스트 필요함.
             this.activeTraceDao.insert(agentId, agentStatBo.getActiveTraceBos());
             // TODO data source 정의 후 테스트 필요함.
             this.dataSourceListDao.insert(agentId, agentStatBo.getDataSourceListBos());
