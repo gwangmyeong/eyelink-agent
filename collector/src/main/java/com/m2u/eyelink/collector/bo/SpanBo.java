@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.util.TransactionId;
 
 public class SpanBo implements Event, BasicSpan {
@@ -362,13 +363,13 @@ public class SpanBo implements Event, BasicSpan {
 		map.put("version", this.version);
 		map.put("agentId", this.agentId);
 		map.put("applicationId", this.applicationId);
-		map.put("agentStartTime", this.agentStartTime);
+		map.put("agentStartTime", TimeUtils.convertEpochToDate(this.agentStartTime));
 		map.put("transactionId", this.transactionId);
 		map.put("spanId", this.spanId);
 		map.put("parentSpanId", this.parentSpanId);
 		map.put("parentApplicationId", this.parentApplicationId);
 		map.put("parentApplicationServiceType", this.parentApplicationServiceType);
-		map.put("startTime", this.startTime);
+		map.put("startTime", TimeUtils.convertEpochToDate(this.startTime));
 		map.put("elapsed", this.elapsed);
 		map.put("rpc", this.rpc);
 		map.put("serviceType", this.serviceType);
@@ -385,12 +386,12 @@ public class SpanBo implements Event, BasicSpan {
 		}
 		map.put("spanEventBoListOrg", this.spanEventBoList);
 		map.put("spanEventBoList", listEventBo);
-		map.put("collectorAcceptTime", this.collectorAcceptTime);
+		map.put("collectorAcceptTime", TimeUtils.convertEpochToDate(this.collectorAcceptTime));
 		map.put("hasException", this.hasException);
 		map.put("exceptionId", this.exceptionId);
 		map.put("exceptionMessage", this.exceptionMessage);
 		map.put("exceptionClass", this.exceptionClass);
-		map.put("agentStartTime", this.agentStartTime);
+		map.put("agentStartTime", TimeUtils.convertEpochToDate(this.agentStartTime));
 		map.put("applicationServiceType", this.applicationServiceType);
 		map.put("acceptorHost", this.acceptorHost);
 		map.put("loggingTransactionInfo", this.loggingTransactionInfo);

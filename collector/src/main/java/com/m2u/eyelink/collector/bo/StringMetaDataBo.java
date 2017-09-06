@@ -95,7 +95,7 @@ public class StringMetaDataBo {
 	public Map<String, Object> getMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("agentId", this.agentId);
-		map.put("startTime", this.startTime);
+		map.put("startTime", TimeUtils.convertEpochToDate(this.startTime));
 		map.put("stringId", this.stringId);
 		map.put("stringValue", this.stringValue);
 		return map;

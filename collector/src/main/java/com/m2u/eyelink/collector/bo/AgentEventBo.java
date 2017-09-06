@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.m2u.eyelink.collector.util.AgentEventType;
+import com.m2u.eyelink.collector.util.TimeUtils;
 
 public class AgentEventBo {
 
@@ -126,8 +127,8 @@ public class AgentEventBo {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("version", this.version);
 		map.put("agentId", this.agentId);
-		map.put("startTimestamp", this.startTimestamp);
-		map.put("eventTimestamp", this.eventTimestamp);
+		map.put("startTimestamp", TimeUtils.convertEpochToDate(this.startTimestamp));
+		map.put("eventTimestamp", TimeUtils.convertEpochToDate(this.eventTimestamp));
 		map.put("eventType", this.getEventType().getDesc());
 		return map;
 	}

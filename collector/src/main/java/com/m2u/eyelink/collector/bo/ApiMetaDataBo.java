@@ -142,7 +142,7 @@ public class ApiMetaDataBo {
 	public Map<String, Object> getMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("agentId", this.agentId);
-		map.put("agentStartTime", this.startTime);
+		map.put("agentStartTime", TimeUtils.convertEpochToDate(this.startTime));
 		map.put("apiId", this.apiId);
 		map.put("apiInfo", this.apiInfo);
 		map.put("line", this.lineNumber);
