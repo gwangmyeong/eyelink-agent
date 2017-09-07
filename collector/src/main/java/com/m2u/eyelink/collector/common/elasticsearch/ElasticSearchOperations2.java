@@ -249,4 +249,6 @@ public interface ElasticSearchOperations2 {
 	boolean asyncPut(String indexName, String typeAgentStat, Map<String, Object> mapData);
 	boolean asyncPut(String indexName, String typeName, List<Map<String, Object>> listData);
 
+    <T> T get(String indexName, String typeName, Map<String, Object> condition, final RowMapper<T> mapper);
+
 }

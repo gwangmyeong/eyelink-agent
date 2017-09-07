@@ -11,8 +11,11 @@ import java.util.concurrent.TimeUnit;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -20,6 +23,8 @@ import org.springframework.beans.factory.DisposableBean;
 import com.m2u.eyelink.collector.util.ExecutorFactory;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 public class PooledElasticSearchFactory implements TableFactory, DisposableBean {
 
@@ -194,6 +199,23 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
 	        return !isSuccess;
 	    }   
 	    return isSuccess;
+	}
+
+	@Override
+	public SearchResponse searchData(String indexName, String typeName, Map<String, Object> cond) {
+		BoolQueryBuilder qb = boolQuery();
+		for (String key : cond.keySet()) {
+			qb.should(termQuery(key, cond.get(key)));
+		}
+		
+		SearchResponse response = connection.prepareSearch(indexName).setTypes(typeName)
+				.setQuery(qb).execute().actionGet();	
+		if (response.status().getStatus() == 200) {
+			return response;
+		} else {
+			logger.debug("indexName : {}, typeName : {}, cond : {} no data found!", indexName, typeName, cond);
+			return null;
+		}
 	}
     
 }

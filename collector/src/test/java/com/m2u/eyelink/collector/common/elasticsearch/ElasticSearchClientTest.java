@@ -1,6 +1,7 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -28,12 +29,17 @@ import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.TermQueryBuilder;
+import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import static org.elasticsearch.index.query.QueryBuilders.*;
 
 public class ElasticSearchClientTest {
 
@@ -217,9 +223,33 @@ public class ElasticSearchClientTest {
 
 	@Test
 	public void getDataById() {
-		GetResponse response = client.prepareGet("transactionlist-2017-06", "transactionList", "1").get();
+		String indexName = "elagent_test-agent-2017.09.06";
+		String typeName = "ApiMetaData";
+		
+		
+		GetResponse response = client.prepareGet(indexName, typeName, "1").get();
 		System.out.println(response.toString());
-		assertEquals(response.getIndex(), "transactionlist-2017-06");
+		assertEquals(response.getIndex(), indexName);
+	}
+
+	@Test
+	public void searchDataById() {
+		String indexName = "elagent_test-agent-2017.09.06";
+		String typeName = "ApiMetaData";
+		
+//		QueryBuilder qb = QueryBuilders.termQuery("agentId", "test-agent");
+//		QueryBuilder qb = QueryBuilders.termQuery("apiId", -2);
+		QueryBuilder qb = boolQuery()
+				.should(termQuery("agentId", "test-agent"))
+				.should(termQuery("type", 100));
+		
+		SearchResponse response = client.prepareSearch(indexName).setTypes(typeName)
+				.setQuery(qb).execute().actionGet();
+		System.out.println(response.toString());
+		for(SearchHit hit : response.getHits().getHits()) {
+			System.out.println(hit.getIndex() + ", " + hit.getType() + ", " + hit.getSource().get("apiId"));
+		}
+		assertTrue(response.getHits().totalHits > 0);
 	}
 
 	@Test

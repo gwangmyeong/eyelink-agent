@@ -1,5 +1,6 @@
 package com.m2u.eyelink.collector.bo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -255,7 +256,13 @@ public class SpanEventBo implements Event {
 			map.put("destinationId", this.destinationId);
 			map.put("endPoint", this.endPoint);
 			map.put("apiId", this.apiId);
-			map.put("annotationBoList", this.annotationBoList);
+			List<Map<String,Object>> listAnnotationBo = new ArrayList<Map<String,Object>>();
+			for(int i = 0; i < this.annotationBoList.size(); i++) {
+				AnnotationBo annotationBo = this.annotationBoList.get(i);
+				listAnnotationBo.add(annotationBo.getMap());
+			}
+			map.put("annotationBoList", listAnnotationBo);			
+//			map.put("annotationBoListOrg", this.annotationBoList);
 			map.put("depth", this.depth);
 			map.put("nextSpanId", this.nextSpanId);
 			map.put("hasException", this.hasException);

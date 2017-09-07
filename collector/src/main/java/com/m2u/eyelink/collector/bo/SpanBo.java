@@ -85,6 +85,10 @@ public class SpanBo implements Event, BasicSpan {
         this.transactionId = transactionId;
     }
     
+    public String getTranscationFullId() {
+    		return this.transactionId.getAgentId() + "^" + this.transactionId.getAgentStartTime() + "^" + this.transactionId.getTransactionSequence();
+    }
+    
     public String getAgentId() {
         return agentId;
     }
@@ -364,7 +368,7 @@ public class SpanBo implements Event, BasicSpan {
 		map.put("agentId", this.agentId);
 		map.put("applicationId", this.applicationId);
 		map.put("agentStartTime", TimeUtils.convertEpochToDate(this.agentStartTime));
-		map.put("transactionId", this.transactionId);
+		map.put("transactionId", getTranscationFullId());
 		map.put("spanId", this.spanId);
 		map.put("parentSpanId", this.parentSpanId);
 		map.put("parentApplicationId", this.parentApplicationId);
@@ -375,7 +379,13 @@ public class SpanBo implements Event, BasicSpan {
 		map.put("serviceType", this.serviceType);
 		map.put("endPoint", this.endPoint);
 		map.put("apiId", this.apiId);
-		map.put("annotationBoList", this.annotationBoList);
+//		map.put("annotationBoListOrg", this.annotationBoList);
+		List<Map<String,Object>> listAnnotationBo = new ArrayList<Map<String,Object>>();
+		for(int i = 0; i < this.annotationBoList.size(); i++) {
+			AnnotationBo annotationBo = this.annotationBoList.get(i);
+			listAnnotationBo.add(annotationBo.getMap());
+		}
+		map.put("annotationBoList", listAnnotationBo);
 		map.put("flag", this.flag);
 		map.put("errCode", this.errCode);
 
@@ -384,7 +394,7 @@ public class SpanBo implements Event, BasicSpan {
 			SpanEventBo eventBo = this.spanEventBoList.get(i);
 			listEventBo.add(eventBo.getMap());
 		}
-		map.put("spanEventBoListOrg", this.spanEventBoList);
+//		map.put("spanEventBoListOrg", this.spanEventBoList);
 		map.put("spanEventBoList", listEventBo);
 		map.put("collectorAcceptTime", TimeUtils.convertEpochToDate(this.collectorAcceptTime));
 		map.put("hasException", this.hasException);

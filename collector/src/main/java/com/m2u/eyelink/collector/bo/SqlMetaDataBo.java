@@ -1,5 +1,8 @@
 package com.m2u.eyelink.collector.bo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.m2u.eyelink.collector.util.RowKeyUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.common.ELAgentConstants;
@@ -102,6 +105,17 @@ public class SqlMetaDataBo {
                 ", sqlId=" + sqlId +
                 ", sql='" + sql + '\'' +
                 '}';
+    }
+    
+    public Map<String, Object> getMap() {
+    		Map<String, Object> map = new HashMap<String, Object>();
+    		map.put("agentId", this.agentId);
+    		map.put("startTime", TimeUtils.convertEpochToDate(this.startTime));
+    		map.put("sqlId", this.sqlId);
+    		map.put("sql", this.sql);
+    		
+    		return map;
+    	
     }
 
 }

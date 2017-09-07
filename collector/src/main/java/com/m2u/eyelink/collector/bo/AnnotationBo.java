@@ -1,5 +1,8 @@
 package com.m2u.eyelink.collector.bo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AnnotationBo {
 
     private int key;
@@ -45,4 +48,11 @@ public class AnnotationBo {
                 ", isAuthorized=" + isAuthorized +
                 '}';
     }
+
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("key", this.key);
+		map.put("value", this.value);
+		return null;
+	}
 }

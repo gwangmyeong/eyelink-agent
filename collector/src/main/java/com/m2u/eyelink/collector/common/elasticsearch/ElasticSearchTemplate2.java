@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.zookeeper.Op.Delete;
+import org.elasticsearch.action.search.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
@@ -754,7 +755,7 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
         assertAccessAvailable();
         execute(IndexName, typeName, new ActionCallback() {
             @Override
-            public Object doInsert() throws Throwable {
+            public Object doActionGet() throws Throwable {
                 insertData(IndexName, typeName, jsonData);
                 return null;
             }
@@ -769,7 +770,7 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
         assertAccessAvailable();
         execute(IndexName, typeName, new ActionCallback() {
             @Override
-            public Object doInsert() throws Throwable {
+            public Object doActionGet() throws Throwable {
                 insertData(IndexName, typeName, mapData);
                 return null;
             }
@@ -780,7 +781,7 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
 	    	assertAccessAvailable();
 	    	execute(IndexName, typeName, new ActionCallback() {
 	    		@Override
-	    		public Object doInsert() throws Throwable {
+	    		public Object doActionGet() throws Throwable {
 	    			insertBulkData(IndexName, typeName, listData);
 	    			return null;
 	    		}
@@ -794,7 +795,11 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
     private boolean insertBulkData(String indexName, String typeName, List<Map<String, Object>> listData) {
     		return getTableFactory().insertBulkData(indexName, typeName, listData);
     }
-    
+
+    private SearchResponse searchData(String indexName, String typeName, Map<String, Object> cond) {
+		return getTableFactory().searchData(indexName, typeName, cond);
+    }
+
     @Override
     public <T> T execute(String indexName, String typeName, ActionCallback<T> action) {
         Assert.notNull(action, "Callback object must not be null");
@@ -803,7 +808,7 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
         assertAccessAvailable();
 
         try {
-            T result = action.doInsert();
+            T result = action.doActionGet();
             return result;
         } catch (Throwable e) {
             if (e instanceof Error) {
@@ -847,5 +852,26 @@ public class ElasticSearchTemplate2 extends ElasticSearchAccessor implements Ela
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public <T> T get(String indexName, String typeName, Map<String, Object> condition, RowMapper<T> mapper) {
+        assertAccessAvailable();
+        return execute(indexName, typeName, new ActionCallback<T>() {
+//            @Override
+//            public T doInTable() throws Throwable {
+//                Result result = table.get(get);
+//                return mapper.mapRow(result, 0);
+//            }
+
+			@Override
+			public T doActionGet() throws Throwable {
+				SearchResponse sres = searchData(indexName, typeName, condition);
+				return mapper.mapRow(sres, 0);
+			}
+
+        });
+	}
+
+
 
 }

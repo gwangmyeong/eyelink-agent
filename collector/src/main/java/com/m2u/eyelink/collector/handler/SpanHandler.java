@@ -15,6 +15,7 @@ import com.m2u.eyelink.collector.bo.SpanFactory;
 import com.m2u.eyelink.collector.dao.ApplicationTraceIndexDao;
 import com.m2u.eyelink.collector.dao.HostApplicationMapDao;
 import com.m2u.eyelink.collector.dao.TraceDao;
+import com.m2u.eyelink.collector.dao.TraceDetailDao;
 import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
 import com.m2u.eyelink.context.thrift.TSpan;
 import com.m2u.eyelink.trace.ServiceType;
@@ -28,6 +29,9 @@ public class SpanHandler implements SimpleHandler {
     @Autowired
     @Qualifier("elasticSearchTraceDaoFactory")
     private TraceDao traceDao;
+
+    @Autowired
+    private TraceDetailDao traceDetailDao;
 
     @Autowired
     private ApplicationTraceIndexDao applicationTraceIndexDao;
@@ -60,8 +64,9 @@ public class SpanHandler implements SimpleHandler {
             final SpanBo spanBo = spanFactory.buildSpanBo(tSpan);
 
             traceDao.insert(spanBo);
+            traceDetailDao.insert(spanBo);
             applicationTraceIndexDao.insert(tSpan);
-
+            
             // insert statistics info for server map
             insertAcceptorHost(spanBo);
             insertSpanStat(spanBo);

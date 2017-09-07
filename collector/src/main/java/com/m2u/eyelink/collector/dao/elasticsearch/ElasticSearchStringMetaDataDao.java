@@ -1,5 +1,9 @@
 package com.m2u.eyelink.collector.dao.elasticsearch;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import com.m2u.eyelink.collector.bo.StringMetaDataBo;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchOperations2;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 import com.m2u.eyelink.collector.common.elasticsearch.Put;
+import com.m2u.eyelink.collector.common.elasticsearch.RowMapper;
 import com.m2u.eyelink.collector.dao.StringMetaDataDao;
 import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.context.TStringMetaData;
@@ -25,6 +30,10 @@ public class ElasticSearchStringMetaDataDao implements StringMetaDataDao {
     @Qualifier("metadataRowKeyDistributor")
     private RowKeyDistributorByHashPrefix rowKeyDistributorByHashPrefix;
 
+    @Autowired
+    @Qualifier("stringMetaDataMapper")
+    private RowMapper<List<StringMetaDataBo>> stringMetaDataMapper;
+    
     @Override
     public void insert(TStringMetaData stringMetaData) {
         if (stringMetaData == null) {
@@ -52,4 +61,17 @@ public class ElasticSearchStringMetaDataDao implements StringMetaDataDao {
     private byte[] getDistributedKey(byte[] rowKey) {
         return rowKeyDistributorByHashPrefix.getDistributedKey(rowKey);
     }
+
+	@Override
+	public List<StringMetaDataBo> getStringMetaData(String agentId, long agentStartTime, int stringMetaDataId) {
+        if (agentId == null) {
+            throw new NullPointerException("agentId must not be null");
+        }
+
+        Map<String, Object> cond = new HashMap<String, Object>();
+        cond.put("agentId", agentId);
+        cond.put("agentStartTime", agentStartTime);
+        cond.put("stringMetaDataId", stringMetaDataId);
+        return elasticSearchTemplate.get(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_STRING_METADATA,  cond, stringMetaDataMapper);
+	}
 }
