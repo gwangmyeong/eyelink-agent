@@ -53,6 +53,6 @@ public class AnnotationBo {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("key", this.key);
 		map.put("value", this.value);
-		return null;
+		return map;
 	}
 }
