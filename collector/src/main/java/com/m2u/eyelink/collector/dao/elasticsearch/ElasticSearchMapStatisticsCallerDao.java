@@ -1,5 +1,8 @@
 package com.m2u.eyelink.collector.dao.elasticsearch;
 
+import static com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables.*;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +29,7 @@ import com.m2u.eyelink.collector.util.ApplicationMapStatisticsUtils;
 import com.m2u.eyelink.collector.util.ConcurrentCounterMap;
 import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.TimeSlot;
+import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.trace.ServiceType;
 
 @Repository
@@ -128,4 +132,44 @@ public class ElasticSearchMapStatisticsCallerDao implements MapStatisticsCallerD
     private byte[] getDistributedKey(byte[] rowKey) {
         return rowKeyDistributorByHashPrefix.getDistributedKey(rowKey);
     }
+
+	@Override
+	public void insert(String callerApplicationName, ServiceType callerServiceType, String callerAgentId,
+			String calleeApplicationName, ServiceType calleeServiceType, String calleeHost, long startTime, int elapsed,
+			boolean isError) {
+        if (callerApplicationName == null) {
+            throw new NullPointerException("callerApplicationName must not be null");
+        }
+        if (calleeApplicationName == null) {
+            throw new NullPointerException("calleeApplicationName must not be null");
+        }
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("[Caller] {} ({}) {} -> {} ({})[{}]", callerApplicationName, callerServiceType, callerAgentId,
+                    calleeApplicationName, calleeServiceType, calleeHost);
+        }
+
+        // there may be no endpoint in case of httpclient
+        calleeHost = StringUtils.defaultString(calleeHost);
+		
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("agentId", callerAgentId);
+        map.put("applicatoinId", callerApplicationName);
+        map.put("serviceType", callerServiceType.getCode());
+        map.put("serviceTypeName", callerServiceType.getName());
+        map.put("toApplicatoinId", calleeApplicationName);
+        map.put("toServiceType", calleeServiceType.getCode());
+        map.put("toServiceTypeName", calleeServiceType.getName());
+        map.put("toCalleeHost", calleeHost);
+        map.put("startTime", TimeUtils.convertEpochToDate(startTime));
+        map.put("elapsed", elapsed);
+        map.put("isError", isError);
+        
+        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(callerAgentId),
+        		TYPE_APPLICATION_LINK_DATA, map);
+		if (!success) {
+			elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(callerAgentId), TYPE_APPLICATION_LINK_DATA,
+					map);
+		}
+	}
 }

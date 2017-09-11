@@ -24,176 +24,218 @@ import com.m2u.eyelink.util.CollectionUtils;
 @Service
 public class SpanHandler implements SimpleHandler {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    @Qualifier("elasticSearchTraceDaoFactory")
-    private TraceDao traceDao;
+	@Autowired
+	@Qualifier("elasticSearchTraceDaoFactory")
+	private TraceDao traceDao;
 
-    @Autowired
-    private TraceDetailDao traceDetailDao;
+	@Autowired
+	private TraceDetailDao traceDetailDao;
 
-    @Autowired
-    private ApplicationTraceIndexDao applicationTraceIndexDao;
+	@Autowired
+	private ApplicationTraceIndexDao applicationTraceIndexDao;
 
-    @Autowired
-    private StatisticsHandler statisticsHandler;
+	@Autowired
+	private StatisticsHandler statisticsHandler;
 
-    @Autowired
-    private HostApplicationMapDao hostApplicationMapDao;
+	@Autowired
+	private HostApplicationMapDao hostApplicationMapDao;
 
-    @Autowired
-    private ServiceTypeRegistryService registry;
+	@Autowired
+	private ServiceTypeRegistryService registry;
 
-    @Autowired
-    private SpanFactory spanFactory;
+	@Autowired
+	private SpanFactory spanFactory;
 
-    public void handleSimple(TBase<?, ?> tbase) {
+	public void handleSimple(TBase<?, ?> tbase) {
 
-        if (!(tbase instanceof TSpan)) {
-            throw new IllegalArgumentException("unexpected tbase:" + tbase + " expected:" + this.getClass().getName());
-        }
+		if (!(tbase instanceof TSpan)) {
+			throw new IllegalArgumentException("unexpected tbase:" + tbase + " expected:" + this.getClass().getName());
+		}
 
-        try {
-            final TSpan tSpan = (TSpan) tbase;
-            if (logger.isDebugEnabled()) {
-                logger.debug("Received SPAN={}", tSpan);
-            }
+		try {
+			final TSpan tSpan = (TSpan) tbase;
+			if (logger.isDebugEnabled()) {
+				logger.debug("Received SPAN={}", tSpan);
+			}
 
+			final SpanBo spanBo = spanFactory.buildSpanBo(tSpan);
 
-            final SpanBo spanBo = spanFactory.buildSpanBo(tSpan);
+			traceDao.insert(spanBo);
+			traceDetailDao.insert(spanBo);
+			applicationTraceIndexDao.insert(tSpan);
 
-            traceDao.insert(spanBo);
-            traceDetailDao.insert(spanBo);
-            applicationTraceIndexDao.insert(tSpan);
-            
-            // insert statistics info for server map
-            insertAcceptorHost(spanBo);
-            insertSpanStat(spanBo);
-            insertSpanEventStat(spanBo);
-        } catch (Exception e) {
-            logger.warn("Span handle error. Caused:{}. Span:{}",e.getMessage(), tbase, e);
-        }
-    }
+			// insert statistics info for server map
+			insertAcceptorHost(spanBo);
+			insertSpanStat(spanBo);
+			insertSpanEventStat(spanBo);
+		} catch (Exception e) {
+			logger.warn("Span handle error. Caused:{}. Span:{}", e.getMessage(), tbase, e);
+		}
+	}
 
+	private void insertSpanStat(SpanBo span) {
+		final ServiceType applicationServiceType = getApplicationServiceType(span);
+		final ServiceType spanServiceType = registry.findServiceType(span.getServiceType());
 
-    private void insertSpanStat(SpanBo span) {
-        final ServiceType applicationServiceType = getApplicationServiceType(span);
-        final ServiceType spanServiceType = registry.findServiceType(span.getServiceType());
+		final boolean isError = span.getErrCode() != 0;
+		int bugCheck = 0;
+		if (span.getParentSpanId() == -1) {
+			if (spanServiceType.isQueue()) {
+				// FIXME bsh delete updateCaller, updateCallee
+				// create virtual queue node
+				statisticsHandler.updateCaller(span.getAcceptorHost(), spanServiceType, span.getRemoteAddr(),
+						span.getApplicationId(), applicationServiceType, span.getEndPoint(), span.getElapsed(),
+						isError);
 
-        final boolean isError = span.getErrCode() != 0;
-        int bugCheck = 0;
-        if (span.getParentSpanId() == -1) {
-            if (spanServiceType.isQueue()) {
-                // create virtual queue node
-                statisticsHandler.updateCaller(span.getAcceptorHost(), spanServiceType, span.getRemoteAddr(), span.getApplicationId(), applicationServiceType, span.getEndPoint(), span.getElapsed(), isError);
+				statisticsHandler.updateCallee(span.getApplicationId(), applicationServiceType, span.getAcceptorHost(),
+						spanServiceType, span.getAgentId(), span.getElapsed(), isError);
 
-                statisticsHandler.updateCallee(span.getApplicationId(), applicationServiceType, span.getAcceptorHost(), spanServiceType, span.getAgentId(), span.getElapsed(), isError);
-            } else {
-                // create virtual user
-                statisticsHandler.updateCaller(span.getApplicationId(), ServiceType.USER, span.getAgentId(), span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getElapsed(), isError);
+				// bsh, insert applicationMapData
+				statisticsHandler.putApplicationMap(span.getApplicationId(), ServiceType.USER, span.getAgentId(),
+						span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getStartTime(),
+						span.getElapsed(), isError);
 
-                // update the span information of the current node (self)
-                statisticsHandler.updateCallee(span.getApplicationId(), applicationServiceType, span.getApplicationId(), ServiceType.USER, span.getAgentId(), span.getElapsed(), isError);
-            }
-            bugCheck++;
-        }
+			} else {
+				// create virtual user
+				statisticsHandler.updateCaller(span.getApplicationId(), ServiceType.USER, span.getAgentId(),
+						span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getElapsed(), isError);
 
-        // save statistics info only when parentApplicationContext exists
-        // when drawing server map based on statistics info, you must know the application name of the previous node.
-        if (span.getParentApplicationId() != null) {
-            String parentApplicationName = span.getParentApplicationId();
-            logger.debug("Received parent application name. {}", parentApplicationName);
+				// update the span information of the current node (self)
+				statisticsHandler.updateCallee(span.getApplicationId(), applicationServiceType, span.getApplicationId(),
+						ServiceType.USER, span.getAgentId(), span.getElapsed(), isError);
 
-            ServiceType parentApplicationType = registry.findServiceType(span.getParentApplicationServiceType());
+				// bsh, insert applicationMapData
+				statisticsHandler.putApplicationMap(span.getApplicationId(), ServiceType.USER, span.getAgentId(),
+						span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getStartTime(),
+						span.getElapsed(), isError);
+			}
+			bugCheck++;
+		}
 
-            // create virtual queue node if current' span's service type is a queue AND :
-            // 1. parent node's application service type is not a queue (it may have come from a queue that is traced)
-            // 2. current node's application service type is not a queue (current node may be a queue that is traced)
-            if (spanServiceType.isQueue()) {
-                if (!applicationServiceType.isQueue() && !parentApplicationType.isQueue()) {
-                    // emulate virtual queue node's accept Span and record it's acceptor host
-                    hostApplicationMapDao.insert(span.getRemoteAddr(), span.getAcceptorHost(), spanServiceType.getCode(), parentApplicationName, parentApplicationType.getCode());
-                    // emulate virtual queue node's send SpanEvent
-                    statisticsHandler.updateCaller(span.getAcceptorHost(), spanServiceType, span.getRemoteAddr(), span.getApplicationId(), applicationServiceType, span.getEndPoint(), span.getElapsed(), isError);
+		// save statistics info only when parentApplicationContext exists
+		// when drawing server map based on statistics info, you must know the
+		// application name of the previous node.
+		if (span.getParentApplicationId() != null) {
+			String parentApplicationName = span.getParentApplicationId();
+			logger.debug("Received parent application name. {}", parentApplicationName);
 
-                    parentApplicationName = span.getAcceptorHost();
-                    parentApplicationType = spanServiceType;
-                }
-            }
+			ServiceType parentApplicationType = registry.findServiceType(span.getParentApplicationServiceType());
 
-            statisticsHandler.updateCallee(span.getApplicationId(), applicationServiceType, parentApplicationName, parentApplicationType, span.getAgentId(), span.getElapsed(), isError);
-            bugCheck++;
-        }
+			// create virtual queue node if current' span's service type is a queue AND :
+			// 1. parent node's application service type is not a queue (it may have come
+			// from a queue that is traced)
+			// 2. current node's application service type is not a queue (current node may
+			// be a queue that is traced)
+			if (spanServiceType.isQueue()) {
+				if (!applicationServiceType.isQueue() && !parentApplicationType.isQueue()) {
+					// emulate virtual queue node's accept Span and record it's acceptor host
+					hostApplicationMapDao.insert(span.getRemoteAddr(), span.getAcceptorHost(),
+							spanServiceType.getCode(), parentApplicationName, parentApplicationType.getCode());
+					// emulate virtual queue node's send SpanEvent
+					statisticsHandler.updateCaller(span.getAcceptorHost(), spanServiceType, span.getRemoteAddr(),
+							span.getApplicationId(), applicationServiceType, span.getEndPoint(), span.getElapsed(),
+							isError);
 
-        // record the response time of the current node (self).
-        // blow code may be conflict of idea above callee key.
-        // it is odd to record reversely, because of already recording the caller data at previous node.
-        // the data may be different due to timeout or network error.
-        
-        statisticsHandler.updateResponseTime(span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getElapsed(), isError);
+					parentApplicationName = span.getAcceptorHost();
+					parentApplicationType = spanServiceType;
+				}
+			}
 
-        if (bugCheck != 1) {
-            logger.warn("ambiguous span found(bug). span:{}", span);
-        }
-    }
+			// FIXME bsh delete updateCaller, updateCallee
+			statisticsHandler.updateCallee(span.getApplicationId(), applicationServiceType, parentApplicationName,
+					parentApplicationType, span.getAgentId(), span.getElapsed(), isError);
 
-    private void insertSpanEventStat(SpanBo span) {
+			// bsh, insert applicationMapData
+			statisticsHandler.putApplicationMap(parentApplicationName, parentApplicationType, span.getAgentId(),
+					span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getStartTime(),
+					span.getElapsed(), isError);
 
-        final List<SpanEventBo> spanEventList = span.getSpanEventBoList();
-        if (CollectionUtils.isEmpty(spanEventList)) {
-            return;
-        }
+			bugCheck++;
+		}
 
-        final ServiceType applicationServiceType = getApplicationServiceType(span);
+		// record the response time of the current node (self).
+		// blow code may be conflict of idea above callee key.
+		// it is odd to record reversely, because of already recording the caller data
+		// at previous node.
+		// the data may be different due to timeout or network error.
 
-        logger.debug("handle spanEvent size:{}", spanEventList.size());
-        // TODO need to batch update later.
-        for (SpanEventBo spanEvent : spanEventList) {
-            final ServiceType spanEventType = registry.findServiceType(spanEvent.getServiceType());
-            if (!spanEventType.isRecordStatistics()) {
-                continue;
-            }
+		statisticsHandler.updateResponseTime(span.getApplicationId(), applicationServiceType, span.getAgentId(),
+				span.getElapsed(), isError);
 
-            // if terminal update statistics
-            final int elapsed = spanEvent.getEndElapsed();
-            final boolean hasException = spanEvent.hasException();
+		if (bugCheck != 1) {
+			logger.warn("ambiguous span found(bug). span:{}", span);
+		}
+	}
 
-            /*
-             * save information to draw a server map based on statistics
-             */
-            // save the information of caller (the spanevent that called span)
-            statisticsHandler.updateCaller(span.getApplicationId(), applicationServiceType, span.getAgentId(), spanEvent.getDestinationId(), spanEventType, spanEvent.getEndPoint(), elapsed, hasException);
+	private void insertSpanEventStat(SpanBo span) {
 
-            // save the information of callee (the span that spanevent called)
-            statisticsHandler.updateCallee(spanEvent.getDestinationId(), spanEventType, span.getApplicationId(), applicationServiceType, span.getEndPoint(), elapsed, hasException);
-        }
-    }
+		final List<SpanEventBo> spanEventList = span.getSpanEventBoList();
+		if (CollectionUtils.isEmpty(spanEventList)) {
+			return;
+		}
 
-    private void insertAcceptorHost(SpanBo span) {
-        // save host application map
-        // acceptor host is set at profiler module only when the span is not the kind of root span
-        final String acceptorHost = span.getAcceptorHost();
-        if (acceptorHost == null) {
-            return;
-        }
-        final String spanApplicationName = span.getApplicationId();
-        final short applicationServiceTypeCode = getApplicationServiceType(span).getCode();
+		final ServiceType applicationServiceType = getApplicationServiceType(span);
 
-        final String parentApplicationName = span.getParentApplicationId();
-        final short parentServiceType = span.getParentApplicationServiceType();
+		logger.debug("handle spanEvent size:{}", spanEventList.size());
+		// TODO need to batch update later.
+		for (SpanEventBo spanEvent : spanEventList) {
+			final ServiceType spanEventType = registry.findServiceType(spanEvent.getServiceType());
+			if (!spanEventType.isRecordStatistics()) {
+				continue;
+			}
 
-        final ServiceType spanServiceType = registry.findServiceType(span.getServiceType());
-        if (spanServiceType.isQueue()) {
-            hostApplicationMapDao.insert(span.getEndPoint(), spanApplicationName, applicationServiceTypeCode, parentApplicationName, parentServiceType);
-        } else {
-            hostApplicationMapDao.insert(acceptorHost, spanApplicationName, applicationServiceTypeCode, parentApplicationName, parentServiceType);
-        }
-    }
-    
-    private ServiceType getApplicationServiceType(SpanBo span) {
-        // Check if applicationServiceType is set. If not, use span's service type.
-        final short applicationServiceTypeCode = span.getApplicationServiceType();
-        return registry.findServiceType(applicationServiceTypeCode);
-    }
+			// if terminal update statistics
+			final int elapsed = spanEvent.getEndElapsed();
+			final boolean hasException = spanEvent.hasException();
+
+			// FIXME bsh delete updateCaller, updateCallee
+			/*
+			 * save information to draw a server map based on statistics
+			 */
+			// save the information of caller (the spanevent that called span)
+			statisticsHandler.updateCaller(span.getApplicationId(), applicationServiceType, span.getAgentId(),
+					spanEvent.getDestinationId(), spanEventType, spanEvent.getEndPoint(), elapsed, hasException);
+
+			// save the information of callee (the span that spanevent called)
+			statisticsHandler.updateCallee(spanEvent.getDestinationId(), spanEventType, span.getApplicationId(),
+					applicationServiceType, span.getEndPoint(), elapsed, hasException);
+
+			// bsh, insert applicationMapData
+			statisticsHandler.putApplicationMap(span.getApplicationId(), applicationServiceType, span.getAgentId(),
+					spanEvent.getDestinationId(), spanEventType, spanEvent.getEndPoint(), span.getStartTime(), elapsed, hasException);
+
+		}
+	}
+
+	private void insertAcceptorHost(SpanBo span) {
+		// save host application map
+		// acceptor host is set at profiler module only when the span is not the kind of
+		// root span
+		final String acceptorHost = span.getAcceptorHost();
+		if (acceptorHost == null) {
+			return;
+		}
+		final String spanApplicationName = span.getApplicationId();
+		final short applicationServiceTypeCode = getApplicationServiceType(span).getCode();
+
+		final String parentApplicationName = span.getParentApplicationId();
+		final short parentServiceType = span.getParentApplicationServiceType();
+
+		final ServiceType spanServiceType = registry.findServiceType(span.getServiceType());
+		if (spanServiceType.isQueue()) {
+			hostApplicationMapDao.insert(span.getEndPoint(), spanApplicationName, applicationServiceTypeCode,
+					parentApplicationName, parentServiceType);
+		} else {
+			hostApplicationMapDao.insert(acceptorHost, spanApplicationName, applicationServiceTypeCode,
+					parentApplicationName, parentServiceType);
+		}
+	}
+
+	private ServiceType getApplicationServiceType(SpanBo span) {
+		// Check if applicationServiceType is set. If not, use span's service type.
+		final short applicationServiceTypeCode = span.getApplicationServiceType();
+		return registry.findServiceType(applicationServiceTypeCode);
+	}
 }

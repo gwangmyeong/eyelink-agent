@@ -202,6 +202,7 @@
 	</bean>
 
 	<!-- udpStatReceiver related Beans -->
+<!-- 
 	<bean id="udpStatReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
 		<constructor-arg index="0" value="EyeLink-UDP-Stat" />
 		<constructor-arg index="1" ref="udpStatBasePacketHandler" />
@@ -213,7 +214,8 @@
 			value="#{collectorConfiguration.udpStatSocketReceiveBufferSize}" />
 		<constructor-arg index="5" ref="udpStatWorkerOption" />
 	</bean>
-
+ -->
+ 
 	<!-- UDPSpanReceiver related Beans -->
 	<bean id="udpSpanBasePacketHandler"
 		class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">

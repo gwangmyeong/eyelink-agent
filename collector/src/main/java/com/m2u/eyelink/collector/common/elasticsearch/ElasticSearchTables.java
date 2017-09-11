@@ -101,8 +101,8 @@ public class ElasticSearchTables {
 	public static final String TYPE_TRACE_V2 = "TraceV2";
 	public static final String TYPE_TRACE_DETAIL = "TraceDetail";
 	public static final String TYPE_TRACES = "Traces";
+	public static final String TYPE_APPLICATION_LINK_DATA = "ApplicationLinkData";
 	public static final String TYPE_MAP_STATISTICS_CALLER_VER2 = "ApplicationMapStatisticsCaller_Ver2";
-	public static final String TYPE_MAP_STATISTICS_CALLEE_VER2 = "ApplicationMapStatisticsCallee_Ver2";
 	public static final String TYPE_MAP_STATISTICS_SELF_VER2 = "ApplicationMapStatisticsSelf_Ver2";
 	public static final String TYPE_HOST_APPLICATION_MAP_VER2 = "HostApplicationMap_Ver2";
 	public static final String TYPE_APPLICATION_TRACE_INDEX = "ApplicationTraceIndex";
