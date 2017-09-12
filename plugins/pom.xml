@@ -8,8 +8,8 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>plugins</artifactId>
-	<name>plugins</name>
+	<artifactId>eyelink-plugins</artifactId>
+	<name>eyelink-plugins</name>
 	<packaging>pom</packaging>
 
 	<properties>
