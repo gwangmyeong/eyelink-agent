@@ -195,6 +195,11 @@ public interface ServiceType {
     ServiceType TEST_STAND_ALONE = of(1005, "TEST_STAND_ALONE", RECORD_STATISTICS);
     ServiceType UNAUTHORIZED = of(1007, "UNAUTHORIZED", RECORD_STATISTICS);
     
+    // FIXME, bsh if success pluin load in PluginLoader, need to delete below line
+    ServiceType TOMCAT = of(1010, "TOMCAT");
+    ServiceType TOMCAT_METHOD = of(1011, "TOMCAT_METHOD");
+    ServiceType HTTP_CLIENT_3 = of(9050, "HTTP_CLIENT_3", RECORD_STATISTICS);
+    ServiceType HTTP_CLIENT_4 = of(9052, "HTTP_CLIENT_4", RECORD_STATISTICS);
 
 
     /**

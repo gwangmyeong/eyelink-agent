@@ -134,7 +134,7 @@ public class ElasticSearchMapStatisticsCallerDao implements MapStatisticsCallerD
     }
 
 	@Override
-	public void insert(String callerApplicationName, ServiceType callerServiceType, String callerAgentId,
+	public void insert(String transcationId, String callerApplicationName, ServiceType callerServiceType, String callerAgentId,
 			String calleeApplicationName, ServiceType calleeServiceType, String calleeHost, long startTime, int elapsed,
 			boolean isError) {
         if (callerApplicationName == null) {
@@ -153,6 +153,7 @@ public class ElasticSearchMapStatisticsCallerDao implements MapStatisticsCallerD
         calleeHost = StringUtils.defaultString(calleeHost);
 		
         Map<String, Object> map = new HashMap<String, Object>();
+        map.put("transactionId", transcationId);
         map.put("agentId", callerAgentId);
         map.put("applicatoinId", callerApplicationName);
         map.put("serviceType", callerServiceType.getCode());

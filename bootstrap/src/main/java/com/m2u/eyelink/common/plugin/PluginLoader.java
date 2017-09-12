@@ -29,6 +29,7 @@ public class PluginLoader {
     }
     
     public static <T> List<T> load(Class<T> serviceType, ClassLoader classLoader) {
+    		// FIXME, bsh not loading TomcatTypeProvider 
         ServiceLoader<T> serviceLoader = ServiceLoader.load(serviceType, classLoader);
         
         List<T> plugins = new ArrayList<T>();

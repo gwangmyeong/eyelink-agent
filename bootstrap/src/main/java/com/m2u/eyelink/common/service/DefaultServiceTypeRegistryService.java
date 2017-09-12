@@ -1,6 +1,5 @@
 package com.m2u.eyelink.common.service;
 
-import java.net.URL;
 import java.util.List;
 
 import com.m2u.eyelink.logging.CommonLogger;
@@ -9,7 +8,6 @@ import com.m2u.eyelink.logging.StdoutCommonLoggerFactory;
 import com.m2u.eyelink.trace.ServiceType;
 import com.m2u.eyelink.trace.ServiceTypeInfo;
 import com.m2u.eyelink.trace.ServiceTypeRegistry;
-import com.m2u.eyelink.trace.TraceMetadataLoader;
 import com.m2u.eyelink.util.StaticFieldLookUp;
 
 public class DefaultServiceTypeRegistryService implements ServiceTypeRegistryService {
@@ -73,7 +71,8 @@ public class DefaultServiceTypeRegistryService implements ServiceTypeRegistrySer
         return registry.findServiceTypeByName(typeName);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public List<ServiceType> findDesc(String desc) {
         return registry.findDesc(desc);
     }

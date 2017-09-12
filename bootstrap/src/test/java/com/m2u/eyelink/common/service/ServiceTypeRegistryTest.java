@@ -15,8 +15,9 @@ public class ServiceTypeRegistryTest {
 	@Test
 	public void findServiceType() {
 		DefaultServiceTypeRegistryService serviceTypeRegistryService = new DefaultServiceTypeRegistryService();
-		short code = 5050;
+		short code = 1010;
 		ServiceType serviceType = serviceTypeRegistryService.findServiceType(code);
+		logger.debug("code {} -> ServiceType code {}, name {}", code, serviceType.getCode(), serviceType.getName());
 		boolean find = false;
 		if (serviceType.getCode() == code) {
 			find = true;

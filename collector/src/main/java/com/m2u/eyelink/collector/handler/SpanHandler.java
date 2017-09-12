@@ -92,8 +92,9 @@ public class SpanHandler implements SimpleHandler {
 				statisticsHandler.updateCallee(span.getApplicationId(), applicationServiceType, span.getAcceptorHost(),
 						spanServiceType, span.getAgentId(), span.getElapsed(), isError);
 
+				
 				// bsh, insert applicationMapData
-				statisticsHandler.putApplicationMap(span.getApplicationId(), ServiceType.USER, span.getAgentId(),
+				statisticsHandler.putApplicationMap(span.getTranscationFullId(), ServiceType.USER.getName(), ServiceType.USER, span.getAgentId(),
 						span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getStartTime(),
 						span.getElapsed(), isError);
 
@@ -107,7 +108,7 @@ public class SpanHandler implements SimpleHandler {
 						ServiceType.USER, span.getAgentId(), span.getElapsed(), isError);
 
 				// bsh, insert applicationMapData
-				statisticsHandler.putApplicationMap(span.getApplicationId(), ServiceType.USER, span.getAgentId(),
+				statisticsHandler.putApplicationMap(span.getTranscationFullId(), ServiceType.USER.getName(), ServiceType.USER, span.getAgentId(),
 						span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getStartTime(),
 						span.getElapsed(), isError);
 			}
@@ -148,7 +149,7 @@ public class SpanHandler implements SimpleHandler {
 					parentApplicationType, span.getAgentId(), span.getElapsed(), isError);
 
 			// bsh, insert applicationMapData
-			statisticsHandler.putApplicationMap(parentApplicationName, parentApplicationType, span.getAgentId(),
+			statisticsHandler.putApplicationMap(span.getTranscationFullId(), parentApplicationName, parentApplicationType, span.getAgentId(),
 					span.getApplicationId(), applicationServiceType, span.getAgentId(), span.getStartTime(),
 					span.getElapsed(), isError);
 
@@ -203,7 +204,7 @@ public class SpanHandler implements SimpleHandler {
 					applicationServiceType, span.getEndPoint(), elapsed, hasException);
 
 			// bsh, insert applicationMapData
-			statisticsHandler.putApplicationMap(span.getApplicationId(), applicationServiceType, span.getAgentId(),
+			statisticsHandler.putApplicationMap(span.getTranscationFullId(), span.getApplicationId(), applicationServiceType, span.getAgentId(),
 					spanEvent.getDestinationId(), spanEventType, spanEvent.getEndPoint(), span.getStartTime(), elapsed, hasException);
 
 		}
