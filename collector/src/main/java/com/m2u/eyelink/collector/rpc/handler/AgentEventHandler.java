@@ -49,16 +49,16 @@ public class AgentEventHandler {
         handleEvent(pinpointServer, eventTimestamp, eventType, null);
     }
 
-    public void handleEvent(ELAgentServer pinpointServer, long eventTimestamp, AgentEventType eventType,
+    public void handleEvent(ELAgentServer elagentServer, long eventTimestamp, AgentEventType eventType,
             Object eventMessage) {
-        if (pinpointServer == null) {
-            throw new NullPointerException("pinpointServer may not be null");
+        if (elagentServer == null) {
+            throw new NullPointerException("ELAgentServer may not be null");
         }
         if (eventType == null) {
             throw new NullPointerException("eventType may not be null");
         }
 
-        Map<Object, Object> channelProperties = pinpointServer.getChannelProperties();
+        Map<Object, Object> channelProperties = elagentServer.getChannelProperties();
 
         final String agentId = MapUtils.getString(channelProperties, HandshakePropertyType.AGENT_ID.getName());
         final long startTimestamp = MapUtils.getLong(channelProperties,
