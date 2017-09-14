@@ -155,10 +155,10 @@ public class ElasticSearchMapStatisticsCallerDao implements MapStatisticsCallerD
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("transactionId", transcationId);
         map.put("agentId", callerAgentId);
-        map.put("applicatoinId", callerApplicationName);
+        map.put("applicationId", callerApplicationName);
         map.put("serviceType", callerServiceType.getCode());
         map.put("serviceTypeName", callerServiceType.getName());
-        map.put("toApplicatoinId", calleeApplicationName);
+        map.put("toApplicationId", calleeApplicationName);
         map.put("toServiceType", calleeServiceType.getCode());
         map.put("toServiceTypeName", calleeServiceType.getName());
         map.put("toCalleeHost", calleeHost);
