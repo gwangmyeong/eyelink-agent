@@ -12,6 +12,7 @@ import com.m2u.eyelink.collector.bo.stat.DataSourceListBo;
 import com.m2u.eyelink.collector.bo.stat.JvmGcBo;
 import com.m2u.eyelink.collector.bo.stat.JvmGcDetailedBo;
 import com.m2u.eyelink.collector.bo.stat.TransactionBo;
+import com.m2u.eyelink.collector.dao.AgentAlarmDao;
 import com.m2u.eyelink.collector.dao.AgentStatDaoV2;
 import com.m2u.eyelink.collector.mapper.thrift.stat.AgentStatBatchMapper;
 import com.m2u.eyelink.collector.mapper.thrift.stat.AgentStatBo;
@@ -49,6 +50,9 @@ public class AgentStatHandlerV2 implements Handler {
 
     @Autowired
     private AgentStatDaoV2<DataSourceListBo> dataSourceListDao;
+
+    @Autowired
+    private AgentAlarmDao agentAlarmDao;
 
     @Autowired(required = false)
     private AgentStatService agentStatService;
@@ -102,6 +106,8 @@ public class AgentStatHandlerV2 implements Handler {
             this.activeTraceDao.insert(agentId, agentStatBo.getActiveTraceBos());
             // TODO data source 정의 후 테스트 필요함.
             this.dataSourceListDao.insert(agentId, agentStatBo.getDataSourceListBos());
+            // check cpu, mem, service alarm
+            this.agentAlarmDao.insert(agentId, agentStatBo);
         } catch (Exception e) {
             logger.warn("Error inserting AgentStatBo. Caused:{}", e.getMessage(), e);
         }

@@ -1,6 +1,8 @@
 package com.m2u.eyelink.collector.alarm;
 
 import static com.m2u.eyelink.collector.alarm.AgentAlarmTypeCategory.MEMORY;
+import static com.m2u.eyelink.collector.alarm.AgentAlarmTypeCategory.CPU;
+import static com.m2u.eyelink.collector.alarm.AgentAlarmTypeCategory.SERVICE;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,11 +12,16 @@ import java.util.Set;
 import com.m2u.eyelink.collector.util.AgentEventTypeCategory;
 
 public enum AgentAlarmType {
-    MEMORY_70(70, "Memory used 70% over", true, MEMORY),
-    MEMORY_80(80, "Memory used 80% over", true, MEMORY),
-    MEMORY_90(90, "Memory used 90% over", true, MEMORY),
-    MEMORY_100(100, "Memory used 100%", true, MEMORY);
-
+	// FIXME set value using config file
+	MEMORY_70(30, "Memory used 70% over", true, MEMORY),
+	MEMORY_80(80, "Memory used 80% over", true, MEMORY),
+	MEMORY_90(90, "Memory used 90% over", true, MEMORY),
+    MEMORY_100(100, "Memory used 100%", true, MEMORY),
+	CPU_70(30, "CPU used 70% over", true, CPU),
+	CPU_80(80, "CPU used 80% over", true, CPU),
+	CPU_90(90, "CPU used 90% over", true, CPU),
+	CPU_100(100, "CPU used 100%", true, CPU);
+	
 	private final int code;
 	private final String desc;
 	private final Set<AgentAlarmTypeCategory> category;
