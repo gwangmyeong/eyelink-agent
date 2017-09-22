@@ -13,6 +13,7 @@ import com.m2u.eyelink.collector.dao.SpanChunkBo;
 import com.m2u.eyelink.collector.server.util.AcceptedTimeService;
 import com.m2u.eyelink.collector.server.util.EmptyAcceptedTimeService;
 import com.m2u.eyelink.collector.util.AnnotationTranscoder;
+import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
 import com.m2u.eyelink.context.TIntStringValue;
 import com.m2u.eyelink.context.TSpanEvent;
 import com.m2u.eyelink.context.thrift.TAnnotation;
@@ -25,6 +26,8 @@ import com.m2u.eyelink.util.TransactionIdUtils;
 @Component
 public class SpanFactory {
 
+	@Autowired
+	private ServiceTypeRegistryService registry;
 
     private SpanEventFilter spanEventFilter = new EmptySpanEventFilter();
 
@@ -78,6 +81,7 @@ public class SpanFactory {
         spanBo.setRpc(tSpan.getRpc());
 
         spanBo.setServiceType(tSpan.getServiceType());
+        spanBo.setServiceTypeName(registry.findServiceType(tSpan.getServiceType()).getName());
         spanBo.setEndPoint(tSpan.getEndPoint());
         spanBo.setFlag(tSpan.getFlag());
         spanBo.setApiId(tSpan.getApiId());
@@ -93,12 +97,15 @@ public class SpanFactory {
         // applicationServiceType is not saved for older versions where applicationServiceType does not exist.
         if (tSpan.isSetApplicationServiceType()) {
             spanBo.setApplicationServiceType(tSpan.getApplicationServiceType());
+            spanBo.setApplicationServiceTypeName(registry.findServiceType(tSpan.getApplicationServiceType()).getName());
         } else {
             spanBo.setApplicationServiceType(tSpan.getServiceType());
+            spanBo.setApplicationServiceTypeName(registry.findServiceType(tSpan.getServiceType()).getName());
         }
 
         spanBo.setParentApplicationId(tSpan.getParentApplicationName());
         spanBo.setParentApplicationServiceType(tSpan.getParentApplicationType());
+        spanBo.setParentApplicationServiceTypeName(registry.findServiceType(tSpan.getParentApplicationType()).getName());
 
         // FIXME span.errCode contains error of span and spanEvent
         // because exceptionInfo is the error information of span itself, exceptionInfo can be null even if errCode is not 0
@@ -123,7 +130,7 @@ public class SpanFactory {
 
         spanEvent.setRpc(tSpanEvent.getRpc());
         spanEvent.setServiceType(tSpanEvent.getServiceType());
-
+        spanEvent.setServiceTypeName(registry.findServiceType(tSpanEvent.getServiceType()).getName());
 
         spanEvent.setDestinationId(tSpanEvent.getDestinationId());
 
@@ -182,10 +189,13 @@ public class SpanFactory {
         spanChunkBo.setApplicationId(tSpanChunk.getApplicationName());
         spanChunkBo.setAgentStartTime(tSpanChunk.getAgentStartTime());
         spanChunkBo.setServiceType(tSpanChunk.getServiceType());
+        spanChunkBo.setServiceTypeName(registry.findServiceType(tSpanChunk.getServiceType()).getName());
         if (tSpanChunk.isSetApplicationServiceType()) {
             spanChunkBo.setApplicationServiceType(tSpanChunk.getApplicationServiceType());
+            spanChunkBo.setApplicationServiceTypeName(registry.findServiceType(tSpanChunk.getApplicationServiceType()).getName());
         } else {
             spanChunkBo.setApplicationServiceType(tSpanChunk.getServiceType());
+            spanChunkBo.setApplicationServiceTypeName(registry.findServiceType(tSpanChunk.getServiceType()).getName());
         }
 
         TransactionId transactionId = newTransactionId(tSpanChunk.getTransactionId(), spanChunkBo);

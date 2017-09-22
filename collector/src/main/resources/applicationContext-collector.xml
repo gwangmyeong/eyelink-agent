@@ -213,7 +213,7 @@
 			value="#{collectorConfiguration.udpStatSocketReceiveBufferSize}" />
 		<constructor-arg index="5" ref="udpStatWorkerOption" />
 	</bean>
- 
+	 
 	<!-- UDPSpanReceiver related Beans -->
 	<bean id="udpSpanBasePacketHandler"
 		class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">

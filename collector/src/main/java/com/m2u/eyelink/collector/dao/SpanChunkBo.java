@@ -21,7 +21,9 @@ public class SpanChunkBo implements BasicSpan {
     private String endPoint;
 
     private short serviceType;
+    private String serviceTypeName;
     private Short applicationServiceType;
+    private String applicationServiceTypeName;
 
     private List<SpanEventBo> spanEventBoList = new ArrayList<SpanEventBo>();
 
@@ -148,4 +150,20 @@ public class SpanChunkBo implements BasicSpan {
                 ", collectorAcceptTime=" + collectorAcceptTime +
                 '}';
     }
+
+	public String getServiceTypeName() {
+		return serviceTypeName;
+	}
+
+	public void setServiceTypeName(String serviceTypeName) {
+		this.serviceTypeName = serviceTypeName;
+	}
+
+	public String getApplicationServiceTypeName() {
+		return applicationServiceTypeName;
+	}
+
+	public void setApplicationServiceTypeName(String applicationServiceTypeName) {
+		this.applicationServiceTypeName = applicationServiceTypeName;
+	}
 }

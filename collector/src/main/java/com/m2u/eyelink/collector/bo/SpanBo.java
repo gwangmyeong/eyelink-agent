@@ -25,12 +25,14 @@ public class SpanBo implements Event, BasicSpan {
 
     private String parentApplicationId;
     private short parentApplicationServiceType;
+    private String parentApplicationServiceTypeName;
 
     private long startTime;
     private int elapsed;
 
     private String rpc;
     private short serviceType;
+    private String serviceTypeName;
     private String endPoint;
     private int apiId;
 
@@ -48,6 +50,7 @@ public class SpanBo implements Event, BasicSpan {
     private String exceptionClass;
     
     private Short applicationServiceType;
+    private String applicationServiceTypeName;
 
     private String acceptorHost;
     private String remoteAddr; // optional
@@ -373,10 +376,12 @@ public class SpanBo implements Event, BasicSpan {
 		map.put("parentSpanId", this.parentSpanId);
 		map.put("parentApplicationId", this.parentApplicationId);
 		map.put("parentApplicationServiceType", this.parentApplicationServiceType);
+		map.put("parentApplicationServiceTypeName", this.parentApplicationServiceTypeName);
 		map.put("startTime", TimeUtils.convertEpochToDate(this.startTime));
 		map.put("elapsed", this.elapsed);
 		map.put("rpc", this.rpc);
 		map.put("serviceType", this.serviceType);
+		map.put("serviceTypeName", this.serviceTypeName);
 		map.put("endPoint", this.endPoint);
 		map.put("apiId", this.apiId);
 //		map.put("annotationBoListOrg", this.annotationBoList);
@@ -403,8 +408,33 @@ public class SpanBo implements Event, BasicSpan {
 		map.put("exceptionClass", this.exceptionClass);
 		map.put("agentStartTime", TimeUtils.convertEpochToDate(this.agentStartTime));
 		map.put("applicationServiceType", this.applicationServiceType);
+		map.put("applicationServiceTypeName", this.applicationServiceTypeName);
 		map.put("acceptorHost", this.acceptorHost);
 		map.put("loggingTransactionInfo", this.loggingTransactionInfo);
 		return map;
+	}
+
+	public String getServiceTypeName() {
+		return serviceTypeName;
+	}
+
+	public void setServiceTypeName(String serviceTypeName) {
+		this.serviceTypeName = serviceTypeName;
+	}
+
+	public String getApplicationServiceTypeName() {
+		return applicationServiceTypeName;
+	}
+
+	public void setApplicationServiceTypeName(String applicationServiceTypeName) {
+		this.applicationServiceTypeName = applicationServiceTypeName;
+	}
+
+	public String getParentApplicationServiceTypeName() {
+		return parentApplicationServiceTypeName;
+	}
+
+	public void setParentApplicationServiceTypeName(String parentApplicationServiceTypeName) {
+		this.parentApplicationServiceTypeName = parentApplicationServiceTypeName;
 	}
 }

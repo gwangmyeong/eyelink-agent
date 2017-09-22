@@ -38,9 +38,9 @@ public class ElasticSearchAgentAlarmDao implements AgentAlarmDao {
 		if (agentId == null) {
 			throw new NullPointerException("agentId must not be null");
 		}
-		if (logger.isDebugEnabled()) {
-			logger.debug("insert:{}", agentStatBo);
-		}
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("insert:{}", agentStatBo);
+//		}
 
 		List<Map<String, Object>> listAlarm = createAlarmList(agentStatBo);
 		if (!listAlarm.isEmpty()) {

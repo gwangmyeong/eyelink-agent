@@ -18,6 +18,7 @@ public class SpanEventBo implements Event {
 
 	    private String rpc;
 	    private short serviceType;
+	    private String serviceTypeName;
 
 	    private String destinationId;
 	    private String endPoint;
@@ -253,6 +254,7 @@ public class SpanEventBo implements Event {
 			map.put("startElapsed", this.startElapsed);
 			map.put("rpc", this.rpc);
 			map.put("serviceType", this.serviceType);
+			map.put("serviceTypeName", this.serviceTypeName);
 			map.put("destinationId", this.destinationId);
 			map.put("endPoint", this.endPoint);
 			map.put("apiId", this.apiId);
@@ -273,6 +275,16 @@ public class SpanEventBo implements Event {
 			map.put("nextAsyncId", this.nextAsyncId);
 			map.put("asyncSequence", this.asyncSequence);
 			return map;
+		}
+
+
+		public String getServiceTypeName() {
+			return serviceTypeName;
+		}
+
+
+		public void setServiceTypeName(String serviceTypeName) {
+			this.serviceTypeName = serviceTypeName;
 		}
 	    
 	    
