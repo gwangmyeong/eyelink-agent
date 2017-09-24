@@ -15,6 +15,7 @@ import com.m2u.eyelink.collector.bo.AnnotationBo;
 import com.m2u.eyelink.collector.bo.ApiMetaDataBo;
 import com.m2u.eyelink.collector.bo.MethodTypeEnum;
 import com.m2u.eyelink.collector.bo.SpanBo;
+import com.m2u.eyelink.collector.bo.SpanEventBo;
 import com.m2u.eyelink.collector.bo.SqlMetaDataBo;
 import com.m2u.eyelink.collector.bo.StringMetaDataBo;
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchOperations2;
@@ -82,7 +83,7 @@ public class ElasticSearchTraceDetailDao implements TraceDetailDao {
         transitionSqlId(values);
         transitionCachedString(values);
         transitionException(values);
-
+        addElaspedTime(values);
         
 		boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(spanBo.getAgentId()),
 				TYPE_TRACE_DETAIL, values.get(0).getMap());
@@ -94,7 +95,7 @@ public class ElasticSearchTraceDetailDao implements TraceDetailDao {
 	}
 
 
-    private SpanResult order(List<SpanBo> spans, long selectedSpanHint) {
+	private SpanResult order(List<SpanBo> spans, long selectedSpanHint) {
         SpanAligner2 spanAligner = new SpanAligner2(spans, selectedSpanHint);
         final CallTree callTree = spanAligner.sort();
 
@@ -309,6 +310,29 @@ public class ElasticSearchTraceDetailDao implements TraceDetailDao {
 
     }
     
+    private void addElaspedTime(List<SpanAlign> spanAlignList) {
+    		// spanAlignList내 각 배열의 SpanEventBo에는 gap, self-exectime, elasped time 계산값을가지고 있음.
+    		// spanAlignList 배열의 첫번째의 SpanAlign내 spanBo -> spanEventBoList의  해당배열내 spanEventBo에 gap, self-exectime elasped time을 추가
+    		// db에 기록시 spanAlignList 배열값에서 첫번째 SpanAlign만 저장한다. 다른 배열은 중복된 값임.. 
+    		// TODO bsh, 위 로직 확인 필요
+    		int i = 0;
+    		int totalElasped = 0;
+        for (SpanAlign spanAlign : spanAlignList) {
+        		if (i == 0) {
+           		 totalElasped = spanAlignList.get(0).getSpanBo().getElapsed();        			
+        		}
+        		// FIXME, bsh, change to elapsed time logic when exist slibling
+            if (spanAlign.getSpanEventBo() != null) {
+            		 totalElasped = (int) (totalElasped - spanAlign.getExecutionMilliseconds());
+            		// getSpanEventBoList에서 i-1 -< spanAlignList에는 getSpanEventBoList의 2번째 값부터 기록되어 있음.
+            		spanAlignList.get(0).getSpanBo().getSpanEventBoList().get(i-1).setGap(spanAlign.getGap());
+            		spanAlignList.get(0).getSpanBo().getSpanEventBoList().get(i-1).setExecutionMilliseconds(spanAlign.getExecutionMilliseconds());
+            		spanAlignList.get(0).getSpanBo().getSpanEventBoList().get(i-1).setElapsed(totalElasped);
+            }
+            i++;
+        }
+ 	}
+
     private StringMetaDataBo selectStringMetaData(String agentId, int cacheId, long agentStartTime) {
         final List<StringMetaDataBo> metaDataList = stringMetaDataDao.getStringMetaData(agentId, agentStartTime, cacheId);
         if (metaDataList == null || metaDataList.isEmpty()) {

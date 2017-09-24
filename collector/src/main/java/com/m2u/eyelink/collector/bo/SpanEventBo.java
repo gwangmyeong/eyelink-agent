@@ -15,6 +15,7 @@ public class SpanEventBo implements Event {
 
 	    private int startElapsed;
 	    private int endElapsed;
+	    private int elapsed;
 
 	    private String rpc;
 	    private short serviceType;
@@ -39,6 +40,9 @@ public class SpanEventBo implements Event {
 	    private int asyncId = -1;
 	    private int nextAsyncId = -1;
 	    private short asyncSequence = -1;
+	    
+	    private long gap;
+	    private long executionMilliseconds;
 	    
 	    public SpanEventBo() {
 	    }
@@ -242,6 +246,10 @@ public class SpanEventBo implements Event {
 	        builder.append(nextAsyncId);
 	        builder.append(", asyncSequence=");
 	        builder.append(asyncSequence);
+	        builder.append(", gap=");
+	        builder.append(gap);
+	        builder.append(", executionTime=");
+	        builder.append(executionMilliseconds);
 	        builder.append("}");
 	        return builder.toString();
 	    }
@@ -274,6 +282,9 @@ public class SpanEventBo implements Event {
 			map.put("asyncId", this.asyncId);
 			map.put("nextAsyncId", this.nextAsyncId);
 			map.put("asyncSequence", this.asyncSequence);
+			map.put("gap", this.gap);
+			map.put("executionTime", this.executionMilliseconds);
+			map.put("elapsed", this.elapsed);
 			return map;
 		}
 
@@ -286,6 +297,35 @@ public class SpanEventBo implements Event {
 		public void setServiceTypeName(String serviceTypeName) {
 			this.serviceTypeName = serviceTypeName;
 		}
-	    
+
+
+		public long getGap() {
+			return gap;
+		}
+
+
+		public void setGap(long gap) {
+			this.gap = gap;
+		}
+
+
+		public long getExecutionMilliseconds() {
+			return executionMilliseconds;
+		}
+
+
+		public void setExecutionMilliseconds(long executionMilliseconds) {
+			this.executionMilliseconds = executionMilliseconds;
+		}
+
+
+		public int getElapsed() {
+			return elapsed;
+		}
+
+
+		public void setElapsed(int elapsed) {
+			this.elapsed = elapsed;
+		}	    
 	    
 	}

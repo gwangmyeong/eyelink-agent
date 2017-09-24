@@ -410,6 +410,7 @@ public class SpanBo implements Event, BasicSpan {
 		map.put("applicationServiceType", this.applicationServiceType);
 		map.put("applicationServiceTypeName", this.applicationServiceTypeName);
 		map.put("acceptorHost", this.acceptorHost);
+		map.put("remoteAddr", this.remoteAddr);
 		map.put("loggingTransactionInfo", this.loggingTransactionInfo);
 		return map;
 	}
