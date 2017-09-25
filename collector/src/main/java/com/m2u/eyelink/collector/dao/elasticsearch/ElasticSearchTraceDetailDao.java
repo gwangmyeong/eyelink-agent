@@ -301,10 +301,15 @@ public class ElasticSearchTraceDetailDao implements TraceDetailDao {
     }
     
     private void transitionException(List<SpanAlign> spanAlignList) {
+    		boolean isFirst = true;
         for (SpanAlign spanAlign : spanAlignList) {
             if (spanAlign.hasException()) {
                 StringMetaDataBo stringMetaData = selectStringMetaData(spanAlign.getAgentId(), spanAlign.getExceptionId(), spanAlign.getAgentStartTime());
                 spanAlign.setExceptionClass(stringMetaData.getStringValue());
+                if (isFirst) {
+                		spanAlignList.get(0).getSpanBo().setExceptionInfo(spanAlign.getExceptionId(), spanAlign.getExceptionMessage());
+                		isFirst = false;
+                }
             }
         }
 
