@@ -103,23 +103,33 @@ public class ElasticSearchAgentAlarmDao implements AgentAlarmDao {
 
 			if (isTF || isTF2) {
 				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("applicationType", "ELAGENT");
 				map.put("agentId", jvmGcBo.getAgentId());
 				// startTimestamp, timestamp in jvmGcBo, CpuLoadBo is same
 				map.put("startTimestamp", TimeUtils.convertEpochToDate(jvmGcBo.getStartTimestamp()));
 				map.put("timestamp", TimeUtils.convertEpochToDate(jvmGcBo.getTimestamp()));
 				if (isTF && isTF2) {
 					map.put("alarmType", agentAlarmType.name() + ", " + agentAlarmType2.name());
-					map.put("alarmTypeName", agentAlarmType.getDesc() + ", " + agentAlarmType2.getDesc());
-					map.put("jvmGcBo", this.agentStatElasticSearchOperationFactory.converBOToMap(jvmGcBo));
-					map.put("cpuLoadBo", this.agentStatElasticSearchOperationFactory.converBOToMap(cpuLoadBo));
+					map.put("alarmTypeName", agentAlarmType.name() + ", " + agentAlarmType2.name());
+					map.put("message", agentAlarmType.getDesc() + ", " + agentAlarmType2.getDesc());
+					Map<String, Object> mapAlarmData = new HashMap<String, Object>();
+					mapAlarmData.put("jvmGcBo", this.agentStatElasticSearchOperationFactory.converBOToMap(jvmGcBo));
+					mapAlarmData.put("cpuLoadBo", this.agentStatElasticSearchOperationFactory.converBOToMap(cpuLoadBo));
+					map.put("alarmData", mapAlarmData);
 				} else if (isTF) {
 					map.put("alarmType",agentAlarmType.name());
-					map.put("alarmTypeName", agentAlarmType.getDesc());
-					map.put("jvmGcBo", this.agentStatElasticSearchOperationFactory.converBOToMap(jvmGcBo));
+					map.put("alarmTypeName",agentAlarmType.name());
+					map.put("message", agentAlarmType.getDesc());
+					Map<String, Object> mapAlarmData = new HashMap<String, Object>();
+					mapAlarmData.put("jvmGcBo", this.agentStatElasticSearchOperationFactory.converBOToMap(jvmGcBo));
+					map.put("alarmData", mapAlarmData);
 				} else if (isTF2) {
 					map.put("alarmType", agentAlarmType2.name());
-					map.put("alarmTypeName", agentAlarmType2.getDesc());
-					map.put("cpuLoadBo", this.agentStatElasticSearchOperationFactory.converBOToMap(cpuLoadBo));
+					map.put("alarmTypeName", agentAlarmType2.name());
+					map.put("message", agentAlarmType2.getDesc());
+					Map<String, Object> mapAlarmData = new HashMap<String, Object>();
+					mapAlarmData.put("cpuLoadBo", this.agentStatElasticSearchOperationFactory.converBOToMap(cpuLoadBo));
+					map.put("alarmData", mapAlarmData);
 				}
 				list.add(map);
 			}

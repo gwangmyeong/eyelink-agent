@@ -13,11 +13,11 @@ import com.m2u.eyelink.collector.util.AgentEventTypeCategory;
 
 public enum AgentAlarmType {
 	// FIXME set value using config file
-	MEMORY_70(30, "Memory used 70% over", true, MEMORY),
+	MEMORY_70(10, "Memory used 70% over", true, MEMORY),
 	MEMORY_80(80, "Memory used 80% over", true, MEMORY),
 	MEMORY_90(90, "Memory used 90% over", true, MEMORY),
     MEMORY_100(100, "Memory used 100%", true, MEMORY),
-	CPU_70(30, "CPU used 70% over", true, CPU),
+	CPU_70(10, "CPU used 70% over", true, CPU),
 	CPU_80(80, "CPU used 80% over", true, CPU),
 	CPU_90(90, "CPU used 90% over", true, CPU),
 	CPU_100(100, "CPU used 100%", true, CPU);
