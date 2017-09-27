@@ -73,10 +73,10 @@ public class ElasticSearchAgentAlarmDaoTest {
 
 		List<CpuLoadBo> cpuLoadBos = new ArrayList<CpuLoadBo>();
 		CpuLoadBo cpuLoadBo = new CpuLoadBo();
-		cpuLoadBo.setJvmCpuLoad(9.87102);
+		cpuLoadBo.setJvmCpuLoad(0.0987102);
 		cpuLoadBos.add(cpuLoadBo);
 		CpuLoadBo cpuLoadBo1 = new CpuLoadBo();
-		cpuLoadBo1.setJvmCpuLoad(79.87102);
+		cpuLoadBo1.setJvmCpuLoad(0.7987102);
 		cpuLoadBos.add(cpuLoadBo1);
 		agentStatBo.setCpuLoadBos(cpuLoadBos);
 		

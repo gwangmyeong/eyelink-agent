@@ -85,6 +85,8 @@ public class ElasticSearchTables {
 
     // for ElasticSearch
     public static final String INDEX_NAME_PREFIX = "elagent";  	// elagent_[agentid]-[날짜]
+    public static final String INDEX_NAME_EFSM_ALARM_PREFIX = "efsm_alarm";  	// efsm_alarm-[날짜]
+
     public static final String TYPE_AGENT_INFO = "AgentInfo";
 	public static final String TYPE_AGENT_EVENT = "AgentEvent";
 	public static final String TYPE_AGENT_ALARM = "AgentAlarm";

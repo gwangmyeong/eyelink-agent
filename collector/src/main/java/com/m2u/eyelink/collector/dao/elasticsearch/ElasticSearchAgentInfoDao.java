@@ -63,20 +63,22 @@ public class ElasticSearchAgentInfoDao implements AgentInfoDao {
         put.addColumn(ElasticSearchTables.AGENTINFO_CF_INFO, ElasticSearchTables.AGENTINFO_CF_INFO_IDENTIFIER, agentInfoBoValue);
 
         // FIXME bsh, need to implement logic below comments
-//        if (agentInfo.isSetServerMetaData()) {
-//            AgentInfoBo serverMetaDataBo = this.serverMetaDataBoMapper.map(agentInfo.getServerMetaData());
-//            byte[] serverMetaDataBoValue = serverMetaDataBo.writeValue();
-//            put.addColumn(ElasticSearchTables.AGENTINFO_CF_INFO, ElasticSearchTables.AGENTINFO_CF_INFO_SERVER_META_DATA, serverMetaDataBoValue);
-//        }
+        if (agentInfo.isSetServerMetaData()) {
+        		ServerMetaDataBo serverMetaDataBo = this.serverMetaDataBoMapper.map(agentInfo.getServerMetaData());
+        		agentInfoBo.setServerMetaData(serverMetaDataBo);
+            byte[] serverMetaDataBoValue = serverMetaDataBo.writeValue();
+            put.addColumn(ElasticSearchTables.AGENTINFO_CF_INFO, ElasticSearchTables.AGENTINFO_CF_INFO_SERVER_META_DATA, serverMetaDataBoValue);
+        }
 
         // FIXME, need to implement logic to save JvmInfo, bsh
         if (agentInfo.isSetJvmInfo()) {
             JvmInfoBo jvmInfoBo = this.jvmInfoBoMapper.map(agentInfo.getJvmInfo());
+            agentInfoBo.setJvmInfo(jvmInfoBo);
             byte[] jvmInfoBoValue = jvmInfoBo.writeValue();
             put.addColumn(ElasticSearchTables.AGENTINFO_CF_INFO, ElasticSearchTables.AGENTINFO_CF_INFO_JVM, jvmInfoBoValue);
         }
 
 //        elasticSearchTemplate.put(ElasticSearchTables.AGENTINFO, put);
-        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId()), ElasticSearchTables.TYPE_AGENT_INFO, agentInfo.getMap());
+        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId()), ElasticSearchTables.TYPE_AGENT_INFO, agentInfoBo.getMap());
     }
 }

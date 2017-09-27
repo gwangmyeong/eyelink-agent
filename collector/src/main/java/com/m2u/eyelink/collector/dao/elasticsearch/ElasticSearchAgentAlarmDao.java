@@ -44,10 +44,10 @@ public class ElasticSearchAgentAlarmDao implements AgentAlarmDao {
 
 		List<Map<String, Object>> listAlarm = createAlarmList(agentStatBo);
 		if (!listAlarm.isEmpty()) {
-			boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId),
+			boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexNameEFSM(ElasticSearchTables.INDEX_NAME_EFSM_ALARM_PREFIX),
 					ElasticSearchTables.TYPE_AGENT_ALARM, listAlarm);
 			if (!isSuccess) {
-				this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId),
+				this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexNameEFSM(ElasticSearchTables.INDEX_NAME_EFSM_ALARM_PREFIX),
 						ElasticSearchTables.TYPE_AGENT_ALARM, listAlarm);
 			}
 		} else {
@@ -86,7 +86,7 @@ public class ElasticSearchAgentAlarmDao implements AgentAlarmDao {
 			} 
 			AgentAlarmType agentAlarmType2 = null;
 			CpuLoadBo cpuLoadBo = iterator2.next();
-			double cpuPer = Math.round((double)cpuLoadBo.getJvmCpuLoad() * 100) / 100.0;
+			double cpuPer = Math.round((double)cpuLoadBo.getJvmCpuLoad() * 100 * 100) / 100.0;
 			if (AgentAlarmType.CPU_100.getIsUse() && cpuPer == AgentAlarmType.CPU_100.getCode()) {
 				agentAlarmType2 = AgentAlarmType.CPU_100;
 				isTF2 = true;
@@ -131,6 +131,10 @@ public class ElasticSearchAgentAlarmDao implements AgentAlarmDao {
 					mapAlarmData.put("cpuLoadBo", this.agentStatElasticSearchOperationFactory.converBOToMap(cpuLoadBo));
 					map.put("alarmData", mapAlarmData);
 				}
+				map.put("clearYN", "N");
+				map.put("clearMesssage", "");
+				map.put("clearStaffId", "");
+				map.put("clearTimestamp", "");
 				list.add(map);
 			}
 		}

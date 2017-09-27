@@ -1,5 +1,9 @@
 package com.m2u.eyelink.collector.bo;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
 import com.m2u.eyelink.util.FixedBuffer;
@@ -76,4 +80,12 @@ public class JvmInfoBo {
                 ", gcTypeName='" + gcTypeName + '\'' +
                 '}';
     }
+    
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("version", this.version);
+		map.put("jvmVersion", this.jvmVersion);
+		map.put("gcTypeName", this.gcTypeName);
+		return map;
+	}
 }

@@ -1,7 +1,12 @@
 package com.m2u.eyelink.collector.bo;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import com.m2u.eyelink.collector.util.TimeUtils;
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
 
@@ -26,6 +31,7 @@ public class AgentInfoBo {
     private final String agentId;
     private final String applicationName;
     private final short serviceTypeCode;
+    private final String serviceTypeCodeName;
     private final int pid;
     private final String vmVersion;
     private final String agentVersion;
@@ -36,8 +42,8 @@ public class AgentInfoBo {
     private final int endStatus;
 
     // Should be serialized separately
-    private final ServerMetaDataBo serverMetaData;
-    private final JvmInfoBo jvmInfo;
+    private ServerMetaDataBo serverMetaData;
+    private JvmInfoBo jvmInfo;
 
     private AgentInfoBo(Builder builder) {
         this.hostName = builder.hostName;
@@ -46,6 +52,7 @@ public class AgentInfoBo {
         this.agentId = builder.agentId;
         this.applicationName = builder.applicationName;
         this.serviceTypeCode = builder.serviceTypeCode;
+        this.serviceTypeCodeName = builder.getServiceTypeCodeName();
         this.pid = builder.pid;
         this.vmVersion = builder.vmVersion;
         this.agentVersion = builder.agentVersion;
@@ -113,6 +120,14 @@ public class AgentInfoBo {
         return this.jvmInfo;
     }
 
+    public void setServerMetaData(ServerMetaDataBo serverMetaData) {
+        this.serverMetaData = serverMetaData;
+    }
+
+    public void setJvmInfo(JvmInfoBo jvmInfo) {
+        this.jvmInfo = jvmInfo;
+    }
+
     public byte[] writeValue() {
         final Buffer buffer = new AutomaticBuffer();
         buffer.putPrefixedString(this.getHostName());
@@ -176,13 +191,39 @@ public class AgentInfoBo {
         return sb.toString();
     }
 
-    public static class Builder {
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("hostName", this.hostName);
+		map.put("ip", this.ip);
+		map.put("ports", this.ports);
+		map.put("agentId", agentId);
+		map.put("applicationName", this.applicationName);
+		map.put("serviceTypeCode", this.serviceTypeCode);
+		map.put("pid", this.pid);
+		map.put("vmVersion", this.vmVersion);
+		map.put("agentVersion", this.agentVersion);
+		map.put("startTime", TimeUtils.convertEpochToDate(this.startTime));
+		map.put("endTimeStamp", TimeUtils.convertEpochToDate(this.endTimeStamp));
+		map.put("endStatus", this.endStatus);
+		if (this.jvmInfo != null)
+			map.put("jvmInfo", this.jvmInfo.getMap());
+		if (this.serverMetaData != null)
+			map.put("serverMetaData", this.serverMetaData.getMap());
+		return map;
+	}
+	
+    public String getServiceTypeCodeName() {
+		return serviceTypeCodeName;
+	}
+
+	public static class Builder {
         private String hostName;
         private String ip;
         private String ports;
         private String agentId;
         private String applicationName;
         private short serviceTypeCode;
+        private String serviceTypeCodeName;
         private int pid;
         private String vmVersion;
         private String agentVersion;
@@ -276,5 +317,13 @@ public class AgentInfoBo {
             }
             return new AgentInfoBo(this);
         }
+
+		public String getServiceTypeCodeName() {
+			return serviceTypeCodeName;
+		}
+
+		public void setServiceTypeCodeName(String serviceTypeCodeName) {
+			this.serviceTypeCodeName = serviceTypeCodeName;
+		}
     }
 }

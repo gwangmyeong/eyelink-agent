@@ -2,7 +2,9 @@ package com.m2u.eyelink.collector.bo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
@@ -45,6 +47,13 @@ public class ServiceInfoBo {
         return sb.toString();
     }
 
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serviceName", this.serviceName);
+		map.put("serviceLibs", this.serviceLibs);
+		return map;
+	}
+	
     @Override
     public int hashCode() {
         final int prime = 31;

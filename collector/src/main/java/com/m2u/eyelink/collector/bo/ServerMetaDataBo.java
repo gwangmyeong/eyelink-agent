@@ -2,7 +2,9 @@ package com.m2u.eyelink.collector.bo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
@@ -61,6 +63,20 @@ public class ServerMetaDataBo {
         return sb.toString();
     }
 
+	public Map<String, Object> getMap() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("serverInfo", this.serverInfo);
+		map.put("vmArgs", this.vmArgs.toString());
+		List<Map<String,Object>> listServiceInfoBo = new ArrayList<Map<String,Object>>();
+		// FIXME, bsh ServiceInfoBo Data 수집 안됨.
+		for(int i = 0; i < this.serviceInfos.size(); i++) {
+			ServiceInfoBo serviceInfoBo = this.serviceInfos.get(i);
+			listServiceInfoBo.add(serviceInfoBo.getMap());
+		}		
+		map.put("serviceInfos", listServiceInfoBo);
+		return map;
+	}
+	
     @Override
     public int hashCode() {
         final int prime = 31;

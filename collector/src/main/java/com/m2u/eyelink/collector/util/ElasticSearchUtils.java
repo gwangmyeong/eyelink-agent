@@ -1,10 +1,7 @@
 package com.m2u.eyelink.collector.util;
 
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables;
 
@@ -16,6 +13,11 @@ public class ElasticSearchUtils {
 		return indexName.toLowerCase();
 	}
 
-
+	public static String generateIndexNameEFSM(String idxName) {
+		Date dt = new Date();
+		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy.MM.dd");
+		String indexName = idxName + "-" + dt1.format(dt);
+		return indexName.toLowerCase();
+	}
 
 }
