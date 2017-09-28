@@ -203,7 +203,7 @@ public interface ServiceType {
     ServiceType SPRING_MVC = of(5051, "SPRING_MVC");
     ServiceType HTTP_CLIENT_3 = of(9050, "HTTP_CLIENT_3", RECORD_STATISTICS);
     ServiceType HTTP_CLIENT_4 = of(9052, "HTTP_CLIENT_4", RECORD_STATISTICS);
-    ServiceType HTTP_CLIENT_4_INTERNAL = of(9053, "HTTP_CLIENT_4_INTERNAL", RECORD_STATISTICS);
+    ServiceType HTTP_CLIENT_4_INTERNAL = of(9053, "HTTP_CLIENT_4_INTERNAL");
 
     /**
      * Database shown only as xxx_EXECUTE_QUERY at the statistics info section in the server map
