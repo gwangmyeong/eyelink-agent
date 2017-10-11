@@ -1,6 +1,6 @@
-bin/
 tmp/
 target/
+logs/
 *.tmp
 *.bak
 *.log

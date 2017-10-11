@@ -25,7 +25,7 @@ public class RestAPITest {
 //        assertEquals("0000", quote.getRtnCode().getCode());
 //    }
 	
-	@Test
+//	@Test
 	public void restAPI_PostTest() throws ParseException {
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		final java.util.Date dateObj = new Date();
