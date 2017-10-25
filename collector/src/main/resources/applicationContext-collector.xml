@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<context:component-scan
+		base-package="com.m2u.eyelink.collector.handler,
+                        com.m2u.eyelink.collector.manage,
+                        com.m2u.eyelink.collector.mapper,
+                        com.m2u.eyelink.collector.util,
+                        com.m2u.eyelink.collector.config,
+                        com.m2u.eyelink.collector.common.elasticsearch,
+                        com.m2u.eyelink.collector.dao,
+                        com.m2u.eyelink.collector.bo,
+                        com.m2u.eyelink.collector.server" />
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:collector.properties</value>
+				<value>classpath:elasticsearch.properties</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<util:properties id="eyelink_collector_properties"
+		location="classpath:collector.properties" />
+
+	<bean id="metricRegistry" class="com.codahale.metrics.MetricRegistry">
+	</bean>
+
+	<bean id="collectorConfiguration" class="com.m2u.eyelink.collector.config.CollectorConfiguration">
+		<property name="properties" ref="eyelink_collector_properties" />
+	</bean>
+
+	<bean id="networkAvailabilityCheckPacketFilter"
+		class="com.m2u.eyelink.collector.receiver.udp.NetworkAvailabilityCheckPacketFilter" />
+
+	<bean id="tBaseFilterChain" class="com.m2u.eyelink.collector.receiver.udp.TBaseFilterChain">
+		<constructor-arg>
+			<list>
+				<ref bean="networkAvailabilityCheckPacketFilter" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- Route Filters -->
+	<bean id="loggingRouteFilter"
+		class="com.m2u.eyelink.collector.cluster.route.filter.LoggingFilter" />
+	<bean id="agentEventHandlingFilter"
+		class="com.m2u.eyelink.collector.cluster.route.filter.AgentEventHandlingFilter" />
+
+
+	<!-- Filter Chains -->
+	<bean id="requestFilterChain"
+		class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+		<constructor-arg>
+			<list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+				<ref bean="loggingRouteFilter" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="responseFilterChain"
+		class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+		<constructor-arg>
+			<list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+				<ref bean="loggingRouteFilter" />
+				<ref bean="agentEventHandlingFilter" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="streamCreateFilterChain"
+		class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+		<constructor-arg>
+			<list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+				<ref bean="loggingRouteFilter" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="streamResponseFilterChain"
+		class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+		<constructor-arg>
+			<list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+				<ref bean="loggingRouteFilter" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="streamCloseFilterChain"
+		class="com.m2u.eyelink.collector.cluster.route.DefaultRouteFilterChain">
+		<constructor-arg>
+			<list value-type="com.m2u.eyelink.collector.cluster.route.filter.RouteFilter">
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- Serializer Factory Beans -->
+	<bean id="commandHeaderTBaseSerializerFactory"
+		class="com.m2u.eyelink.collector.thrift.io.CommandHeaderTBaseSerializerFactory">
+	</bean>
+
+	<bean id="commandHeaderTBaseDeserializerFactory"
+		class="com.m2u.eyelink.collector.thrift.io.CommandHeaderTBaseDeserializerFactory">
+	</bean>
+
+	<!-- Agent Event/Lifecycle related Beans -->
+	<bean id="agentEventWorker" class="com.m2u.eyelink.collector.util.ExecutorFactory"
+		factory-method="newFixedThreadPool">
+		<constructor-arg index="0"
+			value="#{collectorConfiguration.agentEventWorkerThreadSize}" />
+		<constructor-arg index="1"
+			value="#{collectorConfiguration.agentEventWorkerQueueSize}" />
+		<constructor-arg index="2" value="ELAgent-AgentEvent-Worker" />
+		<constructor-arg index="3" value="true" />
+	</bean>
+
+	<bean id="agentEventMessageSerializer"
+		class="com.m2u.eyelink.collector.server.util.AgentEventMessageSerializer">
+		<constructor-arg ref="commandHeaderTBaseSerializerFactory" />
+	</bean>
+
+	<bean id="agentEventHandler" class="com.m2u.eyelink.collector.rpc.handler.AgentEventHandler" />
+	<bean id="agentLifeCycleHandler"
+		class="com.m2u.eyelink.collector.rpc.handler.AgentLifeCycleHandler" />
+	<bean id="agentLifeCycleChangeEventHandler"
+		class="com.m2u.eyelink.collector.rpc.handler.AgentLifeCycleChangeEventHandler" />
+
+	<!-- Cluster-related Beans -->
+	<bean id="targetClusterPointRepository"
+		class="com.m2u.eyelink.collector.cluster.ClusterPointRepository" />
+
+	<bean id="defaultRouteHandler"
+		class="com.m2u.eyelink.collector.cluster.route.DefaultRouteHandler">
+		<constructor-arg index="0"
+			type="com.m2u.eyelink.collector.cluster.ClusterPointLocator" ref="targetClusterPointRepository" />
+		<constructor-arg index="1"
+			type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="requestFilterChain" />
+		<constructor-arg index="2"
+			type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="responseFilterChain" />
+	</bean>
+
+	<bean id="streamRouteHandler"
+		class="com.m2u.eyelink.collector.cluster.route.StreamRouteHandler">
+		<constructor-arg index="0"
+			type="com.m2u.eyelink.collector.cluster.ClusterPointLocator" ref="targetClusterPointRepository" />
+		<constructor-arg index="1"
+			type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="streamCreateFilterChain" />
+		<constructor-arg index="2"
+			type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="streamResponseFilterChain" />
+		<constructor-arg index="3"
+			type="com.m2u.eyelink.collector.cluster.route.RouteFilterChain" ref="streamCloseFilterChain" />
+	</bean>
+
+
+	<bean id="clusterPointRouter" class="com.m2u.eyelink.collector.cluster.ClusterPointRouter">
+		<constructor-arg ref="targetClusterPointRepository" />
+		<constructor-arg ref="defaultRouteHandler" />
+		<constructor-arg ref="streamRouteHandler" />
+	</bean>
+	<!-- <bean id="clusterService" class="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService"> 
+		<constructor-arg ref="collectorConfiguration" /> <constructor-arg ref="clusterPointRouter" 
+		/> </bean> -->
+
+	<!-- UDPStatReceiver related Beans -->
+	<bean id="udpDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpDispatchHandler" />
+
+	<bean id="udpDispatchHandlerWrapper"
+		class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+		<constructor-arg ref="udpDispatchHandler" />
+	</bean>
+
+	<bean id="udpStatBasePacketHandler"
+		class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">
+		<constructor-arg index="0" ref="udpDispatchHandlerWrapper" />
+		<constructor-arg index="1" ref="tBaseFilterChain" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.l4IpList}" />
+	</bean>
+	
+	<!-- DispatchHandler-related Beans -->
+	<bean id="udpSpanDispatchHandler" class="com.m2u.eyelink.collector.receiver.UdpSpanDispatchHandler"/>
+	<bean id="udpSpanDispatchHandlerWrapper"
+		class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+		<constructor-arg ref="udpSpanDispatchHandler" />
+	</bean>
+
+	<!-- udpStatReceiver related Beans -->
+	<bean id="udpStatReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
+		<constructor-arg index="0" value="EyeLink-UDP-Stat" />
+		<constructor-arg index="1" ref="udpStatBasePacketHandler" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.udpStatListenIp}" />
+		<constructor-arg index="3"
+			value="#{collectorConfiguration.udpStatListenPort}" />
+		<constructor-arg index="4"
+			value="#{collectorConfiguration.udpStatSocketReceiveBufferSize}" />
+		<constructor-arg index="5" ref="udpStatWorkerOption" />
+	</bean>
+	 
+	<!-- UDPSpanReceiver related Beans -->
+	<bean id="udpSpanBasePacketHandler"
+		class="com.m2u.eyelink.collector.receiver.udp.BaseUDPHandlerFactory">
+		<constructor-arg index="0" ref="udpSpanDispatchHandlerWrapper" />
+		<constructor-arg index="1" ref="tBaseFilterChain" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.l4IpList}" />
+	</bean>
+
+   <bean id="udpSpanWorkerOption" class="com.m2u.eyelink.collector.receiver.WorkerOption">
+        <constructor-arg index="0" value="#{collectorConfiguration.udpSpanWorkerThread}"/>
+        <constructor-arg index="1" value="#{collectorConfiguration.udpSpanWorkerQueueSize}"/>
+        <constructor-arg index="2" value="#{collectorConfiguration.udpSpanWorkerMonitor}"/>
+    </bean>
+    
+	<!-- UDPSpanReceiver Beans -->
+	<bean id="udpSpanReceiver" class="com.m2u.eyelink.collector.receiver.udp.UDPReceiver">
+		<constructor-arg index="0" value="EyeLink-UDP-Span" />
+		<constructor-arg index="1" ref="udpSpanBasePacketHandler" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.udpSpanListenIp}" />
+		<constructor-arg index="3"
+			value="#{collectorConfiguration.udpSpanListenPort}" />
+		<constructor-arg index="4"
+			value="#{collectorConfiguration.udpSpanSocketReceiveBufferSize}" />
+		<constructor-arg index="5" ref="udpSpanWorkerOption" />
+	</bean>
+
+	<!-- TCPReceiver related Beans -->
+	<bean id="serverAcceptor" class="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" />
+
+	<util:list id="channelStateChangeEventHandlers"
+		value-type="com.m2u.eyelink.collector.rpc.server.ServerStateChangeEventHandler">
+		<ref bean="agentLifeCycleChangeEventHandler" />
+	</util:list>
+
+	<bean id="tcpReceiver" class="com.m2u.eyelink.collector.receiver.tcp.TCPReceiver">
+		<constructor-arg
+			type="com.m2u.eyelink.collector.config.CollectorConfiguration" ref="collectorConfiguration" />
+		<constructor-arg type="com.m2u.eyelink.collector.receiver.DispatchHandler"
+			ref="tcpDispatchHandlerWrapper" />
+		<!-- <constructor-arg type="com.m2u.eyelink.rpc.server.ELAgentServerAcceptor" 
+			ref="serverAcceptor" /> <constructor-arg type="com.m2u.eyelink.collector.cluster.zookeeper.ZookeeperClusterService" 
+			ref="clusterService" /> -->
+	</bean>
+
+	<bean id="tcpDispatchHandler" class="com.m2u.eyelink.collector.receiver.TcpDispatchHandler" />
+	<bean id="tcpDispatchHandlerWrapper"
+		class="com.m2u.eyelink.collector.receiver.DispatchHandlerWrapper">
+		<constructor-arg ref="tcpDispatchHandler" />
+	</bean>
+
+	<!-- Manager-related Beans -->
+	<bean id="handlerManager" class="com.m2u.eyelink.collector.manage.HandlerManager">
+	</bean>
+
+	<bean id="elasticSearchManager" class="com.m2u.eyelink.collector.manage.ElasticSearchManager">
+	</bean>
+
+    
+    <!-- Manager-related Beans -->
+    <!-- <bean id="collectorMetric" class="com.m2u.eyelink.collector.monitor.CollectorMetric">
+    </bean> -->
+    <!-- <bean id="jmxCollectorManager" class="com.m2u.eyelink.collector.manage.jmx.JMXCollectorManager">
+    </bean>
+
+    <bean id="jmxCollectorManagerList" class="com.m2u.eyelink.collector.manage.jmx.JMXCollectorManagerList">
+    </bean> -->
+
+    <bean id="clusterManager" class="com.m2u.eyelink.collector.manage.ClusterManager">
+        <constructor-arg ref="collectorConfiguration"/>
+        <constructor-arg ref="targetClusterPointRepository"/>
+    </bean>
+    
+	<bean id="udpStatWorkerOption" class="com.m2u.eyelink.collector.receiver.WorkerOption">
+		<constructor-arg index="0"
+			value="#{collectorConfiguration.udpStatWorkerThread}" />
+		<constructor-arg index="1"
+			value="#{collectorConfiguration.udpStatWorkerQueueSize}" />
+		<constructor-arg index="2"
+			value="#{collectorConfiguration.udpStatWorkerMonitor}" />
+	</bean>
+
+	<!-- ElasticSearch -->
+	<bean id="elasticSearchConfiguration"
+		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchConfigurationFactoryBean">
+		<property name="properties">
+			<props>
+				<!-- for elaticsearch -->
+				<prop key="elasticsearch.cluster.name">${elasticsearch.cluster.name}</prop>
+				<prop key="elasticsearch.host.ip.1">${elasticsearch.host.ip.1}</prop>
+				<prop key="elasticsearch.host.port.1">${elasticsearch.host.port.1}</prop>
+				<prop key="elasticsearch.host.ip.2">${elasticsearch.host.ip.2}</prop>
+				<prop key="elasticsearch.host.port.2">${elasticsearch.host.port.2}</prop>
+
+				<prop key="hbase.zookeeper.quorum">${hbase.client.host}</prop>
+				<prop key="hbase.zookeeper.property.clientPort">${hbase.client.port}</prop>
+
+				<!--Root ZNode for HBase in ZooKeeper. -->
+				<prop key="zookeeper.znode.parent">${hbase.zookeeper.znode.parent:/hbase}</prop>
+
+				<!-- hbase default:true -->
+				<prop key="hbase.ipc.client.tcpnodelay">${hbase.ipc.client.tcpnodelay}</prop>
+				<!-- hbase default:60000 -->
+				<prop key="hbase.rpc.timeout">${hbase.rpc.timeout}</prop>
+				<!-- hbase default:Integer.MAX_VALUE -->
+				<prop key="hbase.client.operation.timeout">${hbase.client.operation.timeout}</prop>
+
+				<!-- hbase socket read timeout. default: 200000 -->
+				<prop key="hbase.ipc.client.socket.timeout.read">${hbase.ipc.client.socket.timeout.read}</prop>
+				<!-- socket write timeout. hbase default: 600000 -->
+				<prop key="hbase.ipc.client.socket.timeout.write">${hbase.ipc.client.socket.timeout.write}</prop>
+
+				<!-- hbase async put operation. -->
+				<prop key="hbase.client.async.enable">${hbase.client.async.enable:false}</prop>
+				<prop key="hbase.client.async.in.queuesize">${hbase.client.async.in.queuesize:10000}</prop>
+				<prop key="hbase.tablemultiplexer.flush.period.ms">${hbase.client.async.flush.period.ms:100}</prop>
+				<prop key="hbase.client.max.retries.in.queue">${hbase.client.async.max.retries.in.queue:10}</prop>
+			</props>
+		</property>
+
+	</bean>
+
+	<bean id="connectionFactory"
+		class="com.m2u.eyelink.collector.common.elasticsearch.PooledElasticSearchFactory">
+		<constructor-arg ref="elasticSearchConfiguration" />
+		<constructor-arg value="${hbase.client.thread.max}" />
+		<constructor-arg value="${hbase.client.threadPool.queueSize}" />
+		<constructor-arg value="${hbase.client.threadPool.prestart}" />
+	</bean>
+
+	<bean id="asyncOperation"
+		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchAsyncOperationFactory"
+		factory-method="create">
+		<constructor-arg value="#{connectionFactory.getConnection()}" />
+		<constructor-arg ref="elasticSearchConfiguration" />
+	</bean>
+
+	<bean id="elasticSearchAdminTemplate"
+		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchAdminTemplate"
+		destroy-method="close">
+		<constructor-arg ref="elasticSearchConfiguration"
+			index="0"></constructor-arg>
+	</bean>
+
+	<bean id="elasticSearchTemplate"
+		class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTemplate2"
+		destroy-method="destroy">
+		<property name="configuration" ref="elasticSearchConfiguration" />
+		<property name="tableFactory" ref="connectionFactory" />
+		<property name="asyncOperation" ref="asyncOperation" />
+	</bean>
+
+	<bean id="sqlMetaDataHandler" class="com.m2u.eyelink.collector.handler.SqlMetaDataHandler">
+		<property name="sqlMetaDataDao" ref="elasticSearchSqlMetaDataDao" />
+	</bean>
+
+	<bean id="elasticSearchSqlMetaDataDao"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.ElasticSearchSqlMetaDataDao" />
+
+	<bean id="metadataRowKeyDistributor"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+		<constructor-arg ref="metadataRangeHasher" />
+	</bean>
+
+	<bean id="metadataRangeHasher"
+		class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+		<constructor-arg type="int" value="0" />
+		<constructor-arg type="int" value="32" />
+		<constructor-arg type="int" value="8" />
+	</bean>
+
+	<bean id="metadataRowKeyDistributor2"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+		<constructor-arg ref="metadataRangeHasher2" />
+	</bean>
+
+	<bean id="metadataRangeHasher2"
+		class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+		<constructor-arg type="int" value="0" />
+		<constructor-arg type="int" value="36" />
+		<constructor-arg type="int" value="32" />
+	</bean>
+
+	<bean id="agentStatV2RowKeyDistributor"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+		<constructor-arg ref="agentStatV2RangeHasher" />
+	</bean>
+
+	<bean id="agentStatV2RangeHasher"
+		class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+		<constructor-arg type="int" value="0" />
+		<constructor-arg type="int" value="33" />
+		<constructor-arg type="int" value="64" />
+	</bean>
+
+	<bean id="agentStatRowKeyDistributor"
+		class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+		<constructor-arg ref="agentStatRangeHasher" />
+	</bean>
+
+	<bean id="agentStatRangeHasher"
+		class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+		<constructor-arg type="int" value="0" />
+		<constructor-arg type="int" value="24" />
+		<constructor-arg type="int" value="32" />
+	</bean>
+
+    <bean id="traceV2Distributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="traceV2Hasher"/>
+    </bean>
+
+    <bean id="traceV2Hasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="32"/>
+        <constructor-arg type="int" value="40"/>
+        <constructor-arg type="int" value="256"/>
+    </bean>
+
+    <bean id="hTable" class="com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables">
+    </bean>
+    
+    <bean id="callerMerge" class="com.m2u.eyelink.collector.dao.elasticsearch.statistics.RowKeyMerge">
+        <constructor-arg value="#{hTable.MAP_STATISTICS_CALLEE_VER2_CF_COUNTER}"/>
+    </bean>
+
+    <bean id="calleeMerge" class="com.m2u.eyelink.collector.dao.elasticsearch.statistics.RowKeyMerge">
+        <constructor-arg value="#{hTable.MAP_STATISTICS_CALLER_VER2_CF_COUNTER}"/>
+    </bean>
+
+    <bean id="selfMerge" class="com.m2u.eyelink.collector.dao.elasticsearch.statistics.RowKeyMerge">
+        <constructor-arg value="#{hTable.MAP_STATISTICS_SELF_VER2_CF_COUNTER}"/>
+    </bean>
+    
+    <bean id="statisticsCalleeRowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="statisticsCalleeHasher"/>
+    </bean>
+
+    <bean id="statisticsCalleeHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="36"/>
+        <constructor-arg type="int" value="32"/>
+    </bean>
+
+    <bean id="statisticsCallerRowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="statisticsCallerHasher"/>
+    </bean>
+
+    <bean id="statisticsCallerHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="36"/>
+        <constructor-arg type="int" value="32"/>
+    </bean>
+
+    <bean id="statisticsSelfRowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="statisticsSelfHasher"/>
+    </bean>
+
+    <bean id="statisticsSelfHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="32"/>
+        <constructor-arg type="int" value="8"/>
+    </bean>
+
+    <bean id="StdoutCommonLoggerFactory" class="com.m2u.eyelink.logging.StdoutCommonLoggerFactory">
+    </bean>
+
+    <bean id="typeLoaderService" class="com.m2u.eyelink.common.service.DefaultTraceMetadataLoaderService">
+        <constructor-arg ref="StdoutCommonLoggerFactory"/>
+    </bean>
+
+    <bean id="serviceTypeRegistryService" class="com.m2u.eyelink.common.service.DefaultServiceTypeRegistryService">
+        <constructor-arg ref="typeLoaderService"/>
+        <constructor-arg ref="StdoutCommonLoggerFactory"/>
+    </bean>
+
+    <bean id="applicationTraceIndexDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="applicationTraceIndex"/>
+    </bean>
+
+    <bean id="applicationTraceIndex" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <constructor-arg>
+            <value type="int">32</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="acceptApplicationRowKeyDistributor" class="com.m2u.eyelink.collector.dao.elasticsearch.RowKeyDistributorByHashPrefix">
+        <constructor-arg ref="acceptApplicationHasher"/>
+    </bean>
+
+    <bean id="acceptApplicationHasher" class="com.m2u.eyelink.collector.common.elasticsearch.RangeOneByteSimpleHash">
+        <!-- Hashing parentApplicationName -->
+        <constructor-arg type="int" value="0"/>
+        <constructor-arg type="int" value="24"/>
+        <constructor-arg type="int" value="4"/>
+    </bean>
+
+        
+    <bean id="timeSlot" class="com.m2u.eyelink.collector.util.DefaultTimeSlot">
+    </bean>
+    
+    
+</beans>

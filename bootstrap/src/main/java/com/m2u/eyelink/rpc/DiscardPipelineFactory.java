@@ -1,0 +1,12 @@
+package com.m2u.eyelink.rpc;
+
+import org.jboss.netty.channel.ChannelPipeline;
+import org.jboss.netty.channel.ChannelPipelineFactory;
+import org.jboss.netty.channel.Channels;
+
+public class DiscardPipelineFactory implements ChannelPipelineFactory {
+    @Override
+    public ChannelPipeline getPipeline() throws Exception {
+        return Channels.pipeline(new DiscardServerHandler());
+    }
+}
