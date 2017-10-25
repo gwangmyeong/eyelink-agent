@@ -6,7 +6,7 @@ import com.m2u.eyelink.context.Trace;
 import com.m2u.eyelink.context.TraceContext;
 import com.m2u.eyelink.logging.PLogger;
 import com.m2u.eyelink.logging.PLoggerFactory;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class BasicMethodInterceptor implements AroundInterceptor {
 

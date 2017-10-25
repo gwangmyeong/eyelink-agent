@@ -3,7 +3,7 @@ package com.m2u.eyelink.context.monitor;
 import java.lang.ref.WeakReference;
 
 import com.m2u.eyelink.plugin.monitor.DataSourceMonitor;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class DataSourceMonitorWrapper implements PluginMonitorWrapper, DataSourceMonitor {
 

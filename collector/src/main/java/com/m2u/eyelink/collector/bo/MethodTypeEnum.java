@@ -1,6 +1,6 @@
 package com.m2u.eyelink.collector.bo;
 
-import com.m2u.eyelink.trace.MethodType;
+import com.m2u.eyelink.common.trace.MethodType;
 
 public enum MethodTypeEnum {
     // method

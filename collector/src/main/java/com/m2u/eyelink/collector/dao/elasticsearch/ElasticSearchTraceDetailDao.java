@@ -35,7 +35,7 @@ import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.IntStringStringValue;
 import com.m2u.eyelink.collector.util.OutputParameterParser;
 import com.m2u.eyelink.context.DefaultSqlParser;
-import com.m2u.eyelink.trace.AnnotationKey;
+import com.m2u.eyelink.common.trace.AnnotationKey;
 import com.m2u.eyelink.util.AnnotationKeyUtils;
 import com.m2u.eyelink.util.SqlParser;
 import com.m2u.eyelink.util.TransactionId;

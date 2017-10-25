@@ -1,7 +1,7 @@
 package com.m2u.eyelink.plugin.tomcat;
 
 import com.m2u.eyelink.context.MethodDescriptor;
-import com.m2u.eyelink.trace.MethodType;
+import com.m2u.eyelink.common.trace.MethodType;
 
 public class ServletSyncMethodDescriptor implements MethodDescriptor {
 	private int apiId = 0;

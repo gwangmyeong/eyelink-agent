@@ -7,18 +7,18 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.m2u.eyelink.logging.CommonLoggerFactory;
-import com.m2u.eyelink.logging.StdoutCommonLoggerFactory;
-import com.m2u.eyelink.trace.AnnotationKey;
-import com.m2u.eyelink.trace.AnnotationKeyFactory;
-import com.m2u.eyelink.trace.ServiceType;
-import com.m2u.eyelink.trace.ServiceTypeFactory;
-import com.m2u.eyelink.trace.TraceMetadataLoader;
-import com.m2u.eyelink.trace.TraceMetadataProvider;
-import com.m2u.eyelink.trace.TraceMetadataSetupContext;
-import com.m2u.eyelink.util.StaticFieldLookUp;
+import com.m2u.eyelink.common.util.StaticFieldLookUp;
+import com.m2u.eyelink.common.util.logger.CommonLoggerFactory;
+import com.m2u.eyelink.common.util.logger.StdoutCommonLoggerFactory;
+import com.m2u.eyelink.common.trace.AnnotationKey;
+import com.m2u.eyelink.common.trace.AnnotationKeyFactory;
+import com.m2u.eyelink.common.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceTypeFactory;
+import com.m2u.eyelink.common.trace.TraceMetadataLoader;
+import com.m2u.eyelink.common.trace.TraceMetadataProvider;
+import com.m2u.eyelink.common.trace.TraceMetadataSetupContext;
 
-import static com.m2u.eyelink.trace.ServiceTypeProperty.*;
+import static com.m2u.eyelink.common.trace.ServiceTypeProperty.*;
 
 public class ServiceTypeInitializerTest {
 

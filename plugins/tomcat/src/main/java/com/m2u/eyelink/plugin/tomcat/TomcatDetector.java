@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.m2u.eyelink.agent.profiler.plugin.ApplicationTypeDetector;
 import com.m2u.eyelink.agent.resolver.ConditionProvider;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class TomcatDetector implements ApplicationTypeDetector {
     

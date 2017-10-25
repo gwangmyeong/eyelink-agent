@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import com.m2u.eyelink.agent.instrument.DynamicTransformRequestListener;
 import com.m2u.eyelink.agent.instrument.DynamicTransformTrigger;
 import com.m2u.eyelink.agent.instrument.RequestHandle;
-import com.m2u.eyelink.util.Asserts;
+import com.m2u.eyelink.common.util.Asserts;
 
 public class DynamicTransformService implements DynamicTransformTrigger {
 

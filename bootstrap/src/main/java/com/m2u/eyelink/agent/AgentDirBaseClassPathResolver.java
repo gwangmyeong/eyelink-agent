@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.jar.JarFile;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,7 +25,7 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 	static final String VERSION_PATTERN = "(-[0-9]+\\.[0-9]+\\.[0-9]+((\\-SNAPSHOT)|(-RC[0-9]+))?)?";
 	static final Pattern DEFAULT_AGENT_PATTERN = compile("eyelink-bootstrap"
 			+ VERSION_PATTERN + "\\.jar");
-	static final Pattern DEFAULT_AGENT_COMMONS_PATTERN = compile("eyelink-bootstrap-commons"
+	static final Pattern DEFAULT_AGENT_COMMONS_PATTERN = compile("eyelink-commons"
 			+ VERSION_PATTERN + "\\.jar");
 	static final Pattern DEFAULT_AGENT_CORE_PATTERN = compile("eyelink-bootstrap-core"
 			+ VERSION_PATTERN + "\\.jar");
@@ -87,17 +88,77 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 	public boolean verify() {
 		final ELAgentJarFile agentJarFile = new ELAgentJarFile();
 
-		// find ELAgent.jar file
+		// 1st find eyelink-bootstrap.jar file
 		final boolean agentJarFileFound = this.findAgentJar();
 		if (!agentJarFileFound) {
-			logger.warn("eyelink-agent-x.x.x(-SNAPSHOT).jar not found.");
+			logger.warn("eyelink-bootstrap-x.x.x(-SNAPSHOT).jar not found.");
 			return false;
 		}
+
+        // 2nd find eyelink-commons.jar
+        final String eyelinkCommonsJar = getELAgentCommonsJar();
+        if (eyelinkCommonsJar == null) {
+            logger.warn("eyelink-commons-x.x.x(-SNAPSHOT).jar not found");
+            return false;
+        }
+        final JarFile eyelinkCommonsJarFile = getJarFile(eyelinkCommonsJar);
+        if (eyelinkCommonsJarFile == null) {
+            logger.warn("eyelink-commons-x.x.x(-SNAPSHOT).jar not found");
+            return false;
+        }
+        agentJarFile.append(eyelinkCommonsJarFile);
+
+        // TODO bsh, need to check logic whether need or not?
+        
+        // 3rd find eyelink-core.jar
+        final String eyelinkCoreJar = getELAgentCoreJar();
+        if (eyelinkCoreJar == null) {
+            logger.warn("eyelink-core-x.x.x(-SNAPSHOT).jar not found");
+//            return false;
+        } else {
+	        	JarFile eyelinkCoreJarFile = getJarFile(eyelinkCoreJar);
+	        	if (eyelinkCoreJarFile == null) {
+	        		logger.warn("eyelink-core-x.x.x(-SNAPSHOT).jar not found");
+	        		return false;
+	        	}
+	        	agentJarFile.append(eyelinkCoreJarFile);
+        }
+
+        // 4th find eyelink-core-optional.jar
+        final String eyelinkCoreOptionalJar = getELAgentCoreOptionalJar();
+        if (eyelinkCoreOptionalJar == null) {
+            logger.info("eyelink-core-optional-x.x.x(-SNAPSHOT).jar not found");
+        } else {
+            JarFile eyelinkCoreOptionalJarFile = getJarFile(eyelinkCoreOptionalJar);
+            if (eyelinkCoreOptionalJarFile == null) {
+                logger.info("eyelink-core-optional-x.x.x(-SNAPSHOT).jar not found");
+            } else {
+            	agentJarFile.append(eyelinkCoreOptionalJarFile);
+            }
+        }
+
+        // 5th find annotations.jar : optional dependency
+        final String annotationsJar = getAnnotationsJar();
+        if (annotationsJar == null) {
+            logger.info("eyelink-annotations-x.x.x(-SNAPSHOT).jar not found");
+        } else {
+            JarFile jarFile = getJarFile(annotationsJar);
+            agentJarFile.append(jarFile);
+        }
 
 		this.agentJarFile = agentJarFile;
 		return true;
 	}
 
+    private JarFile getJarFile(String jarFilePath) {
+        try {
+            return new JarFile(jarFilePath);
+        } catch (IOException ioe) {
+            logger.warn(jarFilePath + " file not found. Error:" + ioe.getMessage(), ioe);
+            return null;
+        }
+    }
+    
 	public boolean findAgentJar() {
 		logger.info("classpath:" + classPath);
 		logger.info(agentPattern.toString());
@@ -125,7 +186,7 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		this.agentDirPath = toCanonicalPath(agentDirPath);
 		logger.info("Agent canonical-path:" + agentDirPath);
 
-		this.ElAgentCommonsJar = findFromBootDir("eyelink-bootstrap-commons.jar",
+		this.ElAgentCommonsJar = findFromBootDir("eyelink-commons.jar",
 				agentCommonsPattern);
 		this.ElAgentCoreJar = findFromBootDir("eyelink-bootstrap-core.jar",
 				agentCorePattern);
@@ -228,7 +289,7 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 	}
 
 	@Override
-	public String getELAgentOptionalJar() {
+	public String getELAgentCoreOptionalJar() {
 		return ElAgentOptionalJar;
 	}
 
@@ -369,18 +430,22 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 		return agentDirPath + File.separator + "classes" + File.separator + ELConstants.ProductName + ".config";
 	}
 	
-	   private File[] findJar(File libDir) {
-	        return libDir.listFiles(new FileFilter() {
-	            @Override
-	            public boolean accept(File pathname) {
-	                String path = pathname.getName();
-	                for (String extension : fileExtensionList) {
-	                    if (path.lastIndexOf("." + extension) != -1) {
-	                        return true;
-	                    }
-	                }
-	                return false;
-	            }
-	        });
-	    }
+	private File[] findJar(File libDir) {
+		return libDir.listFiles(new FileFilter() {
+			@Override
+			public boolean accept(File pathname) {
+				String path = pathname.getName();
+				for (String extension : fileExtensionList) {
+					if (path.lastIndexOf("." + extension) != -1) {
+						return true;
+					}
+				}
+				return false;
+			}
+		});
+	}
+
+	public String getAnnotationsJar() {
+		return annotationsJar;
+	}
 }

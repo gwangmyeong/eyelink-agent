@@ -24,6 +24,7 @@ import com.m2u.eyelink.agent.profiler.metadata.DefaultStringMetaDataService;
 import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
 import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.agent.profiler.sampler.SamplerFactory;
+import com.m2u.eyelink.common.trace.ServiceType;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.context.AgentInformation;
 import com.m2u.eyelink.context.DefaultServerMetaDataHolder;
@@ -38,7 +39,6 @@ import com.m2u.eyelink.context.TraceFactory;
 import com.m2u.eyelink.sender.EnhancedDataSender;
 import com.m2u.eyelink.sender.LoggingDataSender;
 import com.m2u.eyelink.test.TestAgentInformation;
-import com.m2u.eyelink.trace.ServiceType;
 
 public class MockTraceContextFactory {
 

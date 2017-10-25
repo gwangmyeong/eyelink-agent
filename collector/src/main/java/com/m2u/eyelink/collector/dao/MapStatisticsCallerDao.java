@@ -1,6 +1,6 @@
 package com.m2u.eyelink.collector.dao;
 
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public interface MapStatisticsCallerDao extends CachedStatisticsDao {
 	void update(String callerApplicationName, ServiceType callerServiceType, String callerAgentId,

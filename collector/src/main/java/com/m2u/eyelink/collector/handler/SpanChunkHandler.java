@@ -15,7 +15,7 @@ import com.m2u.eyelink.collector.dao.SpanChunkBo;
 import com.m2u.eyelink.collector.dao.TraceDao;
 import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
 import com.m2u.eyelink.context.thrift.TSpanChunk;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 @Service
 public class SpanChunkHandler implements SimpleHandler {

@@ -1,9 +1,9 @@
 package com.m2u.eyelink.plugin.tomcat;
 
-import static com.m2u.eyelink.trace.ServiceTypeProperty.*;
+import static com.m2u.eyelink.common.trace.ServiceTypeProperty.*;
 
-import com.m2u.eyelink.trace.ServiceType;
-import com.m2u.eyelink.trace.ServiceTypeFactory;
+import com.m2u.eyelink.common.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceTypeFactory;
 
 public final class TomcatConstants {
 	private TomcatConstants() {

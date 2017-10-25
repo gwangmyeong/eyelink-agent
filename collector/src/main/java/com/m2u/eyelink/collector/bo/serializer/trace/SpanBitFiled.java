@@ -2,7 +2,7 @@ package com.m2u.eyelink.collector.bo.serializer.trace;
 
 import com.m2u.eyelink.collector.bo.SpanBo;
 import com.m2u.eyelink.collector.util.BitFieldUtils;
-import com.m2u.eyelink.trace.LoggingInfo;
+import com.m2u.eyelink.common.trace.LoggingInfo;
 import com.m2u.eyelink.util.CollectionUtils;
 
 public class SpanBitFiled {

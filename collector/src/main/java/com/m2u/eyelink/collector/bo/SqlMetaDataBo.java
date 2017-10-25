@@ -5,8 +5,9 @@ import java.util.Map;
 
 import com.m2u.eyelink.collector.util.RowKeyUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
-import com.m2u.eyelink.common.ELAgentConstants;
 import com.m2u.eyelink.util.BytesUtils;
+
+import com.m2u.eyelink.common.ELAgentConstants;
 
 public class SqlMetaDataBo {
     private String agentId;

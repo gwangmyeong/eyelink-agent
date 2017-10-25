@@ -1,7 +1,7 @@
 package com.m2u.eyelink.agent.profiler.plugin;
 
 import com.m2u.eyelink.agent.resolver.ConditionProvider;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 
 public interface ApplicationTypeDetector {

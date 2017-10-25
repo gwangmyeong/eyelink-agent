@@ -10,7 +10,7 @@ import com.m2u.eyelink.agent.profiler.context.module.ApplicationServerType;
 import com.m2u.eyelink.common.Version;
 import com.m2u.eyelink.context.AgentInformation;
 import com.m2u.eyelink.context.RuntimeMXBeanUtils;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 import com.m2u.eyelink.util.IdValidateUtils;
 import com.m2u.eyelink.util.JvmUtils;
 import com.m2u.eyelink.util.NetworkUtils;

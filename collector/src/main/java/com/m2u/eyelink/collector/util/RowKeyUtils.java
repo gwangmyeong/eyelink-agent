@@ -2,9 +2,9 @@ package com.m2u.eyelink.collector.util;
 
 import com.m2u.eyelink.util.BytesUtils;
 
-import static com.m2u.eyelink.common.ELAgentConstants.AGENT_NAME_MAX_LEN;
 import static com.m2u.eyelink.util.BytesUtils.INT_BYTE_LENGTH;
 import static com.m2u.eyelink.util.BytesUtils.LONG_BYTE_LENGTH;
+import static com.m2u.eyelink.common.ELAgentConstants.AGENT_NAME_MAX_LEN;
 
 public final class RowKeyUtils {
     private RowKeyUtils() {

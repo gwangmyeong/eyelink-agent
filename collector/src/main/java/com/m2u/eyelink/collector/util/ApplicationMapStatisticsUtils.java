@@ -1,12 +1,13 @@
 package com.m2u.eyelink.collector.util;
 
-import com.m2u.eyelink.common.ELAgentConstants;
-import com.m2u.eyelink.trace.HistogramSchema;
-import com.m2u.eyelink.trace.HistogramSlot;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.HistogramSchema;
+import com.m2u.eyelink.common.trace.HistogramSlot;
+import com.m2u.eyelink.common.trace.ServiceType;
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
 import com.m2u.eyelink.util.BytesUtils;
+
+import com.m2u.eyelink.common.ELAgentConstants;
 
 public class ApplicationMapStatisticsUtils {
     private ApplicationMapStatisticsUtils() {

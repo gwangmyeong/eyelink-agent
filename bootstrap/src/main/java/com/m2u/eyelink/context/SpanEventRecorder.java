@@ -1,7 +1,7 @@
 package com.m2u.eyelink.context;
 
-import com.m2u.eyelink.trace.AnnotationKey;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.AnnotationKey;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 
 

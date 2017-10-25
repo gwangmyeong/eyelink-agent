@@ -1,6 +1,7 @@
 package com.m2u.eyelink.collector.common.elasticsearch;
 
 import com.m2u.eyelink.collector.dao.elasticsearch.Bytes;
+
 import com.m2u.eyelink.common.ELAgentConstants;
 
 public class ElasticSearchTables {

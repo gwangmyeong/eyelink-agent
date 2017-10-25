@@ -8,8 +8,8 @@ import com.m2u.eyelink.collector.bo.ApiMetaDataBo;
 import com.m2u.eyelink.collector.bo.MethodTypeEnum;
 import com.m2u.eyelink.collector.bo.SpanBo;
 import com.m2u.eyelink.collector.bo.SpanEventBo;
-import com.m2u.eyelink.trace.AnnotationKey;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.AnnotationKey;
+import com.m2u.eyelink.common.trace.ServiceType;
 import com.m2u.eyelink.util.AnnotationKeyUtils;
 
 public class CorruptedSpanAlignFactory {

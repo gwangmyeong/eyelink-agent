@@ -1,6 +1,6 @@
 package com.m2u.eyelink.util;
 
-import com.m2u.eyelink.trace.AnnotationKey;
+import com.m2u.eyelink.common.trace.AnnotationKey;
 
 public final class AnnotationKeyUtils {
 

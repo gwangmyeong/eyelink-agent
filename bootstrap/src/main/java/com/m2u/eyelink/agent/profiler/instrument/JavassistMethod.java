@@ -41,9 +41,10 @@ import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistry;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistryBinder;
 import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 import com.m2u.eyelink.agent.profiler.objectfactory.ObjectBinderFactory;
+import com.m2u.eyelink.common.util.Asserts;
+
 import com.m2u.eyelink.context.DefaultMethodDescriptor;
 import com.m2u.eyelink.context.MethodDescriptor;
-import com.m2u.eyelink.util.Asserts;
 
 public class JavassistMethod implements InstrumentMethod {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

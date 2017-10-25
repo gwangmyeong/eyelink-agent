@@ -1,6 +1,6 @@
 package com.m2u.eyelink.collector.bo.stat;
 
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class DataSourceBo implements AgentStatDataPoint {
 

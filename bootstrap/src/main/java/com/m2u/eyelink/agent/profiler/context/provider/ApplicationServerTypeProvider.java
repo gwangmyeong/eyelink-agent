@@ -12,7 +12,7 @@ import com.m2u.eyelink.agent.profiler.plugin.PluginContextLoadResult;
 import com.m2u.eyelink.agent.profiler.util.ApplicationServerTypeResolver;
 import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
 import com.m2u.eyelink.config.ProfilerConfig;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class ApplicationServerTypeProvider implements Provider<ServiceType> {
 

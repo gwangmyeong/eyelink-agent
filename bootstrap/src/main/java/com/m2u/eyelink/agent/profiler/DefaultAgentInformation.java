@@ -1,7 +1,7 @@
 package com.m2u.eyelink.agent.profiler;
 
 import com.m2u.eyelink.context.AgentInformation;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class DefaultAgentInformation implements AgentInformation {
     private final String agentId;

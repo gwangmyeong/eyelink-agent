@@ -31,8 +31,9 @@ import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 import com.m2u.eyelink.agent.profiler.objectfactory.AutoBindingObjectFactory;
 import com.m2u.eyelink.agent.profiler.objectfactory.InterceptorArgumentProvider;
 import com.m2u.eyelink.agent.profiler.objectfactory.ObjectBinderFactory;
-import com.m2u.eyelink.exception.PinpointException;
-import com.m2u.eyelink.util.Asserts;
+import com.m2u.eyelink.common.util.Asserts;
+import com.m2u.eyelink.exception.ELAgentException;
+
 
 public class ASMClass implements InstrumentClass {
     private static final String FIELD_PREFIX = "_$PINPOINT$_";
@@ -426,7 +427,7 @@ public class ASMClass implements InstrumentClass {
         }
 
         if (interceptorId == -1) {
-            throw new PinpointException("No target is specified. At least one of @Targets, @TargetMethod, @TargetConstructor, @TargetFilter must present. interceptor: " + interceptorClassName);
+            throw new ELAgentException("No target is specified. At least one of @Targets, @TargetMethod, @TargetConstructor, @TargetFilter must present. interceptor: " + interceptorClassName);
         }
 
         return interceptorId;

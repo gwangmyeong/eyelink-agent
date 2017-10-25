@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
-import com.m2u.eyelink.logging.CommonLogger;
-import com.m2u.eyelink.logging.StdoutCommonLoggerFactory;
+import com.m2u.eyelink.common.util.logger.CommonLogger;
+import com.m2u.eyelink.common.util.logger.StdoutCommonLoggerFactory;
 
 public final class NetworkUtils {
 

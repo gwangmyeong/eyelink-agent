@@ -23,7 +23,7 @@ import com.m2u.eyelink.collector.bo.codec.strategy.UnsignedShortEncodingStrategy
 import com.m2u.eyelink.collector.bo.serializer.stat.AgentStatDecodingContext;
 import com.m2u.eyelink.collector.bo.stat.ActiveTraceBo;
 import com.m2u.eyelink.collector.util.MapUtils;
-import com.m2u.eyelink.trace.SlotType;
+import com.m2u.eyelink.common.trace.SlotType;
 import com.m2u.eyelink.util.Buffer;
 import com.m2u.eyelink.util.CollectionUtils;
 

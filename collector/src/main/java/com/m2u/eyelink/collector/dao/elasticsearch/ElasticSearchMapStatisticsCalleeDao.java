@@ -25,7 +25,7 @@ import com.m2u.eyelink.collector.server.util.AcceptedTimeService;
 import com.m2u.eyelink.collector.util.ApplicationMapStatisticsUtils;
 import com.m2u.eyelink.collector.util.ConcurrentCounterMap;
 import com.m2u.eyelink.collector.util.TimeSlot;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 @Repository
 public class ElasticSearchMapStatisticsCalleeDao implements MapStatisticsCalleeDao {

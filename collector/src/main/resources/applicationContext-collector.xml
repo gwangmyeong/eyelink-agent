@@ -477,7 +477,7 @@
         <constructor-arg type="int" value="8"/>
     </bean>
 
-    <bean id="StdoutCommonLoggerFactory" class="com.m2u.eyelink.logging.StdoutCommonLoggerFactory">
+    <bean id="StdoutCommonLoggerFactory" class="com.m2u.eyelink.common.util.logger.StdoutCommonLoggerFactory">
     </bean>
 
     <bean id="typeLoaderService" class="com.m2u.eyelink.common.service.DefaultTraceMetadataLoaderService">

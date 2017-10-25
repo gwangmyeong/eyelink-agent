@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.m2u.eyelink.collector.dao.MapResponseTimeDao;
 import com.m2u.eyelink.collector.dao.MapStatisticsCalleeDao;
 import com.m2u.eyelink.collector.dao.MapStatisticsCallerDao;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 @Service
 public class StatisticsHandler {

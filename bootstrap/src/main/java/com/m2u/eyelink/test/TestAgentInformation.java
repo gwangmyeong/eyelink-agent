@@ -2,7 +2,7 @@ package com.m2u.eyelink.test;
 
 import com.m2u.eyelink.agent.profiler.DefaultAgentInformation;
 import com.m2u.eyelink.common.Version;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 import com.m2u.eyelink.util.SystemPropertyKey;
 import com.m2u.eyelink.util.jdk.JvmUtils;
 

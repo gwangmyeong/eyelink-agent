@@ -16,8 +16,8 @@ import com.m2u.eyelink.collector.util.ApiDescription;
 import com.m2u.eyelink.collector.util.ApiDescriptionParser;
 import com.m2u.eyelink.common.service.AnnotationKeyRegistryService;
 import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
-import com.m2u.eyelink.trace.AnnotationKey;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.AnnotationKey;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class RecordFactory {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

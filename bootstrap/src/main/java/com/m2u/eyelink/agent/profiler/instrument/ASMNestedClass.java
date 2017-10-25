@@ -18,7 +18,7 @@ import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistryBinder;
 import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 import com.m2u.eyelink.agent.profiler.objectfactory.ObjectBinderFactory;
-import com.m2u.eyelink.util.Asserts;
+import com.m2u.eyelink.common.util.Asserts;
 
 public class ASMNestedClass implements InstrumentClass {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

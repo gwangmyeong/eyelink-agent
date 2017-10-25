@@ -12,7 +12,7 @@ public interface ClassPathResolver {
 
     String getELAgentCoreJar();
 
-    String getELAgentOptionalJar();
+    String getELAgentCoreOptionalJar();
 
     String getAgentJarName();
 

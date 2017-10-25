@@ -2,7 +2,7 @@ package com.m2u.eyelink.agent.profiler.instrument;
 
 import java.lang.reflect.Method;
 
-import com.m2u.eyelink.util.Asserts;
+import com.m2u.eyelink.common.util.Asserts;
 
 public class SetterAnalyzer {
 

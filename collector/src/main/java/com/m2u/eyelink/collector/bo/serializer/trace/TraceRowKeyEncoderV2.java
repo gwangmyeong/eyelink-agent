@@ -6,9 +6,10 @@ import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.serializer.RowKeyEncoder;
 import com.m2u.eyelink.collector.common.elasticsearch.AbstractRowKeyDistributor;
-import com.m2u.eyelink.common.ELAgentConstants;
 import com.m2u.eyelink.util.BytesUtils;
 import com.m2u.eyelink.util.TransactionId;
+
+import com.m2u.eyelink.common.ELAgentConstants;
 
 @Component
 public class TraceRowKeyEncoderV2 implements RowKeyEncoder<TransactionId> {

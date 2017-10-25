@@ -7,8 +7,8 @@ import com.m2u.eyelink.agent.profiler.context.DefaultTrace;
 import com.m2u.eyelink.agent.profiler.context.Span;
 import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
 import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
-import com.m2u.eyelink.trace.AnnotationKey;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.AnnotationKey;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class WrappedSpanEventRecorder extends AbstractRecorder implements SpanEventRecorder {
     private final Logger logger = LoggerFactory.getLogger(DefaultTrace.class.getName());

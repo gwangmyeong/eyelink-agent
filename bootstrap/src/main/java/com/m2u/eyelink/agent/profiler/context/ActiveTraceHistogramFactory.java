@@ -8,10 +8,10 @@ import java.util.Map;
 
 import com.m2u.eyelink.agent.profiler.context.active.ActiveTraceRepository;
 import com.m2u.eyelink.context.ActiveTraceInfo;
-import com.m2u.eyelink.trace.BaseHistogramSchema;
-import com.m2u.eyelink.trace.HistogramSchema;
-import com.m2u.eyelink.trace.HistogramSlot;
-import com.m2u.eyelink.trace.SlotType;
+import com.m2u.eyelink.common.trace.BaseHistogramSchema;
+import com.m2u.eyelink.common.trace.HistogramSchema;
+import com.m2u.eyelink.common.trace.HistogramSlot;
+import com.m2u.eyelink.common.trace.SlotType;
 
 public class ActiveTraceHistogramFactory {
 

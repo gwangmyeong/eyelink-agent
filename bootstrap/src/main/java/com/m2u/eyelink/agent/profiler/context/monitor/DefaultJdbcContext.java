@@ -3,7 +3,7 @@ package com.m2u.eyelink.agent.profiler.context.monitor;
 import com.google.inject.Inject;
 import com.m2u.eyelink.agent.profiler.context.DatabaseInfo;
 import com.m2u.eyelink.agent.profiler.metadata.JdbcContext;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class DefaultJdbcContext implements JdbcContext {
 

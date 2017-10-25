@@ -2,7 +2,7 @@ package com.m2u.eyelink.collector.bo.stat;
 
 import java.util.Map;
 
-import com.m2u.eyelink.trace.SlotType;
+import com.m2u.eyelink.common.trace.SlotType;
 
 public class ActiveTraceBo implements AgentStatDataPoint {
 

@@ -2,8 +2,8 @@ package com.m2u.eyelink.agent.interceptor;
 
 import java.util.Arrays;
 
-import com.m2u.eyelink.logging.CommonLogger;
-import com.m2u.eyelink.logging.StdoutCommonLoggerFactory;
+import com.m2u.eyelink.common.util.logger.CommonLogger;
+import com.m2u.eyelink.common.util.logger.StdoutCommonLoggerFactory;
 
 public class LoggingInterceptor implements StaticAroundInterceptor,
 		AroundInterceptor, AroundInterceptor0, AroundInterceptor1,

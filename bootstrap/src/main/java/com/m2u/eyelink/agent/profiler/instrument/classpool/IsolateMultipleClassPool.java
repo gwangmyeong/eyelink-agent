@@ -8,7 +8,7 @@ import javassist.ClassPath;
 import javassist.LoaderClassPath;
 
 import com.m2u.eyelink.agent.profiler.util.Maps;
-import com.m2u.eyelink.util.ClassLoaderUtils;
+import com.m2u.eyelink.common.util.ClassLoaderUtils;
 
 public class IsolateMultipleClassPool implements MultipleClassPool {
 

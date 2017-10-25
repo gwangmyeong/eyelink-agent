@@ -18,7 +18,7 @@ import com.m2u.eyelink.collector.dao.TraceDao;
 import com.m2u.eyelink.collector.dao.TraceDetailDao;
 import com.m2u.eyelink.common.service.ServiceTypeRegistryService;
 import com.m2u.eyelink.context.thrift.TSpan;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 import com.m2u.eyelink.util.CollectionUtils;
 
 @Service

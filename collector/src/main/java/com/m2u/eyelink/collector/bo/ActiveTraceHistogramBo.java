@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.m2u.eyelink.trace.SlotType;
+import com.m2u.eyelink.common.trace.SlotType;
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
 import com.m2u.eyelink.util.FixedBuffer;

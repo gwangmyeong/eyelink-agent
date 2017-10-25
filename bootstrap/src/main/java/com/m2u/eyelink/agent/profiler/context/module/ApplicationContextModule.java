@@ -112,7 +112,7 @@ import com.m2u.eyelink.rpc.client.ELAgentClient;
 import com.m2u.eyelink.rpc.client.ELAgentClientFactory;
 import com.m2u.eyelink.sender.DataSender;
 import com.m2u.eyelink.sender.EnhancedDataSender;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class ApplicationContextModule extends AbstractModule {
     private final ProfilerConfig profilerConfig;

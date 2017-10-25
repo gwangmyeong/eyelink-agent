@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-import com.m2u.eyelink.logging.CommonLogger;
-import com.m2u.eyelink.logging.StdoutCommonLoggerFactory;
+import com.m2u.eyelink.common.util.logger.CommonLogger;
+import com.m2u.eyelink.common.util.logger.StdoutCommonLoggerFactory;
 import com.m2u.eyelink.util.NumberUtils;
 import com.m2u.eyelink.util.PropertyUtils;
 import com.m2u.eyelink.util.string.PropertyPlaceholderHelper;

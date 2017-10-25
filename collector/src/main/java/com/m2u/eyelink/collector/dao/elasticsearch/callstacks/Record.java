@@ -1,7 +1,7 @@
 package com.m2u.eyelink.collector.dao.elasticsearch.callstacks;
 
 import com.m2u.eyelink.collector.bo.MethodTypeEnum;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class Record {
     private final int tab;

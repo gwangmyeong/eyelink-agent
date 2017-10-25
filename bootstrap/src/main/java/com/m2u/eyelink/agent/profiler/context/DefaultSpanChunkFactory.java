@@ -8,7 +8,7 @@ import com.m2u.eyelink.agent.profiler.context.module.AgentStartTime;
 import com.m2u.eyelink.agent.profiler.context.module.ApplicationName;
 import com.m2u.eyelink.agent.profiler.context.module.ApplicationServerType;
 import com.m2u.eyelink.context.SpanEvent;
-import com.m2u.eyelink.trace.ServiceType;
+import com.m2u.eyelink.common.trace.ServiceType;
 
 public class DefaultSpanChunkFactory implements SpanChunkFactory {
     private final String applicationName;
