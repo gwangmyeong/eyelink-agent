@@ -425,9 +425,7 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 
 	@Override
 	public String getAgentConfigPath() {
-		// TODO 임시로 config path 지정함.
-//		return agentDirPath + File.separator + ELConstants.ProductName + ".config";
-		return agentDirPath + File.separator + "classes" + File.separator + ELConstants.ProductName + ".config";
+		return agentDirPath + File.separator + ELConstants.ProductName + ".config";
 	}
 	
 	private File[] findJar(File libDir) {

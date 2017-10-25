@@ -174,7 +174,7 @@ public class ELAgentStarter {
 			}
 		};
 		ELAgentThreadFactory pinpointThreadFactory = new ELAgentThreadFactory(
-				"Pinpoint-shutdown-hook");
+				"eyelink-agent-shutdown-hook");
 		Thread thread = pinpointThreadFactory.newThread(stop);
 		Runtime.getRuntime().addShutdownHook(thread);
 	}
