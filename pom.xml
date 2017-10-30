@@ -247,6 +247,11 @@
 			</dependency>
 			<dependency>
 				<groupId>com.m2u.eyelink</groupId>
+				<artifactId>eyelink-commons</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.m2u.eyelink</groupId>
 				<artifactId>eyelink-plugins</artifactId>
 				<version>${project.version}</version>
 				<type>pom</type>
