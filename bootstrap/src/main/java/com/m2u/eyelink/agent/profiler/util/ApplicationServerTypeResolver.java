@@ -8,9 +8,9 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.m2u.eyelink.agent.profiler.plugin.ApplicationTypeDetector;
-import com.m2u.eyelink.resolver.ApplicationServerTypePluginResolver;
+import com.m2u.eyelink.agent.plugin.ApplicationTypeDetector;
 import com.m2u.eyelink.common.trace.ServiceType;
+import com.m2u.eyelink.resolver.ApplicationServerTypePluginResolver;
 
 public class ApplicationServerTypeResolver {
     

@@ -3,9 +3,9 @@ package com.m2u.eyelink.agent.profiler.context.monitor;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.m2u.eyelink.agent.plugin.jdbc.JdbcUrlParserV2;
 import com.m2u.eyelink.agent.plugin.jdbc.UnKnownDatabaseInfo;
 import com.m2u.eyelink.agent.profiler.context.DatabaseInfo;
-import com.m2u.eyelink.agent.profiler.plugin.jdbc.JdbcUrlParserV2;
 import com.m2u.eyelink.common.trace.ServiceType;
 
 public class DefaultJdbcUrlParsingService implements JdbcUrlParsingService {

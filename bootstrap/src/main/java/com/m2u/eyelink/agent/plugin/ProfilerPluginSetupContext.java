@@ -1,6 +1,6 @@
-package com.m2u.eyelink.agent.profiler.plugin;
+package com.m2u.eyelink.agent.plugin;
 
-import com.m2u.eyelink.agent.profiler.plugin.jdbc.JdbcUrlParserV2;
+import com.m2u.eyelink.agent.plugin.jdbc.JdbcUrlParserV2;
 import com.m2u.eyelink.config.ProfilerConfig;
 
 public interface ProfilerPluginSetupContext {

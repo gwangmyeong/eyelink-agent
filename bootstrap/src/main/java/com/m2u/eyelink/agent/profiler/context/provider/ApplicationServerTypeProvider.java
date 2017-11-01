@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.m2u.eyelink.agent.profiler.plugin.ApplicationTypeDetector;
+import com.m2u.eyelink.agent.plugin.ApplicationTypeDetector;
 import com.m2u.eyelink.agent.profiler.plugin.PluginContextLoadResult;
 import com.m2u.eyelink.agent.profiler.util.ApplicationServerTypeResolver;
 import com.m2u.eyelink.common.service.ServiceTypeRegistryService;

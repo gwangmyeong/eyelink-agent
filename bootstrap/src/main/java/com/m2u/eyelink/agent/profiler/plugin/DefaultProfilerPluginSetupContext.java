@@ -3,7 +3,9 @@ package com.m2u.eyelink.agent.profiler.plugin;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.m2u.eyelink.agent.profiler.plugin.jdbc.JdbcUrlParserV2;
+import com.m2u.eyelink.agent.plugin.ApplicationTypeDetector;
+import com.m2u.eyelink.agent.plugin.ProfilerPluginSetupContext;
+import com.m2u.eyelink.agent.plugin.jdbc.JdbcUrlParserV2;
 import com.m2u.eyelink.config.ProfilerConfig;
 
 public class DefaultProfilerPluginSetupContext implements ProfilerPluginSetupContext {

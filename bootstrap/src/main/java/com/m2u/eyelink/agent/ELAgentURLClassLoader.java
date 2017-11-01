@@ -35,7 +35,7 @@ public class ELAgentURLClassLoader extends URLClassLoader {
         if (clazz == null) {
         	
             if (onLoadClass(name)) {
-                // load a class used for Pinpoint itself by this PinpointURLClassLoader
+                // load a class used for Eyelink Agent itself by this ELAgentURLClassLoader
                 clazz = findClass(name);
             } else {
                 try {
@@ -44,7 +44,7 @@ public class ELAgentURLClassLoader extends URLClassLoader {
                 } catch (ClassNotFoundException ignore) {
                 }
                 if (clazz == null) {
-                    // if not found, try to load a class by this PinpointURLClassLoader
+                    // if not found, try to load a class by this ELAgentURLClassLoader
                     clazz = findClass(name);
                 }
             }

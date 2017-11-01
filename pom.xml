@@ -29,7 +29,7 @@
 		<module>plugins</module>
 		<module>collector</module>
 		<module>commons</module>
-  </modules>
+  	</modules>
 
 	<repositories>
 		<repository>

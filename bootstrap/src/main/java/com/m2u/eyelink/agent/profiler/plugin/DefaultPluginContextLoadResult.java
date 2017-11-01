@@ -9,8 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.agent.instrument.DynamicTransformTrigger;
+import com.m2u.eyelink.agent.plugin.ApplicationTypeDetector;
+import com.m2u.eyelink.agent.plugin.jdbc.JdbcUrlParserV2;
 import com.m2u.eyelink.agent.profiler.instrument.InstrumentEngine;
-import com.m2u.eyelink.agent.profiler.plugin.jdbc.JdbcUrlParserV2;
 import com.m2u.eyelink.config.ProfilerConfig;
 
 public class DefaultPluginContextLoadResult implements PluginContextLoadResult {

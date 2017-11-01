@@ -12,7 +12,7 @@ import com.m2u.eyelink.agent.instrument.transformer.TransformCallback;
 import com.m2u.eyelink.agent.instrument.transformer.TransformTemplate;
 import com.m2u.eyelink.agent.instrument.transformer.TransformTemplateAware;
 import com.m2u.eyelink.agent.plugin.ProfilerPlugin;
-import com.m2u.eyelink.agent.profiler.plugin.ProfilerPluginSetupContext;
+import com.m2u.eyelink.agent.plugin.ProfilerPluginSetupContext;
 import com.m2u.eyelink.agent.resolver.ConditionProvider;
 import com.m2u.eyelink.logging.PLogger;
 import com.m2u.eyelink.logging.PLoggerFactory;

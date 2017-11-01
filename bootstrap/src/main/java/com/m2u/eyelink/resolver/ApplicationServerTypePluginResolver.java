@@ -2,7 +2,7 @@ package com.m2u.eyelink.resolver;
 
 import java.util.List;
 
-import com.m2u.eyelink.agent.profiler.plugin.ApplicationTypeDetector;
+import com.m2u.eyelink.agent.plugin.ApplicationTypeDetector;
 import com.m2u.eyelink.agent.resolver.ConditionProvider;
 import com.m2u.eyelink.logging.PLogger;
 import com.m2u.eyelink.logging.PLoggerFactory;

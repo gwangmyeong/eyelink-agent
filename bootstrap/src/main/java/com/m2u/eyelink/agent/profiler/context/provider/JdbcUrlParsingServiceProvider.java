@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.m2u.eyelink.agent.plugin.jdbc.JdbcUrlParserV2;
 import com.m2u.eyelink.agent.profiler.context.monitor.DefaultJdbcUrlParsingService;
 import com.m2u.eyelink.agent.profiler.context.monitor.JdbcUrlParsingService;
 import com.m2u.eyelink.agent.profiler.plugin.PluginContextLoadResult;
-import com.m2u.eyelink.agent.profiler.plugin.jdbc.JdbcUrlParserV2;
 
 public class JdbcUrlParsingServiceProvider implements Provider<JdbcUrlParsingService> {
 

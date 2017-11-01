@@ -1,4 +1,4 @@
-package com.m2u.eyelink.agent.profiler.plugin;
+package com.m2u.eyelink.agent.plugin;
 
 import com.m2u.eyelink.agent.resolver.ConditionProvider;
 import com.m2u.eyelink.common.trace.ServiceType;

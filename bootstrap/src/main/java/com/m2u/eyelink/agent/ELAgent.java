@@ -26,7 +26,7 @@ public class ELAgent {
 		// TODO 이미 Agent가 실행중일 경우 Skip 처리 로직 필요.
 		// final boolean success = STATE.start();
 		// if (!success) {
-		// logger.warn("pinpoint-bootstrap already started. skipping agent loading.");
+		// logger.warn("elagent-bootstrap already started. skipping agent loading.");
 		// return;
 		// }
 
