@@ -3,6 +3,8 @@ package com.m2u.eyelink.test;
 import java.io.File;
 import java.net.URL;
 import java.security.CodeSource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -130,5 +132,12 @@ public class TestAgentDirBaseClassPathResolver {
         }
         Assert.assertTrue(isTrue);
 
+	}
+	
+	@Test
+	public void testCreateArrayList() {
+		List<String> aa = new ArrayList<String>();
+		
+		aa.add(new String());
 	}
 }

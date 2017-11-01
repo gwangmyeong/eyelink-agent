@@ -68,7 +68,7 @@ public class ProfilerPluginLoader {
 
             for (ProfilerPlugin plugin : plugins) {
                  if (logger.isInfoEnabled()) {
-                    logger.info("{} Plugin {}:{}", plugin.getClass(), PluginConfig.PINPOINT_PLUGIN_PACKAGE, pluginPackageList);
+                    logger.info("{} Plugin {}:{}", plugin.getClass(), PluginConfig.ELAGENT_PLUGIN_PACKAGE, pluginPackageList);
                 }
                 
                 logger.info("Loading plugin:{} pluginPackage:{}", plugin.getClass().getName(), plugin);
@@ -133,13 +133,13 @@ public class ProfilerPluginLoader {
 
         final Manifest manifest =  getManifest(pluginJarFile);
         if (manifest == null) {
-            return PluginConfig.DEFAULT_PINPOINT_PLUGIN_PACKAGE_NAME;
+            return PluginConfig.DEFAULT_ELAGENT_PLUGIN_PACKAGE_NAME;
         }
 
         final Attributes attributes = manifest.getMainAttributes();
-        final String pluginPackage = attributes.getValue(PluginConfig.PINPOINT_PLUGIN_PACKAGE);
+        final String pluginPackage = attributes.getValue(PluginConfig.ELAGENT_PLUGIN_PACKAGE);
         if (pluginPackage == null) {
-            return PluginConfig.DEFAULT_PINPOINT_PLUGIN_PACKAGE_NAME;
+            return PluginConfig.DEFAULT_ELAGENT_PLUGIN_PACKAGE_NAME;
         }
         return StringUtils.splitAndTrim(pluginPackage, ",");
     }

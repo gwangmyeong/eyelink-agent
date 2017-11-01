@@ -16,8 +16,8 @@ public class PluginConfig {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public static final String PINPOINT_PLUGIN_PACKAGE = "Pinpoint-Plugin-Package";
-    public static final List<String> DEFAULT_PINPOINT_PLUGIN_PACKAGE_NAME = Collections.singletonList("com.navercorp.pinpoint.plugin");
+    public static final String ELAGENT_PLUGIN_PACKAGE = "ELAgent-Plugin-Package";
+    public static final List<String> DEFAULT_ELAGENT_PLUGIN_PACKAGE_NAME = Collections.singletonList("com.m2u.eyelink.plugin");
 
     private final URL pluginJar;
     private final JarFile pluginJarFile;

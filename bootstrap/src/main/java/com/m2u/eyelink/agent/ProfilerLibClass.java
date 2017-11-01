@@ -17,6 +17,9 @@ public class ProfilerLibClass implements LibClass {
             "org.apache.thrift",
             "org.jboss.netty",
             "com.google.common",
+            // google guice
+            "com.google.inject",
+            "org.aopalliance",            
             "org.apache.commons.lang",
             "org.apache.log4j",
             "com.codahale.metrics",

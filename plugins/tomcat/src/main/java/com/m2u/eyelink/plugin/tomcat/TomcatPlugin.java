@@ -26,7 +26,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
     /*
      * (non-Javadoc)
      * 
-     * @see com.navercorp.pinpoint.bootstrap.plugin.ProfilerPlugin#setUp(com.navercorp.pinpoint.bootstrap.plugin.ProfilerPluginSetupContext)
+     * @see com.m2u.eyelink.agent.profiler.plugin.ProfilerPlugin#setUp(com.m2u.eyelink.agent.profiler.plugin.ProfilerPluginSetupContext)
      */
     @Override
     public void setup(ProfilerPluginSetupContext context) {
@@ -89,13 +89,13 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
                 // clear request.
                 InstrumentMethod recycleMethodEditorBuilder = target.getDeclaredMethod("recycle");
                 if (recycleMethodEditorBuilder != null) {
-                    recycleMethodEditorBuilder.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.RequestRecycleInterceptor");
+                    recycleMethodEditorBuilder.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.RequestRecycleInterceptor");
                 }
 
                 // trace asynchronous process.
                 InstrumentMethod startAsyncMethodEditor = target.getDeclaredMethod("startAsync", "javax.servlet.ServletRequest", "javax.servlet.ServletResponse");
                 if (startAsyncMethodEditor != null) {
-                    startAsyncMethodEditor.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.RequestStartAsyncInterceptor");
+                    startAsyncMethodEditor.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.RequestStartAsyncInterceptor");
                 }
 
                 return target.toBytecode();
@@ -110,7 +110,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
             public byte[] doInTransform(Instrumentor instrumentor, ClassLoader classLoader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws InstrumentException {
                 InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
                 if (target != null) {
-                    target.weave("com.navercorp.pinpoint.plugin.tomcat.aspect.RequestFacadeAspect");
+                    target.weave("com.m2u.eyelink.plugin.tomcat.interceptor.aspect.RequestFacadeAspect");
                     return target.toBytecode();
                 }
 
@@ -128,7 +128,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
 
                 InstrumentMethod method = target.getDeclaredMethod("invoke", "org.apache.catalina.connector.Request", "org.apache.catalina.connector.Response");
                 if (method != null) {
-                    method.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.StandardHostValveInvokeInterceptor");
+                    method.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.StandardHostValveInvokeInterceptor");
                 }
 
                 return target.toBytecode();
@@ -146,13 +146,13 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
                 // Tomcat 6
                 InstrumentMethod startEditor = target.getDeclaredMethod("start");
                 if (startEditor != null) {
-                    startEditor.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.StandardServiceStartInterceptor");
+                    startEditor.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.StandardServiceStartInterceptor");
                 }
 
                 // Tomcat 7
                 InstrumentMethod startInternalEditor = target.getDeclaredMethod("startInternal");
                 if (startInternalEditor != null) {
-                    startInternalEditor.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.StandardServiceStartInterceptor");
+                    startInternalEditor.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.StandardServiceStartInterceptor");
                 }
 
                 return target.toBytecode();
@@ -170,13 +170,13 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
                 // Tomcat 6
                 InstrumentMethod initializeEditor = target.getDeclaredMethod("initialize");
                 if (initializeEditor != null) {
-                    initializeEditor.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.ConnectorInitializeInterceptor");
+                    initializeEditor.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.ConnectorInitializeInterceptor");
                 }
 
                 // Tomcat 7
                 InstrumentMethod initInternalEditor = target.getDeclaredMethod("initInternal");
                 if (initInternalEditor != null) {
-                    initInternalEditor.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.ConnectorInitializeInterceptor");
+                    initInternalEditor.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.ConnectorInitializeInterceptor");
                 }
 
                 return target.toBytecode();
@@ -201,7 +201,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
                 }
 
                 if (startMethod != null) {
-                    startMethod.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.WebappLoaderStartInterceptor");
+                    startMethod.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.WebappLoaderStartInterceptor");
                 }
 
                 return target.toBytecode();
@@ -217,7 +217,7 @@ public class TomcatPlugin implements ProfilerPlugin, TransformTemplateAware {
                 InstrumentClass target = instrumentor.getInstrumentClass(classLoader, className, classfileBuffer);
                 target.addField(AsyncTraceIdAccessor.class.getName());
                 for (InstrumentMethod method : target.getDeclaredMethods(MethodFilters.name("dispatch"))) {
-                    method.addInterceptor("com.navercorp.pinpoint.plugin.tomcat.interceptor.AsyncContextImplDispatchMethodInterceptor");
+                    method.addInterceptor("com.m2u.eyelink.plugin.tomcat.interceptor.AsyncContextImplDispatchMethodInterceptor");
                 }
 
                 return target.toBytecode();

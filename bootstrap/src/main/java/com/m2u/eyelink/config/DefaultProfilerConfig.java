@@ -50,18 +50,18 @@ public class DefaultProfilerConfig implements ProfilerConfig {
         }
     }
 
-    public static ProfilerConfig load(String pinpointConfigFileName) throws IOException {
+    public static ProfilerConfig load(String eyelinkConfigFileName) throws IOException {
         try {
-            Properties properties = PropertyUtils.loadProperty(pinpointConfigFileName);
+            Properties properties = PropertyUtils.loadProperty(eyelinkConfigFileName);
             return new DefaultProfilerConfig(properties);
         } catch (FileNotFoundException fe) {
             if (logger.isWarnEnabled()) {
-                logger.warn(pinpointConfigFileName + " file does not exist. Please check your configuration.");
+                logger.warn(eyelinkConfigFileName + " file does not exist. Please check your configuration.");
             }
             throw fe;
         } catch (IOException e) {
             if (logger.isWarnEnabled()) {
-                logger.warn(pinpointConfigFileName + " file I/O error. Error:" + e.getMessage(), e);
+                logger.warn(eyelinkConfigFileName + " file I/O error. Error:" + e.getMessage(), e);
             }
             throw e;
         }
