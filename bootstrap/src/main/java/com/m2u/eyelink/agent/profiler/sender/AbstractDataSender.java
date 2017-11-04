@@ -5,13 +5,14 @@ import java.util.Collection;
 import org.apache.thrift.TBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializer;
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
-import com.m2u.eyelink.context.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializer;
+import com.m2u.eyelink.thrift.SerializationUtils;
 import com.m2u.eyelink.rpc.ResponseMessage;
 import com.m2u.eyelink.sender.DataSender;
 import com.m2u.eyelink.sender.FutureListener;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializer;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializer;
+import com.m2u.eyelink.thrift.SerializationUtils;
 
 public abstract class AbstractDataSender implements DataSender {
 

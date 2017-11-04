@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.m2u.eyelink.collector.handler.AgentInfoHandler;
 import com.m2u.eyelink.collector.handler.RequestResponseHandler;
 import com.m2u.eyelink.collector.handler.SimpleHandler;
-import com.m2u.eyelink.context.TApiMetaData;
-import com.m2u.eyelink.context.TSqlMetaData;
-import com.m2u.eyelink.context.TStringMetaData;
-import com.m2u.eyelink.context.thrift.TAgentInfo;
+import com.m2u.eyelink.thrift.TAgentInfo;
+import com.m2u.eyelink.thrift.dto.TApiMetaData;
+import com.m2u.eyelink.thrift.dto.TSqlMetaData;
+import com.m2u.eyelink.thrift.dto.TStringMetaData;
 
 public class TcpDispatchHandler extends AbstractDispatchHandler {
 

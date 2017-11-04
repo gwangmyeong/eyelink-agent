@@ -1,5 +1,15 @@
 package com.m2u.eyelink.collector.rpc.handler;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -14,23 +24,20 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 import com.m2u.eyelink.collector.bo.AgentEventBo;
 import com.m2u.eyelink.collector.cluster.route.ResponseEvent;
 import com.m2u.eyelink.collector.dao.AgentEventDao;
 import com.m2u.eyelink.collector.server.util.AgentEventMessageSerializer;
 import com.m2u.eyelink.collector.util.AgentEventType;
 import com.m2u.eyelink.context.HandshakePropertyType;
-import com.m2u.eyelink.context.thrift.DeserializerFactory;
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializer;
-import com.m2u.eyelink.context.thrift.TCommandEcho;
-import com.m2u.eyelink.context.thrift.TCommandThreadDumpResponse;
-import com.m2u.eyelink.context.thrift.TCommandTransfer;
-import com.m2u.eyelink.context.thrift.TCommandTransferResponse;
-import com.m2u.eyelink.context.thrift.TRouteResult;
 import com.m2u.eyelink.rpc.server.ELAgentServer;
+import com.m2u.eyelink.thrift.DeserializerFactory;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializer;
+import com.m2u.eyelink.thrift.TCommandEcho;
+import com.m2u.eyelink.thrift.TCommandThreadDumpResponse;
+import com.m2u.eyelink.thrift.TCommandTransfer;
+import com.m2u.eyelink.thrift.TCommandTransferResponse;
+import com.m2u.eyelink.thrift.TRouteResult;
 import com.m2u.eyelink.util.BytesUtils;
 
 @RunWith(MockitoJUnitRunner.class)

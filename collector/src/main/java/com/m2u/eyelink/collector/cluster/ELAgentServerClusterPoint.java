@@ -8,12 +8,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.thrift.TBase;
 import org.springframework.util.NumberUtils;
 
+import com.m2u.eyelink.collector.util.MapUtils;
 import com.m2u.eyelink.context.HandshakePropertyType;
-import com.m2u.eyelink.context.thrift.TCommandType;
-import com.m2u.eyelink.context.thrift.TCommandTypeVersion;
 import com.m2u.eyelink.rpc.Future;
 import com.m2u.eyelink.rpc.server.ELAgentServer;
-import com.m2u.eyelink.rpc.util.MapUtils;
+import com.m2u.eyelink.thrift.TCommandType;
+import com.m2u.eyelink.thrift.TCommandTypeVersion;
 import com.m2u.eyelink.util.AssertUtils;
 
 public class ELAgentServerClusterPoint implements TargetClusterPoint {

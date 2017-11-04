@@ -10,9 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.DisposableBean;
 
-import com.m2u.eyelink.context.thrift.NetworkAvailabilityCheckPacket;
-
-public class NetworkAvailabilityCheckPacketFilter<T extends SocketAddress> implements TBaseFilter<T>, DisposableBean {
+import com.m2u.eyelink.thrift.NetworkAvailabilityCheckPacket; class NetworkAvailabilityCheckPacketFilter<T extends SocketAddress> implements TBaseFilter<T>, DisposableBean {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public NetworkAvailabilityCheckPacketFilter() {

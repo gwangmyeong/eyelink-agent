@@ -17,7 +17,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.common.elasticsearch.RowMapper;
 import com.m2u.eyelink.collector.dao.StringMetaDataDao;
 import com.m2u.eyelink.collector.util.ElasticSearchUtils;
-import com.m2u.eyelink.context.TStringMetaData;
+import com.m2u.eyelink.thrift.dto.TStringMetaData;
 
 @Repository
 public class ElasticSearchStringMetaDataDao implements StringMetaDataDao {

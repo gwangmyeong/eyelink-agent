@@ -14,11 +14,10 @@ import com.m2u.eyelink.collector.bo.stat.JvmGcBo;
 import com.m2u.eyelink.collector.bo.stat.JvmGcDetailedBo;
 import com.m2u.eyelink.collector.bo.stat.TransactionBo;
 import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
-import com.m2u.eyelink.context.thrift.TAgentStat;
-import com.m2u.eyelink.context.thrift.TDataSource;
-import com.m2u.eyelink.context.thrift.TDataSourceList;
+import com.m2u.eyelink.thrift.TAgentStat;
+import com.m2u.eyelink.thrift.TDataSource;
+import com.m2u.eyelink.thrift.TDataSourceList;
 
-@Component
 public class AgentStatMapper implements ThriftBoMapper<AgentStatBo, TAgentStat> {
 
     @Autowired

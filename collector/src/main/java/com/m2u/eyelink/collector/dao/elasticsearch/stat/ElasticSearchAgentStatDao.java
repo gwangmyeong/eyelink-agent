@@ -16,12 +16,12 @@ import com.m2u.eyelink.collector.mapper.thrift.ActiveTraceHistogramBoMapper;
 import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.RowKeyUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
-import com.m2u.eyelink.context.thrift.TActiveTrace;
-import com.m2u.eyelink.context.thrift.TAgentStat;
-import com.m2u.eyelink.context.thrift.TCpuLoad;
-import com.m2u.eyelink.context.thrift.TJvmGc;
-import com.m2u.eyelink.context.thrift.TJvmGcType;
-import com.m2u.eyelink.context.thrift.TTransaction;
+import com.m2u.eyelink.thrift.TActiveTrace;
+import com.m2u.eyelink.thrift.TAgentStat;
+import com.m2u.eyelink.thrift.TCpuLoad;
+import com.m2u.eyelink.thrift.TJvmGc;
+import com.m2u.eyelink.thrift.TTransaction;
+import com.m2u.eyelink.thrift.dto.TJvmGcType;
 import com.m2u.eyelink.util.BytesUtils;
 
 import static com.m2u.eyelink.collector.common.elasticsearch.ElasticSearchTables.*;

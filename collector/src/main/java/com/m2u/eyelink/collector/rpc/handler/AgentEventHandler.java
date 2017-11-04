@@ -16,15 +16,15 @@ import com.m2u.eyelink.collector.dao.AgentEventDao;
 import com.m2u.eyelink.collector.server.util.AgentEventMessageSerializer;
 import com.m2u.eyelink.collector.util.AgentEventType;
 import com.m2u.eyelink.collector.util.AgentEventTypeCategory;
+import com.m2u.eyelink.collector.util.MapUtils;
 import com.m2u.eyelink.context.HandshakePropertyType;
-import com.m2u.eyelink.context.thrift.DeserializerFactory;
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializer;
-import com.m2u.eyelink.context.thrift.SerializationUtils;
-import com.m2u.eyelink.context.thrift.TCommandTransfer;
-import com.m2u.eyelink.context.thrift.TCommandTransferResponse;
-import com.m2u.eyelink.context.thrift.TRouteResult;
 import com.m2u.eyelink.rpc.server.ELAgentServer;
-import com.m2u.eyelink.rpc.util.MapUtils;
+import com.m2u.eyelink.thrift.DeserializerFactory;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializer;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.TCommandTransfer;
+import com.m2u.eyelink.thrift.TCommandTransferResponse;
+import com.m2u.eyelink.thrift.TRouteResult;
 
 public class AgentEventHandler {
 

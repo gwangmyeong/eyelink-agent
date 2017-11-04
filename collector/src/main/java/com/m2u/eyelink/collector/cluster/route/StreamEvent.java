@@ -2,8 +2,8 @@ package com.m2u.eyelink.collector.cluster.route;
 
 import org.apache.thrift.TBase;
 
-import com.m2u.eyelink.context.thrift.TCommandTransfer;
 import com.m2u.eyelink.sender.ServerStreamChannelContext;
+import com.m2u.eyelink.thrift.TCommandTransfer;
 
 public class StreamEvent extends DefaultRouteEvent {
 

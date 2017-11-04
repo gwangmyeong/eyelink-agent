@@ -5,10 +5,10 @@ import org.apache.thrift.TBase;
 import com.m2u.eyelink.collector.cluster.ClusterPointLocator;
 import com.m2u.eyelink.collector.cluster.TargetClusterPoint;
 import com.m2u.eyelink.collector.cluster.route.filter.RouteFilter;
-import com.m2u.eyelink.context.thrift.TCommandTransferResponse;
-import com.m2u.eyelink.context.thrift.TRouteResult;
 import com.m2u.eyelink.rpc.Future;
 import com.m2u.eyelink.rpc.ResponseMessage;
+import com.m2u.eyelink.thrift.TCommandTransferResponse;
+import com.m2u.eyelink.thrift.TRouteResult;
 
 public class DefaultRouteHandler extends AbstractRouteHandler<RequestEvent> {
 

@@ -18,10 +18,9 @@ import com.m2u.eyelink.collector.mapper.thrift.stat.AgentStatBatchMapper;
 import com.m2u.eyelink.collector.mapper.thrift.stat.AgentStatBo;
 import com.m2u.eyelink.collector.mapper.thrift.stat.AgentStatMapper;
 import com.m2u.eyelink.collector.service.AgentStatService;
-import com.m2u.eyelink.context.thrift.TAgentStat;
-import com.m2u.eyelink.context.thrift.TAgentStatBatch;
+import com.m2u.eyelink.thrift.TAgentStat;
+import com.m2u.eyelink.thrift.TAgentStatBatch;
 
-@Service("agentStatHandlerV2")
 public class AgentStatHandlerV2 implements Handler {
 
     private final Logger logger = LoggerFactory.getLogger(AgentStatHandlerV2.class.getName());

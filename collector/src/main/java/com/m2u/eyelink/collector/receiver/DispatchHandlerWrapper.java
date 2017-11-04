@@ -6,9 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.m2u.eyelink.collector.manage.HandlerManager;
-import com.m2u.eyelink.context.thrift.TResult;
-
-public class DispatchHandlerWrapper implements DispatchHandler {
+import com.m2u.eyelink.thrift.TResult; class DispatchHandlerWrapper implements DispatchHandler {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     

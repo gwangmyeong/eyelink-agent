@@ -107,11 +107,11 @@ import com.m2u.eyelink.context.ServerMetaDataHolder;
 import com.m2u.eyelink.context.StorageFactory;
 import com.m2u.eyelink.context.TraceContext;
 import com.m2u.eyelink.context.TraceFactory;
-import com.m2u.eyelink.context.thrift.TAgentStat;
 import com.m2u.eyelink.rpc.client.ELAgentClient;
 import com.m2u.eyelink.rpc.client.ELAgentClientFactory;
 import com.m2u.eyelink.sender.DataSender;
 import com.m2u.eyelink.sender.EnhancedDataSender;
+import com.m2u.eyelink.thrift.TAgentStat;
 import com.m2u.eyelink.common.trace.ServiceType;
 
 public class ApplicationContextModule extends AbstractModule {

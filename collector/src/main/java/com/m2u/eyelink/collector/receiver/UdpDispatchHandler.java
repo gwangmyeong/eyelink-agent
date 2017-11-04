@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.m2u.eyelink.collector.handler.Handler;
-import com.m2u.eyelink.context.thrift.TAgentStat;
-import com.m2u.eyelink.context.thrift.TAgentStatBatch;
+import com.m2u.eyelink.thrift.TAgentStat;
+import com.m2u.eyelink.thrift.TAgentStatBatch;
 
 public class UdpDispatchHandler extends AbstractDispatchHandler {
 

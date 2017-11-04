@@ -3,9 +3,7 @@ package com.m2u.eyelink.collector.mapper.thrift;
 import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.JvmInfoBo;
-import com.m2u.eyelink.context.thrift.TJvmInfo;
-
-@Component
+import com.m2u.eyelink.thrift.TJvmInfo;
 public class JvmInfoBoMapper implements ThriftBoMapper<JvmInfoBo, TJvmInfo> {
     @Override
     public JvmInfoBo map(TJvmInfo thriftObject) {

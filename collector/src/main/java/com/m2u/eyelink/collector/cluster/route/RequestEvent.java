@@ -4,7 +4,7 @@ import java.net.SocketAddress;
 
 import org.apache.thrift.TBase;
 
-import com.m2u.eyelink.context.thrift.TCommandTransfer;
+import com.m2u.eyelink.thrift.TCommandTransfer; 
 
 public class RequestEvent extends DefaultRouteEvent {
 

@@ -11,15 +11,6 @@ import com.m2u.eyelink.collector.cluster.route.DefaultRouteHandler;
 import com.m2u.eyelink.collector.cluster.route.RequestEvent;
 import com.m2u.eyelink.collector.cluster.route.StreamEvent;
 import com.m2u.eyelink.collector.cluster.route.StreamRouteHandler;
-import com.m2u.eyelink.context.thrift.DeserializerFactory;
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializer;
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
-import com.m2u.eyelink.context.thrift.SerializationUtils;
-import com.m2u.eyelink.context.thrift.SerializerFactory;
-import com.m2u.eyelink.context.thrift.TCommandTransfer;
-import com.m2u.eyelink.context.thrift.TCommandTransferResponse;
-import com.m2u.eyelink.context.thrift.TResult;
-import com.m2u.eyelink.context.thrift.TRouteResult;
 import com.m2u.eyelink.rpc.ELAgentSocket;
 import com.m2u.eyelink.rpc.MessageListener;
 import com.m2u.eyelink.rpc.RequestPacket;
@@ -29,6 +20,15 @@ import com.m2u.eyelink.sender.ServerStreamChannelContext;
 import com.m2u.eyelink.sender.StreamClosePacket;
 import com.m2u.eyelink.sender.StreamCode;
 import com.m2u.eyelink.sender.StreamCreatePacket;
+import com.m2u.eyelink.thrift.DeserializerFactory;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializer;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializer;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.SerializerFactory;
+import com.m2u.eyelink.thrift.TCommandTransfer;
+import com.m2u.eyelink.thrift.TCommandTransferResponse;
+import com.m2u.eyelink.thrift.TResult;
+import com.m2u.eyelink.thrift.TRouteResult;
 
 public class ClusterPointRouter implements MessageListener, ServerStreamChannelMessageListener {
 

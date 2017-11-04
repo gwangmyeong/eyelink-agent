@@ -4,9 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.stat.JvmGcDetailedBo;
 import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
-import com.m2u.eyelink.context.thrift.TJvmGcDetailed;
-
-@Component
+import com.m2u.eyelink.thrift.TJvmGcDetailed;
 public class JvmGcDetailedBoMapper implements ThriftBoMapper<JvmGcDetailedBo, TJvmGcDetailed> {
 
     @Override

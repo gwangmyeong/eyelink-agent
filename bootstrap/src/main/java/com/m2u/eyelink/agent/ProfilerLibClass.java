@@ -6,7 +6,7 @@ public class ProfilerLibClass implements LibClass {
     private static final String[] ELAGENT_PROFILER_CLASS = new String[] {
     	// TODO 일단 테스트를 위해서 com.m2u.eyelink.context 전체를 설정함. 추후 loading Library 관리를 위해서 com.m2u.eyelink.context.thrift 만 처리해야 하는지 확인 필요함.
             "com.m2u.eyelink.agent.profiler",
-            "com.m2u.eyelink.context",
+            "com.m2u.eyelink.thrift",
             "com.m2u.eyelink.rpc",
             /*
              * @deprecated javassist

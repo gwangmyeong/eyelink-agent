@@ -1,8 +1,8 @@
 package com.m2u.eyelink.collector.util;
 
 import com.m2u.eyelink.collector.bo.BasicSpan;
-import com.m2u.eyelink.context.thrift.TSpan;
-import com.m2u.eyelink.context.thrift.TSpanChunk;
+import com.m2u.eyelink.thrift.TSpan;
+import com.m2u.eyelink.thrift.TSpanChunk;
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
 import com.m2u.eyelink.util.BytesUtils;

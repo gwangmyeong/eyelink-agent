@@ -1,6 +1,6 @@
 package com.m2u.eyelink.agent.profiler.monitor.metric.activethread;
 
-import com.m2u.eyelink.context.thrift.TActiveTraceHistogram;
+import com.m2u.eyelink.thrift.TActiveTraceHistogram; 
 
 public interface ActiveTraceMetric {
 

@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.collector.receiver.DispatchHandler;
 import com.m2u.eyelink.collector.util.PacketUtils;
-import com.m2u.eyelink.context.thrift.DeserializerFactory;
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializer;
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializerFactory;
-import com.m2u.eyelink.context.thrift.ThreadLocalHeaderTBaseDeserializerFactory;
+import com.m2u.eyelink.thrift.DeserializerFactory;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializer;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializerFactory;
+import com.m2u.eyelink.thrift.ThreadLocalHeaderTBaseDeserializerFactory;
 
 public class BaseUDPHandlerFactory<T extends DatagramPacket> implements PacketHandlerFactory<T> {
 

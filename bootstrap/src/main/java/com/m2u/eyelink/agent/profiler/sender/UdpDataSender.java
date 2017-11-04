@@ -10,9 +10,9 @@ import org.apache.thrift.TBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializerFactory;
 import com.m2u.eyelink.sender.DataSender;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializer;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializerFactory;
 
 public class UdpDataSender extends AbstractDataSender implements DataSender {
 

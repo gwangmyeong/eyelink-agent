@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.agent.profiler.receiver.ProfilerRequestCommandService;
-import com.m2u.eyelink.context.thrift.TCommandEcho;
+import com.m2u.eyelink.thrift.TCommandEcho; 
 
 public class EchoService implements ProfilerRequestCommandService  {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

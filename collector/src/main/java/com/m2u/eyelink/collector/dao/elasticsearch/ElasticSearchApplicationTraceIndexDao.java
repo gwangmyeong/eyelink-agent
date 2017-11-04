@@ -16,9 +16,8 @@ import com.m2u.eyelink.collector.server.util.AcceptedTimeService;
 import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.SpanUtils;
 import com.m2u.eyelink.context.TIntStringValue;
-import com.m2u.eyelink.context.TSpanEvent;
-import com.m2u.eyelink.context.thrift.TAnnotation;
-import com.m2u.eyelink.context.thrift.TSpan;
+import com.m2u.eyelink.thrift.TSpan;
+import com.m2u.eyelink.thrift.dto.TSpanEvent;
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
 

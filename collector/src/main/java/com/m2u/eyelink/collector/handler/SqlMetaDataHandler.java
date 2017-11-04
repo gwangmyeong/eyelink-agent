@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.collector.dao.SqlMetaDataDao;
-import com.m2u.eyelink.context.TSqlMetaData;
-import com.m2u.eyelink.context.thrift.TResult;
+import com.m2u.eyelink.thrift.TResult;
+import com.m2u.eyelink.thrift.dto.TSqlMetaData;
 
 public class SqlMetaDataHandler implements RequestResponseHandler {
     private final Logger logger = LoggerFactory.getLogger(getClass());

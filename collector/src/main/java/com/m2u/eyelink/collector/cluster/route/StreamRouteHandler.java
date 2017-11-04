@@ -9,11 +9,6 @@ import com.m2u.eyelink.collector.cluster.ClusterPointLocator;
 import com.m2u.eyelink.collector.cluster.ELAgentServerClusterPoint;
 import com.m2u.eyelink.collector.cluster.TargetClusterPoint;
 import com.m2u.eyelink.collector.cluster.route.filter.RouteFilter;
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
-import com.m2u.eyelink.context.thrift.SerializationUtils;
-import com.m2u.eyelink.context.thrift.SerializerFactory;
-import com.m2u.eyelink.context.thrift.TCommandTransferResponse;
-import com.m2u.eyelink.context.thrift.TRouteResult;
 import com.m2u.eyelink.rpc.ClientStreamChannelContext;
 import com.m2u.eyelink.rpc.ClientStreamChannelMessageListener;
 import com.m2u.eyelink.rpc.ResponseMessage;
@@ -25,6 +20,11 @@ import com.m2u.eyelink.sender.ServerStreamChannelContext;
 import com.m2u.eyelink.sender.StreamChannelStateCode;
 import com.m2u.eyelink.sender.StreamClosePacket;
 import com.m2u.eyelink.sender.StreamResponsePacket;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializer;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.SerializerFactory;
+import com.m2u.eyelink.thrift.TCommandTransferResponse;
+import com.m2u.eyelink.thrift.TRouteResult;
 
 public class StreamRouteHandler extends AbstractRouteHandler<StreamEvent> {
 

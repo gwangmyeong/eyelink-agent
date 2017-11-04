@@ -8,9 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.collector.cluster.ClusterPointLocator;
 import com.m2u.eyelink.collector.cluster.TargetClusterPoint;
-import com.m2u.eyelink.context.thrift.TCommandTransfer;
-
-public abstract class AbstractRouteHandler<T extends RouteEvent> implements RouteHandler<T> {
+import com.m2u.eyelink.thrift.TCommandTransfer; abstract class AbstractRouteHandler<T extends RouteEvent> implements RouteHandler<T> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

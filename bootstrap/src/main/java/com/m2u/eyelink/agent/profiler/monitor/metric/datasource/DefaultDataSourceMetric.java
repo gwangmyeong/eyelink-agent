@@ -7,8 +7,8 @@ import com.m2u.eyelink.agent.profiler.context.DatabaseInfo;
 import com.m2u.eyelink.agent.profiler.context.monitor.DataSourceMonitorRegistryService;
 import com.m2u.eyelink.agent.profiler.context.monitor.JdbcUrlParsingService;
 import com.m2u.eyelink.context.monitor.DataSourceMonitorWrapper;
-import com.m2u.eyelink.context.thrift.TDataSource;
-import com.m2u.eyelink.context.thrift.TDataSourceList;
+import com.m2u.eyelink.thrift.TDataSource;
+import com.m2u.eyelink.thrift.TDataSourceList;
 import com.m2u.eyelink.util.CollectionUtils;
 
 public class DefaultDataSourceMetric implements DataSourceMetric {

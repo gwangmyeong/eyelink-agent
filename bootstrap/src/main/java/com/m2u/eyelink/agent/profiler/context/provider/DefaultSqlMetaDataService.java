@@ -11,8 +11,8 @@ import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.context.CachingSqlNormalizer;
 import com.m2u.eyelink.context.ParsingResult;
-import com.m2u.eyelink.context.TSqlMetaData;
 import com.m2u.eyelink.sender.EnhancedDataSender;
+import com.m2u.eyelink.thrift.dto.TSqlMetaData;
 
 public class DefaultSqlMetaDataService implements SqlMetaDataService {
 

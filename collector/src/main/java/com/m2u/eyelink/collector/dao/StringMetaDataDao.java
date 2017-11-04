@@ -3,7 +3,7 @@ package com.m2u.eyelink.collector.dao;
 import java.util.List;
 
 import com.m2u.eyelink.collector.bo.StringMetaDataBo;
-import com.m2u.eyelink.context.TStringMetaData;
+import com.m2u.eyelink.thrift.dto.TStringMetaData;
 
 public interface StringMetaDataDao {
 

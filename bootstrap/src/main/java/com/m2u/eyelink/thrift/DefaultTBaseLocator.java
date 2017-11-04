@@ -3,19 +3,18 @@ package com.m2u.eyelink.thrift;
 import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 
-import com.m2u.eyelink.context.TApiMetaData;
-import com.m2u.eyelink.context.TSpanEvent;
-import com.m2u.eyelink.context.TSqlMetaData;
-import com.m2u.eyelink.context.TStringMetaData;
-import com.m2u.eyelink.context.thrift.Header;
-import com.m2u.eyelink.context.thrift.NetworkAvailabilityCheckPacket;
-import com.m2u.eyelink.context.thrift.TAgentInfo;
-import com.m2u.eyelink.context.thrift.TAgentStat;
-import com.m2u.eyelink.context.thrift.TAgentStatBatch;
-import com.m2u.eyelink.context.thrift.TBaseLocator;
-import com.m2u.eyelink.context.thrift.TResult;
-import com.m2u.eyelink.context.thrift.TSpan;
-import com.m2u.eyelink.context.thrift.TSpanChunk;
+import com.m2u.eyelink.thrift.NetworkAvailabilityCheckPacket;
+import com.m2u.eyelink.thrift.TAgentInfo;
+import com.m2u.eyelink.thrift.TAgentStat;
+import com.m2u.eyelink.thrift.TAgentStatBatch;
+import com.m2u.eyelink.thrift.TBaseLocator;
+import com.m2u.eyelink.thrift.TResult;
+import com.m2u.eyelink.thrift.TSpan;
+import com.m2u.eyelink.thrift.TSpanChunk;
+import com.m2u.eyelink.thrift.dto.TApiMetaData;
+import com.m2u.eyelink.thrift.dto.TSpanEvent;
+import com.m2u.eyelink.thrift.dto.TSqlMetaData;
+import com.m2u.eyelink.thrift.dto.TStringMetaData;
 
 class DefaultTBaseLocator implements TBaseLocator {
 

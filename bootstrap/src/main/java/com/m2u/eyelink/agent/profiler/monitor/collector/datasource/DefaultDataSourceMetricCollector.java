@@ -1,7 +1,7 @@
 package com.m2u.eyelink.agent.profiler.monitor.collector.datasource;
 
 import com.m2u.eyelink.agent.profiler.monitor.metric.datasource.DataSourceMetric;
-import com.m2u.eyelink.context.thrift.TDataSourceList;
+import com.m2u.eyelink.thrift.TDataSourceList;
 
 public class DefaultDataSourceMetricCollector implements DataSourceMetricCollector {
 

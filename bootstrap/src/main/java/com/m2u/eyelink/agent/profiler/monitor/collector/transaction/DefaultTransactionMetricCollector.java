@@ -2,7 +2,7 @@ package com.m2u.eyelink.agent.profiler.monitor.collector.transaction;
 
 import com.google.inject.Inject;
 import com.m2u.eyelink.agent.profiler.monitor.metric.transaction.TransactionMetric;
-import com.m2u.eyelink.context.thrift.TTransaction;
+import com.m2u.eyelink.thrift.TTransaction;
 
 public class DefaultTransactionMetricCollector implements TransactionMetricCollector {
 

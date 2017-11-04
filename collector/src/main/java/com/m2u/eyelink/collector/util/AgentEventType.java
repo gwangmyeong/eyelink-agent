@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.m2u.eyelink.context.thrift.TCommandThreadDumpResponse;
+import com.m2u.eyelink.thrift.TCommandThreadDumpResponse; 
 
 public enum AgentEventType {
     AGENT_CONNECTED(10100, "Agent connected", Void.class, DURATIONAL, AGENT_LIFECYCLE),

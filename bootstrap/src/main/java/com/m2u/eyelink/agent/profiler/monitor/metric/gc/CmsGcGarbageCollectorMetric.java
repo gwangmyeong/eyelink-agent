@@ -5,7 +5,7 @@ import java.util.Map;
 import com.codahale.metrics.Gauge;
 import com.codahale.metrics.Metric;
 import com.m2u.eyelink.agent.profiler.monitor.codahale.MetricMonitorValues;
-import com.m2u.eyelink.context.thrift.TJvmGcType;
+import com.m2u.eyelink.thrift.dto.TJvmGcType;
 
 public class CmsGcGarbageCollectorMetric implements GarbageCollectorMetric {
 

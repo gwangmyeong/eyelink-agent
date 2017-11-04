@@ -7,9 +7,6 @@ import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.protocol.TProtocolFactory;
 
-import com.m2u.eyelink.context.thrift.Header;
-import com.m2u.eyelink.context.thrift.TBaseLocator;
-
 public class HeaderTBaseSerializer2 {
 
     private static final String UTF8 = "UTF8";

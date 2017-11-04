@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.m2u.eyelink.collector.handler.SimpleHandler;
-import com.m2u.eyelink.context.thrift.TSpan;
-import com.m2u.eyelink.context.thrift.TSpanChunk;
+import com.m2u.eyelink.thrift.TSpan;
+import com.m2u.eyelink.thrift.TSpanChunk;
 
 public class UdpSpanDispatchHandler extends AbstractDispatchHandler {
 

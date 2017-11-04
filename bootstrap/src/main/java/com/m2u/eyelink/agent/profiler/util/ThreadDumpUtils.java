@@ -6,9 +6,9 @@ import java.lang.management.ThreadInfo;
 import java.util.Collections;
 
 import com.m2u.eyelink.common.util.ThreadMXBeanUtils;
-import com.m2u.eyelink.context.thrift.TMonitorInfo;
-import com.m2u.eyelink.context.thrift.TThreadDump;
-import com.m2u.eyelink.context.thrift.TThreadState;
+import com.m2u.eyelink.thrift.TMonitorInfo;
+import com.m2u.eyelink.thrift.TThreadDump;
+import com.m2u.eyelink.thrift.TThreadState;
 
 public class ThreadDumpUtils {
 

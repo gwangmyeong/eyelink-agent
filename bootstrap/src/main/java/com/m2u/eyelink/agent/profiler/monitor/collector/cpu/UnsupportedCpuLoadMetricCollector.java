@@ -1,6 +1,6 @@
 package com.m2u.eyelink.agent.profiler.monitor.collector.cpu;
 
-import com.m2u.eyelink.context.thrift.TCpuLoad;
+import com.m2u.eyelink.thrift.TCpuLoad; 
 
 public class UnsupportedCpuLoadMetricCollector implements CpuLoadMetricCollector {
 

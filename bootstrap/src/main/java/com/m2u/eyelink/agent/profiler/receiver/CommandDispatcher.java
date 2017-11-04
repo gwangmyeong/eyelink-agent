@@ -6,8 +6,6 @@ import org.apache.thrift.TBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.m2u.eyelink.context.thrift.SerializationUtils;
-import com.m2u.eyelink.context.thrift.TResult;
 import com.m2u.eyelink.rpc.ELAgentSocket;
 import com.m2u.eyelink.rpc.MessageListener;
 import com.m2u.eyelink.rpc.RequestPacket;
@@ -17,6 +15,10 @@ import com.m2u.eyelink.sender.ServerStreamChannelContext;
 import com.m2u.eyelink.sender.StreamClosePacket;
 import com.m2u.eyelink.sender.StreamCode;
 import com.m2u.eyelink.sender.StreamCreatePacket;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.TResult;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.TResult;
 
 public class CommandDispatcher implements MessageListener, ServerStreamChannelMessageListener  {
 

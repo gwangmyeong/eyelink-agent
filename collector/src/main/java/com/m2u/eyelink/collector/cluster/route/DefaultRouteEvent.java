@@ -2,9 +2,7 @@ package com.m2u.eyelink.collector.cluster.route;
 
 import java.net.SocketAddress;
 
-import com.m2u.eyelink.context.thrift.TCommandTransfer;
-
-public class DefaultRouteEvent implements RouteEvent {
+import com.m2u.eyelink.thrift.TCommandTransfer; class DefaultRouteEvent implements RouteEvent {
 
     private final TCommandTransfer deliveryCommand;
 

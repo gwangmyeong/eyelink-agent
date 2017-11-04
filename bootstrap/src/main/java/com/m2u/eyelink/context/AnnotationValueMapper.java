@@ -2,7 +2,8 @@ package com.m2u.eyelink.context;
 
 import org.apache.thrift.TBase;
 
-import com.m2u.eyelink.context.thrift.TAnnotation;
+import com.m2u.eyelink.thrift.TAnnotation;
+import com.m2u.eyelink.thrift.dto.TAnnotationValue;
 import com.m2u.eyelink.util.StringUtils;
 
 public final class AnnotationValueMapper {

@@ -3,7 +3,7 @@ package com.m2u.eyelink.collector.dao;
 import java.util.List;
 
 import com.m2u.eyelink.collector.bo.SqlMetaDataBo;
-import com.m2u.eyelink.context.TSqlMetaData;
+import com.m2u.eyelink.thrift.dto.TSqlMetaData;
 
 public interface SqlMetaDataDao {
 	void insert(TSqlMetaData sqlMetaData);

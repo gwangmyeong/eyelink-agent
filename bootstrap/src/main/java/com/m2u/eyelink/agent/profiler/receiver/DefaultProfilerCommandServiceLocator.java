@@ -7,9 +7,7 @@ import java.util.Set;
 
 import org.apache.thrift.TBase;
 
-import com.m2u.eyelink.context.thrift.TCommandType;
-
-public class DefaultProfilerCommandServiceLocator implements ProfilerCommandServiceLocator {
+import com.m2u.eyelink.thrift.TCommandType; class DefaultProfilerCommandServiceLocator implements ProfilerCommandServiceLocator {
 
     private  final Map<Class<? extends TBase>, ProfilerCommandService> profilerCommandServiceRepository;
 

@@ -1,6 +1,6 @@
 package com.m2u.eyelink.agent.profiler.monitor.metric.gc;
 
-import com.m2u.eyelink.context.thrift.TJvmGcType;
+import com.m2u.eyelink.thrift.dto.TJvmGcType;
 
 public class UnknownGarbageCollectorMetric implements GarbageCollectorMetric {
 

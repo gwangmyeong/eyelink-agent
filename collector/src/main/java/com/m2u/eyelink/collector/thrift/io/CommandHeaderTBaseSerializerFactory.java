@@ -5,15 +5,15 @@ import java.util.Arrays;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocolFactory;
 
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializerFactory;
-import com.m2u.eyelink.context.thrift.SerializerFactory;
-import com.m2u.eyelink.context.thrift.TBaseLocator;
-import com.m2u.eyelink.context.thrift.TCommandRegistry;
-import com.m2u.eyelink.context.thrift.TCommandType;
-import com.m2u.eyelink.context.thrift.ThreadLocalHeaderTBaseSerializerFactory;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializer;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializerFactory;
+import com.m2u.eyelink.thrift.SerializerFactory;
+import com.m2u.eyelink.thrift.TBaseLocator;
+import com.m2u.eyelink.thrift.TCommandRegistry;
+import com.m2u.eyelink.thrift.TCommandType;
+import com.m2u.eyelink.thrift.ThreadLocalHeaderTBaseSerializerFactory;
 
-public final class CommandHeaderTBaseSerializerFactory implements SerializerFactory<HeaderTBaseSerializer> {
+public class CommandHeaderTBaseSerializerFactory implements SerializerFactory<HeaderTBaseSerializer> {
 
     public static final int DEFAULT_SERIALIZER_MAX_SIZE = 1024 * 64;
 

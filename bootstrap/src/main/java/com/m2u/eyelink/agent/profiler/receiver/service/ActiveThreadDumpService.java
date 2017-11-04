@@ -11,10 +11,10 @@ import com.m2u.eyelink.agent.profiler.receiver.ProfilerRequestCommandService;
 import com.m2u.eyelink.agent.profiler.util.ActiveThreadDumpUtils;
 import com.m2u.eyelink.agent.profiler.util.ThreadDumpUtils;
 import com.m2u.eyelink.context.ActiveTraceInfo;
-import com.m2u.eyelink.context.thrift.TActiveThreadDump;
-import com.m2u.eyelink.context.thrift.TCmdActiveThreadDump;
-import com.m2u.eyelink.context.thrift.TCmdActiveThreadDumpRes;
-import com.m2u.eyelink.context.thrift.TThreadDump;
+import com.m2u.eyelink.thrift.TActiveThreadDump;
+import com.m2u.eyelink.thrift.TCmdActiveThreadDump;
+import com.m2u.eyelink.thrift.TCmdActiveThreadDumpRes;
+import com.m2u.eyelink.thrift.TThreadDump;
 import com.m2u.eyelink.util.JvmUtils;
 
 public class ActiveThreadDumpService implements ProfilerRequestCommandService {

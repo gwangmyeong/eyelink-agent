@@ -3,9 +3,7 @@ package com.m2u.eyelink.collector.mapper.thrift;
 import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.AgentInfoBo;
-import com.m2u.eyelink.context.thrift.TAgentInfo;
-
-@Component
+import com.m2u.eyelink.thrift.TAgentInfo;
 public class AgentInfoBoMapper implements ThriftBoMapper<AgentInfoBo, TAgentInfo> {
 
     @Override

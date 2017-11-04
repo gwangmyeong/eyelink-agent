@@ -19,12 +19,12 @@ import com.m2u.eyelink.context.AgentInformation;
 import com.m2u.eyelink.context.ServerMetaData;
 import com.m2u.eyelink.context.ServerMetaDataHolder.ServerMetaDataListener;
 import com.m2u.eyelink.context.ServiceInfo;
-import com.m2u.eyelink.context.thrift.TAgentInfo;
-import com.m2u.eyelink.context.thrift.TJvmGcType;
-import com.m2u.eyelink.context.thrift.TJvmInfo;
-import com.m2u.eyelink.context.thrift.TServerMetaData;
-import com.m2u.eyelink.context.thrift.TServiceInfo;
 import com.m2u.eyelink.sender.EnhancedDataSender;
+import com.m2u.eyelink.thrift.TAgentInfo;
+import com.m2u.eyelink.thrift.TJvmInfo;
+import com.m2u.eyelink.thrift.TServerMetaData;
+import com.m2u.eyelink.thrift.TServiceInfo;
+import com.m2u.eyelink.thrift.dto.TJvmGcType;
 import com.m2u.eyelink.util.ELAgentThreadFactory;
 
 public class AgentInfoSender implements ServerMetaDataListener {
@@ -36,7 +36,7 @@ public class AgentInfoSender implements ServerMetaDataListener {
     public static final int DEFAULT_MAX_TRY_COUNT_PER_ATTEMPT = 3;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AgentInfoSender.class);
-    private static final ThreadFactory THREAD_FACTORY = new ELAgentThreadFactory("Pinpoint-agentInfo-sender", true);
+    private static final ThreadFactory THREAD_FACTORY = new ELAgentThreadFactory("Eyelink-agentInfo-sender", true);
 
     private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(THREAD_FACTORY);
 

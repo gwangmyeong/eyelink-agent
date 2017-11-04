@@ -17,11 +17,10 @@ import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
 import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.collector.util.RowKeyUtils;
 import com.m2u.eyelink.collector.util.TimeUtils;
-import com.m2u.eyelink.context.thrift.TAgentInfo;
-import com.m2u.eyelink.context.thrift.TJvmInfo;
-import com.m2u.eyelink.context.thrift.TServerMetaData;
+import com.m2u.eyelink.thrift.TAgentInfo;
+import com.m2u.eyelink.thrift.TJvmInfo;
+import com.m2u.eyelink.thrift.TServerMetaData;
 
-@Repository
 public class ElasticSearchAgentInfoDao implements AgentInfoDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

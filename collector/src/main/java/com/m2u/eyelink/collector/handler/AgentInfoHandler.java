@@ -8,10 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.m2u.eyelink.collector.dao.AgentInfoDao;
 import com.m2u.eyelink.collector.dao.ApplicationIndexDao;
-import com.m2u.eyelink.context.thrift.TAgentInfo;
-import com.m2u.eyelink.context.thrift.TResult;
+import com.m2u.eyelink.thrift.TAgentInfo;
+import com.m2u.eyelink.thrift.TResult;
 
-@Service("agentInfoHandler")
 public class AgentInfoHandler implements SimpleHandler, RequestResponseHandler {
 
     private final Logger logger = LoggerFactory.getLogger(AgentInfoHandler.class.getName());

@@ -3,9 +3,6 @@ package com.m2u.eyelink.thrift;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocolFactory;
 
-import com.m2u.eyelink.context.thrift.SerializerFactory;
-import com.m2u.eyelink.context.thrift.TBaseLocator;
-
 public class HeaderTBaseSerializerFactory2 implements SerializerFactory<HeaderTBaseSerializer2> {
 
     private static final TProtocolFactory DEFAULT_PROTOCOL_FACTORY = new TCompactProtocol.Factory();

@@ -1,7 +1,7 @@
 package com.m2u.eyelink.context;
 
-import com.m2u.eyelink.context.thrift.TAnnotation;
-
+import com.m2u.eyelink.thrift.TAnnotation;
+import com.m2u.eyelink.thrift.dto.TAnnotationValue;
 
 public class Annotation extends TAnnotation {
 

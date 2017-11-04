@@ -6,9 +6,9 @@ import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 
 import com.m2u.eyelink.collector.util.AgentEventType;
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
-import com.m2u.eyelink.context.thrift.SerializationUtils;
-import com.m2u.eyelink.context.thrift.SerializerFactory;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializer;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.SerializerFactory;
 import com.m2u.eyelink.util.BytesUtils;
 
 public class AgentEventMessageSerializer {

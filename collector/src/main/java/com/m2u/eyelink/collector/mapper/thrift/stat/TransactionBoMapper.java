@@ -4,9 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.stat.TransactionBo;
 import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
-import com.m2u.eyelink.context.thrift.TTransaction;
-
-@Component
+import com.m2u.eyelink.thrift.TTransaction;
 public class TransactionBoMapper implements ThriftBoMapper<TransactionBo, TTransaction> {
 
     @Override

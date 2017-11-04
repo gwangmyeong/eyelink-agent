@@ -5,9 +5,7 @@ import java.util.List;
 import com.m2u.eyelink.agent.profiler.context.ActiveTraceHistogramFactory;
 import com.m2u.eyelink.agent.profiler.context.ActiveTraceHistogramFactory.ActiveTraceHistogram;
 import com.m2u.eyelink.agent.profiler.monitor.metric.activethread.ActiveTraceMetric;
-import com.m2u.eyelink.context.thrift.TActiveTraceHistogram;
-
-public class DefaultActiveTraceMetric implements ActiveTraceMetric {
+import com.m2u.eyelink.thrift.TActiveTraceHistogram; class DefaultActiveTraceMetric implements ActiveTraceMetric {
 
     private final ActiveTraceHistogramFactory activeTraceHistogramFactory;
 

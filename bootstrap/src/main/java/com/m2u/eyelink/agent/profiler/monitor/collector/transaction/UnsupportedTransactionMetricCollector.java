@@ -1,6 +1,6 @@
 package com.m2u.eyelink.agent.profiler.monitor.collector.transaction;
 
-import com.m2u.eyelink.context.thrift.TTransaction;
+import com.m2u.eyelink.thrift.TTransaction; 
 
 public class UnsupportedTransactionMetricCollector implements TransactionMetricCollector {
 

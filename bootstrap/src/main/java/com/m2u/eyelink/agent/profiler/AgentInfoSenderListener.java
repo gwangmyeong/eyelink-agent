@@ -6,12 +6,14 @@ import org.apache.thrift.TBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializerFactory;
-import com.m2u.eyelink.context.thrift.SerializationUtils;
-import com.m2u.eyelink.context.thrift.TResult;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.TResult;
 import com.m2u.eyelink.rpc.Future;
 import com.m2u.eyelink.rpc.ResponseMessage;
 import com.m2u.eyelink.sender.FutureListener;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializerFactory;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.TResult;
 
 public class AgentInfoSenderListener implements FutureListener<ResponseMessage> {
 

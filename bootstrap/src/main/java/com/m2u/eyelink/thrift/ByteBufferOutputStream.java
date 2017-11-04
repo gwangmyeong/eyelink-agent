@@ -1,13 +1,11 @@
 package com.m2u.eyelink.thrift;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
-
 import sun.misc.Cleaner;
 import sun.nio.ch.DirectBuffer;
 
-import com.m2u.eyelink.context.thrift.BufferOverflowException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
 
 public class ByteBufferOutputStream extends OutputStream implements ResettableOutputStream {
 

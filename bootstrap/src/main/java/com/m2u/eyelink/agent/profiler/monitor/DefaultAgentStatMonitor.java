@@ -15,9 +15,9 @@ import com.m2u.eyelink.agent.profiler.context.module.AgentId;
 import com.m2u.eyelink.agent.profiler.context.module.AgentStartTime;
 import com.m2u.eyelink.agent.profiler.context.module.StatDataSender;
 import com.m2u.eyelink.agent.profiler.monitor.collector.AgentStatMetricCollector;
-import com.m2u.eyelink.context.thrift.TAgentStat;
-import com.m2u.eyelink.context.thrift.TAgentStatBatch;
 import com.m2u.eyelink.sender.DataSender;
+import com.m2u.eyelink.thrift.TAgentStat;
+import com.m2u.eyelink.thrift.TAgentStatBatch;
 import com.m2u.eyelink.util.ELAgentThreadFactory;
 
 public class DefaultAgentStatMonitor implements AgentStatMonitor {

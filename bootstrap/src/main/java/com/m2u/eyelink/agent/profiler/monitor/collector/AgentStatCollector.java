@@ -8,8 +8,7 @@ import com.m2u.eyelink.agent.profiler.monitor.collector.cpu.CpuLoadMetricCollect
 import com.m2u.eyelink.agent.profiler.monitor.collector.datasource.DataSourceMetricCollector;
 import com.m2u.eyelink.agent.profiler.monitor.collector.jvmgc.JvmGcMetricCollector;
 import com.m2u.eyelink.agent.profiler.monitor.collector.transaction.TransactionMetricCollector;
-import com.m2u.eyelink.context.thrift.TAgentStat;
-
+import com.m2u.eyelink.thrift.TAgentStat;
 
 public class AgentStatCollector implements AgentStatMetricCollector<TAgentStat> {
 

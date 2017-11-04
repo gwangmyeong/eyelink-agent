@@ -5,15 +5,15 @@ import java.util.Arrays;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocolFactory;
 
-import com.m2u.eyelink.context.thrift.DeserializerFactory;
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializer;
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializerFactory;
-import com.m2u.eyelink.context.thrift.TBaseLocator;
-import com.m2u.eyelink.context.thrift.TCommandRegistry;
-import com.m2u.eyelink.context.thrift.TCommandType;
-import com.m2u.eyelink.context.thrift.ThreadLocalHeaderTBaseDeserializerFactory;
+import com.m2u.eyelink.thrift.DeserializerFactory;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializer;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializerFactory;
+import com.m2u.eyelink.thrift.TBaseLocator;
+import com.m2u.eyelink.thrift.TCommandRegistry;
+import com.m2u.eyelink.thrift.TCommandType;
+import com.m2u.eyelink.thrift.ThreadLocalHeaderTBaseDeserializerFactory;
 
-public final class CommandHeaderTBaseDeserializerFactory implements DeserializerFactory<HeaderTBaseDeserializer> {
+public class CommandHeaderTBaseDeserializerFactory implements DeserializerFactory<HeaderTBaseDeserializer> {
 
     private final DeserializerFactory<HeaderTBaseDeserializer> factory;
 

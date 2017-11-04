@@ -13,11 +13,6 @@ import org.jboss.netty.util.TimerTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializer;
-import com.m2u.eyelink.context.thrift.HeaderTBaseDeserializerFactory;
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializer;
-import com.m2u.eyelink.context.thrift.HeaderTBaseSerializerFactory;
-import com.m2u.eyelink.context.thrift.TResult;
 import com.m2u.eyelink.rpc.Future;
 import com.m2u.eyelink.rpc.ResponseMessage;
 import com.m2u.eyelink.rpc.client.ELAgentClient;
@@ -25,6 +20,11 @@ import com.m2u.eyelink.rpc.client.ELAgentClientReconnectEventListener;
 import com.m2u.eyelink.rpc.util.TimerFactory;
 import com.m2u.eyelink.sender.EnhancedDataSender;
 import com.m2u.eyelink.sender.FutureListener;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializer;
+import com.m2u.eyelink.thrift.HeaderTBaseDeserializerFactory;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializer;
+import com.m2u.eyelink.thrift.HeaderTBaseSerializerFactory;
+import com.m2u.eyelink.thrift.TResult;
 
 public class TcpDataSender extends AbstractDataSender implements EnhancedDataSender {
 
@@ -52,11 +52,11 @@ public class TcpDataSender extends AbstractDataSender implements EnhancedDataSen
         this.client = client;
         this.timer = createTimer();
         writeFailFutureListener = new WriteFailFutureListener(logger, "io write fail.", "host", -1);
-        this.executor = createAsyncQueueingExecutor(1024 * 5, "Pinpoint-TcpDataExecutor");
+        this.executor = createAsyncQueueingExecutor(1024 * 5, "ELAgent-TcpDataExecutor");
     }
     
     private Timer createTimer() {
-        HashedWheelTimer timer = TimerFactory.createHashedWheelTimer("Pinpoint-DataSender-Timer", 100, TimeUnit.MILLISECONDS, 512);
+        HashedWheelTimer timer = TimerFactory.createHashedWheelTimer("ELAgent-DataSender-Timer", 100, TimeUnit.MILLISECONDS, 512);
         timer.start();
         return timer;
     }

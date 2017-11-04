@@ -16,7 +16,7 @@ import com.m2u.eyelink.collector.common.elasticsearch.Put;
 import com.m2u.eyelink.collector.common.elasticsearch.RowMapper;
 import com.m2u.eyelink.collector.dao.SqlMetaDataDao;
 import com.m2u.eyelink.collector.util.ElasticSearchUtils;
-import com.m2u.eyelink.context.TSqlMetaData;
+import com.m2u.eyelink.thrift.dto.TSqlMetaData;
 
 public class ElasticSearchSqlMetaDataDao implements SqlMetaDataDao {
 

@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.stat.ActiveTraceBo;
 import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
-import com.m2u.eyelink.context.thrift.TActiveTrace;
-import com.m2u.eyelink.context.thrift.TActiveTraceHistogram;
 import com.m2u.eyelink.common.trace.SlotType;
+import com.m2u.eyelink.thrift.TActiveTrace;
+import com.m2u.eyelink.thrift.TActiveTraceHistogram;
 
 @Component
 public class ActiveTraceBoMapper implements ThriftBoMapper<ActiveTraceBo, TActiveTrace> {

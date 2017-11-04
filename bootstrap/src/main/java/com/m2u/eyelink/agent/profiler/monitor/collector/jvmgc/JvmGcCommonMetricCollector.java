@@ -2,7 +2,7 @@ package com.m2u.eyelink.agent.profiler.monitor.collector.jvmgc;
 
 import com.m2u.eyelink.agent.profiler.monitor.metric.gc.GarbageCollectorMetric;
 import com.m2u.eyelink.agent.profiler.monitor.metric.memory.MemoryMetric;
-import com.m2u.eyelink.context.thrift.TJvmGc;
+import com.m2u.eyelink.thrift.TJvmGc; 
 
 public class JvmGcCommonMetricCollector implements JvmGcMetricCollector {
 

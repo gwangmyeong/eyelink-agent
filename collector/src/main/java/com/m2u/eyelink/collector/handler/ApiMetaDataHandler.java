@@ -4,13 +4,11 @@ import org.apache.thrift.TBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.m2u.eyelink.collector.dao.ApiMetaDataDao;
-import com.m2u.eyelink.context.TApiMetaData;
-import com.m2u.eyelink.context.thrift.TResult;
+import com.m2u.eyelink.thrift.TResult;
+import com.m2u.eyelink.thrift.dto.TApiMetaData;
 
-@Service
 public class ApiMetaDataHandler implements RequestResponseHandler {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());

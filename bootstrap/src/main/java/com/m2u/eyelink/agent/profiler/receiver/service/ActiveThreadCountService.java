@@ -18,15 +18,20 @@ import com.m2u.eyelink.agent.profiler.context.active.ActiveTraceRepository;
 import com.m2u.eyelink.agent.profiler.receiver.CommandSerializer;
 import com.m2u.eyelink.agent.profiler.receiver.ProfilerRequestCommandService;
 import com.m2u.eyelink.agent.profiler.receiver.ProfilerStreamCommandService;
-import com.m2u.eyelink.context.thrift.SerializationUtils;
-import com.m2u.eyelink.context.thrift.TCmdActiveThreadCount;
-import com.m2u.eyelink.context.thrift.TCmdActiveThreadCountRes;
 import com.m2u.eyelink.rpc.StreamChannelStateChangeEventHandler;
 import com.m2u.eyelink.rpc.stream.ServerStreamChannel;
 import com.m2u.eyelink.rpc.util.TimerFactory;
 import com.m2u.eyelink.sender.ServerStreamChannelContext;
 import com.m2u.eyelink.sender.StreamChannelStateCode;
 import com.m2u.eyelink.sender.StreamCode;
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.TCmdActiveThreadCount;
+import com.m2u.eyelink.thrift.TCmdActiveThreadCountRes;
+
+
+import com.m2u.eyelink.thrift.SerializationUtils;
+import com.m2u.eyelink.thrift.TCmdActiveThreadCount;
+import com.m2u.eyelink.thrift.TCmdActiveThreadCountRes;
 
 public class ActiveThreadCountService implements ProfilerRequestCommandService, ProfilerStreamCommandService {
 
