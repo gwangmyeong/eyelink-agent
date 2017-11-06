@@ -9,6 +9,7 @@ import com.m2u.eyelink.agent.profiler.context.CallStackFactory;
 import com.m2u.eyelink.agent.profiler.context.DefaultBaseTraceFactory;
 import com.m2u.eyelink.agent.profiler.context.LoggingBaseTraceFactory;
 import com.m2u.eyelink.agent.profiler.context.SpanFactory;
+import com.m2u.eyelink.agent.profiler.context.ThreadLocalTraceFactory;
 import com.m2u.eyelink.agent.profiler.context.active.ActiveTraceFactory;
 import com.m2u.eyelink.agent.profiler.context.active.ActiveTraceRepository;
 import com.m2u.eyelink.agent.profiler.context.id.AsyncIdGenerator;
@@ -18,7 +19,6 @@ import com.m2u.eyelink.agent.profiler.context.recorder.RecorderFactory;
 import com.m2u.eyelink.context.BaseTraceFactory;
 import com.m2u.eyelink.context.Sampler;
 import com.m2u.eyelink.context.StorageFactory;
-import com.m2u.eyelink.context.ThreadLocalTraceFactory;
 import com.m2u.eyelink.context.TraceFactory;
 
 public class TraceFactoryProvider implements Provider<TraceFactory> {

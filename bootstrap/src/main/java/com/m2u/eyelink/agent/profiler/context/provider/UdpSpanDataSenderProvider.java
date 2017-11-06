@@ -8,7 +8,7 @@ import com.m2u.eyelink.sender.DataSender;
 
 public class UdpSpanDataSenderProvider implements Provider<DataSender> {
 
-    private static final String threadName = "Pinpoint-UdpSpanDataExecutor";
+    private static final String threadName = "ELAgent-UdpSpanDataExecutor";
 
     private final String ip;
     private final int port;

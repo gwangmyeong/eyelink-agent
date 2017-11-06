@@ -2,6 +2,7 @@ package com.m2u.eyelink.agent.profiler.context.provider;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.m2u.eyelink.agent.profiler.context.DefaultTraceContext;
 import com.m2u.eyelink.agent.profiler.context.id.AsyncIdGenerator;
 import com.m2u.eyelink.agent.profiler.context.id.TraceIdFactory;
 import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
@@ -10,7 +11,6 @@ import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
 import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.context.AgentInformation;
-import com.m2u.eyelink.context.DefaultTraceContext;
 import com.m2u.eyelink.context.ServerMetaDataHolder;
 import com.m2u.eyelink.context.TraceContext;
 import com.m2u.eyelink.context.TraceFactory;
