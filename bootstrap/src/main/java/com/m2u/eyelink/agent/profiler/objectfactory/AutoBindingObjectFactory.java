@@ -15,7 +15,7 @@ import com.m2u.eyelink.agent.plugin.ObjectFactory.ByConstructor;
 import com.m2u.eyelink.agent.plugin.ObjectFactory.ByStaticFactoryMethod;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.context.TraceContext;
-import com.m2u.eyelink.exception.PinpointException;
+import com.m2u.eyelink.exception.ELAgentException;
 
 public class AutoBindingObjectFactory {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -67,7 +67,7 @@ public class AutoBindingObjectFactory {
         final ConstructorResolver resolver = new ConstructorResolver(type, argumentsResolver);
         
         if (!resolver.resolve()) {
-            throw new PinpointException("Cannot find suitable constructor for " + type.getName());
+            throw new ELAgentException("Cannot find suitable constructor for " + type.getName());
         }
         
         final Constructor<?> constructor = resolver.getResolvedConstructor();
@@ -80,7 +80,7 @@ public class AutoBindingObjectFactory {
         try {
             return constructor.newInstance(resolvedArguments);
         } catch (Exception e) {
-            throw new PinpointException("Fail to invoke constructor: " + constructor + ", arguments: " + Arrays.toString(resolvedArguments), e);
+            throw new ELAgentException("Fail to invoke constructor: " + constructor + ", arguments: " + Arrays.toString(resolvedArguments), e);
         }
     }
 
@@ -88,7 +88,7 @@ public class AutoBindingObjectFactory {
         StaticMethodResolver resolver = new StaticMethodResolver(type, staticFactoryMethod.getFactoryMethodName(), argumentsResolver);
         
         if (!resolver.resolve()) {
-            throw new PinpointException("Cannot find suitable factory method " + type.getName() + "." + staticFactoryMethod.getFactoryMethodName());
+            throw new ELAgentException("Cannot find suitable factory method " + type.getName() + "." + staticFactoryMethod.getFactoryMethodName());
         }
         
         final Method method = resolver.getResolvedMethod();
@@ -101,7 +101,7 @@ public class AutoBindingObjectFactory {
         try {
             return method.invoke(null, resolvedArguments);
         } catch (Exception e) {
-            throw new PinpointException("Fail to invoke factory method: " + type.getName() + "." + staticFactoryMethod.getFactoryMethodName() + ", arguments: " + Arrays.toString(resolvedArguments), e);
+            throw new ELAgentException("Fail to invoke factory method: " + type.getName() + "." + staticFactoryMethod.getFactoryMethodName() + ", arguments: " + Arrays.toString(resolvedArguments), e);
         }
 
     }

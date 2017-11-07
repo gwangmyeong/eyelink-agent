@@ -11,7 +11,7 @@ import com.m2u.eyelink.agent.plugin.monitor.DataSourceMonitorRegistry;
 import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 import com.m2u.eyelink.agent.profiler.util.TypeUtils;
 import com.m2u.eyelink.context.MethodDescriptor;
-import com.m2u.eyelink.exception.PinpointException;
+import com.m2u.eyelink.exception.ELAgentException;
 
 public class InterceptorArgumentProvider implements ArgumentProvider {
     private final DataSourceMonitorRegistry dataSourceMonitorRegistry;
@@ -54,7 +54,7 @@ public class InterceptorArgumentProvider implements ArgumentProvider {
             
             if (annotation == null) {
                 if (interceptorScope == null) {
-                    throw new PinpointException("Scope parameter is not annotated with @Name and the target class is not associated with any Scope");
+                    throw new ELAgentException("Scope parameter is not annotated with @Name and the target class is not associated with any Scope");
                 } else {
                     return Option.withValue(interceptorScope);
                 }

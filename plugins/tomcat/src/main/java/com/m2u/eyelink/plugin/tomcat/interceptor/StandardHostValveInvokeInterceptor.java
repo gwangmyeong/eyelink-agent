@@ -23,7 +23,6 @@ import com.m2u.eyelink.plugin.tomcat.TomcatConfig;
 import com.m2u.eyelink.plugin.tomcat.TomcatConstants;
 import com.m2u.eyelink.plugin.tomcat.TraceAccessor;
 import com.m2u.eyelink.agent.interceptor.AroundInterceptor;
-import com.m2u.eyelink.agent.interceptor.AroundInterceptor;
 import com.m2u.eyelink.common.trace.AnnotationKey;
 import com.m2u.eyelink.common.trace.ServiceType;
 import com.m2u.eyelink.util.NetworkUtils;

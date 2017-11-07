@@ -4,7 +4,7 @@ import java.io.InputStream;
 
 import com.m2u.eyelink.agent.profiler.instrument.BootstrapPackage;
 import com.m2u.eyelink.agent.profiler.instrument.ClassInjector;
-import com.m2u.eyelink.exception.PinpointException;
+import com.m2u.eyelink.exception.ELAgentException;
 
 public class DebugTransformerClassInjector implements ClassInjector {
 
@@ -24,7 +24,7 @@ public class DebugTransformerClassInjector implements ClassInjector {
         try {
             return (Class<? extends T>) targetClassLoader.loadClass(className);
         } catch (ClassNotFoundException e) {
-            throw new PinpointException("ClassNo class " + className + " with classLoader " + classLoader, e);
+            throw new ELAgentException("ClassNo class " + className + " with classLoader " + classLoader, e);
         }
     }
 

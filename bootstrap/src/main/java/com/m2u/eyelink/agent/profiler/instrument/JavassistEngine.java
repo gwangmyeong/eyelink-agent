@@ -29,7 +29,7 @@ import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 import com.m2u.eyelink.agent.profiler.objectfactory.ObjectBinderFactory;
 import com.m2u.eyelink.agent.profiler.plugin.PluginConfig;
 import com.m2u.eyelink.agent.profiler.plugin.PluginInstrumentContext;
-import com.m2u.eyelink.exception.PinpointException;
+import com.m2u.eyelink.exception.ELAgentException;
 
 @Deprecated
 public class JavassistEngine implements InstrumentEngine {
@@ -98,7 +98,7 @@ public class JavassistEngine implements InstrumentEngine {
                         }
                     }
                 } catch (NotFoundException ex) {
-                    throw new PinpointException("bootStrapJar not found. Caused by:" + ex.getMessage(), ex);
+                    throw new ELAgentException("bootStrapJar not found. Caused by:" + ex.getMessage(), ex);
                 }
                 // append pinpoint classLoader
                 systemClassPool.appendClassPath(new ClassClassPath(this.getClass()));
@@ -206,7 +206,7 @@ public class JavassistEngine implements InstrumentEngine {
             try {
                 getClassPool(null).appendClassPath(jarFile.getName());
             } catch (NotFoundException e) {
-                throw new PinpointException(e);
+                throw new ELAgentException(e);
             }
         }
     }

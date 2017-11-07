@@ -11,7 +11,7 @@ import com.m2u.eyelink.agent.profiler.util.TypeUtils;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.context.Trace;
 import com.m2u.eyelink.context.TraceContext;
-import com.m2u.eyelink.exception.PinpointException;
+import com.m2u.eyelink.exception.ELAgentException;
 
 
 public class ProfilerPluginArgumentProvider implements ArgumentProvider {
@@ -54,7 +54,7 @@ public class ProfilerPluginArgumentProvider implements ArgumentProvider {
             InterceptorScope scope = pluginContext.getInterceptorScope(annotation.value());
             
             if (scope == null) {
-                throw new PinpointException("No such Scope: " + annotation.value());
+                throw new ELAgentException("No such Scope: " + annotation.value());
             }
             
             return Option.withValue(scope);

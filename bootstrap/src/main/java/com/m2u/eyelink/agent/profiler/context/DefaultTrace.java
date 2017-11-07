@@ -17,7 +17,7 @@ import com.m2u.eyelink.context.TraceId;
 import com.m2u.eyelink.context.TraceScope;
 import com.m2u.eyelink.context.WrappedSpanEventRecorder;
 import com.m2u.eyelink.context.scope.DefaultTraceScopePool;
-import com.m2u.eyelink.exception.PinpointException;
+import com.m2u.eyelink.exception.ELAgentException;
 
 public final class DefaultTrace implements Trace {
 
@@ -101,7 +101,7 @@ public final class DefaultTrace implements Trace {
 
         if (this.closed) {
             if (isWarn) {
-                PinpointException exception = new PinpointException("already closed trace.");
+            	ELAgentException exception = new ELAgentException("already closed trace.");
                 logger.warn("[DefaultTrace] Corrupted call stack found.", exception);
             }
         } else {
@@ -120,7 +120,7 @@ public final class DefaultTrace implements Trace {
     public void traceBlockEnd(int stackId) {
         if (this.closed) {
             if (isWarn) {
-                final PinpointException exception = new PinpointException("already closed trace.");
+                final ELAgentException exception = new ELAgentException("already closed trace.");
                 logger.warn("[DefaultTrace] Corrupted call stack found.", exception);
             }
             return;
@@ -129,7 +129,7 @@ public final class DefaultTrace implements Trace {
         final SpanEvent spanEvent = callStack.pop();
         if (spanEvent == null) {
             if (isWarn) {
-                PinpointException exception = new PinpointException("call stack is empty.");
+            	ELAgentException exception = new ELAgentException("call stack is empty.");
                 logger.warn("[DefaultTrace] Corrupted call stack found.", exception);
             }
             return;
@@ -138,7 +138,7 @@ public final class DefaultTrace implements Trace {
         if (spanEvent.getStackId() != stackId) {
             // stack dump will make debugging easy.
             if (isWarn) {
-                PinpointException exception = new PinpointException("not matched stack id. expected=" + stackId + ", current=" + spanEvent.getStackId());
+            	ELAgentException exception = new ELAgentException("not matched stack id. expected=" + stackId + ", current=" + spanEvent.getStackId());
                 logger.warn("[DefaultTrace] Corrupted call stack found.", exception);
             }
         }
@@ -159,7 +159,7 @@ public final class DefaultTrace implements Trace {
 
         if (!callStack.empty()) {
             if (isWarn) {
-                PinpointException exception = new PinpointException("not empty call stack.");
+            	ELAgentException exception = new ELAgentException("not empty call stack.");
                 logger.warn("[DefaultTrace] Corrupted call stack found.", exception);
             }
             // skip
@@ -268,7 +268,7 @@ public final class DefaultTrace implements Trace {
         SpanEvent spanEvent = callStack.peek();
         if (spanEvent == null) {
             if (isWarn) {
-                PinpointException exception = new PinpointException("call stack is empty");
+            		ELAgentException exception = new ELAgentException("call stack is empty");
                 logger.warn("[DefaultTrace] Corrupted call stack found.", exception);
             }
             // make dummy.

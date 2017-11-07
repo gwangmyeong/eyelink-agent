@@ -79,7 +79,7 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
 
     private final DefaultELAgentClientFactory clientFactory;
     private SocketAddress connectSocketAddress;
-    private volatile ELAgentClient pinpointClient;
+    private volatile ELAgentClient elagentClient;
 
     private final MessageListener messageListener;
     private final ServerStreamChannelMessageListener serverStreamChannelMessageListener;
@@ -133,9 +133,9 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
 
     public void setELAgentClient(ELAgentClient pinpointClient) {
         if (pinpointClient == null) {
-            throw new NullPointerException("pinpointClient must not be null");
+            throw new NullPointerException("ELAgentClient must not be null");
         }
-        this.pinpointClient = pinpointClient;
+        this.elagentClient = pinpointClient;
     }
 
     public void setConnectSocketAddress(SocketAddress connectSocketAddress) {
@@ -395,10 +395,10 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
                     return;
                 // have to handle a request message through connector
                 case PacketType.APPLICATION_REQUEST:
-                    this.messageListener.handleRequest((RequestPacket) message, pinpointClient);
+                    this.messageListener.handleRequest((RequestPacket) message, elagentClient);
                     return;
                 case PacketType.APPLICATION_SEND:
-                    this.messageListener.handleSend((SendPacket) message, pinpointClient);
+                    this.messageListener.handleSend((SendPacket) message, elagentClient);
                     return;
                 case PacketType.APPLICATION_STREAM_CREATE:
                 case PacketType.APPLICATION_STREAM_CLOSE:
@@ -583,7 +583,7 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
             }
 
             if (needReconnect) {
-                clientFactory.reconnect(this.pinpointClient, this.connectSocketAddress);
+                clientFactory.reconnect(this.elagentClient, this.connectSocketAddress);
             }
         } finally {
             closeResources();
@@ -646,7 +646,7 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
     }
 
     protected ELAgentClient getELAgentClient() {
-        return pinpointClient;
+        return elagentClient;
     }
 
     protected String getObjectName() {
