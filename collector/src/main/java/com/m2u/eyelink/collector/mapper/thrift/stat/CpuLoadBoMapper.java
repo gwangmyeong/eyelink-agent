@@ -6,6 +6,7 @@ import com.m2u.eyelink.collector.bo.stat.CpuLoadBo;
 import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
 import com.m2u.eyelink.thrift.TCpuLoad;
 
+@Component
 public class CpuLoadBoMapper implements ThriftBoMapper<CpuLoadBo, TCpuLoad> {
 
     @Override

@@ -20,6 +20,7 @@ import com.m2u.eyelink.thrift.TAgentStatBatch;
 import com.m2u.eyelink.thrift.TDataSource;
 import com.m2u.eyelink.thrift.TDataSourceList;
 
+@Component
 public class AgentStatBatchMapper implements ThriftBoMapper<AgentStatBo, TAgentStatBatch> {
 
     @Autowired

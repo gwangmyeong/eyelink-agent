@@ -18,6 +18,7 @@ import com.m2u.eyelink.collector.dao.ApplicationIndexDao;
 import com.m2u.eyelink.collector.util.ElasticSearchUtils;
 import com.m2u.eyelink.thrift.TAgentInfo;
 
+@Repository
 public class ElasticSearchApplicationIndexDao implements ApplicationIndexDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

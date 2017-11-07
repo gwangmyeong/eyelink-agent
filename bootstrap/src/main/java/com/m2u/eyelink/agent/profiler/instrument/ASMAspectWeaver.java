@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.agent.instrument.InstrumentException;
+import com.m2u.eyelink.agent.instrument.aspect.Aspect;
 import com.m2u.eyelink.agent.instrument.aspect.JointPoint;
 import com.m2u.eyelink.agent.instrument.aspect.PointCut;
-import com.sun.tools.internal.xjc.outline.Aspect;
 
 public class ASMAspectWeaver {
 

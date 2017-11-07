@@ -6,6 +6,7 @@ import com.m2u.eyelink.collector.bo.stat.DataSourceBo;
 import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
 import com.m2u.eyelink.thrift.TDataSource;
 
+@Component
 public class DataSourceBoMapper implements ThriftBoMapper<DataSourceBo, TDataSource> {
 
     @Override

@@ -6,6 +6,8 @@ import com.m2u.eyelink.collector.bo.stat.JvmGcBo;
 import com.m2u.eyelink.collector.bo.stat.JvmGcType;
 import com.m2u.eyelink.collector.mapper.thrift.ThriftBoMapper;
 import com.m2u.eyelink.thrift.TJvmGc;
+
+@Component
 public class JvmGcBoMapper implements ThriftBoMapper<JvmGcBo, TJvmGc> {
 
     @Override

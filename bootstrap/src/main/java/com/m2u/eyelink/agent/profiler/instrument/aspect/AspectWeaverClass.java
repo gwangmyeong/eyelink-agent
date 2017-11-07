@@ -15,11 +15,11 @@ import javassist.expr.MethodCall;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.m2u.eyelink.agent.instrument.aspect.Aspect;
 import com.m2u.eyelink.agent.instrument.aspect.JointPoint;
 import com.m2u.eyelink.agent.instrument.aspect.PointCut;
 import com.m2u.eyelink.agent.profiler.instrument.MethodNameReplacer;
 import com.m2u.eyelink.agent.profiler.instrument.interceptor.CodeBuilder;
-import com.sun.tools.internal.xjc.outline.Aspect;
 
 public class AspectWeaverClass {
 

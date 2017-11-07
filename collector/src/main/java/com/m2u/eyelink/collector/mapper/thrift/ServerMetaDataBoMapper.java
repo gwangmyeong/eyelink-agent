@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.m2u.eyelink.collector.bo.ServerMetaDataBo;
 import com.m2u.eyelink.collector.bo.ServiceInfoBo;
 import com.m2u.eyelink.thrift.TServerMetaData;
 import com.m2u.eyelink.thrift.TServiceInfo;
 
+@Component
 public class ServerMetaDataBoMapper implements ThriftBoMapper<ServerMetaDataBo, TServerMetaData> {
 
     @Override

@@ -21,6 +21,7 @@ import com.m2u.eyelink.thrift.TAgentInfo;
 import com.m2u.eyelink.thrift.TJvmInfo;
 import com.m2u.eyelink.thrift.TServerMetaData;
 
+@Repository
 public class ElasticSearchAgentInfoDao implements AgentInfoDao {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

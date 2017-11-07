@@ -18,6 +18,7 @@ import com.m2u.eyelink.thrift.TAgentStat;
 import com.m2u.eyelink.thrift.TDataSource;
 import com.m2u.eyelink.thrift.TDataSourceList;
 
+@Component
 public class AgentStatMapper implements ThriftBoMapper<AgentStatBo, TAgentStat> {
 
     @Autowired

@@ -11,6 +11,7 @@ import com.m2u.eyelink.collector.dao.ApplicationIndexDao;
 import com.m2u.eyelink.thrift.TAgentInfo;
 import com.m2u.eyelink.thrift.TResult;
 
+@Service("agentInfoHandler")
 public class AgentInfoHandler implements SimpleHandler, RequestResponseHandler {
 
     private final Logger logger = LoggerFactory.getLogger(AgentInfoHandler.class.getName());

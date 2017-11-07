@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 
 import com.m2u.eyelink.collector.bo.AgentInfoBo;
 import com.m2u.eyelink.thrift.TAgentInfo;
+
+@Component
 public class AgentInfoBoMapper implements ThriftBoMapper<AgentInfoBo, TAgentInfo> {
 
     @Override
