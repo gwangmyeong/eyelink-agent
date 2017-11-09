@@ -36,7 +36,7 @@ public final class ELAgentRPCTestUtils {
     }
 
 
-    public static ELAgentServerAcceptor createPinpointServerFactory(int bindPort) {
+    public static ELAgentServerAcceptor createELAgentServerFactory(int bindPort) {
         return createELAgentServerFactory(bindPort, null);
     }
     
@@ -149,17 +149,17 @@ public final class ELAgentRPCTestUtils {
         private final List<RequestPacket> requestPacketRepository = new ArrayList<RequestPacket>();
 
         @Override
-        public void handleSend(SendPacket sendPacket, ELAgentSocket pinpointSocket) {
-            logger.debug("handleSend packet:{}, remote:{}", sendPacket, pinpointSocket.getRemoteAddress());
+        public void handleSend(SendPacket sendPacket, ELAgentSocket elagentSocket) {
+            logger.debug("handleSend packet:{}, remote:{}", sendPacket, elagentSocket.getRemoteAddress());
             sendPacketRepository.add(sendPacket);
         }
 
         @Override
-        public void handleRequest(RequestPacket requestPacket, ELAgentSocket pinpointSocket) {
-            logger.debug("handleRequest packet:{}, remote:{}", requestPacket, pinpointSocket.getRemoteAddress());
+        public void handleRequest(RequestPacket requestPacket, ELAgentSocket elagentSocket) {
+            logger.debug("handleRequest packet:{}, remote:{}", requestPacket, elagentSocket.getRemoteAddress());
 
             requestPacketRepository.add(requestPacket);
-            pinpointSocket.response(requestPacket, requestPacket.getPayload());
+            elagentSocket.response(requestPacket, requestPacket.getPayload());
         }
 
         @Override
@@ -169,7 +169,7 @@ public final class ELAgentRPCTestUtils {
         }
 
         @Override
-        public void handlePing(PingPacket pingPacket, ELAgentServer pinpointServer) {
+        public void handlePing(PingPacket pingPacket, ELAgentServer elagentServer) {
             
         }
     }
@@ -179,7 +179,7 @@ public final class ELAgentRPCTestUtils {
         private final List<RequestPacket> requestPacketRepository = new ArrayList<RequestPacket>();
 
         @Override
-        public void handleSend(SendPacket sendPacket, ELAgentSocket pinpointSocket) {
+        public void handleSend(SendPacket sendPacket, ELAgentSocket elagentSocket) {
             sendPacketRepository.add(sendPacket);
 
             byte[] payload = sendPacket.getPayload();
@@ -187,13 +187,13 @@ public final class ELAgentRPCTestUtils {
         }
 
         @Override
-        public void handleRequest(RequestPacket requestPacket, ELAgentSocket pinpointSocket) {
+        public void handleRequest(RequestPacket requestPacket, ELAgentSocket elagentSocket) {
             requestPacketRepository.add(requestPacket);
 
             byte[] payload = requestPacket.getPayload();
             logger.debug(new String(payload));
 
-            pinpointSocket.response(requestPacket, payload);
+            elagentSocket.response(requestPacket, payload);
         }
 
         public List<SendPacket> getSendPacketRepository() {

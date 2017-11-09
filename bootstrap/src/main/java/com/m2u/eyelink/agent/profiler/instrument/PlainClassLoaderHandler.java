@@ -36,7 +36,7 @@ public class PlainClassLoaderHandler implements ClassInjector {
     private static final Method DEFINE_CLASS;
     private final JarReader pluginJarReader;
 
-    private static final List<String> BOOTSTRAP_PACKAGE_LIST = Arrays.asList("com.navercorp.pinpoint.bootstrap", "com.navercorp.pinpoint.common", "com.navercorp.pinpoint.exception");
+    private static final List<String> BOOTSTRAP_PACKAGE_LIST = Arrays.asList("com.m2u.eyelink.agent", "com.m2u.eyelink.common", "com.m2u.eyelink.exception");
 
     // TODO remove static field
     private static final ConcurrentMap<ClassLoader, ClassLoaderAttachment> classLoaderAttachment = new ConcurrentWeakHashMap<ClassLoader, ClassLoaderAttachment>();

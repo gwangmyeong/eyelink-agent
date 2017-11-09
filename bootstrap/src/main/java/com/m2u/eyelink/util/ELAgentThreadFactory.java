@@ -14,7 +14,7 @@ public class ELAgentThreadFactory implements ThreadFactory {
 
 
     public ELAgentThreadFactory() {
-        this("Pinpoint", false);
+        this("ELAgent", false);
     }
 
     public ELAgentThreadFactory(String threadName) {

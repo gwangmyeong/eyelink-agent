@@ -12,7 +12,7 @@ public class ELAgentProfilerPackageSkipFilter implements ClassNameFilter {
     private final List<String> packageList;
 
     public ELAgentProfilerPackageSkipFilter() {
-        this(getPinpointPackageList());
+        this(getELAgentPackageList());
     }
 
     public ELAgentProfilerPackageSkipFilter(List<String> packageList) {
@@ -41,14 +41,14 @@ public class ELAgentProfilerPackageSkipFilter implements ClassNameFilter {
         return ACCEPT;
     }
 
-    private static List<String> getPinpointPackageList() {
-        List<String> pinpointPackageList = new ArrayList<String>();
-        pinpointPackageList.add("com.navercorp.pinpoint.bootstrap");
-        pinpointPackageList.add("com.navercorp.pinpoint.profiler");
-        pinpointPackageList.add("com.navercorp.pinpoint.common");
-        pinpointPackageList.add("com.navercorp.pinpoint.exception");
+    private static List<String> getELAgentPackageList() {
+        List<String> elagentPackageList = new ArrayList<String>();
+        elagentPackageList.add("com.m2u.eyelink.agent");
+        elagentPackageList.add("com.m2u.eyelink.agent.profiler");
+        elagentPackageList.add("com.m2u.eyelink..common");
+        elagentPackageList.add("com.m2u.eyelink..exception");
         // TODO move test package
-        pinpointPackageList.add("com.navercorp.pinpoint.test");
-        return pinpointPackageList;
+        elagentPackageList.add("com.m2u.eyelink..test");
+        return elagentPackageList;
     }
 }

@@ -39,7 +39,7 @@ public class ReconnectStateClientHandler implements ELAgentClientHandler {
     }
     
     @Override
-    public void setELAgentClient(ELAgentClient pinpointClient) {
+    public void setELAgentClient(ELAgentClient elagentClient) {
     }
 
     @Override

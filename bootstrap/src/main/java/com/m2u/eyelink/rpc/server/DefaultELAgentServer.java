@@ -167,7 +167,7 @@ public class DefaultELAgentServer implements ELAgentServer {
     public void send(byte[] payload) {
         AssertUtils.assertNotNull(payload, "payload may not be null.");
         if (!isEnableDuplexCommunication()) {
-            throw new IllegalStateException("Send fail. Error: Illegal State. pinpointServer:" + toString());
+            throw new IllegalStateException("Send fail. Error: Illegal State. elagentServer:" + toString());
         }
         
         SendPacket send = new SendPacket(payload);
@@ -178,7 +178,7 @@ public class DefaultELAgentServer implements ELAgentServer {
     public Future<ResponseMessage> request(byte[] payload) {
         AssertUtils.assertNotNull(payload, "payload may not be null.");
         if (!isEnableDuplexCommunication()) {
-            throw new IllegalStateException("Request fail. Error: Illegal State. pinpointServer:" + toString());
+            throw new IllegalStateException("Request fail. Error: Illegal State. elagentServer:" + toString());
         }
 
         RequestPacket requestPacket = new RequestPacket(payload);
@@ -196,7 +196,7 @@ public class DefaultELAgentServer implements ELAgentServer {
     public void response(int requestId, byte[] payload) {
         AssertUtils.assertNotNull(payload, "payload may not be null.");
         if (!isEnableCommunication()) {
-            throw new IllegalStateException("Response fail. Error: Illegal State. pinpointServer:" + toString());
+            throw new IllegalStateException("Response fail. Error: Illegal State. elagentServer:" + toString());
         }
 
         ResponsePacket responsePacket = new ResponsePacket(requestId, payload);

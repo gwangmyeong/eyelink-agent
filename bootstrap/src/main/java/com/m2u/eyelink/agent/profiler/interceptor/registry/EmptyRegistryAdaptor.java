@@ -7,7 +7,7 @@ public final class EmptyRegistryAdaptor implements InterceptorRegistryAdaptor {
 
     public static final InterceptorRegistryAdaptor EMPTY = new EmptyRegistryAdaptor();
 
-    private static final LoggingInterceptor LOGGING_INTERCEPTOR = new LoggingInterceptor("com.navercorp.pinpoint.profiler.interceptor.EMPTY");
+    private static final LoggingInterceptor LOGGING_INTERCEPTOR = new LoggingInterceptor("com.m2u.eyelink.agent.profiler.interceptor.EMPTY");
 
     public EmptyRegistryAdaptor() {
     }

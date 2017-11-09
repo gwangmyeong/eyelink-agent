@@ -361,22 +361,22 @@ public final class JavaAssistUtils {
         return paramsString;
     }
     
-    public static String[] toPinpointParameterType(Class<?>[] paramClasses) {
+    public static String[] toELAgentParameterType(Class<?>[] paramClasses) {
         if (paramClasses == null) {
             return null;
         }
         
         String[] paramsString = new String[paramClasses.length];
         for (int i = 0; i < paramClasses.length; i++) {
-            paramsString[i] = toPinpointParameterType(paramClasses[i]);
+            paramsString[i] = toELAgentParameterType(paramClasses[i]);
         }
         
         return paramsString;
     }
     
-    public static String toPinpointParameterType(Class<?> type) {
+    public static String toELAgentParameterType(Class<?> type) {
         if (type.isArray()) {
-            return toPinpointParameterType(type.getComponentType()) + "[]";
+            return toELAgentParameterType(type.getComponentType()) + "[]";
         } else {
             return type.getName();
         }

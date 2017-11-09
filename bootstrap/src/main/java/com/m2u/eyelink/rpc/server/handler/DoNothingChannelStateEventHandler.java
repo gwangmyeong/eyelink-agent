@@ -14,13 +14,13 @@ public class DoNothingChannelStateEventHandler implements ServerStateChangeEvent
     public static final ServerStateChangeEventHandler INSTANCE = new DoNothingChannelStateEventHandler();
 
     @Override
-    public void eventPerformed(ELAgentServer pinpointServer, SocketStateCode stateCode) {
-        logger.info("{} eventPerformed(). pinpointServer:{}, code:{}", this.getClass().getSimpleName(), pinpointServer, stateCode);
+    public void eventPerformed(ELAgentServer elagentServer, SocketStateCode stateCode) {
+        logger.info("{} eventPerformed(). elagentServer:{}, code:{}", this.getClass().getSimpleName(), elagentServer, stateCode);
     }
     
     @Override
-    public void exceptionCaught(ELAgentServer pinpointServer, SocketStateCode stateCode, Throwable e) {
-        logger.warn("{} exceptionCaught(). pinpointServer:{}, code:{}. Error: {}.", this.getClass().getSimpleName(), pinpointServer, stateCode, e.getMessage(), e);
+    public void exceptionCaught(ELAgentServer elagentServer, SocketStateCode stateCode, Throwable e) {
+        logger.warn("{} exceptionCaught(). elagentServer:{}, code:{}. Error: {}.", this.getClass().getSimpleName(), elagentServer, stateCode, e.getMessage(), e);
     }
 
 }

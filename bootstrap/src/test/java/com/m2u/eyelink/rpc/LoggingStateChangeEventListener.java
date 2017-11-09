@@ -10,13 +10,13 @@ public class LoggingStateChangeEventListener implements StateChangeEventListener
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public void eventPerformed(ELAgentSocket pinpointSocket, SocketStateCode stateCode) throws Exception {
-        logger.info("eventPerformed socket:{}, stateCode:{}", pinpointSocket, stateCode);
+    public void eventPerformed(ELAgentSocket elagentSocket, SocketStateCode stateCode) throws Exception {
+        logger.info("eventPerformed socket:{}, stateCode:{}", elagentSocket, stateCode);
     }
 
     @Override
-    public void exceptionCaught(ELAgentSocket pinpointSocket, SocketStateCode stateCode, Throwable e) {
-        logger.warn("exceptionCaught message:{}, socket:{}, stateCode:{}", e.getMessage(), pinpointSocket, stateCode, e);
+    public void exceptionCaught(ELAgentSocket elagentSocket, SocketStateCode stateCode, Throwable e) {
+        logger.warn("exceptionCaught message:{}, socket:{}, stateCode:{}", e.getMessage(), elagentSocket, stateCode, e);
     }
 
 }

@@ -8,7 +8,7 @@ import com.m2u.eyelink.agent.instrument.InstrumentContext;
 import com.m2u.eyelink.agent.instrument.NotFoundInstrumentException;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistryBinder;
 
-// FIXME not copy & paste from pinpoint
+// FIXME not copy & paste from ELAgent
 public class JavassistClassPool implements InstrumentClassPool {
 
 	public JavassistClassPool(

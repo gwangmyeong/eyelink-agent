@@ -8,11 +8,11 @@ public interface ApplicationTypeDetector {
     
     /**
      * Returns the {@link ServiceType} representing the current plugin, 
-     * with code in a range corresponding to {@link com.navercorp.pinpoint.common.trace.ServiceTypeCategory#SERVER}
+     * with code in a range corresponding to {@link com.m2u.eyelink.common.trace.ServiceTypeCategory#SERVER}
      * 
      * @return the {@link ServiceType} representing the current plugin
      * @see ServiceType#isWas()
-     * @see com.navercorp.pinpoint.common.trace.ServiceTypeCategory#SERVER
+     * @see com.m2u.eyelink.common.trace.ServiceTypeCategory#SERVER
      */
     ServiceType getApplicationType();
     

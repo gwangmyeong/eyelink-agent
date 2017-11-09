@@ -93,14 +93,14 @@ public class RequestManager {
         future.setResult(response);
     }
 
-    public void messageReceived(ResponsePacket responsePacket, ELAgentServer pinpointServer) {
+    public void messageReceived(ResponsePacket responsePacket, ELAgentServer elagentServer) {
         final int requestId = responsePacket.getRequestId();
         final DefaultFuture<ResponseMessage> future = removeMessageFuture(requestId);
         if (future == null) {
-            logger.warn("future not found:{}, pinpointServer:{}", responsePacket, pinpointServer);
+            logger.warn("future not found:{}, elagentServer:{}", responsePacket, elagentServer);
             return;
         } else {
-            logger.debug("responsePacket arrived packet:{}, pinpointServer:{}", responsePacket, pinpointServer);
+            logger.debug("responsePacket arrived packet:{}, elagentServer:{}", responsePacket, elagentServer);
         }
 
         ResponseMessage response = new ResponseMessage();

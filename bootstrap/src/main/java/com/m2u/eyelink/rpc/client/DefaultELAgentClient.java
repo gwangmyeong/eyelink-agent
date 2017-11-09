@@ -23,7 +23,7 @@ import com.m2u.eyelink.util.AssertUtils;
 public class DefaultELAgentClient implements ELAgentClient {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private volatile ELAgentClientHandler pinpointClientHandler;
+    private volatile ELAgentClientHandler elagentClientHandler;
 
     private volatile boolean closed;
 
@@ -33,25 +33,25 @@ public class DefaultELAgentClient implements ELAgentClient {
         this(new ReconnectStateClientHandler());
     }
 
-    public DefaultELAgentClient(ELAgentClientHandler pinpointClientHandler) {
-        AssertUtils.assertNotNull(pinpointClientHandler, "pinpointClientHandler");
+    public DefaultELAgentClient(ELAgentClientHandler elagentClientHandler) {
+        AssertUtils.assertNotNull(elagentClientHandler, "elagentClientHandler");
 
-        this.pinpointClientHandler = pinpointClientHandler;
-        pinpointClientHandler.setELAgentClient(this);
+        this.elagentClientHandler = elagentClientHandler;
+        elagentClientHandler.setELAgentClient(this);
     }
 
     @Override
-    public void reconnectSocketHandler(ELAgentClientHandler pinpointClientHandler) {
-        AssertUtils.assertNotNull(pinpointClientHandler, "pinpointClientHandler");
+    public void reconnectSocketHandler(ELAgentClientHandler elagentClientHandler) {
+        AssertUtils.assertNotNull(elagentClientHandler, "elagentClientHandler");
 
         if (closed) {
-            logger.warn("reconnectClientHandler(). pinpointClientHandler force close.");
-            pinpointClientHandler.close();
+            logger.warn("reconnectClientHandler(). elagentClientHandler force close.");
+            elagentClientHandler.close();
             return;
         }
-        logger.warn("reconnectClientHandler:{}", pinpointClientHandler);
+        logger.warn("reconnectClientHandler:{}", elagentClientHandler);
 
-        this.pinpointClientHandler = pinpointClientHandler;
+        this.elagentClientHandler = elagentClientHandler;
 
         notifyReconnectEvent();
     }
@@ -88,27 +88,27 @@ public class DefaultELAgentClient implements ELAgentClient {
     @Override
     public void sendSync(byte[] bytes) {
         ensureOpen();
-        pinpointClientHandler.sendSync(bytes);
+        elagentClientHandler.sendSync(bytes);
     }
 
     @Override
     public Future sendAsync(byte[] bytes) {
         ensureOpen();
-        return pinpointClientHandler.sendAsync(bytes);
+        return elagentClientHandler.sendAsync(bytes);
     }
 
     @Override
     public void send(byte[] bytes) {
         ensureOpen();
-        pinpointClientHandler.send(bytes);
+        elagentClientHandler.send(bytes);
     }
 
     @Override
     public Future<ResponseMessage> request(byte[] bytes) {
-        if (pinpointClientHandler == null) {
+        if (elagentClientHandler == null) {
             return returnFailureFuture();
         }
-        return pinpointClientHandler.request(bytes);
+        return elagentClientHandler.request(bytes);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class DefaultELAgentClient implements ELAgentClient {
     @Override
     public void response(int requestId, byte[] payload) {
         ensureOpen();
-        pinpointClientHandler.response(requestId, payload);
+        elagentClientHandler.response(requestId, payload);
     }
 
     @Override
@@ -132,55 +132,55 @@ public class DefaultELAgentClient implements ELAgentClient {
         // StreamChannel must be changed into interface in order to throw the StreamChannel that returns failure.
         // fow now throw just exception
         ensureOpen();
-        return pinpointClientHandler.openStream(payload, messageListener, stateChangeListener);
+        return elagentClientHandler.openStream(payload, messageListener, stateChangeListener);
     }
 
     @Override
     public SocketAddress getRemoteAddress() {
-        return pinpointClientHandler.getRemoteAddress();
+        return elagentClientHandler.getRemoteAddress();
     }
 
     @Override
     public ClusterOption getLocalClusterOption() {
-        return pinpointClientHandler.getLocalClusterOption();
+        return elagentClientHandler.getLocalClusterOption();
     }
 
     @Override
     public ClusterOption getRemoteClusterOption() {
-        return pinpointClientHandler.getRemoteClusterOption();
+        return elagentClientHandler.getRemoteClusterOption();
     }
 
     @Override
     public StreamChannelContext findStreamChannel(int streamChannelId) {
 
         ensureOpen();
-        return pinpointClientHandler.findStreamChannel(streamChannelId);
+        return elagentClientHandler.findStreamChannel(streamChannelId);
     }
 
     private Future<ResponseMessage> returnFailureFuture() {
         DefaultFuture<ResponseMessage> future = new DefaultFuture<ResponseMessage>();
-        future.setFailure(new ELAgentSocketException("pinpointClientHandler is null"));
+        future.setFailure(new ELAgentSocketException("elagentClientHandler is null"));
         return future;
     }
 
     private void ensureOpen() {
-        if (pinpointClientHandler == null) {
-            throw new ELAgentSocketException("pinpointClientHandler is null");
+        if (elagentClientHandler == null) {
+            throw new ELAgentSocketException("elagentClientHandler is null");
         }
     }
 
     /**
      * write ping packet on tcp channel
-     * PinpointSocketException throws when writing fails.
+     * elagentSocketException throws when writing fails.
      *
      */
     @Override
     public void sendPing() {
-    	ELAgentClientHandler pinpointClientHandler = this.pinpointClientHandler;
-        if (pinpointClientHandler == null) {
+    	ELAgentClientHandler elagentClientHandler = this.elagentClientHandler;
+        if (elagentClientHandler == null) {
             return;
         }
-        pinpointClientHandler.sendPing();
+        elagentClientHandler.sendPing();
     }
 
     @Override
@@ -191,11 +191,11 @@ public class DefaultELAgentClient implements ELAgentClient {
             }
             closed = true;
         }
-        ELAgentClientHandler pinpointClientHandler = this.pinpointClientHandler;
-        if (pinpointClientHandler == null) {
+        ELAgentClientHandler elagentClientHandler = this.elagentClientHandler;
+        if (elagentClientHandler == null) {
             return;
         }
-        pinpointClientHandler.close();
+        elagentClientHandler.close();
     }
 
     @Override
@@ -205,6 +205,6 @@ public class DefaultELAgentClient implements ELAgentClient {
 
     @Override
     public boolean isConnected() {
-        return this.pinpointClientHandler.isConnected();
+        return this.elagentClientHandler.isConnected();
     }
 }

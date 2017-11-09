@@ -31,7 +31,7 @@ public class AsyncQueueingExecutor<T> implements Runnable {
 
 
     public AsyncQueueingExecutor() {
-        this(1024 * 5, "Pinpoint-AsyncQueueingExecutor");
+        this(1024 * 5, "ELAgent-AsyncQueueingExecutor");
     }
 
     public AsyncQueueingExecutor(int queueSize, String executorName) {

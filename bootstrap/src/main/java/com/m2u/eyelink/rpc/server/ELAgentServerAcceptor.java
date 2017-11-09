@@ -149,8 +149,8 @@ public class ELAgentServerAcceptor implements ELAgentServerConfig {
     }
 
     private DefaultELAgentServer createELAgentServer(Channel channel) {
-        DefaultELAgentServer pinpointServer = new DefaultELAgentServer(channel, this);
-        return pinpointServer;
+        DefaultELAgentServer elagentServer = new DefaultELAgentServer(channel, this);
+        return elagentServer;
     }
 
     @Override
@@ -302,25 +302,25 @@ public class ELAgentServerAcceptor implements ELAgentServerConfig {
     
     private void closeELAgentServer() {
         for (Channel channel : channelGroup) {
-            DefaultELAgentServer pinpointServer = (DefaultELAgentServer) channel.getAttachment();
+            DefaultELAgentServer elagentServer = (DefaultELAgentServer) channel.getAttachment();
 
-            if (pinpointServer != null) {
-                pinpointServer.sendClosePacket();
+            if (elagentServer != null) {
+                elagentServer.sendClosePacket();
             }
         }
     }
     
     public List<ELAgentSocket> getWritableSocketList() {
-        List<ELAgentSocket> pinpointServerList = new ArrayList<ELAgentSocket>();
+        List<ELAgentSocket> elagentServerList = new ArrayList<ELAgentSocket>();
 
         for (Channel channel : channelGroup) {
-            DefaultELAgentServer pinpointServer = (DefaultELAgentServer) channel.getAttachment();
-            if (pinpointServer != null && pinpointServer.isEnableDuplexCommunication()) {
-                pinpointServerList.add(pinpointServer);
+            DefaultELAgentServer elagentServer = (DefaultELAgentServer) channel.getAttachment();
+            if (elagentServer != null && elagentServer.isEnableDuplexCommunication()) {
+                elagentServerList.add(elagentServer);
             }
         }
 
-        return pinpointServerList;
+        return elagentServerList;
     }
 
     class ELAgentServerChannelHandler extends SimpleChannelHandler {
@@ -346,12 +346,12 @@ public class ELAgentServerAcceptor implements ELAgentServerConfig {
                 return;
             }
 
-            DefaultELAgentServer pinpointServer = createELAgentServer(channel);
+            DefaultELAgentServer elagentServer = createELAgentServer(channel);
             
-            channel.setAttachment(pinpointServer);
+            channel.setAttachment(elagentServer);
             channelGroup.add(channel);
 
-            pinpointServer.start();
+            elagentServer.start();
 
             super.channelConnected(ctx, e);
         }
@@ -360,9 +360,9 @@ public class ELAgentServerAcceptor implements ELAgentServerConfig {
         public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
             final Channel channel = e.getChannel();
 
-            DefaultELAgentServer pinpointServer = (DefaultELAgentServer) channel.getAttachment();
-            if (pinpointServer != null) {
-                pinpointServer.stop(released);
+            DefaultELAgentServer elagentServer = (DefaultELAgentServer) channel.getAttachment();
+            if (elagentServer != null) {
+                elagentServer.stop(released);
             }
 
             super.channelDisconnected(ctx, e);
@@ -384,11 +384,11 @@ public class ELAgentServerAcceptor implements ELAgentServerConfig {
         public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
             final Channel channel = e.getChannel();
 
-            DefaultELAgentServer pinpointServer = (DefaultELAgentServer) channel.getAttachment();
-            if (pinpointServer != null) {
+            DefaultELAgentServer elagentServer = (DefaultELAgentServer) channel.getAttachment();
+            if (elagentServer != null) {
                 Object message = e.getMessage();
 
-                pinpointServer.messageReceived(message);
+                elagentServer.messageReceived(message);
             }
 
             super.messageReceived(ctx, e);

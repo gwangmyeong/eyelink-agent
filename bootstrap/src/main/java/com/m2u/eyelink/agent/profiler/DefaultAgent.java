@@ -39,7 +39,7 @@ public class DefaultAgent implements Agent {
     
 
     static {
-        // Preload classes related to pinpoint-rpc module.
+        // Preload classes related to elagent-rpc module.
         ClassPreLoader.preload();
     }
 

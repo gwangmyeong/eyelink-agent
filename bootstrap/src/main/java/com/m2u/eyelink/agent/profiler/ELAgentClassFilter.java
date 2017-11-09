@@ -24,9 +24,9 @@ public class ELAgentClassFilter implements ClassFileFilter {
             return SKIP;
         }
 
-        // Skip pinpoint packages too.
-        if (className.startsWith("com/navercorp/pinpoint/")) {
-            if (className.startsWith("com/navercorp/pinpoint/web/")) {
+        // Skip elagent packages too.
+        if (className.startsWith("com/m2u/eyelink/agent/")) {
+            if (className.startsWith("com/m2u/eyelink/web/")) {
                 return CONTINUE;
             }
             return SKIP;

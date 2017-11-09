@@ -28,7 +28,7 @@ public class DefaultAgentStatMonitor implements AgentStatMonitor {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final long collectionIntervalMs;
 
-    private final ScheduledExecutorService executor = new ScheduledThreadPoolExecutor(1, new ELAgentThreadFactory("Pinpoint-stat-monitor", true));
+    private final ScheduledExecutorService executor = new ScheduledThreadPoolExecutor(1, new ELAgentThreadFactory("ELAgent-stat-monitor", true));
 
     private final CollectJob collectJob;
 

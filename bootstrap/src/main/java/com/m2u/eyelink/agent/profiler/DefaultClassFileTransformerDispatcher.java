@@ -28,7 +28,7 @@ public class DefaultClassFileTransformerDispatcher implements ClassFileTransform
 
     private final TransformerRegistry debugTransformerRegistry;
 
-    private final ClassFileFilter pinpointClassFilter;
+    private final ClassFileFilter elagentClassFilter;
     private final ClassFileFilter unmodifiableFilter;
 
     @Inject
@@ -49,7 +49,7 @@ public class DefaultClassFileTransformerDispatcher implements ClassFileTransform
 
         this.debugTransformerRegistry = new DebugTransformerRegistry(profilerConfig, instrumentEngine, dynamicTransformTrigger);
 
-        this.pinpointClassFilter = new ELAgentClassFilter(agentClassLoader);
+        this.elagentClassFilter = new ELAgentClassFilter(agentClassLoader);
         this.unmodifiableFilter = new UnmodifiableClassFilter();
 
         this.transformerRegistry = createTransformerRegistry(pluginContextLoadResult);
@@ -59,7 +59,7 @@ public class DefaultClassFileTransformerDispatcher implements ClassFileTransform
 
     @Override
     public byte[] transform(ClassLoader classLoader, String classInternalName, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classFileBuffer) throws IllegalClassFormatException {
-        if (!pinpointClassFilter.accept(classLoader, classInternalName, classBeingRedefined, protectionDomain, classFileBuffer)) {
+        if (!elagentClassFilter.accept(classLoader, classInternalName, classBeingRedefined, protectionDomain, classFileBuffer)) {
             return null;
         }
 

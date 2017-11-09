@@ -8,14 +8,14 @@ import com.m2u.eyelink.util.DelegateEnumeration;
 import com.m2u.eyelink.util.EmptyEnumeration;
 
 public enum Header {
-    HTTP_TRACE_ID("Pinpoint-TraceID"),
-    HTTP_SPAN_ID("Pinpoint-SpanID"),
-    HTTP_PARENT_SPAN_ID("Pinpoint-pSpanID"),
-    HTTP_SAMPLED("Pinpoint-Sampled"),
-    HTTP_FLAGS("Pinpoint-Flags"),
-    HTTP_PARENT_APPLICATION_NAME("Pinpoint-pAppName"),
-    HTTP_PARENT_APPLICATION_TYPE("Pinpoint-pAppType"),
-    HTTP_HOST("Pinpoint-Host");
+    HTTP_TRACE_ID("ELAgent-TraceID"),
+    HTTP_SPAN_ID("ELAgent-SpanID"),
+    HTTP_PARENT_SPAN_ID("ELAgent-pSpanID"),
+    HTTP_SAMPLED("ELAgent-Sampled"),
+    HTTP_FLAGS("ELAgent-Flags"),
+    HTTP_PARENT_APPLICATION_NAME("ELAgent-pAppName"),
+    HTTP_PARENT_APPLICATION_TYPE("ELAgent-pAppType"),
+    HTTP_HOST("ELAgent-Host");
     
     private String name;
 
@@ -43,7 +43,7 @@ public enum Header {
         if (name == null) {
             return null;
         }
-        if (!startWithPinpointHeader(name)) {
+        if (!startWithELagentHeader(name)) {
             return null;
         }
         return NAME_SET.get(name);
@@ -63,7 +63,7 @@ public enum Header {
         if (header == null) {
             return null;
         }
-        // if pinpoint header
+        // if elagent header
         return new EmptyEnumeration();
     }
 
@@ -81,7 +81,7 @@ public enum Header {
         }
     };
 
-    private static boolean startWithPinpointHeader(String name) {
-        return name.startsWith("Pinpoint-");
+    private static boolean startWithELagentHeader(String name) {
+        return name.startsWith("ELAgent-");
     }
 }

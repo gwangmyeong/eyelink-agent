@@ -25,8 +25,8 @@ public class ELAgentClientProvider implements Provider<ELAgentClient> {
 
     @Override
     public ELAgentClient get() {
-        ELAgentClientFactory pinpointClientFactory = clientFactory.get();
-        ELAgentClient pinpointClient = ClientFactoryUtils.createELAgentClient(profilerConfig.getCollectorTcpServerIp(), profilerConfig.getCollectorTcpServerPort(), pinpointClientFactory);
-        return pinpointClient;
+        ELAgentClientFactory elagentClientFactory = clientFactory.get();
+        ELAgentClient elagentClient = ClientFactoryUtils.createELAgentClient(profilerConfig.getCollectorTcpServerIp(), profilerConfig.getCollectorTcpServerPort(), elagentClientFactory);
+        return elagentClient;
     }
 }

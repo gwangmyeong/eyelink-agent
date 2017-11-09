@@ -106,7 +106,7 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
 
     public DefaultELAgentClientHandler(DefaultELAgentClientFactory clientFactory, long pingDelay, long handshakeRetryInterval, long timeoutMillis) {
         if (clientFactory == null) {
-            throw new NullPointerException("pinpointClientFactory must not be null");
+            throw new NullPointerException("elagentClientFactory must not be null");
         }
         
         HashedWheelTimer timer = TimerFactory.createHashedWheelTimer("ELAgent-ELAgentClientHandler-Timer", 100, TimeUnit.MILLISECONDS, 512);
@@ -131,11 +131,11 @@ public class DefaultELAgentClientHandler extends SimpleChannelHandler implements
         this.localClusterOption = clientFactory.getClusterOption();
     }
 
-    public void setELAgentClient(ELAgentClient pinpointClient) {
-        if (pinpointClient == null) {
+    public void setELAgentClient(ELAgentClient elagentClient) {
+        if (elagentClient == null) {
             throw new NullPointerException("ELAgentClient must not be null");
         }
-        this.elagentClient = pinpointClient;
+        this.elagentClient = elagentClient;
     }
 
     public void setConnectSocketAddress(SocketAddress connectSocketAddress) {

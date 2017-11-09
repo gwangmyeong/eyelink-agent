@@ -3,7 +3,6 @@ package com.m2u.eyelink.plugin.tomcat.interceptor;
 import org.apache.catalina.connector.Connector;
 
 import com.m2u.eyelink.agent.interceptor.AroundInterceptor;
-import com.m2u.eyelink.agent.interceptor.AroundInterceptor;
 import com.m2u.eyelink.context.ServerMetaDataHolder;
 import com.m2u.eyelink.context.TraceContext;
 import com.m2u.eyelink.logging.PLogger;

@@ -4,8 +4,8 @@ import com.m2u.eyelink.rpc.packet.SendPacket;
 
 public interface MessageListener {
 
-    void handleSend(SendPacket sendPacket, ELAgentSocket pinpointSocket);
+    void handleSend(SendPacket sendPacket, ELAgentSocket elagentSocket);
 
-    void handleRequest(RequestPacket requestPacket, ELAgentSocket pinpointSocket);
+    void handleRequest(RequestPacket requestPacket, ELAgentSocket elagentSocket);
 
 }

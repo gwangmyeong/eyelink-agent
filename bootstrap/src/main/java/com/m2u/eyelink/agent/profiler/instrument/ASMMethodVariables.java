@@ -279,7 +279,7 @@ public class ASMMethodVariables {
 
     private void initInterceptorVar(final InsnList instructions, final int interceptorId) {
         assertInitializedInterceptorLocalVariables();
-        this.interceptorVarIndex = addInterceptorLocalVariable("_$PINPOINT$_interceptor", "Lcom/navercorp/pinpoint/bootstrap/interceptor/Interceptor;");
+        this.interceptorVarIndex = addInterceptorLocalVariable("_$PINPOINT$_interceptor", "Lcom/m2u/eyelink/agent/interceptor/Interceptor;");
         push(instructions, interceptorId);
         instructions.add(new MethodInsnNode(Opcodes.INVOKESTATIC, Type.getInternalName(InterceptorRegistry.class), "getInterceptor", "(I)" + Type.getDescriptor(Interceptor.class), false));
         storeVar(instructions, this.interceptorVarIndex);

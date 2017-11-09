@@ -100,7 +100,7 @@ public class JavassistEngine implements InstrumentEngine {
                 } catch (NotFoundException ex) {
                     throw new ELAgentException("bootStrapJar not found. Caused by:" + ex.getMessage(), ex);
                 }
-                // append pinpoint classLoader
+                // append elagent classLoader
                 systemClassPool.appendClassPath(new ClassClassPath(this.getClass()));
             }
         });

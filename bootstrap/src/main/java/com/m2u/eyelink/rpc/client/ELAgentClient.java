@@ -15,7 +15,7 @@ public interface ELAgentClient extends ELAgentSocket {
 
     boolean removeELAgentClientReconnectEventListener(ELAgentClientReconnectEventListener eventListener);
 
-    void reconnectSocketHandler(ELAgentClientHandler pinpointClientHandler);
+    void reconnectSocketHandler(ELAgentClientHandler elagentClientHandler);
 
     void sendSync(byte[] bytes) ;
 
@@ -25,7 +25,7 @@ public interface ELAgentClient extends ELAgentSocket {
 
     /**
      * write ping packet on tcp channel
-     * PinpointSocketException throws when writing fails.
+     * elagentSocketException throws when writing fails.
      *
      */
     void sendPing();

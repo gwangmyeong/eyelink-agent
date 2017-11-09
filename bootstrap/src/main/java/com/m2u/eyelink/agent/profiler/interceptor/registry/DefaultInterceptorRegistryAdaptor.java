@@ -6,7 +6,7 @@ import com.m2u.eyelink.agent.interceptor.Interceptor;
 import com.m2u.eyelink.agent.interceptor.LoggingInterceptor;
 
 public final class DefaultInterceptorRegistryAdaptor implements InterceptorRegistryAdaptor {
-    private static final LoggingInterceptor LOGGING_INTERCEPTOR = new LoggingInterceptor("com.navercorp.pinpoint.profiler.interceptor.LOGGING_INTERCEPTOR");
+    private static final LoggingInterceptor LOGGING_INTERCEPTOR = new LoggingInterceptor("com.m2u.eyelink.agent.profiler.interceptor.LOGGING_INTERCEPTOR");
 
     private final static int DEFAULT_MAX = 8192;
     private final int registrySize;

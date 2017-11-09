@@ -12,7 +12,7 @@ public interface ProfilerPluginSetupContext {
     ProfilerConfig getConfig();
 
     /**
-     * Add a {@link ApplicationTypeDetector} to Pinpoint agent.
+     * Add a {@link ApplicationTypeDetector} to ELAgent agent.
      * 
      * @param detectors
      */

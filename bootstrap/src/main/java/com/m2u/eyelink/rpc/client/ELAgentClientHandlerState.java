@@ -94,25 +94,25 @@ public class ELAgentClientHandlerState {
     
     private SocketStateChangeResult to(SocketStateCode nextState) {
         String objectName = clientHandler.getObjectName();
-        ELAgentSocket pinpointSocket = clientHandler.getELAgentClient();
+        ELAgentSocket elagentSocket = clientHandler.getELAgentClient();
 
         logger.debug("{} stateTo() started. to:{}", objectName, nextState);
 
         SocketStateChangeResult stateChangeResult = state.to(nextState);
         if (stateChangeResult.isChange()) {
-            executeChangeEventHandler(pinpointSocket, nextState);
+            executeChangeEventHandler(elagentSocket, nextState);
         }
 
         logger.info("{} stateTo() completed. {}", objectName, stateChangeResult);
         return stateChangeResult;
     }
 
-    private void executeChangeEventHandler(ELAgentSocket pinpointSocket, SocketStateCode nextState) {
+    private void executeChangeEventHandler(ELAgentSocket elagentSocket, SocketStateCode nextState) {
         for (StateChangeEventListener eachListener : this.stateChangeEventListeners) {
             try {
-                eachListener.eventPerformed(pinpointSocket, nextState);
+                eachListener.eventPerformed(elagentSocket, nextState);
             } catch (Exception e) {
-                eachListener.exceptionCaught(pinpointSocket, nextState, e);
+                eachListener.exceptionCaught(elagentSocket, nextState, e);
             }
         }
     }

@@ -19,20 +19,20 @@ public final class ClientFactoryUtils {
     }
 
     public static ELAgentClient createELAgentClient(InetSocketAddress connectAddress, ELAgentClientFactory clientFactory) {
-    	ELAgentClient pinpointClient = null;
+    	ELAgentClient elagentClient = null;
         for (int i = 0; i < 3; i++) {
             try {
-                pinpointClient = clientFactory.connect(connectAddress);
+                elagentClient = clientFactory.connect(connectAddress);
                 LOGGER.info("tcp connect success. remote:{}", connectAddress);
-                return pinpointClient;
+                return elagentClient;
             } catch (ELAgentSocketException e) {
                 LOGGER.warn("tcp connect fail. remote:{} try reconnect, retryCount:{}", connectAddress, i);
             }
         }
         LOGGER.warn("change background tcp connect mode remote:{} ", connectAddress);
-        pinpointClient = clientFactory.scheduledConnect(connectAddress);
+        elagentClient = clientFactory.scheduledConnect(connectAddress);
 
-        return pinpointClient;
+        return elagentClient;
     }
 
 }

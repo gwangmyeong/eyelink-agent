@@ -35,8 +35,8 @@ public class ELAgentClientFactoryProvider implements Provider<ELAgentClientFacto
     }
 
     public ELAgentClientFactory get() {
-    	ELAgentClientFactory pinpointClientFactory = new DefaultELAgentClientFactory();
-        pinpointClientFactory.setTimeoutMillis(1000 * 5);
+    	ELAgentClientFactory elagentClientFactory = new DefaultELAgentClientFactory();
+        elagentClientFactory.setTimeoutMillis(1000 * 5);
 
         AgentInformation agentInformation = this.agentInformation.get();
         Map<String, Object> properties = toMap(agentInformation);
@@ -44,8 +44,8 @@ public class ELAgentClientFactoryProvider implements Provider<ELAgentClientFacto
         boolean isSupportServerMode = profilerConfig.isTcpDataSenderCommandAcceptEnable();
 
         if (isSupportServerMode) {
-            pinpointClientFactory.setMessageListener(commandDispatcher);
-            pinpointClientFactory.setServerStreamChannelMessageListener(commandDispatcher);
+            elagentClientFactory.setMessageListener(commandDispatcher);
+            elagentClientFactory.setServerStreamChannelMessageListener(commandDispatcher);
 
             properties.put(HandshakePropertyType.SUPPORT_SERVER.getName(), true);
             properties.put(HandshakePropertyType.SUPPORT_COMMAND_LIST.getName(), commandDispatcher.getRegisteredCommandServiceCodes());
@@ -53,8 +53,8 @@ public class ELAgentClientFactoryProvider implements Provider<ELAgentClientFacto
             properties.put(HandshakePropertyType.SUPPORT_SERVER.getName(), false);
         }
 
-        pinpointClientFactory.setProperties(properties);
-        return pinpointClientFactory;
+        elagentClientFactory.setProperties(properties);
+        return elagentClientFactory;
 
     }
 

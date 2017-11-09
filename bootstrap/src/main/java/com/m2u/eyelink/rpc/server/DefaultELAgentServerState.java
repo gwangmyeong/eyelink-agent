@@ -18,8 +18,8 @@ public class DefaultELAgentServerState {
 
     private final SocketState state;
 
-    public DefaultELAgentServerState(DefaultELAgentServer pinpointServer, List<ServerStateChangeEventHandler> stateChangeEventListeners) {
-        this.elagentServer = pinpointServer;
+    public DefaultELAgentServerState(DefaultELAgentServer elagentServer, List<ServerStateChangeEventHandler> stateChangeEventListeners) {
+        this.elagentServer = elagentServer;
         this.stateChangeEventListeners = stateChangeEventListeners;
         
         this.state = new SocketState();
@@ -100,12 +100,12 @@ public class DefaultELAgentServerState {
         return stateChangeResult;
     }
 
-    private void executeChangeEventHandler(DefaultELAgentServer pinpointServer, SocketStateCode nextState) {
+    private void executeChangeEventHandler(DefaultELAgentServer elagentServer, SocketStateCode nextState) {
         for (ServerStateChangeEventHandler eachListener : this.stateChangeEventListeners) {
             try {
-                eachListener.eventPerformed(pinpointServer, nextState);
+                eachListener.eventPerformed(elagentServer, nextState);
             } catch (Exception e) {
-                eachListener.exceptionCaught(pinpointServer, nextState, e);
+                eachListener.exceptionCaught(elagentServer, nextState, e);
             }
         }
     }

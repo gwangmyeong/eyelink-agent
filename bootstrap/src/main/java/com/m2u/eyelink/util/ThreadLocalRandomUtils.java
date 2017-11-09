@@ -16,7 +16,7 @@ public class ThreadLocalRandomUtils {
     private static final ThreadLocalRandomFactory THREAD_LOCAL_RANDOM_FACTORY = createThreadLocalRandomFactory();
 
     // Jdk 7+
-    private static final String DEFAULT_THREAD_LOCAL_RANDOM_FACTORY = "com.navercorp.pinpoint.bootstrap.util.jdk.JdkThreadLocalRandomFactory";
+    private static final String DEFAULT_THREAD_LOCAL_RANDOM_FACTORY = "com.m2u.eyelink.util.jdk.JdkThreadLocalRandomFactory";
 
     private ThreadLocalRandomUtils() {
         throw new IllegalAccessError();

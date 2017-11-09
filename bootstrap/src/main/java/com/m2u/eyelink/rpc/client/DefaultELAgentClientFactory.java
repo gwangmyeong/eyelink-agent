@@ -199,28 +199,28 @@ public class DefaultELAgentClientFactory implements ELAgentClientFactory {
 
     public ELAgentClient connect(InetSocketAddress connectAddress) throws ELAgentSocketException {
         ChannelFuture connectFuture = bootstrap.connect(connectAddress);
-        ELAgentClientHandler pinpointClientHandler = getSocketHandler(connectFuture, connectAddress);
+        ELAgentClientHandler elagentClientHandler = getSocketHandler(connectFuture, connectAddress);
 
-        ELAgentClient pinpointClient = new DefaultELAgentClient(pinpointClientHandler);
-        traceSocket(pinpointClient);
-        return pinpointClient;
+        ELAgentClient elagentClient = new DefaultELAgentClient(elagentClientHandler);
+        traceSocket(elagentClient);
+        return elagentClient;
     }
 
     public ELAgentClient reconnect(String host, int port) throws ELAgentSocketException {
         SocketAddress address = new InetSocketAddress(host, port);
         ChannelFuture connectFuture = bootstrap.connect(address);
-        ELAgentClientHandler pinpointClientHandler = getSocketHandler(connectFuture, address);
+        ELAgentClientHandler elagentClientHandler = getSocketHandler(connectFuture, address);
 
-        ELAgentClient pinpointClient = new DefaultELAgentClient(pinpointClientHandler);
-        traceSocket(pinpointClient);
-        return pinpointClient;
+        ELAgentClient elagentClient = new DefaultELAgentClient(elagentClientHandler);
+        traceSocket(elagentClient);
+        return elagentClient;
     }
 
     /*
         trace mechanism is needed in case of calling close without closing socket
         it is okay to make that later because this is a exceptional case.
      */
-    private void traceSocket(ELAgentClient pinpointClient) {
+    private void traceSocket(ELAgentClient elagentClient) {
 
     }
 
@@ -230,9 +230,9 @@ public class DefaultELAgentClientFactory implements ELAgentClientFactory {
     }
 
     public ELAgentClient scheduledConnect(InetSocketAddress connectAddress) {
-        ELAgentClient pinpointClient = new DefaultELAgentClient(new ReconnectStateClientHandler());
-        reconnect(pinpointClient, connectAddress);
-        return pinpointClient;
+        ELAgentClient elagentClient = new DefaultELAgentClient(new ReconnectStateClientHandler());
+        reconnect(elagentClient, connectAddress);
+        return elagentClient;
     }
 
     ELAgentClientHandler getSocketHandler(ChannelFuture channelConnectFuture, SocketAddress address) {
@@ -240,17 +240,17 @@ public class DefaultELAgentClientFactory implements ELAgentClientFactory {
             throw new NullPointerException("address");
         }
 
-        ELAgentClientHandler pinpointClientHandler = getSocketHandler(channelConnectFuture.getChannel());
-        pinpointClientHandler.setConnectSocketAddress(address);
+        ELAgentClientHandler elagentClientHandler = getSocketHandler(channelConnectFuture.getChannel());
+        elagentClientHandler.setConnectSocketAddress(address);
 
-        ConnectFuture handlerConnectFuture = pinpointClientHandler.getConnectFuture();
+        ConnectFuture handlerConnectFuture = elagentClientHandler.getConnectFuture();
         handlerConnectFuture.awaitUninterruptibly();
 
         if (ConnectFuture.Result.FAIL == handlerConnectFuture.getResult()) {
             throw new ELAgentSocketException("connect fail to " + address + ".", channelConnectFuture.getCause());
         }
 
-        return pinpointClientHandler;
+        return elagentClientHandler;
     }
 
     public ChannelFuture reconnect(final SocketAddress remoteAddress) {
@@ -265,8 +265,8 @@ public class DefaultELAgentClientFactory implements ELAgentClientFactory {
         } catch (Exception e) {
             throw new ChannelPipelineException("Failed to initialize a pipeline.", e);
         }
-        ELAgentClientHandler pinpointClientHandler = (DefaultELAgentClientHandler) pipeline.getLast();
-        pinpointClientHandler.initReconnect();
+        ELAgentClientHandler elagentClientHandler = (DefaultELAgentClientHandler) pipeline.getLast();
+        elagentClientHandler.initReconnect();
 
 
         // Set the options.
@@ -294,26 +294,26 @@ public class DefaultELAgentClientFactory implements ELAgentClientFactory {
         return (ELAgentClientHandler) channel.getPipeline().getLast();
     }
 
-    void reconnect(final ELAgentClient pinpointClient, final SocketAddress socketAddress) {
-        DefaultELAgentClientFactory.ConnectEvent connectEvent = new DefaultELAgentClientFactory.ConnectEvent(pinpointClient, socketAddress);
+    void reconnect(final ELAgentClient elagentClient, final SocketAddress socketAddress) {
+        DefaultELAgentClientFactory.ConnectEvent connectEvent = new DefaultELAgentClientFactory.ConnectEvent(elagentClient, socketAddress);
         timer.newTimeout(connectEvent, reconnectDelay, TimeUnit.MILLISECONDS);
     }
 
     private class ConnectEvent implements TimerTask {
 
         private final Logger logger = LoggerFactory.getLogger(getClass());
-        private final ELAgentClient pinpointClient;
+        private final ELAgentClient elagentClient;
         private final SocketAddress socketAddress;
 
-        private ConnectEvent(ELAgentClient pinpointClient, SocketAddress socketAddress) {
-            if (pinpointClient == null) {
-                throw new NullPointerException("pinpointClient must not be null");
+        private ConnectEvent(ELAgentClient elagentClient, SocketAddress socketAddress) {
+            if (elagentClient == null) {
+                throw new NullPointerException("elagentClient must not be null");
             }
             if (socketAddress == null) {
                 throw new NullPointerException("socketAddress must not be null");
             }
 
-            this.pinpointClient = pinpointClient;
+            this.elagentClient = elagentClient;
             this.socketAddress = socketAddress;
         }
 
@@ -323,18 +323,18 @@ public class DefaultELAgentClientFactory implements ELAgentClientFactory {
                 return;
             }
 
-            // Just return not to try reconnection when event has been fired but pinpointClient already closed.
-            if (pinpointClient.isClosed()) {
-                logger.debug("pinpointClient is already closed.");
+            // Just return not to try reconnection when event has been fired but elagentClient already closed.
+            if (elagentClient.isClosed()) {
+                logger.debug("elagentClient is already closed.");
                 return;
             }
 
             logger.warn("try reconnect. connectAddress:{}", socketAddress);
             final ChannelFuture channelFuture = reconnect(socketAddress);
             Channel channel = channelFuture.getChannel();
-            final ELAgentClientHandler pinpointClientHandler = getSocketHandler(channel);
-            pinpointClientHandler.setConnectSocketAddress(socketAddress);
-            pinpointClientHandler.setELAgentClient(pinpointClient);
+            final ELAgentClientHandler elagentClientHandler = getSocketHandler(channel);
+            elagentClientHandler.setConnectSocketAddress(socketAddress);
+            elagentClientHandler.setELAgentClient(elagentClient);
 
             channelFuture.addListener(new ChannelFutureListener() {
                 @Override
@@ -342,9 +342,9 @@ public class DefaultELAgentClientFactory implements ELAgentClientFactory {
                     if (future.isSuccess()) {
                         Channel channel = future.getChannel();
                         logger.info("reconnect success {}, {}", socketAddress, channel);
-                        pinpointClient.reconnectSocketHandler(pinpointClientHandler);
+                        elagentClient.reconnectSocketHandler(elagentClientHandler);
                     } else {
-                        if (!pinpointClient.isClosed()) {
+                        if (!elagentClient.isClosed()) {
 
                          /*
                             // comment out because exception message can be taken at exceptionCaught
@@ -353,9 +353,9 @@ public class DefaultELAgentClientFactory implements ELAgentClientFactory {
                                 logger.warn("reconnect fail. {} Caused:{}", socketAddress, cause.getMessage());
                             }
                           */
-                            reconnect(pinpointClient, socketAddress);
+                            reconnect(elagentClient, socketAddress);
                         } else {
-                            logger.info("pinpointClient is closed. stop reconnect.");
+                            logger.info("elagentClient is closed. stop reconnect.");
                         }
                     }
                 }

@@ -26,18 +26,18 @@ public class SimpleMessageListener implements MessageListener {
     }
 
     @Override
-    public void handleSend(SendPacket sendPacket, ELAgentSocket pinpointSocket) {
-        logger.info("handleSend packet:{}, remote:{}", sendPacket, pinpointSocket.getRemoteAddress());
+    public void handleSend(SendPacket sendPacket, ELAgentSocket elagentSocket) {
+        logger.info("handleSend packet:{}, remote:{}", sendPacket, elagentSocket.getRemoteAddress());
     }
 
     @Override
-    public void handleRequest(RequestPacket requestPacket, ELAgentSocket pinpointSocket) {
-        logger.info("handleRequest packet:{}, remote:{}", requestPacket, pinpointSocket.getRemoteAddress());
+    public void handleRequest(RequestPacket requestPacket, ELAgentSocket elagentSocket) {
+        logger.info("handleRequest packet:{}, remote:{}", requestPacket, elagentSocket.getRemoteAddress());
 
         if (echo) {
-            pinpointSocket.response(requestPacket, requestPacket.getPayload());
+            elagentSocket.response(requestPacket, requestPacket.getPayload());
         } else {
-            pinpointSocket.response(requestPacket, new byte[0]);
+            elagentSocket.response(requestPacket, new byte[0]);
         }
     }
 

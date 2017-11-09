@@ -166,16 +166,16 @@ public class ELAgentStarter {
 		this.systemProperty = systemProperty;
 	}
 
-	private void registerShutdownHook(final Agent pinpointAgent) {
+	private void registerShutdownHook(final Agent elagentAgent) {
 		final Runnable stop = new Runnable() {
 			@Override
 			public void run() {
-				pinpointAgent.stop();
+				elagentAgent.stop();
 			}
 		};
-		ELAgentThreadFactory pinpointThreadFactory = new ELAgentThreadFactory(
+		ELAgentThreadFactory elagentThreadFactory = new ELAgentThreadFactory(
 				"eyelink-agent-shutdown-hook");
-		Thread thread = pinpointThreadFactory.newThread(stop);
+		Thread thread = elagentThreadFactory.newThread(stop);
 		Runtime.getRuntime().addShutdownHook(thread);
 	}
 

@@ -20,7 +20,7 @@ public class TcpDataSenderProvider implements Provider<EnhancedDataSender> {
 
     @Override
     public EnhancedDataSender get() {
-    	ELAgentClient pinpointClient = client.get();
-        return new TcpDataSender(pinpointClient);
+    	ELAgentClient elagentClient = client.get();
+        return new TcpDataSender(elagentClient);
     }
 }

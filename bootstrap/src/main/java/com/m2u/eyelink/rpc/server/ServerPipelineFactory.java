@@ -9,13 +9,13 @@ import com.m2u.eyelink.rpc.codec.PacketEncoder;
 import com.m2u.eyelink.rpc.server.ELAgentServerAcceptor.ELAgentServerChannelHandler;
 
 public class ServerPipelineFactory implements ChannelPipelineFactory {
-    private ELAgentServerChannelHandler pinpointServerChannelHandler;
+    private ELAgentServerChannelHandler elagentServerChannelHandler;
 
-    public ServerPipelineFactory(ELAgentServerChannelHandler pinpointServerChannelHandler) {
-        if (pinpointServerChannelHandler == null) {
-            throw new NullPointerException("PinpointServerFactory");
+    public ServerPipelineFactory(ELAgentServerChannelHandler elagentServerChannelHandler) {
+        if (elagentServerChannelHandler == null) {
+            throw new NullPointerException("elagentServerFactory");
         }
-        this.pinpointServerChannelHandler = pinpointServerChannelHandler;
+        this.elagentServerChannelHandler = elagentServerChannelHandler;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ServerPipelineFactory implements ChannelPipelineFactory {
 
         pipeline.addLast("decoder", new PacketDecoder());
         pipeline.addLast("encoder", new PacketEncoder());
-        pipeline.addLast("handler", pinpointServerChannelHandler);
+        pipeline.addLast("handler", elagentServerChannelHandler);
 
         return pipeline;
     }

@@ -38,7 +38,7 @@ import java.lang.annotation.RetentionPolicy;
  * {@link Public}. Avoid using non public classes as these classes
  * could be removed or change in incompatible ways.</li>
  *
- * <li>Pinpoint projects must only use classes that are marked
+ * <li>ELAgent projects must only use classes that are marked
  * {@link LimitedPrivate} or {@link Public}</li>
  *
  * <li> Methods may have a different annotation that it is more restrictive
@@ -67,7 +67,7 @@ public class InterfaceAudience {
     };
 
     /**
-     * Intended for use only within pinpoint itself.
+     * Intended for use only within elagent itself.
      */
     @Documented
     @Retention(RetentionPolicy.RUNTIME)

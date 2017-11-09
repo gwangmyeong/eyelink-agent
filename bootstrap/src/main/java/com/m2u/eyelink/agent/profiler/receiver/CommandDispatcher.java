@@ -35,16 +35,16 @@ public class CommandDispatcher implements MessageListener, ServerStreamChannelMe
     }
 
     @Override
-    public void handleSend(SendPacket sendPacket, ELAgentSocket pinpointSocket) {
-        logger.info("handleSend packet:{}, remote:{}", sendPacket, pinpointSocket.getRemoteAddress());
+    public void handleSend(SendPacket sendPacket, ELAgentSocket elagentSocket) {
+        logger.info("handleSend packet:{}, remote:{}", sendPacket, elagentSocket.getRemoteAddress());
     }
 
     @Override
-    public void handleRequest(RequestPacket requestPacket, ELAgentSocket pinpointSocket) {
-        logger.info("handleRequest packet:{}, remote:{}", requestPacket, pinpointSocket.getRemoteAddress());
+    public void handleRequest(RequestPacket requestPacket, ELAgentSocket elagentSocket) {
+        logger.info("handleRequest packet:{}, remote:{}", requestPacket, elagentSocket.getRemoteAddress());
 
         final TBase<?, ?> request = SerializationUtils.deserialize(requestPacket.getPayload(), CommandSerializer.DESERIALIZER_FACTORY, null);
-        logger.debug("handleRequest request:{}, remote:{}", request, pinpointSocket.getRemoteAddress());
+        logger.debug("handleRequest request:{}, remote:{}", request, elagentSocket.getRemoteAddress());
 
         TBase response;
         if (request == null) {
@@ -66,7 +66,7 @@ public class CommandDispatcher implements MessageListener, ServerStreamChannelMe
 
         final byte[] payload = SerializationUtils.serialize(response, CommandSerializer.SERIALIZER_FACTORY, null);
         if (payload != null) {
-            pinpointSocket.response(requestPacket, payload);
+            elagentSocket.response(requestPacket, payload);
         }
     }
 

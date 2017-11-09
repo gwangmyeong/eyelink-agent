@@ -396,8 +396,8 @@ public class AgentDirBaseClassPathResolver implements ClassPathResolver {
 			try {
 				urls[i] = jars[i].toURI().toURL();
 			} catch (MalformedURLException e) {
-				// TODO have to change to PinpointException AFTER moving the
-				// exception to pinpoint-common
+				// TODO have to change to ELAgentException AFTER moving the
+				// exception to elagent-common
 				throw new RuntimeException("Fail to load plugin jars", e);
 			}
 		}
