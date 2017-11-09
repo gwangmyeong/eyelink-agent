@@ -1,4 +1,4 @@
-package com.m2u.eyelink.interceptor.scope;
+package com.m2u.eyelink.agent.profiler.interceptor.scope;
 
 import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
 import com.m2u.eyelink.agent.interceptor.scope.InterceptorScopeInvocation;
