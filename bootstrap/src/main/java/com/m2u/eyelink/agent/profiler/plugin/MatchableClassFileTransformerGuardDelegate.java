@@ -3,11 +3,11 @@ package com.m2u.eyelink.agent.profiler.plugin;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 
-import com.m2u.eyelink.agent.instrument.GuardInstrumentor;
 import com.m2u.eyelink.agent.instrument.InstrumentContext;
 import com.m2u.eyelink.agent.instrument.InstrumentException;
 import com.m2u.eyelink.agent.instrument.matcher.Matcher;
 import com.m2u.eyelink.agent.instrument.transformer.TransformCallback;
+import com.m2u.eyelink.agent.profiler.instrument.GuardInstrumentor;
 import com.m2u.eyelink.config.ProfilerConfig;
 import com.m2u.eyelink.exception.ELAgentException;
 

@@ -3,9 +3,6 @@ package com.m2u.eyelink.agent.profiler.instrument.interceptor;
 import java.lang.reflect.Method;
 
 import com.m2u.eyelink.agent.interceptor.Interceptor;
-import com.m2u.eyelink.agent.profiler.interceptor.CaptureType;
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorDefinition;
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorType;
 
 public class DefaultInterceptorDefinition implements InterceptorDefinition {
     private final Class<? extends Interceptor> baseInterceptorClazz;

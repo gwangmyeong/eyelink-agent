@@ -19,9 +19,6 @@ import com.m2u.eyelink.agent.interceptor.AroundInterceptor5;
 import com.m2u.eyelink.agent.interceptor.Interceptor;
 import com.m2u.eyelink.agent.interceptor.StaticAroundInterceptor;
 import com.m2u.eyelink.agent.interceptor.annotation.IgnoreMethod;
-import com.m2u.eyelink.agent.profiler.interceptor.CaptureType;
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorDefinition;
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorType;
 
 public class InterceptorDefinitionFactory {
 

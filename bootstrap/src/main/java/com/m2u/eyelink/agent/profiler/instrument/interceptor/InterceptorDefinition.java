@@ -1,4 +1,4 @@
-package com.m2u.eyelink.agent.profiler.interceptor;
+package com.m2u.eyelink.agent.profiler.instrument.interceptor;
 
 import java.lang.reflect.Method;
 

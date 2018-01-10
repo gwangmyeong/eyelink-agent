@@ -21,8 +21,8 @@ import org.objectweb.asm.tree.VarInsnNode;
 
 import com.m2u.eyelink.agent.interceptor.Interceptor;
 import com.m2u.eyelink.agent.profiler.JavaAssistUtils;
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorDefinition;
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorType;
+import com.m2u.eyelink.agent.profiler.instrument.interceptor.InterceptorDefinition;
+import com.m2u.eyelink.agent.profiler.instrument.interceptor.InterceptorType;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistry;
 
 public class ASMMethodVariables {

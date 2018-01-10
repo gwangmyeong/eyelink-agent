@@ -4,12 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.agent.instrument.DynamicTransformTrigger;
-import com.m2u.eyelink.agent.instrument.GuardInstrumentContext;
 import com.m2u.eyelink.agent.instrument.InstrumentContext;
 import com.m2u.eyelink.agent.instrument.transformer.TransformTemplate;
 import com.m2u.eyelink.agent.instrument.transformer.TransformTemplateAware;
 import com.m2u.eyelink.agent.plugin.ProfilerPlugin;
 import com.m2u.eyelink.agent.profiler.instrument.ClassInjector;
+import com.m2u.eyelink.agent.profiler.instrument.GuardInstrumentContext;
 import com.m2u.eyelink.agent.profiler.instrument.InstrumentEngine;
 import com.m2u.eyelink.config.ProfilerConfig;
 

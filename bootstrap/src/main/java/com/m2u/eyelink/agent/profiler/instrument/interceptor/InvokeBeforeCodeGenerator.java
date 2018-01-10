@@ -4,8 +4,6 @@ import java.lang.reflect.Method;
 
 import com.m2u.eyelink.agent.instrument.InstrumentClass;
 import com.m2u.eyelink.agent.instrument.InstrumentMethod;
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorDefinition;
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorType;
 import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 
 public class InvokeBeforeCodeGenerator extends InvokeCodeGenerator {

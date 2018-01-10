@@ -12,7 +12,7 @@ import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
-import com.m2u.eyelink.agent.profiler.interceptor.InterceptorDefinition;
+import com.m2u.eyelink.agent.profiler.instrument.interceptor.InterceptorDefinition;
 
 public class ASMMethodNodeAdapter {
 

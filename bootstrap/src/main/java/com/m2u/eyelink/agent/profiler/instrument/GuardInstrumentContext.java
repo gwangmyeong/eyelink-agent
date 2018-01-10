@@ -1,29 +1,24 @@
-package com.m2u.eyelink.agent.instrument;
+package com.m2u.eyelink.agent.profiler.instrument;
 
+import java.io.InputStream;
+
+import com.m2u.eyelink.agent.instrument.InstrumentClass;
+import com.m2u.eyelink.agent.instrument.InstrumentContext;
 import com.m2u.eyelink.agent.instrument.transformer.TransformCallback;
 import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
-import com.m2u.eyelink.config.ProfilerConfig;
 
-public class GuardInstrumentor implements Instrumentor {
-    private final ProfilerConfig profilerConfig;
+public class GuardInstrumentContext implements InstrumentContext {
     private final InstrumentContext instrumentContext;
     private boolean closed = false;
 
-    public GuardInstrumentor(ProfilerConfig profilerConfig, InstrumentContext instrumentContext) {
-        if (profilerConfig == null) {
-            throw new NullPointerException("profilerConfig must not be null");
-        }
+    public GuardInstrumentContext(InstrumentContext instrumentContext) {
         if (instrumentContext == null) {
             throw new NullPointerException("instrumentContext must not be null");
         }
-        this.profilerConfig = profilerConfig;
+
         this.instrumentContext = instrumentContext;
     }
 
-    @Override
-    public ProfilerConfig getProfilerConfig() {
-        return profilerConfig;
-    }
 
     @Override
     public InstrumentClass getInstrumentClass(ClassLoader classLoader, String className, byte[] classfileBuffer) {
@@ -38,9 +33,9 @@ public class GuardInstrumentor implements Instrumentor {
     }
 
     @Override
-    public InterceptorScope getInterceptorScope(String scopeName) {
+    public InterceptorScope getInterceptorScope(String name) {
         checkOpen();
-        return instrumentContext.getInterceptorScope(scopeName);
+        return instrumentContext.getInterceptorScope(name);
     }
 
     @Override
@@ -50,9 +45,21 @@ public class GuardInstrumentor implements Instrumentor {
     }
 
     @Override
-    public void transform(ClassLoader classLoader, String targetClassName, TransformCallback transformCallback) {
+    public InputStream getResourceAsStream(ClassLoader targetClassLoader, String classPath) {
+        checkOpen();
+        return instrumentContext.getResourceAsStream(targetClassLoader, classPath);
+    }
+
+    @Override
+    public void addClassFileTransformer(ClassLoader classLoader, String targetClassName, TransformCallback transformCallback) {
         checkOpen();
         instrumentContext.addClassFileTransformer(classLoader, targetClassName, transformCallback);
+    }
+
+    @Override
+    public void addClassFileTransformer(String targetClassName, TransformCallback transformCallback) {
+        checkOpen();
+        instrumentContext.addClassFileTransformer(targetClassName, transformCallback);
     }
 
     @Override
@@ -67,7 +74,7 @@ public class GuardInstrumentor implements Instrumentor {
 
     private void checkOpen() {
         if (closed) {
-            throw new IllegalStateException("Instrumentor already closed");
+            throw new IllegalStateException("instrumentContext already closed");
         }
     }
 }
