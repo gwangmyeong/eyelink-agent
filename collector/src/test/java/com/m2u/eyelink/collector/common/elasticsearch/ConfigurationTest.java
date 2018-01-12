@@ -24,6 +24,6 @@ public class ConfigurationTest {
 	        	i++;
         }
         System.out.println(cfg.toString());
-        assertEquals(cfg.get("elasticsearch.cluster.name"), "eyelink-cluster");
+        assertEquals(cfg.get("elasticsearch.cluster.name"), "eyelink-cluster-standalone");
 	}
 }

@@ -50,11 +50,11 @@ public class ElasticSearchClientTest {
 	public static void connection() {
 		try {
 			// connection
-			Settings settings = Settings.builder().put("cluster.name", "eyelink-cluster").build();
+			Settings settings = Settings.builder().put("cluster.name", "eyelink-cluster-standalone").build();
 
 			client = new PreBuiltTransportClient(settings)
 					.addTransportAddress(new InetSocketTransportAddress(
-							InetAddress.getByName("m2utech.eastus.cloudapp.azure.com"), 9300));
+							InetAddress.getByName("m2u-parstream.eastus.cloudapp.azure.com"), 9300));
 			
 //					.addTransportAddress(new InetSocketTransportAddress(
 //							InetAddress.getByName("m2u-da.eastus.cloudapp.azure.com"), 9300));
