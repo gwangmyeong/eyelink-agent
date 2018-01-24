@@ -4,8 +4,8 @@ import java.lang.reflect.Modifier;
 
 import com.m2u.eyelink.agent.instrument.InstrumentMethod;
 import com.m2u.eyelink.agent.interceptor.InterceptorInvokerHelper;
+import com.m2u.eyelink.agent.interceptor.registry.InterceptorRegistry;
 import com.m2u.eyelink.agent.profiler.JavaAssistUtils;
-import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistry;
 import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 import com.m2u.eyelink.context.MethodDescriptor;
 

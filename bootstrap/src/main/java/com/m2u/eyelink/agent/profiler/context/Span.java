@@ -1,26 +1,5 @@
 package com.m2u.eyelink.agent.profiler.context;
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Generated;
-
-import org.apache.thrift.EncodingUtils;
-import org.apache.thrift.protocol.TTupleProtocol;
-import org.apache.thrift.scheme.IScheme;
-import org.apache.thrift.scheme.SchemeFactory;
-import org.apache.thrift.scheme.StandardScheme;
-import org.apache.thrift.scheme.TupleScheme;
-
-import com.m2u.eyelink.context.Annotation;
 import com.m2u.eyelink.context.FrameAttachment;
 import com.m2u.eyelink.context.SpanId;
 import com.m2u.eyelink.context.TIntStringValue;

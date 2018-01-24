@@ -1,5 +1,6 @@
 package com.m2u.eyelink.context;
 
+import com.m2u.eyelink.agent.profiler.context.Annotation;
 import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
 import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.common.trace.AnnotationKey;

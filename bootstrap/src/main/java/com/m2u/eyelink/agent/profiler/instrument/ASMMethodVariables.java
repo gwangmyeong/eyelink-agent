@@ -20,10 +20,10 @@ import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 import com.m2u.eyelink.agent.interceptor.Interceptor;
+import com.m2u.eyelink.agent.interceptor.registry.InterceptorRegistry;
 import com.m2u.eyelink.agent.profiler.JavaAssistUtils;
 import com.m2u.eyelink.agent.profiler.instrument.interceptor.InterceptorDefinition;
 import com.m2u.eyelink.agent.profiler.instrument.interceptor.InterceptorType;
-import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistry;
 
 public class ASMMethodVariables {
     private static final Type BYTE_TYPE = Type.getObjectType("java/lang/Byte");

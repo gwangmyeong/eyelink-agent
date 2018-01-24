@@ -1,4 +1,4 @@
-package com.m2u.eyelink.agent.profiler.interceptor.registry;
+package com.m2u.eyelink.agent.interceptor.registry;
 
 import com.m2u.eyelink.agent.interceptor.Interceptor;
 import com.m2u.eyelink.agent.interceptor.LoggingInterceptor;

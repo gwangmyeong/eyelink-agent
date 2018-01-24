@@ -9,6 +9,7 @@ import com.m2u.eyelink.agent.instrument.InstrumentException;
 import com.m2u.eyelink.agent.instrument.InstrumentMethod;
 import com.m2u.eyelink.agent.interceptor.Interceptor;
 import com.m2u.eyelink.agent.interceptor.annotation.Scope;
+import com.m2u.eyelink.agent.interceptor.registry.InterceptorRegistry;
 import com.m2u.eyelink.agent.interceptor.scope.ExecutionPolicy;
 import com.m2u.eyelink.agent.interceptor.scope.InterceptorScope;
 import com.m2u.eyelink.agent.profiler.JavaAssistUtils;
@@ -17,7 +18,6 @@ import com.m2u.eyelink.agent.profiler.instrument.interceptor.InterceptorDefiniti
 import com.m2u.eyelink.agent.profiler.instrument.interceptor.InterceptorDefinitionFactory;
 import com.m2u.eyelink.agent.profiler.instrument.interceptor.InterceptorType;
 import com.m2u.eyelink.agent.profiler.interceptor.factory.AnnotatedInterceptorFactory;
-import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistry;
 import com.m2u.eyelink.agent.profiler.interceptor.registry.InterceptorRegistryBinder;
 import com.m2u.eyelink.agent.profiler.metadata.ApiMetaDataService;
 import com.m2u.eyelink.agent.profiler.objectfactory.ObjectBinderFactory;

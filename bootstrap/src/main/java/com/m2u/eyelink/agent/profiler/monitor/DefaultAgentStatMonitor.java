@@ -58,7 +58,8 @@ public class DefaultAgentStatMonitor implements AgentStatMonitor {
 
     @Override
     public void start() {
-        executor.scheduleAtFixedRate(collectJob, this.collectionIntervalMs, this.collectionIntervalMs, TimeUnit.MILLISECONDS);
+    	// for Span Test
+//        executor.scheduleAtFixedRate(collectJob, this.collectionIntervalMs, this.collectionIntervalMs, TimeUnit.MILLISECONDS);
         logger.info("AgentStat monitor started");
     }
 

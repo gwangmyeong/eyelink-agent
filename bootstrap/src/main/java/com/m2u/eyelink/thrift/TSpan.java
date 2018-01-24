@@ -21,7 +21,6 @@ import org.apache.thrift.scheme.StandardScheme;
 import org.apache.thrift.scheme.TupleScheme;
 
 import com.m2u.eyelink.context.TIntStringValue;
-import com.m2u.eyelink.thrift.TSpan;
 import com.m2u.eyelink.thrift.dto.TSpanEvent;
 
 

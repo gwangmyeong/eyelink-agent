@@ -58,7 +58,7 @@ public class InvokeMethodInterceptorTest {
     @Test
     public void testHeaderNOTExists() {
 
-        when(request.getRequestURI()).thenReturn("/hellotest.nhn");
+        when(request.getRequestURI()).thenReturn("/hellotest.m2u");
         when(request.getRemoteAddr()).thenReturn("10.0.0.1");
         when(request.getHeader(Header.HTTP_TRACE_ID.toString())).thenReturn(null);
         when(request.getHeader(Header.HTTP_PARENT_SPAN_ID.toString())).thenReturn(null);
@@ -86,7 +86,7 @@ public class InvokeMethodInterceptorTest {
     @Test
     public void testInvalidHeaderExists() {
 
-        when(request.getRequestURI()).thenReturn("/hellotest.nhn");
+        when(request.getRequestURI()).thenReturn("/hellotest.m2u");
         when(request.getRemoteAddr()).thenReturn("10.0.0.1");
         when(request.getHeader(Header.HTTP_TRACE_ID.toString())).thenReturn("TRACEID");
         when(request.getHeader(Header.HTTP_PARENT_SPAN_ID.toString())).thenReturn("PARENTSPANID");
