@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.agent.profiler.context.Span;
+import com.m2u.eyelink.agent.profiler.context.SpanEvent;
 
 public class LogStorageFactory implements StorageFactory {
 

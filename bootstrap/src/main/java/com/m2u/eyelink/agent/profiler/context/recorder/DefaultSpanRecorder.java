@@ -1,4 +1,4 @@
-package com.m2u.eyelink.context;
+package com.m2u.eyelink.agent.profiler.context.recorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +10,7 @@ import com.m2u.eyelink.agent.profiler.metadata.SqlMetaDataService;
 import com.m2u.eyelink.agent.profiler.metadata.StringMetaDataService;
 import com.m2u.eyelink.common.trace.LoggingInfo;
 import com.m2u.eyelink.common.trace.ServiceType;
+import com.m2u.eyelink.context.SpanRecorder;
 
 public class DefaultSpanRecorder extends AbstractRecorder implements SpanRecorder {
     private final Logger logger = LoggerFactory.getLogger(DefaultTrace.class.getName());

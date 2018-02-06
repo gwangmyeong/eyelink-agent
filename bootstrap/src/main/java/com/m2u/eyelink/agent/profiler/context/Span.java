@@ -2,9 +2,9 @@ package com.m2u.eyelink.agent.profiler.context;
 
 import com.m2u.eyelink.context.FrameAttachment;
 import com.m2u.eyelink.context.SpanId;
-import com.m2u.eyelink.context.TIntStringValue;
 import com.m2u.eyelink.context.TraceId;
 import com.m2u.eyelink.thrift.TSpan;
+import com.m2u.eyelink.thrift.dto.TIntStringValue;
 import com.m2u.eyelink.util.TransactionIdUtils;
 
 public class Span extends TSpan implements FrameAttachment {

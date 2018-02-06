@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.m2u.eyelink.agent.profiler.context.Span;
 import com.m2u.eyelink.agent.profiler.context.SpanChunk;
 import com.m2u.eyelink.agent.profiler.context.SpanChunkFactory;
-import com.m2u.eyelink.context.SpanEvent;
+import com.m2u.eyelink.agent.profiler.context.SpanEvent;
 import com.m2u.eyelink.context.Storage;
 import com.m2u.eyelink.sender.DataSender;
 

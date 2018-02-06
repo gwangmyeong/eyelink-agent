@@ -2,7 +2,6 @@ package com.m2u.eyelink.agent.profiler.context;
 
 import java.util.List;
 
-import com.m2u.eyelink.context.SpanEvent;
 import com.m2u.eyelink.thrift.TSpanChunk; 
 
 public class SpanChunk extends TSpanChunk {

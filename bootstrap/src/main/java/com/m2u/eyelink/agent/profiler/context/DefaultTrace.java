@@ -5,17 +5,15 @@ import org.slf4j.LoggerFactory;
 
 import com.m2u.eyelink.agent.profiler.context.id.AsyncIdGenerator;
 import com.m2u.eyelink.agent.profiler.context.recorder.RecorderFactory;
+import com.m2u.eyelink.agent.profiler.context.recorder.WrappedSpanEventRecorder;
 import com.m2u.eyelink.context.AsyncTraceId;
-import com.m2u.eyelink.context.CallStack;
 import com.m2u.eyelink.context.DefaultAsyncTraceId;
-import com.m2u.eyelink.context.SpanEvent;
 import com.m2u.eyelink.context.SpanEventRecorder;
 import com.m2u.eyelink.context.SpanRecorder;
 import com.m2u.eyelink.context.Storage;
 import com.m2u.eyelink.context.Trace;
 import com.m2u.eyelink.context.TraceId;
 import com.m2u.eyelink.context.TraceScope;
-import com.m2u.eyelink.context.WrappedSpanEventRecorder;
 import com.m2u.eyelink.context.scope.DefaultTraceScopePool;
 import com.m2u.eyelink.exception.ELAgentException;
 

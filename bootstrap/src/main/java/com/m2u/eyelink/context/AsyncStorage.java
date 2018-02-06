@@ -1,6 +1,7 @@
 package com.m2u.eyelink.context;
 
 import com.m2u.eyelink.agent.profiler.context.Span;
+import com.m2u.eyelink.agent.profiler.context.SpanEvent;
 
 public class AsyncStorage implements Storage {
 

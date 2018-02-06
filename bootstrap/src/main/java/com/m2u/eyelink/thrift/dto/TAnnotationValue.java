@@ -12,9 +12,6 @@ import java.util.Map;
 
 import org.apache.thrift.protocol.TProtocolException;
 
-import com.m2u.eyelink.context.TIntStringStringValue;
-import com.m2u.eyelink.context.TIntStringValue;
-
 import com.m2u.eyelink.thrift.dto.TAnnotationValue;
 
 @SuppressWarnings({"cast", "rawtypes", "serial", "unchecked"})

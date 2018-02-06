@@ -1,10 +1,10 @@
 package com.m2u.eyelink.agent.profiler.context;
 
 import com.m2u.eyelink.context.AnnotationValueMapper;
-import com.m2u.eyelink.context.TIntStringStringValue;
-import com.m2u.eyelink.context.TIntStringValue;
 import com.m2u.eyelink.thrift.TAnnotation;
 import com.m2u.eyelink.thrift.dto.TAnnotationValue;
+import com.m2u.eyelink.thrift.dto.TIntStringStringValue;
+import com.m2u.eyelink.thrift.dto.TIntStringValue;
 
 public class Annotation extends TAnnotation {
 

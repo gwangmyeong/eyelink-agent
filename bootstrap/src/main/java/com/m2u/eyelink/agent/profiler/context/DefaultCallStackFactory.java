@@ -2,7 +2,6 @@ package com.m2u.eyelink.agent.profiler.context;
 
 import com.google.inject.Inject;
 import com.m2u.eyelink.config.ProfilerConfig;
-import com.m2u.eyelink.context.CallStack;
 
 public class DefaultCallStackFactory implements CallStackFactory {
 

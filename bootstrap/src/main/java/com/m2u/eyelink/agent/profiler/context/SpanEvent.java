@@ -1,7 +1,7 @@
-package com.m2u.eyelink.context;
+package com.m2u.eyelink.agent.profiler.context;
 
-import com.m2u.eyelink.agent.profiler.context.Annotation;
-import com.m2u.eyelink.agent.profiler.context.Span;
+import com.m2u.eyelink.context.FrameAttachment;
+import com.m2u.eyelink.thrift.dto.TIntStringValue;
 import com.m2u.eyelink.thrift.dto.TSpanEvent;
 import com.m2u.eyelink.thrift.dto.TSpanEvent;
 

@@ -1,9 +1,9 @@
 package com.m2u.eyelink.collector.util;
 
-import com.m2u.eyelink.context.TIntStringStringValue;
-import com.m2u.eyelink.context.TIntStringValue;
 import com.m2u.eyelink.thrift.TAnnotation;
 import com.m2u.eyelink.thrift.dto.TAnnotationValue;
+import com.m2u.eyelink.thrift.dto.TIntStringStringValue;
+import com.m2u.eyelink.thrift.dto.TIntStringValue;
 import com.m2u.eyelink.util.AutomaticBuffer;
 import com.m2u.eyelink.util.Buffer;
 import com.m2u.eyelink.util.BytesUtils;
