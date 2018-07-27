@@ -71,7 +71,7 @@ public class ElasticSearchApiMetaDataDao implements ApiMetaDataDao {
 				apiMetaDataBytes);
 
 //		elasticSearchTemplate.put(ElasticSearchTables.API_METADATA, put);
-		elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(apiMetaData.getAgentId()),
+		elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(apiMetaData.getAgentId(), ElasticSearchTables.TYPE_API_METADATA),
 				ElasticSearchTables.TYPE_API_METADATA, apiMetaDataBo.getMap());
 
 	}
@@ -91,7 +91,7 @@ public class ElasticSearchApiMetaDataDao implements ApiMetaDataDao {
         cond.put("agentId", agentId);
         cond.put("agentStartTime", time);
         cond.put("apiId", apiId);
-        return elasticSearchTemplate.get(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_API_METADATA,  cond, apiMetaDataMapper);
+        return elasticSearchTemplate.get(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_API_METADATA), ElasticSearchTables.TYPE_API_METADATA,  cond, apiMetaDataMapper);
     }
 
 }

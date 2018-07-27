@@ -52,7 +52,7 @@ public class ElasticSearchSqlMetaDataDao implements SqlMetaDataDao {
 
         put.addColumn(ElasticSearchTables.SQL_METADATA_VER2_CF_SQL, ElasticSearchTables.SQL_METADATA_VER2_CF_SQL_QUALI_SQLSTATEMENT, sqlBytes);
 
-		this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(sqlMetaData.getAgentId()),
+		this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(sqlMetaData.getAgentId(), ElasticSearchTables.TYPE_SQL_METADATA),
 				ElasticSearchTables.TYPE_SQL_METADATA, sqlMetaDataBo.getMap());
     }
 
@@ -70,7 +70,7 @@ public class ElasticSearchSqlMetaDataDao implements SqlMetaDataDao {
         cond.put("agentId", agentId);
         cond.put("agentStartTime", time);
         cond.put("sqlId", sqlId);
-        return elasticSearchTemplate.get(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_SQL_METADATA,  cond, sqlMetaDataMapper);
+        return elasticSearchTemplate.get(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_SQL_METADATA), ElasticSearchTables.TYPE_SQL_METADATA,  cond, sqlMetaDataMapper);
         
     }
 

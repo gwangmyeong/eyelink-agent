@@ -44,7 +44,7 @@ public class ElasticSearchApplicationIndexDao implements ApplicationIndexDao {
         map.put("agentId", agentInfo.getAgentId());
         map.put("applicationName", agentInfo.getApplicationName());
         map.put("serviceType", agentInfo.getServiceType());
-        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId()), ElasticSearchTables.TYPE_APPLICATION_INDEX, map);
+        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId(), ElasticSearchTables.TYPE_APPLICATION_INDEX), ElasticSearchTables.TYPE_APPLICATION_INDEX, map);
         
         logger.debug("Insert agentInfo. {}", agentInfo);
     }

@@ -45,9 +45,9 @@ public class ElasticSearchJvmGcDetailedDao implements AgentStatDaoV2<JvmGcDetail
 
         List<Map<String, Object>> listJvmGcDetailBo = this.agentStatElasticSearchOperationFactory.createList(jvmGcDetailedBos);
         if (!listJvmGcDetailBo.isEmpty()) {
-            boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_JVMGC_DETAIL, listJvmGcDetailBo);
+            boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_JVMGC_DETAIL), ElasticSearchTables.TYPE_AGENT_STAT_JVMGC_DETAIL, listJvmGcDetailBo);
             if (!isSuccess) {
-                this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_JVMGC_DETAIL, listJvmGcDetailBo);
+                this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_JVMGC_DETAIL), ElasticSearchTables.TYPE_AGENT_STAT_JVMGC_DETAIL, listJvmGcDetailBo);
             }
         } else {
         		logger.info("listJvmGcDetailBo is empty");

@@ -46,7 +46,7 @@ public class ElasticSearchAgentStatDao implements AgentStatDao {
         }
         Put put = createPut(agentStat);
 
-        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentStat.getAgentId()), ElasticSearchTables.TYPE_AGENT_STAT, agentStat.getMap());
+        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentStat.getAgentId(), ElasticSearchTables.TYPE_AGENT_STAT), ElasticSearchTables.TYPE_AGENT_STAT, agentStat.getMap());
         if (!success) {
             elasticSearchTemplate.put(ElasticSearchTables.AGENT_STAT, put);
         }

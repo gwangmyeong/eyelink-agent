@@ -66,10 +66,10 @@ public class ElasticSearchApplicationTraceIndexDao implements ApplicationTraceIn
         final SpanBo spanBo = spanFactory.buildSpanBo(span);
 
         // TODO check logic, insert same data this and ElasticSearchTraceDaoV2
-        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(span.getAgentId()), TYPE_APPLICATION_TRACE_INDEX, spanBo.getMap());
+        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(span.getAgentId(), TYPE_APPLICATION_TRACE_INDEX), TYPE_APPLICATION_TRACE_INDEX, spanBo.getMap());
         
         if (!success) {
-            elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(span.getAgentId()), TYPE_APPLICATION_TRACE_INDEX, spanBo.getMap());
+            elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(span.getAgentId(), TYPE_APPLICATION_TRACE_INDEX), TYPE_APPLICATION_TRACE_INDEX, spanBo.getMap());
         }
     }
 

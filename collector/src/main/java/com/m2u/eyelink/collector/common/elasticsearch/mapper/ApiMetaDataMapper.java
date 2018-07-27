@@ -33,10 +33,10 @@ public class ApiMetaDataMapper implements RowMapper<List<ApiMetaDataBo>> {
 			ApiMetaDataBo apiMetaDataBo = new ApiMetaDataBo();
 
 			MethodTypeEnum methodTypeEnum = MethodTypeEnum.DEFAULT;
-			methodTypeEnum = MethodTypeEnum.valueOf((int)hit.getSource().get("type"));
+			methodTypeEnum = MethodTypeEnum.valueOf((int)hit.getSourceAsMap().get("type"));
 			
-			apiMetaDataBo.setApiInfo((String)hit.getSource().get("apiInfo"));
-			apiMetaDataBo.setLineNumber((int)hit.getSource().get("line"));
+			apiMetaDataBo.setApiInfo((String)hit.getSourceAsMap().get("apiInfo"));
+			apiMetaDataBo.setLineNumber((int)hit.getSourceAsMap().get("line"));
 			apiMetaDataBo.setMethodTypeEnum(methodTypeEnum);
 			apiMetaDataList.add(apiMetaDataBo);
 			if (logger.isDebugEnabled()) {

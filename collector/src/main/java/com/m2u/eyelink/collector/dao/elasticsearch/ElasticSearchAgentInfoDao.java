@@ -79,6 +79,6 @@ public class ElasticSearchAgentInfoDao implements AgentInfoDao {
         }
 
 //        elasticSearchTemplate.put(ElasticSearchTables.AGENTINFO, put);
-        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId()), ElasticSearchTables.TYPE_AGENT_INFO, agentInfoBo.getMap());
+        elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentInfo.getAgentId(), ElasticSearchTables.TYPE_AGENT_INFO), ElasticSearchTables.TYPE_AGENT_INFO, agentInfoBo.getMap());
     }
 }

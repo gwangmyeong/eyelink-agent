@@ -45,10 +45,10 @@ public class ElasticSearchTransactionDao implements AgentStatDaoV2<TransactionBo
 		List<Map<String, Object>> listTransactionBos = this.agentStatElasticSearchOperationFactory
 				.createList(transactionBos);
 		if (!listTransactionBos.isEmpty()) {
-			boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId),
+			boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_TRANACTION),
 					ElasticSearchTables.TYPE_AGENT_STAT_TRANACTION, listTransactionBos);
 			if (!isSuccess) {
-				this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId),
+				this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_TRANACTION),
 						ElasticSearchTables.TYPE_AGENT_STAT_TRANACTION, listTransactionBos);
 			}
 		} else {

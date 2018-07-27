@@ -67,10 +67,10 @@ public class ElasticSearchTraceDaoV2 implements TraceDao {
 
 		this.spanSerializer.serialize(spanBo, put, null);
 
-		boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(spanBo.getAgentId()),
+		boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(spanBo.getAgentId(), TYPE_TRACE_V2),
 				TYPE_TRACE_V2, spanBo.getMap());
 		if (!success) {
-			elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(spanBo.getAgentId()), TYPE_TRACE_V2,
+			elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(spanBo.getAgentId(), TYPE_TRACE_V2), TYPE_TRACE_V2,
 					spanBo.getMap());
 		}
 	}

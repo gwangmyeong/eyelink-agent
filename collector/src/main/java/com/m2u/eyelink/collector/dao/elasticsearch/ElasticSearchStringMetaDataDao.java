@@ -53,7 +53,7 @@ public class ElasticSearchStringMetaDataDao implements StringMetaDataDao {
         put.addColumn(ElasticSearchTables.STRING_METADATA_CF_STR, ElasticSearchTables.STRING_METADATA_CF_STR_QUALI_STRING, sqlBytes);
 
 //        elasticSearchTemplate.put(ElasticSearchTables.STRING_METADATA, put);
-        this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(stringMetaDataBo.getAgentId()),
+        this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(stringMetaDataBo.getAgentId(), ElasticSearchTables.TYPE_STRING_METADATA),
 				ElasticSearchTables.TYPE_STRING_METADATA, stringMetaDataBo.getMap());
         
     }
@@ -72,6 +72,6 @@ public class ElasticSearchStringMetaDataDao implements StringMetaDataDao {
         cond.put("agentId", agentId);
         cond.put("agentStartTime", agentStartTime);
         cond.put("stringMetaDataId", stringMetaDataId);
-        return elasticSearchTemplate.get(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_STRING_METADATA,  cond, stringMetaDataMapper);
+        return elasticSearchTemplate.get(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_STRING_METADATA), ElasticSearchTables.TYPE_STRING_METADATA,  cond, stringMetaDataMapper);
 	}
 }

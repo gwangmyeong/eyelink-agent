@@ -34,9 +34,9 @@ public class SqlMetaDataMapper implements RowMapper<List<SqlMetaDataBo>> {
 			SqlMetaDataBo sqlMetaDataBo = new SqlMetaDataBo();
 
 			MethodTypeEnum methodTypeEnum = MethodTypeEnum.DEFAULT;
-			methodTypeEnum = MethodTypeEnum.valueOf(Integer.parseInt((String) hit.getSource().get("type")));
+			methodTypeEnum = MethodTypeEnum.valueOf(Integer.parseInt((String) hit.getSourceAsMap().get("type")));
 
-			sqlMetaDataBo.setSql((String) hit.getSource().get("sql"));
+			sqlMetaDataBo.setSql((String) hit.getSourceAsMap().get("sql"));
 			sqlMetaDataList.add(sqlMetaDataBo);
 			if (logger.isDebugEnabled()) {
 				logger.debug("read apiAnnotation:{}", sqlMetaDataList);

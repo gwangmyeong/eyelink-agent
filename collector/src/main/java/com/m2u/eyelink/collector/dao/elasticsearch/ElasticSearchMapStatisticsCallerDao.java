@@ -166,10 +166,10 @@ public class ElasticSearchMapStatisticsCallerDao implements MapStatisticsCallerD
         map.put("elapsed", elapsed);
         map.put("isError", isError);
         
-        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(callerAgentId),
+        boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(callerAgentId, TYPE_APPLICATION_LINK_DATA),
         		TYPE_APPLICATION_LINK_DATA, map);
 		if (!success) {
-			elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(callerAgentId), TYPE_APPLICATION_LINK_DATA,
+			elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(callerAgentId, TYPE_APPLICATION_LINK_DATA), TYPE_APPLICATION_LINK_DATA,
 					map);
 		}
 	}

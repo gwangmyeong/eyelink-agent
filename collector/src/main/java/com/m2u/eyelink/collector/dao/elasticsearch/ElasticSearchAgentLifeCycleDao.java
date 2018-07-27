@@ -44,7 +44,7 @@ public class ElasticSearchAgentLifeCycleDao implements AgentLifeCycleDao {
 //		this.elasticSearchTemplate.put(ElasticSearchTables.AGENT_LIFECYCLE, rowKey,
 //				ElasticSearchTables.AGENT_LIFECYCLE_CF_STATUS,
 //				ElasticSearchTables.AGENT_LIFECYCLE_CF_STATUS_QUALI_STATES, agentLifeCycleBo, this.valueMapper);
-		this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId),
+		this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_LIFECYCLE),
 				ElasticSearchTables.TYPE_AGENT_LIFECYCLE, agentLifeCycleBo.getMap());
 	}
 

@@ -45,9 +45,9 @@ public class ElasticSearchActiveTraceDao implements AgentStatDaoV2<ActiveTraceBo
 
         List<Map<String, Object>> listActiveTraceBos = this.agentStatElasticSearchOperationFactory.createList(agentStatDataPoints);
         if (!listActiveTraceBos.isEmpty()) {
-            boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_ACTIVE_TRACE, listActiveTraceBos);
+            boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_ACTIVE_TRACE), ElasticSearchTables.TYPE_AGENT_STAT_ACTIVE_TRACE, listActiveTraceBos);
             if (!isSuccess) {
-                this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_ACTIVE_TRACE, listActiveTraceBos);
+                this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_ACTIVE_TRACE), ElasticSearchTables.TYPE_AGENT_STAT_ACTIVE_TRACE, listActiveTraceBos);
             }
         } else {
         		logger.info("listActiveTraceBos is empty");

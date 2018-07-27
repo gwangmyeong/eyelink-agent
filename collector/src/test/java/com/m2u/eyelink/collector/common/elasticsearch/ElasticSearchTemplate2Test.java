@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -55,7 +57,7 @@ public class ElasticSearchTemplate2Test {
 	    		        "\"message\":\"trying out Elasticsearch\"" +
 	    		    "}";
 
-            elasticSearchTemplate2.put(ElasticSearchUtils.generateIndexName("TEST"), ElasticSearchTables.TYPE_AGENT_INFO, json);
+            elasticSearchTemplate2.put(ElasticSearchUtils.generateIndexName("TEST", ElasticSearchTables.TYPE_AGENT_INFO), ElasticSearchTables.TYPE_AGENT_INFO, json);
         } catch (ElasticSearchSystemException e) {
 //            RetriesExhaustedWithDetailsException exception = (RetriesExhaustedWithDetailsException)(e.getCause());
 //            if (!(exception.getCause(0) instanceof TableNotFoundException)) {
@@ -80,7 +82,7 @@ public class ElasticSearchTemplate2Test {
   		map.put("child", child_json);
 
 
-          elasticSearchTemplate2.put(ElasticSearchUtils.generateIndexName("JUNIT_TEST"), ElasticSearchTables.TYPE_AGENT_INFO, map);
+          elasticSearchTemplate2.put(ElasticSearchUtils.generateIndexName("JUNIT_TEST", ElasticSearchTables.TYPE_AGENT_INFO), ElasticSearchTables.TYPE_AGENT_INFO, map);
       } catch (ElasticSearchSystemException e) {
 //          RetriesExhaustedWithDetailsException exception = (RetriesExhaustedWithDetailsException)(e.getCause());
 //          if (!(exception.getCause(0) instanceof TableNotFoundException)) {

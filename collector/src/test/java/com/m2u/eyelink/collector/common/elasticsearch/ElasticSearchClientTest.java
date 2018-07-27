@@ -28,7 +28,8 @@ import org.elasticsearch.client.AdminClient;
 import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.TermQueryBuilder;
@@ -53,8 +54,10 @@ public class ElasticSearchClientTest {
 			Settings settings = Settings.builder().put("cluster.name", "eyelink-cluster-standalone").build();
 
 			client = new PreBuiltTransportClient(settings)
-					.addTransportAddress(new InetSocketTransportAddress(
-							InetAddress.getByName("m2u-parstream.eastus.cloudapp.azure.com"), 9300));
+                    .addTransportAddress(new TransportAddress(
+                            InetAddress.getByName("localhost"), 9300));
+//                    .addTransportAddress(new TransportAddress(
+//							InetAddress.getByName("m2u-parstream.eastus.cloudapp.azure.com"), 9300));
 			
 //					.addTransportAddress(new InetSocketTransportAddress(
 //							InetAddress.getByName("m2u-da.eastus.cloudapp.azure.com"), 9300));
@@ -92,6 +95,7 @@ public class ElasticSearchClientTest {
 
 	@SuppressWarnings("deprecation")
 	@Test
+	@Ignore
 	public void mappingIndex() {
 		String typeName = "user";
 		// create index no mapping
@@ -107,7 +111,7 @@ public class ElasticSearchClientTest {
                 "      \"type\": \"string\"\n" +
                 "    }\n" +
                 "  }\n" +
-                "}")
+                "}", XContentType.JSON)
         .get();
 	
 //		Map<String, String> mapper = new HashMap<String, String>();
@@ -130,7 +134,7 @@ public class ElasticSearchClientTest {
 		        "\"message\":\"trying out Elasticsearch\"" +
 		    "}";
 		IndexResponse response = client.prepareIndex(indexName+"-insertdata", "tweet")
-		        .setSource(json)
+		        .setSource(json, XContentType.JSON)
 		        .get();
 	}
 	
@@ -222,32 +226,33 @@ public class ElasticSearchClientTest {
 	
 
 	@Test
+	@Ignore
 	public void getDataById() {
 		String indexName = "elagent_test-agent-2017.09.06";
 		String typeName = "ApiMetaData";
-		
-		
+
 		GetResponse response = client.prepareGet(indexName, typeName, "1").get();
 		System.out.println(response.toString());
 		assertEquals(response.getIndex(), indexName);
 	}
 
 	@Test
+	@Ignore
 	public void searchDataById() {
 		String indexName = "elagent_test-agent-2017.09.06";
 		String typeName = "ApiMetaData";
-		
+
 //		QueryBuilder qb = QueryBuilders.termQuery("agentId", "test-agent");
 //		QueryBuilder qb = QueryBuilders.termQuery("apiId", -2);
 		QueryBuilder qb = boolQuery()
 				.should(termQuery("agentId", "test-agent"))
 				.should(termQuery("type", 100));
-		
+
 		SearchResponse response = client.prepareSearch(indexName).setTypes(typeName)
 				.setQuery(qb).execute().actionGet();
 		System.out.println(response.toString());
 		for(SearchHit hit : response.getHits().getHits()) {
-			System.out.println(hit.getIndex() + ", " + hit.getType() + ", " + hit.getSource().get("apiId"));
+			System.out.println(hit.getIndex() + ", " + hit.getType() + ", " + hit.getSourceAsMap().get("apiId"));
 		}
 		assertTrue(response.getHits().totalHits > 0);
 	}

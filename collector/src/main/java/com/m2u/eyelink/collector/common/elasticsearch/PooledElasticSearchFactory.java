@@ -16,6 +16,7 @@ import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,7 +121,7 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
 	@Override
 	public boolean insertData(String indexName, String typeName, String json) {
 		IndexResponse response = connection.prepareIndex(indexName, typeName)
-		        .setSource(json)
+		        .setSource(json, XContentType.JSON)
 		        .get();
 		if(logger.isDebugEnabled()) 
 			logger.debug("indexName : {}, typeName : {}, data : {}", indexName, typeName, json);
@@ -131,7 +132,7 @@ public class PooledElasticSearchFactory implements TableFactory, DisposableBean 
 	@Override
 	public boolean insertData(String indexName, String typeName, Map<String, Object> map) {
 		IndexResponse response = connection.prepareIndex(indexName, typeName)
-		        .setSource(map)
+		        .setSource(map, XContentType.JSON)
 		        .get();
 		if(logger.isDebugEnabled()) 
 			logger.debug("indexName : {}, typeName : {}, data : {}", indexName, typeName, map.toString());

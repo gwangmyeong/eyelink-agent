@@ -36,7 +36,7 @@ public class StringMetaDataMapper implements RowMapper<List<StringMetaDataBo>> {
 		for(SearchHit hit : sres.getHits().getHits()) {
 			StringMetaDataBo sqlMetaDataBo = new StringMetaDataBo();
 
-			sqlMetaDataBo.setStringValue((String)hit.getSource().get("stringValue"));
+			sqlMetaDataBo.setStringValue((String)hit.getSourceAsMap().get("stringValue"));
 			stringMetaDataList.add(sqlMetaDataBo);
 			if (logger.isDebugEnabled()) {
 				logger.debug("read apiAnnotation:{}", sqlMetaDataBo);

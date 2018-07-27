@@ -46,7 +46,7 @@ public class ElasticSearchAgentEventDao implements AgentEventDao {
         byte[] qualifier = Bytes.toBytes(eventType.getCode());
 
 //        this.elasticSearchTemplate.put(ElasticSearchTables.AGENT_EVENT, rowKey, ElasticSearchTables.AGENT_EVENT_CF_EVENTS, qualifier, agentEventBo, this.valueMapper);
-		this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentEventBo.getAgentId()),
+		this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentEventBo.getAgentId(), ElasticSearchTables.TYPE_AGENT_EVENT),
 				ElasticSearchTables.TYPE_AGENT_EVENT, agentEventBo.getMap());
 
     }

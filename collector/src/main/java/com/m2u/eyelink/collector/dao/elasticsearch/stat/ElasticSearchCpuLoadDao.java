@@ -45,9 +45,9 @@ public class ElasticSearchCpuLoadDao implements AgentStatDaoV2<CpuLoadBo> {
  
         List<Map<String, Object>> listCpuLoadBos = this.agentStatElasticSearchOperationFactory.createList(cpuLoadBos);
         if (!listCpuLoadBos.isEmpty()) {
-            boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_CPULOAD, listCpuLoadBos);
+            boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_CPULOAD), ElasticSearchTables.TYPE_AGENT_STAT_CPULOAD, listCpuLoadBos);
             if (!isSuccess) {
-                this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_CPULOAD, listCpuLoadBos);
+                this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_CPULOAD), ElasticSearchTables.TYPE_AGENT_STAT_CPULOAD, listCpuLoadBos);
             }
         } else {
         		logger.info("listCpuLoadBos is empty");

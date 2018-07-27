@@ -92,12 +92,12 @@ public class ElasticSearchHostApplicationMapDao implements HostApplicationMapDao
         try {
 //            elasticSearchTemplate.put(ElasticSearchTables.HOST_APPLICATION_MAP_VER2, rowKey, ElasticSearchTables.HOST_APPLICATION_MAP_VER2_CF_MAP, columnName, null);
         	
-	        	this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName("hostapplictionmap"),
+	        	this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName("hostapplictionmap", ElasticSearchTables.TYPE_HOST_APPLICATION_MAP_VER2),
 	    				ElasticSearchTables.TYPE_HOST_APPLICATION_MAP_VER2, map);
         } catch (Exception ex) {
             logger.warn("retry one. Caused:{}", ex.getCause(), ex);
 //            elasticSearchTemplate.put(ElasticSearchTables.HOST_APPLICATION_MAP_VER2, rowKey, ElasticSearchTables.HOST_APPLICATION_MAP_VER2_CF_MAP, columnName, null);
-            this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName("hostapplictionmap"),
+            this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName("hostapplictionmap", ElasticSearchTables.TYPE_HOST_APPLICATION_MAP_VER2),
             		ElasticSearchTables.TYPE_HOST_APPLICATION_MAP_VER2, map);
         }
     }

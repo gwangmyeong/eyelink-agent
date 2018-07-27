@@ -85,10 +85,10 @@ public class ElasticSearchTraceDetailDao implements TraceDetailDao {
         transitionException(values);
         addElaspedTime(values);
         
-		boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(spanBo.getAgentId()),
+		boolean success = elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(spanBo.getAgentId(), TYPE_TRACE_DETAIL),
 				TYPE_TRACE_DETAIL, values.get(0).getMap());
 		if (!success) {
-			elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(spanBo.getAgentId()), TYPE_TRACE_DETAIL,
+			elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(spanBo.getAgentId(), TYPE_TRACE_DETAIL), TYPE_TRACE_DETAIL,
 					values.get(0).getMap());
 		}
 

@@ -50,9 +50,9 @@ public class ElasticSearchDataSourceListDao implements AgentStatDaoV2<DataSource
         if (reorderedDataSourceListBos != null) {
 	        	List<Map<String, Object>> listDataSourceListBos = this.agentStatElasticSearchOperationFactory.createList(reorderedDataSourceListBos);
 	        	if (!listDataSourceListBos.isEmpty()) {
-	        		boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
+	        		boolean isSuccess = this.elasticSearchTemplate.asyncPut(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
 	        		if (!isSuccess) {
-	        			this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
+	        			this.elasticSearchTemplate.put(ElasticSearchUtils.generateIndexName(agentId, ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE), ElasticSearchTables.TYPE_AGENT_STAT_DATA_SOURCE, listDataSourceListBos);
 	        		}
 	        	} else {
 	        		logger.info("listDataSourceListBos is empty");
