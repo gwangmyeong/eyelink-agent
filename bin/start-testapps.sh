@@ -63,6 +63,8 @@ function func_start_testapps
         local name=$2
         local port=$3
 
+	echo "agentId=${agentId}, name=${name}, port=${port}"
+	
         version=$( func_read_properties "$KEY_VERSION" )
         maven_opt=$MAVEN_OPTS
         eyelink_agent=$AGENT_BOOTSTRAP_DIR/eyelink-bootstrap-$version-SNAPSHOT.jar

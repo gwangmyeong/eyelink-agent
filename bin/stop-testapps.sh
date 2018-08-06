@@ -31,28 +31,22 @@ IDENTIFIER=maven.eyelink.identifier=$testapp_IDENTIFIER
 function func_close_process
 {
         echo "---$testapp_IDENTIFIER destroy started..---"
-        pids=`find ${PID_DIR}/test/*.pid`
-        for pid in ${pids}
+        pidFiles=`find ${PID_DIR}/test/*.pid`
+        for pidFile in ${pidFiles}
         do
-            pid=`cat ${pid}`
+            pid=`cat ${pidFile}`
             echo "shutting down pid=${pid}."
-#            kill pid -9
+            kill -9 ${pid}
         done
 }
 
 function func_clear_log
 {
         echo "---clear test logs.---"
-        if [ -f  ${LOGS_DIR}/test ]; then
-                echo "rm $LOGS_DIR/$LOG_FILE."
-                rm -r -f ${LOGS_DIR}/test
-        fi
-
-        if [ -f  {$PID_DIR}/test ]; then
-                echo "rm $PID_DIR/$PID_FILE."
-                rm -r -f ${PID_DIR}/test
-        fi
-
+        echo "${LOGS_DIR}/test will be deleted"
+        rm -r -f ${LOGS_DIR}/test
+	echo "${PID_DIR}/test will be deleted"
+	rm -r -f ${PID_DIR}/test
         # will add validation log file.
 }
 
