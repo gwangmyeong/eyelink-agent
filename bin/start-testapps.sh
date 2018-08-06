@@ -32,17 +32,11 @@ CONF_DIR=$BASE_DIR/conf
 CONF_FILE=elagent.properties
 
 LOGS_DIR=$BASE_DIR/logs
-LOG_FILE=testapp.log
 
 PID_DIR=$BASE_DIR/logs/pid
-PID_FILE=testapps.pid
 
 TESTAPP_IDENTIFIER=eyelink-testapp
 IDENTIFIER=maven.eyelink.identifier=$TESTAPP_IDENTIFIER
-
-UNIT_TIME=5
-CHECK_COUNT=36
-CLOSE_WAIT_TIME=`expr $UNIT_TIME \* $CHECK_COUNT`
 
 PROPERTIES=`cat $CONF_DIR/$CONF_FILE 2>/dev/null`
 KEY_VERSION="elagent.testapp.version"
@@ -63,6 +57,8 @@ fi
 
 function func_start_testapps
 {
+        mkdir -p $LOGS_DIR/test
+        mkdir -p $PID_DIR/test
         local agentId=$1
         local name=$2
         local port=$3
