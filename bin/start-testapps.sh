@@ -73,8 +73,8 @@ function func_start_testapps
         eyelink_opt="-javaagent:$eyelink_agent -Deyelink.agentId=$agentId -Deyelink.applicationName=$name -Delagent.testapp.port=$port -Delagent.testapp.context.path=/"
         export MAVEN_OPTS=$eyelink_opt
 
-        pid=`nohup mvn -f $TESTAPP_DIR/pom.xml clean package tomcat7:run -D$IDENTIFIER -Dmaven.testapp.version=$version > $LOGS_DIR/$agentId".log" 2>&1 & echo $!`
-        echo $pid > $PID_DIR/$PID_FILE
+        pid=`nohup mvn -f $TESTAPP_DIR/pom.xml clean package tomcat7:run -D$IDENTIFIER -Dmaven.testapp.version=$version > $LOGS_DIR/test/$agentId".log" 2>&1 & echo $!`
+        echo $pid > $PID_DIR/test/$agentId".pid"
         export MAVEN_OPTS=$maven_opt
 
         echo "---$TESTAPP_IDENTIFIER initialization started. pid=$pid.---"
