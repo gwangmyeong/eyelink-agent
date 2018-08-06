@@ -99,8 +99,8 @@ for number in $(seq 1 ${TESTAPP_SIZE})
 do
     echo "current loop $number"
 
-    echo "$TESTAPP_ID$number"
-    echo "$TESTAPP_NAME$number"
-    echo $((8080 + ${number}))
-    $( func_start_testapps "$TESTAPP_ID$number" "$TESTAPP_NAME$number" $((8080 + ${number})))
+    agentId="$TESTAPP_ID$number"
+    applicationName="$TESTAPP_NAME$number"
+    port=$((8080 + ${number}))
+    func_start_testapps ${agentId} ${applicationName} ${port}
 done
