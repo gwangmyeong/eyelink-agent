@@ -59,7 +59,15 @@ public class DefaultAgentStatMonitor implements AgentStatMonitor {
     @Override
     public void start() {
     	// for Span Test
-//        executor.scheduleAtFixedRate(collectJob, this.collectionIntervalMs, this.collectionIntervalMs, TimeUnit.MILLISECONDS);
+        /**
+         * hanseok.yu :: 기존 소스코드가 주석 처리 되어 있었으며,
+         * 이로인해 알람이 발송되지 않는것으로 추측되어
+         * 알람 발송을 위해 주석 해제 함.
+         * 주석 해제 된 코드 :
+         * executor.scheduleAtFixedRate(collectJob, this.collectionIntervalMs, this.collectionIntervalMs, TimeUnit.MILLISECONDS);
+         */
+        // executor.scheduleAtFixedRate(collectJob, this.collectionIntervalMs, this.collectionIntervalMs, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(collectJob, this.collectionIntervalMs, this.collectionIntervalMs, TimeUnit.MILLISECONDS);
         logger.info("AgentStat monitor started");
     }
 
